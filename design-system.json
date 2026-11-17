@@ -1,0 +1,29 @@
+{
+  "v": 3,
+  "layout": "files",
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-11-11T03:04:00Z"
+  },
+  "title": "KM1",
+  "namespace": "Fluent2",
+  "libraries": [
+    {
+      "name": "react",
+      "version": "18"
+    },
+    {
+      "name": "react-dom",
+      "version": "18"
+    }
+  ],
+  "sections": {},
+  "groups": [],
+  "assetGroups": {},
+  "blobs": {},
+  "docs": {
+    "readme": "project/README.md",
+    "sections": []
+  },
+  "lastChange": "点検への対応: 部品の対応表・出典と帰属・グラフと仕様案・導入の記録・保留の期限・書体の代替を追加 / Review follow-ups: coverage, notices, dataviz, proposals, adoption, deadlines, font fallback"
+}
