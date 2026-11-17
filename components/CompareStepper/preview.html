@@ -1,0 +1,32 @@
+<!-- @dsCard group="M1 比較 / M1 comparison" height=560 -->
+<style>
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:16px;font-family:var(--font-sans);color:var(--ink)}
+@media (max-width:700px){.cmp{grid-template-columns:1fr}}
+.cmp__col{display:flex;flex-direction:column;gap:8px;min-width:0}
+.cmp__tag{align-self:flex-start;font:600 12px/16px var(--font-sans);padding:2px 8px;border-radius:4px}
+.cmp__tag--m1{background:var(--surface-subtle);color:var(--ink-secondary);border:1px dashed var(--stroke-strong)}
+.cmp__tag--km1{background:var(--brand-tint);color:var(--brand-ink);border:1px solid var(--brand-stroke)}
+.cmp__src{font:400 12px/16px var(--font-sans);color:var(--ink-secondary);margin:0}
+.cmp__src a{color:var(--brand-ink)}
+.cmp__diff{grid-column:1/-1;margin:0;padding:8px 12px 8px 28px;border-top:1px solid var(--stroke-subtle);font:400 13px/20px var(--font-sans)}
+.m1{font-family:Roboto,"Helvetica Neue",Arial,"Noto Sans JP",sans-serif;background:#fafafa;color:rgba(0,0,0,.87);border:1px solid #e0e0e0;overflow:hidden}
+.m1-sec{color:rgba(0,0,0,.54)}
+.m1-bar{background:#3F51B5;color:#fff;height:56px;display:flex;align-items:center;padding:0 16px;font-size:20px;font-weight:500;box-shadow:0 2px 4px rgba(0,0,0,.24)}
+.m1-shadow2{box-shadow:0 2px 2px rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.12),0 1px 5px rgba(0,0,0,.2)}
+.m1-btn{font-family:inherit;font-size:14px;font-weight:500;text-transform:uppercase;letter-spacing:.5px;border:0;background:transparent;color:#3F51B5;height:36px;padding:0 8px;border-radius:2px}
+</style>
+<div class="cmp">
+<div class="cmp__col"><span class="cmp__tag cmp__tag--m1">M1 原型 — 再現（公式画像ではない）/ M1 original — reconstruction</span>
+<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 322 200'%3E%3Crect width='322' height='200' fill='%23fafafa' stroke='%23bdbdbd' stroke-dasharray='4'/%3E%3Ctext x='161' y='104' text-anchor='middle' font-size='12' fill='%23616161'%3EM1 reconstruction (omitted)%3C/text%3E%3C/svg%3E" alt="M1 の横型ステッパーの再現図。青い丸の番号、線でつながった工程名、灰色の未着手、BACK と CONTINUE ボタン、下に点の表示。未着手の文字のコントラストは 2.67:1。" style="width:456px;max-width:100%;height:auto;border:1px dashed var(--stroke-strong)">
+<p class="cmp__src">出典 / Source: <a href="https://m1.material.io/components/steppers.html">m1.material.io/components/steppers.html</a>（2026-11-13 参照）。寸法: 丸 24dp・12sp、現在の工程 14sp Medium（87% 黒、Google Blue 500）、未着手 38% 黒、つなぐ線 1dp Grey 400、工程の高さ 72dp。下はスマホ用の点の形。色と書体は M1 の初期値（Indigo 500・Roboto）で KM1 が再描画。/ Redrawn by KM1 from the published specs.</p></div>
+<div class="cmp__col"><span class="cmp__tag cmp__tag--km1">KM1 案 — 実装（StepFlow）/ KM1 — implemented</span><div id="km1"></div></div>
+<ul class="cmp__diff"><li>M1 の配色のままだと、未着手の工程名（38% 黒）は 2.67:1、CONTINUE ボタンの白文字（Google Blue 500 の上）は 3.56:1 で AA に届かない。KM1 は ink-secondary（7.0:1 以上）と brand 上の on-brand。</li><li>残したこと: 番号つきの工程、完了・現在・任意の区別、順番どおりに進める型と自由に行き来できる型（M1 Steppers の linear・non-linear）、狭い画面では縦に並べる。</li><li>変えたこと: 状態は色だけでなく番号・チェック・エラーのアイコン・読み上げの言葉で示す。スマホでも点の表示は使わず「手順 2 / 4」と工程名を出す。ボタンは大文字にせず「戻る」「次へ」。</li><li>使い分け: システムの処理を待つ工程は Progress（steps）、利用者が入力して進める工程は StepFlow。</li></ul></div>
+<script>
+var KM1IMG=(function(){function s(bg,fg,sun){return 'data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120"><rect width="160" height="120" fill="'+bg+'"/><circle cx="'+sun+'" cy="34" r="12" fill="#fff" opacity=".8"/><path d="M0 120 L50 60 L80 90 L110 50 L160 110 L160 120Z" fill="'+fg+'"/></svg>');}
+return [s('#9fb7d9','#3d5a80',120),s('#f2c7a5','#8a5a44',40),s('#b8d8be','#3f6b4a',90),s('#cfc6e6','#5b4e8c',130),s('#e6d3a3','#7a6230',60),s('#a9d6e5','#2a6f97',100)];})();
+
+var h=React.createElement,F=window.Fluent2;
+var S=[{id:'a',title:'参加者'},{id:'b',title:'日時'},{id:'c',title:'持ち物',optional:true},{id:'d',title:'確認'}];
+function Demo(){var a=React.useState('b');var i=S.findIndex(function(s){return s.id===a[0];});return h(F.StepFlow,{label:'見学の申し込み',steps:S,active:a[0],completed:['a'],onStepChange:a[1],onBack:function(){a[1](S[i-1].id);},onNext:function(){a[1](S[i+1].id);},onFinish:function(){}},h(F.Input,{label:'日付',type:'date',defaultValue:'2026-11-20'}));}
+ReactDOM.createRoot(document.getElementById('km1')).render(h(Demo));
+</script>

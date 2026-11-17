@@ -1,0 +1,34 @@
+<!-- @dsCard group="M1 比較 / M1 comparison" height=560 -->
+<style>
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:16px;font-family:var(--font-sans);color:var(--ink)}
+@media (max-width:700px){.cmp{grid-template-columns:1fr}}
+.cmp__col{display:flex;flex-direction:column;gap:8px;min-width:0}
+.cmp__tag{align-self:flex-start;font:600 12px/16px var(--font-sans);padding:2px 8px;border-radius:4px}
+.cmp__tag--m1{background:var(--surface-subtle);color:var(--ink-secondary);border:1px dashed var(--stroke-strong)}
+.cmp__tag--km1{background:var(--brand-tint);color:var(--brand-ink);border:1px solid var(--brand-stroke)}
+.cmp__src{font:400 12px/16px var(--font-sans);color:var(--ink-secondary);margin:0}
+.cmp__src a{color:var(--brand-ink)}
+.cmp__diff{grid-column:1/-1;margin:0;padding:8px 12px 8px 28px;border-top:1px solid var(--stroke-subtle);font:400 13px/20px var(--font-sans)}
+.m1{font-family:Roboto,"Helvetica Neue",Arial,"Noto Sans JP",sans-serif;background:#fafafa;color:rgba(0,0,0,.87);border:1px solid #e0e0e0;overflow:hidden}
+.m1-sec{color:rgba(0,0,0,.54)}
+.m1-bar{background:#3F51B5;color:#fff;height:56px;display:flex;align-items:center;padding:0 16px;font-size:20px;font-weight:500;box-shadow:0 2px 4px rgba(0,0,0,.24)}
+.m1-shadow2{box-shadow:0 2px 2px rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.12),0 1px 5px rgba(0,0,0,.2)}
+.m1-btn{font-family:inherit;font-size:14px;font-weight:500;text-transform:uppercase;letter-spacing:.5px;border:0;background:transparent;color:#3F51B5;height:36px;padding:0 8px;border-radius:2px}
+</style>
+<div class="cmp">
+<div class="cmp__col"><span class="cmp__tag cmp__tag--m1">M1 原型 — 再現（公式画像ではない）/ M1 original — reconstruction</span>
+<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 322 200'%3E%3Crect width='322' height='200' fill='%23fafafa' stroke='%23bdbdbd' stroke-dasharray='4'/%3E%3Ctext x='161' y='104' text-anchor='middle' font-size='12' fill='%23616161'%3EM1 reconstruction (omitted)%3C/text%3E%3C/svg%3E" alt="M1 の一覧の再現図。藍色の上部バー、小見出し、丸いアバターと 2 行の文字、右端の星のアイコンが並ぶ。" style="width:362px;max-width:100%;height:auto;border:1px dashed var(--stroke-strong)">
+<p class="cmp__src">出典 / Source: <a href="https://m1.material.io/components/lists.html">m1.material.io/components/lists.html</a>（2026-11-13 参照）。寸法: 2 行の行 72dp、アバター 40dp（左 16dp）、文字の開始 72dp、右アイコン 24dp・右 16dp、小見出し 48dp・Roboto Medium 14sp。色と書体は M1 の初期値（Indigo 500・Roboto）で KM1 が再描画。/ Redrawn by KM1 from the published specs.</p></div>
+<div class="cmp__col"><span class="cmp__tag cmp__tag--km1">KM1 案 — 実装（List・ListSection・ListItem）/ KM1 — implemented</span><div id="km1"></div></div>
+<ul class="cmp__diff"><li>残したこと: 行の大半を主操作にする、識別する情報を左、補助操作を右に別の押し場所として置く、3 行まで（M1 Lists・Lists: Controls）。</li><li>変えたこと: 高さは KM1 の入力方法の規則（PC 32px・タッチ 44px 以上）。アバターの丸は使わず Fluent アイコン 20px。小見出しは色ではなく太字と件数で示す。</li><li>足したこと: 小見出しを本物の見出し（h3）にし、グループを入れ子のリストにして読み上げで件数とまとまりが分かるようにした。</li></ul></div>
+<script>
+var KM1IMG=(function(){function s(bg,fg,sun){return 'data:image/svg+xml,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 120"><rect width="160" height="120" fill="'+bg+'"/><circle cx="'+sun+'" cy="34" r="12" fill="#fff" opacity=".8"/><path d="M0 120 L50 60 L80 90 L110 50 L160 110 L160 120Z" fill="'+fg+'"/></svg>');}
+return [s('#9fb7d9','#3d5a80',120),s('#f2c7a5','#8a5a44',40),s('#b8d8be','#3f6b4a',90),s('#cfc6e6','#5b4e8c',130),s('#e6d3a3','#7a6230',60),s('#a9d6e5','#2a6f97',100)];})();
+
+var h=React.createElement,F=window.Fluent2;
+var CAL='M5.5 3A2.5 2.5 0 0 0 3 5.5v9A2.5 2.5 0 0 0 5.5 17h9a2.5 2.5 0 0 0 2.5-2.5v-9A2.5 2.5 0 0 0 14.5 3h-9ZM4 7h12v7.5c0 .83-.67 1.5-1.5 1.5h-9A1.5 1.5 0 0 1 4 14.5V7Z';
+function I(d){return h('svg',{width:20,height:20,viewBox:'0 0 20 20','aria-hidden':'true'},h('path',{d:d,fill:'currentColor'}));}
+ReactDOM.createRoot(document.getElementById('km1')).render(h(F.List,{label:'予定'},h(F.ListSection,{title:'11月14日（土）',count:3},
+ [['環境化学 第8回','W9-324','10:45'],['アルバイト','駅前店','17:00'],['レポート提出','オンライン提出','締切']].map(function(x,i){return h(F.ListItem,{key:i,leading:I(CAL),title:x[0],description:x[1],meta:x[2],onClick:function(){},
+  trailing:h('button',{type:'button',className:'f2-btn f2-btn--subtle f2-btn--icon','aria-label':x[0]+' をピン留め',title:'ピン留め'},I('M10.12 3.14c.61-1.22 2.24-1.49 3.2-.52l4.06 4.05c.97.97.7 2.6-.52 3.2l-3.46 1.73c-.33.17-.58.45-.72.79l-1.44 3.59a1.17 1.17 0 0 1-1.63.34L7 13.7l-3.3 3.3H3v-.71L6.3 13l-2.62-2.61a1.17 1.17 0 0 1 .34-1.64l3.59-1.43c.34-.14.62-.4.79-.72l1.72-3.46Z'))});}))));
+</script>
