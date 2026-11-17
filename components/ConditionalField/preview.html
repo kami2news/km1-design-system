@@ -1,0 +1,11 @@
+<!-- @dsCard group="Forms" height=360 -->
+<div id="r" style="padding:16px"></div>
+<script>
+var h=React.createElement,F=window.Fluent2;
+function Demo(){var s=React.useState('no'),v=React.useState('');
+  return h('div',{className:'f2-form'},h(F.FormGroup,{title:'連絡'},
+    h(F.RadioGroup,{legend:'折り返しの電話を希望しますか',value:s[0],onChange:function(e){s[1](e.target.value);},options:[{value:'no',label:'希望しない'},{value:'yes',label:'希望する'}]}),
+    h(F.ConditionalField,{show:s[0]==='yes',announce:'「電話番号」の入力欄が追加されました'},
+      h(F.Input,{label:'電話番号',type:'tel',required:true,value:v[0],onChange:function(e){v[1](e.target.value);},hint:'ハイフンなしで入力。いったん閉じても入力内容は残ります。'}))));}
+ReactDOM.createRoot(document.getElementById('r')).render(h(Demo));
+</script>

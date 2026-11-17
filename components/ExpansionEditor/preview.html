@@ -1,0 +1,17 @@
+<!-- @dsCard group="Lists and selection" height=520 -->
+<div id="r" style="padding:16px;max-width:640px"></div>
+<script>
+var h=React.createElement,F=window.Fluent2;
+function Demo(){
+  var nm=React.useState('山田 花子'),d=React.useState('山田 花子'),op=React.useState(true);
+  var no=React.useState('30');
+  return h('div',null,
+    h(F.ExpansionEditor,{title:'表示名',summary:nm[0],open:op[0],onOpenChange:op[1],dirty:d[0]!==nm[0],
+      onSave:function(){if(!d[0].trim())return Promise.reject(new Error('表示名を入力してください。'));return new Promise(function(r){setTimeout(function(){nm[1](d[0]);r(true);},500);});},
+      onCancel:function(){d[1](nm[0]);}},
+      h(F.Input,{label:'表示名',required:true,value:d[0],onChange:function(e){d[1](e.target.value);},hint:'時間割とシフトに表示されます。'})),
+    h(F.ExpansionEditor,{title:'通知のタイミング',summary:no[0]+' 分前',onSave:function(){return true;}},
+      h(F.RadioGroup,{legend:'開始の何分前に通知するか',value:no[0],onChange:function(e){no[1](e.target.value);},options:[{value:'10',label:'10 分前'},{value:'30',label:'30 分前'},{value:'60',label:'1 時間前'}]})),
+    h(F.ExpansionEditor,{title:'学籍番号',summary:'24A1234',readOnly:true,readOnlyReason:'大学の登録情報のため、ここでは変更できません。'}));}
+ReactDOM.createRoot(document.getElementById('r')).render(h(Demo));
+</script>

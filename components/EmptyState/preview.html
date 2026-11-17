@@ -1,0 +1,9 @@
+<!-- @dsCard group="Feedback" height=230 -->
+<div id="r" style="padding:16px"></div>
+<script>
+var h=React.createElement,F=window.Fluent2;
+function App(){return h(F.EmptyState,{title:'今日の予定はありません',
+ icon:h(F.Icon,{name:'calendar',size:32}),
+ action:h(F.Button,{appearance:'primary'},'予定を追加')},'授業・バイト・締め切りを追加すると、ここに並びます。');}
+ReactDOM.createRoot(document.getElementById("r")).render(h(App));
+</script>

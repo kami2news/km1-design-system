@@ -1,0 +1,12 @@
+<!-- @dsCard group="Lists and selection" height=420 -->
+<div id="r" style="padding:16px;max-width:520px"></div>
+<script>
+var h=React.createElement,F=window.Fluent2;
+var DATA=[{id:'a',t:'実験レポート.docx',d:'2.1 MB・11/12'},{id:'b',t:'観測データ_10月.csv',d:'840 KB・11/10'},{id:'c',t:'発表スライド.pptx',d:'12 MB・11/08'},{id:'d',t:'参考文献メモ.txt',d:'4 KB・11/02'}];
+function Demo(){var s=F.useSelection(['b']),ids=DATA.map(function(x){return x.id;});
+  return h('div',{style:{display:'grid',gap:8}},
+    h(F.ContextualActionBar,{count:s.count,total:DATA.length,onSelectAll:function(){s.selectAll(ids);},onClear:s.clear,actions:[{label:'移動',onClick:function(){}},{label:'アーカイブ',onClick:function(){}},{label:'削除',danger:true,onClick:function(){}}]}),
+    h(F.List,{label:'ファイル',selectable:true,selected:s.selected,onSelectionChange:s.set},
+      DATA.map(function(x){return h(F.ListItem,{key:x.id,id:x.id,title:x.t,description:x.d,onClick:function(){}});})));}
+ReactDOM.createRoot(document.getElementById('r')).render(h(Demo));
+</script>

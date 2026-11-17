@@ -1,0 +1,10 @@
+<!-- @dsCard group="Overlays" height=120 -->
+<div id="r" style="padding:16px"></div>
+<script>
+var h=React.createElement,F=window.Fluent2;
+function App(){var s=React.useState(false);
+ return h(React.Fragment,null,h(F.Button,{onClick:function(){s[1](true);}},'絞り込み'),
+  h(F.Drawer,{open:s[0],onClose:function(){s[1](false);},title:'絞り込み',actions:h(React.Fragment,null,h(F.Button,{onClick:function(){s[1](false);}},'キャンセル'),h(F.Button,{appearance:'primary',onClick:function(){s[1](false);}},'適用'))},
+   h('div',{style:{display:'grid',gap:12}},h(F.Checkbox,{defaultChecked:true},'授業'),h(F.Checkbox,{defaultChecked:true},'バイト'),h(F.Checkbox,null,'締め切り'))));}
+ReactDOM.createRoot(document.getElementById("r")).render(h(App));
+</script>

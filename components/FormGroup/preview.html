@@ -1,0 +1,52 @@
+<!-- @dsCard group="Forms" height=1180 -->
+<div id="r" style="padding:16px"></div>
+<script>
+(function(){
+var h=React.createElement,F=window.Fluent2;
+var REQ=function(m){return function(v){return (v==null||String(v).trim()==='')?m:null;};};
+function Demo(){
+  var sent=React.useState(null),busy=React.useState(false);
+  var f=F.useForm({
+    initial:{title:'',kind:'class',room:'',shop:'',date:'2026-11-14',allday:false,start:'10:00',end:'11:30',notify:false,before:'10',memo:''},
+    labels:{title:'タイトル',room:'教室',shop:'店舗',date:'日付',start:'開始',end:'終了'},
+    when:{room:function(v){return v.kind==='class';},shop:function(v){return v.kind==='work';},start:function(v){return !v.allday;},end:function(v){return !v.allday;},before:function(v){return v.notify;}},
+    validate:{
+      title:REQ('タイトルを入力してください。'),
+      room:REQ('教室を入力してください。例: W9-324'),
+      shop:REQ('店舗を選んでください。'),
+      date:REQ('日付を入力してください。'),
+      start:REQ('開始時刻を入力してください。'),
+      end:function(v,a){if(!v)return '終了時刻を入力してください。';if(a.start&&v<=a.start)return '終了時刻は開始時刻（'+a.start+'）より後にしてください。';return null;}
+    }
+  });
+  var sk=React.useState(0);
+  var submit=f.handleSubmit(function(data){busy[1](true);setTimeout(function(){busy[1](false);sent[1](data);},600);});
+  return h('form',{className:'f2-form',noValidate:true,onSubmit:function(e){sk[1](function(x){return x+1;});submit(e);}},
+    h(F.ErrorSummary,{errors:f.errors,focusKey:sk[0]}),
+    h(F.FormGroup,{title:'予定の内容',description:'時間割やシフトに表示されます。'},
+      h(F.Input,Object.assign({label:'タイトル',required:true,placeholder:'例: 環境化学 第8回'},f.field('title'))),
+      h(F.RadioGroup,Object.assign({legend:'種類',options:[{value:'class',label:'授業'},{value:'work',label:'アルバイト'},{value:'other',label:'その他'}]},f.field('kind',{kind:'radio'}))),
+      h(F.ConditionalField,{show:f.visible('room'),announce:'「教室」の入力欄が追加されました'},
+        h(F.Input,Object.assign({label:'教室',required:true,hint:'建物と部屋番号。例: W9-324'},f.field('room')))),
+      h(F.ConditionalField,{show:f.visible('shop'),announce:'「店舗」の入力欄が追加されました'},
+        h(F.Select,Object.assign({label:'店舗',required:true,options:[{value:'',label:'選んでください'},{value:'ekimae',label:'駅前店'},{value:'honten',label:'本店'}]},f.field('shop'))))),
+    h(F.FormGroup,{title:'日時'},
+      h(F.Checkbox,f.field('allday',{kind:'checkbox'}),'終日'),
+      h(F.Input,Object.assign({label:'日付',required:true,type:'date'},f.field('date'))),
+      h(F.ConditionalField,{show:f.visible('start'),announce:'「開始」「終了」の入力欄が追加されました'},
+        h(F.FormGrid,{columns:2},
+          h(F.Input,Object.assign({label:'開始',required:true,type:'time'},f.field('start'))),
+          h(F.Input,Object.assign({label:'終了',required:true,type:'time'},f.field('end')))))),
+    h(F.FormGroup,{title:'通知とメモ'},
+      h(F.Checkbox,f.field('notify',{kind:'checkbox'}),'開始前に通知する'),
+      h(F.ConditionalField,{show:f.visible('before'),announce:'「通知のタイミング」の入力欄が追加されました'},
+        h(F.Select,Object.assign({label:'通知のタイミング',options:[{value:'10',label:'10 分前'},{value:'30',label:'30 分前'},{value:'60',label:'1 時間前'}]},f.field('before')))),
+      h(F.Textarea,Object.assign({label:'メモ',maxLength:200,hint:'持ち物など。'},f.field('memo')))),
+    h(F.FormActions,null,
+      h(F.Button,{appearance:'secondary',onClick:function(){sent[1](null);}},'キャンセル'),
+      h(F.Button,{appearance:'primary',type:'submit',disabled:busy[0],icon:busy[0]?h(F.Spinner,{hideLabel:true,label:'登録中'}):null},busy[0]?'登録中…':'登録する')),
+    h('div',{role:'status','aria-live':'polite',className:'f2-hint',id:'sent'},sent[0]?'送信した内容: '+JSON.stringify(sent[0]):''));
+}
+ReactDOM.createRoot(document.getElementById('r')).render(h(Demo));
+})();
+</script>
