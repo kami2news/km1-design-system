@@ -1,0 +1,9 @@
+<!-- @dsCard group="Feedback" height=130 -->
+<div id="r" style="padding:16px"></div>
+<script>
+var h=React.createElement,F=window.Fluent2;
+function App(){var s=React.useState(true);
+ return h(React.Fragment,null,h(F.Button,{onClick:function(){s[1](true);}},'削除'),
+  h(F.Toast,{open:s[0],status:'success',onClose:function(){s[1](false);},action:{label:'元に戻す',onClick:function(){s[1](false);}}},'「ゼミ」を削除しました'));}
+ReactDOM.createRoot(document.getElementById("r")).render(h(App));
+</script>
