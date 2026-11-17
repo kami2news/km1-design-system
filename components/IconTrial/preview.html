@@ -1,0 +1,37 @@
+<!-- @dsCard group="Icons" height=620 -->
+<div id="r" style="padding:16px"></div>
+<script>
+var h=React.createElement,F=window.Fluent2;
+var SIX=[['search','検索'],['calendar','予定'],['folder','フォルダ'],['delete','削除'],['warning','警告'],['notification','通知']];
+var cap={font:'600 14px/20px var(--font-sans)',margin:'0 0 8px'};
+var th={font:'400 12px/16px var(--font-sans)',color:'var(--ink-secondary)',textAlign:'left',padding:'4px 12px 4px 0',whiteSpace:'nowrap'};
+var td={padding:'6px 12px 6px 0'};
+function Row(label,fn){return h('tr',null,h('th',{scope:'row',style:th},label),SIX.map(function(x){return h('td',{key:x[0],style:td},fn(x[0]));}));}
+function App(){
+ var p=React.useState(true),sel=React.useState('calendar');
+ return h('div',{style:{display:'flex',flexDirection:'column',gap:'20px'}},
+  h('section',null,h('h3',{style:cap},'導入前と導入後 / Before and after'),
+   h('table',{style:{borderCollapse:'collapse'}},
+    h('thead',null,h('tr',null,h('th',{scope:'col',style:th},'表示 / Style'),SIX.map(function(x){return h('th',{key:x[0],scope:'col',style:th},x[1]);}))),
+    h('tbody',null,
+     Row('導入前（Fluent、20px）',function(n){return h(F.Icon,{name:n,variant:'fluent'});}),
+     Row('導入前の塗り（Fluent、20px）',function(n){return h(F.Icon,{name:n,variant:'fluent',filled:true});}),
+     Row('KM1 B 案（24px）',function(n){return h(F.Icon,{name:n,size:24});}),
+     Row('KM1 B 案（20px、標準）',function(n){return h(F.Icon,{name:n});}),
+     Row('KM1 B 案（16px）',function(n){return h(F.Icon,{name:n,size:16});}),
+     Row('選択・強調（B 案の塗り、20px）',function(n){return h(F.Icon,{name:n,filled:true});})))),
+  h('section',null,h('h3',{style:cap},'状態 / States'),
+   h('div',{style:{display:'flex',gap:'12px',flexWrap:'wrap',alignItems:'center'}},
+    h(F.Button,{appearance:'subtle',icon:h(F.Icon,{name:'folder'})},'通常 / Rest'),
+    h('button',{type:'button',className:'f2-btn f2-btn--subtle','aria-pressed':p[0]?'true':'false',onClick:function(){p[1](!p[0]);}},h(F.Icon,{name:'notification',filled:p[0]}),'通知を受け取る（押した状態は Filled）'),
+    h(F.Button,{appearance:'secondary',disabled:true,icon:h(F.Icon,{name:'delete'})},'無効 / Disabled'),
+    h(F.Button,{appearance:'primary',icon:h(F.Icon,{name:'calendar'})},'予定に追加'),
+    h(F.Tooltip,{content:'削除'},h(F.Button,{appearance:'subtle','aria-label':'削除',icon:h(F.Icon,{name:'delete'})})))),
+  h('section',null,h('h3',{style:cap},'今ある部品の中で / In existing parts'),
+   h('div',{style:{display:'flex',gap:'24px',flexWrap:'wrap',alignItems:'flex-start'}},
+    h('div',{style:{width:'280px'}},h(F.SearchBox,{label:'予定を検索',placeholder:'科目名・場所'})),
+    h('nav',{'aria-label':'表示の切り替え',style:{display:'flex',gap:'4px'}},[['calendar','予定'],['folder','資料'],['notification','通知']].map(function(x){var on=sel[0]===x[0];
+      return h('button',{key:x[0],type:'button',className:'f2-btn f2-btn--subtle','aria-current':on?'page':undefined,onClick:function(){sel[1](x[0]);}},h(F.Icon,{name:x[0],filled:on}),x[1]);})),
+    h('p',{style:{display:'flex',alignItems:'center',gap:'8px',margin:0,font:'400 14px/20px var(--font-sans)',color:'var(--ink)'}},h(F.Icon,{name:'warning'}),'提出期限が近い課題が 2 件あります'))));}
+ReactDOM.createRoot(document.getElementById('r')).render(h(App));
+</script>
