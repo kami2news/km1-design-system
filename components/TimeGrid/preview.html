@@ -1,0 +1,18 @@
+<!-- @dsCard group="Date and time" height=520 -->
+<div id="r" style="padding:16px"></div>
+<script>
+var h=React.createElement,F=window.Fluent2;
+var D=[['2026-11-09','11/9（月）'],['2026-11-10','11/10（火）'],['2026-11-11','11/11（水）'],['2026-11-12','11/12（木）'],['2026-11-13','11/13（金）']].map(function(x){return {date:x[0],label:x[1]};});
+var E=[{day:0,start:'10:00',end:'10:50',title:'地球化学',sub:'3 号館 201',cat:'teal',pattern:'dots'},
+ {day:1,allDay:true,title:'レポート提出',kind:'deadline'},
+ {day:2,start:'9:00',end:'9:50',title:'気象学',sub:'2 号館 105',cat:'cornflower',pattern:'horizontal'},
+ {day:2,start:'10:00',end:'10:50',title:'気象学演習',sub:'2 号館 105',cat:'cornflower',pattern:'horizontal'},
+ {day:2,start:'10:30',end:'12:00',title:'面談',sub:'オンライン',cat:'purple',pattern:'grid',tentative:true},
+ {day:3,start:'13:00',end:'18:00',title:'バイト',sub:'駅前店',cat:'pumpkin',pattern:'checker'},
+ {day:3,start:'17:00',kind:'deadline',title:'実験ノート提出'},
+ {day:4,start:'11:00',end:'11:50',title:'統計演習',sub:'PC 教室',cat:'purple',pattern:'grid'}];
+function App(){var s=React.useState('');
+ return h('div',null,h(F.TimeGrid,{label:'今週の予定',days:D,events:E,startHour:8,endHour:19,hourHeight:56,height:460,now:'2026-11-12T14:20',onSelect:function(e){s[1](e.title);}}),h('div',{style:{marginTop:'8px'}},h(F.CategoryLegend,{label:'分類',items:[{label:'地球化学',color:'teal',pattern:'dots'},{label:'気象学',color:'cornflower',pattern:'horizontal'},{label:'演習・面談',color:'purple',pattern:'grid'},{label:'バイト',color:'pumpkin',pattern:'checker'}]})),
+  h('p',{style:{font:'400 12px/16px var(--font-sans)',color:'var(--ink-secondary)',margin:'8px 0 0'}},s[0]?'選択: '+s[0]:'予定を押すと選べます'));}
+ReactDOM.createRoot(document.getElementById("r")).render(h(App));
+</script>

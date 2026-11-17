@@ -1,0 +1,12 @@
+<!-- @dsCard group="Data" height=320 -->
+<div id="r" style="padding:16px"></div>
+<script>
+var h=React.createElement,F=window.Fluent2;
+var DATA=[{id:1,name:'地球化学',day:'月 2 限',left:3},{id:2,name:'気象学',day:'水 1 限',left:12},{id:3,name:'統計演習',day:'金 4 限',left:1}];
+function App(){var s=React.useState({key:'left',direction:'asc'}),so=s[0],sl=React.useState([2]);
+ var rows=DATA.slice().sort(function(a,b){var x=a[so.key],y=b[so.key];return (x<y?-1:x>y?1:0)*(so.direction==='asc'?1:-1);});
+ return h(F.Table,{caption:'締め切りの近い課題',sort:so,onSort:s[1],rows:rows,selectable:true,selected:sl[0],onSelectionChange:sl[1],bulkActions:[{label:'完了にする',onClick:function(){sl[1]([]);}},{label:'削除',danger:true,onClick:function(){}}],columns:[
+  {key:'name',label:'授業',sortable:true},{key:'day',label:'時限'},
+  {key:'left',label:'残り日数',align:'end',sortable:true,render:function(r){return r.left<=1?h(F.Badge,{appearance:'danger'},'あと '+r.left+' 日'):r.left+' 日';}}]});}
+ReactDOM.createRoot(document.getElementById("r")).render(h(App));
+</script>

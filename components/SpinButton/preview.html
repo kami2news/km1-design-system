@@ -1,0 +1,9 @@
+<!-- @dsCard group="Forms" height=200 -->
+<div id="r" style="padding:16px"></div>
+<script>
+var h=React.createElement,F=window.Fluent2;
+function App(){var a=React.useState(3),b=React.useState(1200);return h('div',{style:{display:'grid',gap:16}},
+ h(F.SpinButton,{label:'数量',min:1,max:20,value:a[0],onChange:a[1],unit:'個'}),
+ h(F.SpinButton,{label:'時給',min:0,step:10,value:b[0],onChange:b[1],unit:'円',hint:'10 円単位'}));}
+ReactDOM.createRoot(document.getElementById("r")).render(h(App));
+</script>

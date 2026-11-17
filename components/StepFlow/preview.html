@@ -1,0 +1,17 @@
+<!-- @dsCard group="Lists and selection" height=560 -->
+<div id="r" style="padding:16px"></div>
+<script>
+var h=React.createElement,F=window.Fluent2;
+var STEPS=[{id:'who',title:'参加者'},{id:'when',title:'日時'},{id:'opt',title:'持ち物',optional:true},{id:'ok',title:'確認'}];
+function Demo(){
+  var a=React.useState('when'),done=React.useState(['who']),err=React.useState([]),v=React.useState({date:'2026-11-20',start:'10:00'});
+  var i=STEPS.findIndex(function(s){return s.id===a[0];});
+  function next(){if(a[0]==='when'&&!v[0].date){err[1](['when']);return;}err[1]([]);done[1](function(d){return d.indexOf(a[0])<0?d.concat([a[0]]):d;});a[1](STEPS[i+1].id);}
+  var body={who:h(F.Input,{label:'代表者の名前',required:true,defaultValue:'山田 花子'}),
+    when:h(F.FormGrid,{columns:2},h(F.Input,{label:'日付',type:'date',required:true,value:v[0].date,onChange:function(e){v[1](Object.assign({},v[0],{date:e.target.value}));},error:err[0].length?'日付を入力してください。':undefined}),h(F.Input,{label:'開始',type:'time',value:v[0].start,onChange:function(e){v[1](Object.assign({},v[0],{start:e.target.value}));}})),
+    opt:h(F.Textarea,{label:'持ち物',hint:'なければ空欄のまま「次へ」'}),
+    ok:h('p',{className:'f2-hint'},'内容を確認して「申し込む」を押してください。')}[a[0]];
+  return h(F.StepFlow,{label:'見学の申し込み',steps:STEPS,active:a[0],completed:done[0],errors:err[0],onStepChange:a[1],
+    onBack:function(){a[1](STEPS[i-1].id);},onNext:next,onFinish:function(){},finishLabel:'申し込む'},body);}
+ReactDOM.createRoot(document.getElementById('r')).render(h(Demo));
+</script>

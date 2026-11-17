@@ -1,0 +1,9 @@
+<!-- @dsCard group="Data" height=300 -->
+<div id="r" style="padding:16px"></div>
+<script>
+var h=React.createElement,F=window.Fluent2;
+function ic(d){return h('svg',{width:20,height:20,viewBox:'0 0 20 20','aria-hidden':'true'},h('path',{d:d,fill:'currentColor'}));}
+function App(){var s=React.useState([{id:'a',label:'レポートを書く',sub:'締め切り 11/14'},{id:'b',label:'シフトを提出',sub:'締め切り 11/15'},{id:'c',label:'実験ノートを清書'},{id:'d',label:'ゼミの発表資料'}]);
+ return h('div',{style:{maxWidth:420}},h(F.SortableList,{id:'todo',label:'今週やること',items:s[0],onChange:s[1]}));}
+ReactDOM.createRoot(document.getElementById("r")).render(h(App));
+</script>

@@ -1,0 +1,10 @@
+<!-- @dsCard group="Forms" height=300 -->
+<div id="r" style="padding:16px"></div>
+<script>
+var h=React.createElement,F=window.Fluent2;
+function App(){
+ return h('div',{style:{display:'grid',gap:16,maxWidth:360}},
+  h(F.Textarea,{label:'メモ',hint:'予定の補足を書けます。',maxLength:200,defaultValue:'3 限のあとにゼミ室へ移動。'}),
+  h(F.Textarea,{label:'取り込む文章',required:true,rows:2,maxLength:20,defaultValue:'11/14（土）10:00〜15:00 にシフトが入りました。',error:'文章が長すぎます。'}));}
+ReactDOM.createRoot(document.getElementById("r")).render(h(App));
+</script>
