@@ -1,0 +1,17 @@
+<!-- @dsCard group="Feedback" height=500 -->
+<div id="r" style="padding:16px"></div>
+<script>
+var h=React.createElement,F=window.Fluent2;
+function App(){
+ return h('div',{style:{display:'grid',gap:16,maxWidth:360}},
+  h(F.Progress,{label:'今週のタスク',value:3,max:5,valueText:'3 / 5 件'}),
+  h(F.Progress,{label:'レポート提出まで',value:85,status:'warning',valueText:'残り 2 日'}),
+  h(Long,null),
+  h(F.Progress,{label:'外部の予定表と同期中',steps:['接続する','受け取る','反映する'],step:1,elapsed:80,valueText:'外部のサービスの応答を待っています'}));}
+function Long(){var st=React.useState(0),t=st[0];
+ React.useEffect(function(){var id=setInterval(function(){st[1](function(x){return x>=40?0:x+1;});},500);return function(){clearInterval(id);};},[]);
+ var total=40,step=t<6?0:t<26?1:t<36?2:3;
+ return h(F.Progress,{label:'メールから予定を取り込み中',value:t,max:total,steps:['メールを読み込む','予定を探す','今の予定と照らし合わせる','保存する'],step:step,
+  remaining:t<3?null:(total-t)*0.5*4,onCancel:function(){}});}
+ReactDOM.createRoot(document.getElementById("r")).render(h(App));
+</script>

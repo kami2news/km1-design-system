@@ -1,0 +1,7 @@
+<!-- @dsCard group="Feedback" height=230 -->
+<div id="r" style="padding:16px"></div>
+<script>
+var h=React.createElement,F=window.Fluent2;
+function App(){return h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:24,maxWidth:560}},h(F.Skeleton,{shape:'list',lines:3}),h(F.Skeleton,{shape:'card'}));}
+ReactDOM.createRoot(document.getElementById("r")).render(h(App));
+</script>

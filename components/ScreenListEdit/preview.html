@@ -1,0 +1,29 @@
+<!-- @dsCard group="画面の例 / Screen patterns" height=620 -->
+<style>.le{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:var(--layout-region-gap,32px);padding:16px}@media (max-width:760px){.le{grid-template-columns:1fr}}
+.le__pane{display:flex;flex-direction:column;gap:var(--space-sm);min-width:0}.le__h{margin:0;font:600 16px/22px var(--font-sans)}</style>
+<div id="r"></div>
+<script>
+var h=React.createElement,F=window.Fluent2;
+var START=[{id:'a',name:'地球化学',room:'W9-324',day:'月 2 限'},{id:'b',name:'気象学',room:'S2-201',day:'水 1 限'},{id:'c',name:'統計演習',room:'W8-101',day:'金 4 限'},{id:'d',name:'環境化学',room:'W9-324',day:'木 3 限'}];
+function Screen(){
+  var data=React.useState(START),cur=React.useState('a'),s=F.useSelection(),dlg=React.useState(false),toast=React.useState(null),undo=React.useRef(null);
+  var item=data[0].filter(function(x){return x.id===cur[0];})[0];
+  var draft=React.useState(item?item.room:''),op=React.useState(false);
+  React.useEffect(function(){draft[1](item?item.room:'');op[1](false);},[cur[0]]);
+  function del(){var gone=data[0].filter(function(x){return s.isSelected(x.id);});undo.current=data[0];
+    data[1](data[0].filter(function(x){return !s.isSelected(x.id);}));if(gone.some(function(x){return x.id===cur[0];}))cur[1](null);s.clear();dlg[1](false);toast[1](gone.length+' 件を削除しました');}
+  return h('div',{className:'le'},
+    h('section',{className:'le__pane','aria-labelledby':'le-l'},h('h2',{id:'le-l',className:'le__h'},'授業（'+data[0].length+' 件）'),
+      h(F.ContextualActionBar,{count:s.count,total:data[0].length,onSelectAll:function(){s.selectAll(data[0].map(function(x){return x.id;}));},onClear:s.clear,actions:[{label:'削除',danger:true,onClick:function(){dlg[1](true);}}]}),
+      h(F.List,{label:'授業',selectable:true,selected:s.selected,onSelectionChange:s.set},data[0].map(function(x){return h(F.ListItem,{key:x.id,id:x.id,title:x.name,description:x.day,current:x.id===cur[0],onClick:function(){cur[1](x.id);}});}))),
+    h('section',{className:'le__pane','aria-labelledby':'le-d'},h('h2',{id:'le-d',className:'le__h'},item?item.name+' の詳細':'授業を選んでください'),
+      item?h(React.Fragment,null,
+        h(F.ExpansionEditor,{title:'教室',summary:item.room,open:op[0],onOpenChange:op[1],dirty:draft[0]!==item.room,
+          onSave:function(){if(!draft[0].trim())return Promise.reject(new Error('教室を入力してください。例: W9-324'));data[1](data[0].map(function(x){return x.id===item.id?Object.assign({},x,{room:draft[0]}):x;}));return true;},
+          onCancel:function(){draft[1](item.room);}},h(F.Input,{label:'教室',value:draft[0],onChange:function(e){draft[1](e.target.value);}})),
+        h(F.ExpansionEditor,{title:'時限',summary:item.day,readOnly:true,readOnlyReason:'時間割は大学の登録情報から読み込みます。'})):h(F.EmptyState,{title:'授業を選んでください',description:'左の一覧から選ぶと、ここに詳細が出ます。'})),
+    h(F.Dialog,{open:dlg[0],onClose:function(){dlg[1](false);},title:s.count+' 件の授業を削除しますか？',
+      actions:h(React.Fragment,null,h(F.Button,{onClick:function(){dlg[1](false);}},'キャンセル'),h(F.Button,{appearance:'primary',onClick:del},'削除する'))},'削除した授業は一覧から消えます。直後なら「元に戻す」で戻せます。'),
+    h(F.Toast,{open:!!toast[0],status:'success',onClose:function(){toast[1](null);},action:{label:'元に戻す',onClick:function(){data[1](undo.current);toast[1](null);}}},toast[0]||''));}
+ReactDOM.createRoot(document.getElementById('r')).render(h(Screen));
+</script>

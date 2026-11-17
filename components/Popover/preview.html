@@ -1,0 +1,9 @@
+<!-- @dsCard group="Overlays" height=260 -->
+<div id="r" style="padding:16px"></div>
+<script>
+var h=React.createElement,F=window.Fluent2;
+function ic(d){return h('svg',{width:20,height:20,viewBox:'0 0 20 20','aria-hidden':'true'},h('path',{d:d,fill:'currentColor'}));}
+function App(){return h(F.Popover,{title:'表示の設定',trigger:{label:'表示'}},
+ h('div',{style:{display:'grid',gap:8,paddingTop:8}},h(F.Switch,{defaultChecked:true},'週末を表示'),h(F.Switch,null,'終わった予定を隠す')));}
+ReactDOM.createRoot(document.getElementById("r")).render(h(App));
+</script>

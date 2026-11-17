@@ -1,0 +1,7 @@
+<!-- @dsCard group="Forms" height=210 -->
+<div id="r" style="padding:16px"></div>
+<script>
+var h=React.createElement,C=window.Fluent2.RadioGroup;
+ReactDOM.createRoot(document.getElementById('r')).render(
+ h(C,{legend:'通知の頻度',defaultValue:'day',options:[{value:'now',label:'すぐに'},{value:'day',label:'1日1回'},{value:'week',label:'週に1回'},{value:'off',label:'通知しない',disabled:true}]}));
+</script>

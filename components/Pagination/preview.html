@@ -1,0 +1,7 @@
+<!-- @dsCard group="Navigation" height=80 -->
+<div id="r" style="padding:16px"></div>
+<script>
+var h=React.createElement,F=window.Fluent2;
+function App(){var s=React.useState(6);return h(F.Pagination,{label:'予定の一覧のページ',page:s[0],count:12,onChange:s[1]});}
+ReactDOM.createRoot(document.getElementById("r")).render(h(App));
+</script>

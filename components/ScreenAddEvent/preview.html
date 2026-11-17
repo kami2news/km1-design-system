@@ -1,0 +1,28 @@
+<!-- @dsCard group="画面の例 / Screen patterns" height=560 -->
+<div id="r" style="padding:16px;max-width:720px"></div>
+<script>
+var h=React.createElement,F=window.Fluent2;
+var REQ=function(m){return function(v){return (v==null||String(v).trim()==='')?m:null;};};
+function Screen(){
+  var items=React.useState([{id:1,title:'環境化学 第8回',when:'11/14 10:45'},{id:2,title:'アルバイト',when:'11/14 17:00'}]);
+  var open=React.useState(false),toast=React.useState(null),tries=React.useState(0),busy=React.useState(false),opener=React.useRef(null);
+  var f=F.useForm({initial:{title:'',date:'2026-11-15',start:'',memo:''},labels:{title:'タイトル',date:'日付',start:'開始'},
+    validate:{title:REQ('タイトルを入力してください。'),date:REQ('日付を入力してください。'),start:REQ('開始時刻を入力してください。例: 10:00')}});
+  function close(){open[1](false);setTimeout(function(){if(opener.current)opener.current.focus();},0);}
+  var save=f.handleSubmit(function(d){busy[1](true);setTimeout(function(){busy[1](false);
+    items[1](function(o){return o.concat([{id:Date.now(),title:d.title,when:d.date.slice(5).replace('-','/')+' '+d.start}]);});
+    toast[1]('「'+d.title+'」を追加しました');close();},400);});
+  return h('div',{style:{display:'flex',flexDirection:'column',gap:'var(--space-lg)'}},
+    h('div',{style:{display:'flex',alignItems:'center',justifyContent:'space-between'}},h('h2',{style:{margin:0,font:'600 20px/28px var(--font-sans)'}},'予定'),
+      h('span',{ref:opener,style:{display:'contents'}},h(F.Button,{appearance:'primary',onClick:function(){open[1](true);}},'予定を追加'))),
+    h(F.List,{label:'予定'},items[0].map(function(it){return h(F.ListItem,{key:it.id,title:it.title,meta:it.when,onClick:function(){}});})),
+    h(F.Drawer,{open:open[0],onClose:close,title:'予定を追加',
+      actions:h(React.Fragment,null,h(F.Button,{onClick:close},'キャンセル'),h(F.Button,{appearance:'primary',type:'submit',form:'add-form'},busy[0]?'追加中…':'追加する'))},
+      h('form',{id:'add-form',className:'f2-form f2-form--contained',noValidate:true,onSubmit:function(e){tries[1](tries[0]+1);save(e);}},
+        h(F.ErrorSummary,{errors:f.errors,focusKey:tries[0]}),
+        h(F.Input,Object.assign({label:'タイトル',required:true},f.field('title'))),
+        h(F.FormGrid,{columns:2},h(F.Input,Object.assign({label:'日付',type:'date',required:true},f.field('date'))),h(F.Input,Object.assign({label:'開始',type:'time',required:true},f.field('start')))),
+        h(F.Textarea,Object.assign({label:'メモ'},f.field('memo'))))),
+    h(F.Toast,{open:!!toast[0],status:'success',onClose:function(){toast[1](null);}},toast[0]||''));}
+ReactDOM.createRoot(document.getElementById('r')).render(h(Screen));
+</script>
