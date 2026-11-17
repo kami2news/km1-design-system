@@ -52,6 +52,7 @@ rules=[('README.md',r'KM1 専用の \d+ 部品',f'KM1 専用の {F} 部品',2),
 bad=[]
 if _hdr_bad: bad.append(f'km1_widgets.dart の見出しの部品一覧とファイルの中身が違う / header list differs: {_hdr_bad}')
 for f,pat,rep,n in rules:
+    if not _os.path.exists(P+f): continue  # 公開しないファイル（gen/pdf.py）は飛ばす / skip files intentionally not published
     s=open(P+f).read(); found=re.findall(pat,s,flags=re.M)
     if len(found)!=n: bad.append(f'{f}: {pat} が {len(found)} か所（{n} か所のはず）')
     stale=[x for x in found if x!=rep]
@@ -64,6 +65,7 @@ if _miss: bad.append(f'coverage.md に載っていない部品 / missing from co
 # 古い部品数が残っていないか（*.md と部品の README）/ stray widget counts in docs
 import glob as _g
 for _f in sorted(_g.glob(P+'*.md'))+sorted(_g.glob(P+'components/*/README.md')):
+    if _os.path.basename(_f)=='changelog.md': continue  # 変更履歴は当時の数を残す / history keeps past counts
     for _m in re.finditer(r'KM1 専用の (\d+) 部品|(\d+) KM1 widgets',open(_f).read()):
         _n=int(_m.group(1) or _m.group(2))
         if _n!=F: bad.append(f'{_os.path.relpath(_f,P)}: 古い Flutter 部品数 {_n}（{F} のはず）')
