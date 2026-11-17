@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><title>KM1 書体の確認 / Typeface test</title>
+<!-- KM1-TYP-002 書体の確認ページ / typeface test page.
+使い方 / Usage: 末尾の .txt を外して fonttest.html にし、tokens.css と同じフォルダに置いて開く。
+外部の書体は読み込まない（端末の書体だけで描く）ので、「読み込めなかったとき」の落ち先を確かめられる。
+Drop the .txt, put it beside tokens.css and open it. It loads no web fonts, so it shows where text falls back when the web font is missing.
+自動の検査 / Automated: OFFLINE=1 node fontcheck_render.js <dir> 'fonttest\.html$'  （手順は verification.md 5 章） -->
+<link rel="stylesheet" href="tokens.css">
+<style>
+body{font-family:var(--font-sans);margin:16px;color:var(--ink);background:var(--surface)}
+h1{font-size:20px;font-weight:600;margin:0 0 8px}
+h2{font-size:14px;font-weight:600;margin:20px 0 4px}
+.s{font-size:20px;line-height:1.6}
+.w6{font-weight:600}
+.en{font-family:var(--font-sans-en)}
+.mono{font-family:var(--font-mono)}
+.k{font-size:12px;color:var(--ink-secondary)}
+.row{display:grid;grid-template-columns:140px 1fr;gap:8px;align-items:baseline;border-top:1px solid var(--stroke-subtle);padding:6px 0}
+button,input,select,textarea{font:inherit}
+#result{font-weight:600;padding:8px;border:2px solid var(--ink)}
+table{border-collapse:collapse;font-size:14px}
+th,td{border:1px solid var(--stroke-subtle);padding:4px 8px;text-align:left}
+</style></head><body>
+<h1>KM1 書体の確認 <span lang="en" class="en">Typeface test</span></h1>
+<p id="result" role="status">確認中… / checking…</p>
+<p class="k">自動の確認は、並びの終わりと、使える書体があるかだけを見る。字の形（明朝・セリフ体の字形がないか）は目で確かめる。 / The automatic check covers the end of each stack and whether a named font exists; judge glyph shapes (no Mincho or serif strokes) by eye.</p>
+
+<h2>書体の並びと、この端末で使える書体 / Stacks and fonts available here</h2>
+<table id="stacks"><thead><tr><th scope="col">並び / Stack</th><th scope="col">書体 / Family</th><th scope="col">使える / Available</th></tr></thead><tbody></tbody></table>
+
+<h2>日本語 lang="ja"</h2>
+<div class="row"><span class="k">本文 400</span><span class="s">予定を追加　漢字かなカナ ABC abc 0123 ①②③ ℃ 〜 ー 「」（）</span></div>
+<div class="row"><span class="k">強調 600</span><span class="s w6">予定を追加　漢字かなカナ ABC abc 0123 ①②③ ℃ 〜 ー 「」（）</span></div>
+<div class="row"><span class="k">混在 / mixed</span><span class="s">10:00〜11:30　Wi-Fi・PDF の設定（2026/11/15）</span></div>
+<div class="row"><span class="k">操作部品 / controls</span><span class="s"><button type="button">保存</button> <input value="入力欄 Input 123" aria-label="入力欄"> <select aria-label="選択"><option>選択 Select</option></select> <textarea aria-label="複数行" rows="1">複数行 Textarea</textarea></span></div>
+
+<h2>英語 lang="en"</h2>
+<div class="row"><span class="k">Body 400</span><span class="s en" lang="en">Add event — The quick brown fox 0123 ABC abc</span></div>
+<div class="row"><span class="k">Strong 600</span><span class="s en w6" lang="en">Add event — The quick brown fox 0123 ABC abc</span></div>
+
+<h2>等幅 / Monospace</h2>
+<div class="row"><span class="k">code</span><span class="s mono">const x = 0123; // KM1 O0 Il1</span></div>
+
+<div id="controls"></div>
+<script>
+(function () {
+  var cs = getComputedStyle(document.documentElement);
+  var stacks = [
+    ['ja（--font-sans）', cs.getPropertyValue('--font-sans'), 'sans-serif'],
+    ['en（--font-sans-en）', cs.getPropertyValue('--font-sans-en'), 'sans-serif'],
+    ['mono（--font-mono）', cs.getPropertyValue('--font-mono'), 'monospace']
+  ];
+  var GENERIC = { 'system-ui': 1, 'sans-serif': 1, 'monospace': 1, 'ui-sans-serif': 1, 'inherit': 1 };
+  var probe = 'mmmmmmmmmmlliWWW 予定を追加 0123';
+  function families(s) {
+    return s.split(',').map(function (x) { return x.trim().replace(/^["']|["']$/g, ''); }).filter(Boolean);
+  }
+  function width(font) {
+    var s = document.createElement('span');
+    s.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;font-size:48px';
+    s.style.fontFamily = font;
+    s.textContent = probe;
+    document.body.appendChild(s);
+    var w = s.getBoundingClientRect().width;
+    document.body.removeChild(s);
+    return w;
+  }
+  var baseMono = width('monospace'), baseSans = width('sans-serif');
+  function available(name) {
+    return width('"' + name + '",monospace') !== baseMono || width('"' + name + '",sans-serif') !== baseSans;
+  }
+  var tbody = document.querySelector('#stacks tbody'), report = {}, fails = [], warns = [];
+  stacks.forEach(function (st) {
+    var list = families(st[1]), last = list.length ? list[list.length - 1].toLowerCase() : '';
+    var named = list.filter(function (f) { return !GENERIC[f.toLowerCase()]; });
+    var avail = named.filter(available);
+    report[st[0]] = { stack: st[1].trim(), first: avail[0] || null, available: avail };
+    if (last !== st[2]) fails.push(st[0] + ': 並びが ' + st[2] + ' で終わっていない');
+    if (!st[1].trim()) fails.push(st[0] + ': tokens.css から読めない');
+    if (!avail.length) warns.push(st[0] + ': 名前のある書体がどれも無い（端末の ' + st[2] + ' に落ちる）');
+    named.forEach(function (f, i) {
+      var tr = document.createElement('tr');
+      [i === 0 ? st[0] : '', f, available(f) ? '使える' : '無い'].forEach(function (t) {
+        var td = document.createElement('td'); td.textContent = t; tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+  });
+  var status = fails.length ? 'FAIL' : (warns.length ? 'WARN' : 'PASS');
+  var text = status + '：' + (fails.concat(warns).join(' / ') ||
+    ('ja の最初に使える書体 = ' + (report['ja（--font-sans）'].first || 'なし')));
+  document.getElementById('result').textContent = text + '　字の形は目で確かめる / judge glyph shapes by eye';
+  document.title = status + ' · ' + document.title;
+  window.__km1FontTest = { status: status, fails: fails, warns: warns, report: report };
+
+  // 比較用（?controls=1 のときだけ）: 端末が総称の書体をどの書体に割り当てるかを見る。KM1 では使わない書体なので、描画の検査には混ぜない。
+  // Comparison rows (only with ?controls=1): what the device maps the generic faces to. Not used in KM1, so kept out of render checks.
+  if (/[?&]controls=1/.test(location.search)) {
+    var box = document.getElementById('controls');
+    box.innerHTML = '<h2>比較 / Controls（KM1 では使わない）</h2>';
+    ['sans-serif', 'serif'].forEach(function (g) {
+      var d = document.createElement('div'); d.className = 'row';
+      var k = document.createElement('span'); k.className = 'k'; k.textContent = g;
+      var v = document.createElement('span'); v.className = 's'; v.lang = 'ja'; v.style.fontFamily = g;
+      v.textContent = '予定を追加　漢字かなカナ ABC 0123';
+      d.appendChild(k); d.appendChild(v); box.appendChild(d);
+    });
+  }
+})();
+</script>
+</body></html>
