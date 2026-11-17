@@ -3,8 +3,8 @@
 KM1-DOC-001。KM1 で作る PDF（報告書・資料・手順書・この標準そのもの）の決まり。画面の部品と同じトークンと考え方を、紙の大きさの文書に当てはめる。
 *KM1-DOC-001. Rules for PDFs made with KM1 (reports, handouts, manuals, this standard itself). It applies the same tokens and thinking as the UI to page-sized documents.*
 
-道具は `pdf/` にある: 見た目のひな形 `km1-print.css`、見本 `template.html`、仕上げ `km1_finish.py`、検査 `pdfcheck.py`（後ろ 2 つは `.txt` を外して使う）。
-*Tools live in `pdf/`: the `km1-print.css` template, a `template.html` sample, `km1_finish.py` for finishing and `pdfcheck.py` for checking (drop the `.txt` suffix).*
+道具は `pdf/` にある: 見た目のひな形 `km1-print.css`、見本 `template.html`、仕上げ `km1_finish.py`、検査 `pdfcheck.py`。
+*Tools live in `pdf/`: the `km1-print.css` template, a `template.html` sample, `km1_finish.py` for finishing and `pdfcheck.py` for checking.*
 
 Word と PowerPoint のファイルそのものの決まりは「Word と PowerPoint の規定」（`office.md`）。
 *Rules for Word and PowerPoint files are in `office.md`.*

@@ -16,8 +16,8 @@ KM1 は、1 つの見た目を全端末で同じに保つのではなく、**色
 
 ## ネイティブで使う / Native setup
 
-どのファイルも `tokens.json` から自動で作る（`gen/native.py`）。色を直すときは `tokens.json` だけを直し、作り直す。公開上は拡張子に `.txt` を付けてあるので、外して使う。
-*Every file is generated from `tokens.json`; edit only the tokens and regenerate. Published copies carry a `.txt` suffix to remove.*
+どのファイルも `tokens.json` から自動で作る（`gen/native.py`）。色を直すときは `tokens.json` だけを直し、作り直す。
+*Every file is generated from `tokens.json`; edit only the tokens and regenerate.*
 
 ### Windows（WinUI 3）— `KM1.xaml`
 1. `App.xaml` の `Application.Resources` で、`XamlControlsResources` の後に `<ResourceDictionary Source="KM1.xaml" />` を入れる。

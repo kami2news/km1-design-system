@@ -2,7 +2,7 @@
 
 | 場所 / Path | 内容 / Contents |
 |---|---|
-| `dist/` | 配布物: デザイン標準と部品カタログの PDF、`KM1_icons.zip`、Word・PowerPoint のひな形と見本（.dotx/.docx/.potx/.pptx） |
+| `dist/` | 配布物: デザイン標準と部品カタログの PDF、`KM1_icons.zip`、Word・PowerPoint のひな形と見本（.dotx/.docx/.potx/.pptx）。作り直しは `gen/build_pdf.py`・`office/`・`icons/build_all.py` |
 | `*.md` | 本編の文書（原則・画面の組み立て・プロダクトデザイン・プラットフォーム・トークン・アイコン・文書・運用・検証・変更履歴など） |
 | `tokens.json` / `tokens.css` | トークン（正本は JSON、CSS は生成物） |
 | `components/` | Web の部品（各部品の `README.md` と `preview.html`、`bundle.css`・`bundle.js`・`index.d.ts`） |
@@ -114,11 +114,11 @@ KM1 は Microsoft Fluent 2 の構造に、Science Tokyo と EPSON の考え方�
 *Do not mix in other icon sets such as Material Icons; add missing icons to the KM1 set (import from Fluent, or draw). In Flutter use `Km1Icons`, never `Icons.*`. Operation icons carry a text label; icon-only is allowed only for well-settled meanings (close, search, back) and then needs `aria-label` (`semanticLabel` in Flutter) and a tooltip. One meaning, one icon, on every screen. If the meaning is unclear, drop the icon and use words.*
 
 **Flutter への適用 / Flutter**
-専用の出典はなく、`tokens.json` から生成した `km1_theme.dart`（公開上は km1_theme.dart.txt、拡張子を .dart に直して使う）を使う（`ThemeData` と `ThemeExtension`）。Fluent の見た目を再現する既存パッケージ（`fluent_ui`）は使わない。Material は部品の土台として使うだけで、色・形・大きさはテーマで上書きする。
+専用の出典はなく、`tokens.json` から生成した `km1_theme.dart`を使う（`ThemeData` と `ThemeExtension`）。Fluent の見た目を再現する既存パッケージ（`fluent_ui`）は使わない。Material は部品の土台として使うだけで、色・形・大きさはテーマで上書きする。
 *No dedicated source: use `km1_theme.dart`, generated from `tokens.json` (`ThemeData` + `ThemeExtension`). The `fluent_ui` package is not used. Material is only the widget base; color, shape and size are overridden by the theme.*
 
 使い方 / Usage:
-`km1_theme.dart`（テーマ）と `km1_widgets.dart`（表・カレンダー・時間割・予定表など KM1 専用の 30 部品。公開上は `.txt`、拡張子を `.dart` に直して使う）をアプリに入れる。アイコンは `icons/km1_icons_b.dart`（通常表示の B 案）・`icons/km1_icons.dart`（字形。B 案の 1 色の形と塗りの形）・`KM1Icons.ttf` を入れ、pubspec の `fonts` に `family: KM1Icons` で登録する（`fluentui_system_icons` は不要になった）。アイコンのファイルは `km1_theme.dart` だけに頼り、`km1_widgets.dart` がなくても組み込める。
+`km1_theme.dart`（テーマ）と `km1_widgets.dart`（表・カレンダー・時間割・予定表など KM1 専用の 30 部品）をアプリに入れる。アイコンは `icons/km1_icons_b.dart`（通常表示の B 案）・`icons/km1_icons.dart`（字形。B 案の 1 色の形と塗りの形）・`KM1Icons.ttf` を入れ、pubspec の `fonts` に `family: KM1Icons` で登録する（`fluentui_system_icons` は不要になった）。アイコンのファイルは `km1_theme.dart` だけに頼り、`km1_widgets.dart` がなくても組み込める。
 *Icons: add `km1_icons_b.dart` (regular B style), `km1_icons.dart` (single-color B glyphs, incl. Filled) and `KM1Icons.ttf`; the icon files depend only on `km1_theme.dart`.*
 `MaterialApp(theme: Km1Theme.light(), darkTheme: Km1Theme.dark(), themeMode: ThemeMode.system)`。色は `Theme.of(context).extension<Km1Colors>()!.ink` のように意味づけトークンで取る。Flutter 3.27 以降が必要（`CardThemeData` などを使うため）。
 *Colors come from semantic tokens, e.g. `Theme.of(context).extension<Km1Colors>()!.ink`. Requires Flutter 3.27+ (uses `CardThemeData` etc.).*
@@ -192,7 +192,7 @@ KM1 は Microsoft Fluent 2 の構造に、Science Tokyo と EPSON の考え方�
 | Office のテーマ / Office themes | `gen/fontcheck.py`・`office/officecheck.py` | ひな形と見本の 4 つで、言語ごとの補助の書体に残っていた Office 既定の明朝・セリフ体・手書き風（新細明體・Times New Roman・Angsana New・MV Boli など）をゴシック系に置き換え、FAIL 0 |
 | PDF の埋め込み書体 / PDF fonts | `gen/fontcheck.py`（`pdffonts`） | 2 冊ともゴシック系と等幅だけ |
 | 描かれた書体 / rendered fonts | `gen/fontcheck_render.js`（Chrome、見本 175 ページ（ライト・ダーク）、文字ごとに実際の書体） | セリフ体・明朝・手書き風 0。ただしこの環境に日本語の明朝体がないため、和文が明朝に落ちることはここでは見つけられない |
-| 道具 / tools | 検査と生成の道具を `gen/` に置いた（`.txt` を外して使う。`KM1_PROJECT` でフォルダを指定できる） | — |
+| 道具 / tools | 検査と生成の道具を `gen/` に置いた（`KM1_PROJECT` でフォルダを指定できる） | — |
 
 ### トークンと密度（KM1-TOK-001）の点検（2026-11-13）/ Token and density check
 

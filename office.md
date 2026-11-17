@@ -3,8 +3,8 @@
 KM1-DOC-002（Word）と KM1-DOC-003（PowerPoint）。KM1 で作る Word の文書と PowerPoint のスライドの決まり。色・文字の大きさ・余白は KM1 のトークンと「PDF の規定」（KM1-DOC-001）から取り、新しい値は作らない。
 *KM1-DOC-002 (Word) and KM1-DOC-003 (PowerPoint). Colors, type sizes and spacing come from KM1 tokens and the PDF rules (KM1-DOC-001); no new values.*
 
-道具は `office/` にある（`.txt` を外して使う）: ひな形と見本を作る `km1_docx.js`・`km1_pptx.js`、検査 `officecheck.py`。できあがったひな形は `KM1_文書.dotx`・`KM1_スライド.potx`、見本は `KM1_文書見本.docx`・`KM1_スライド見本.pptx`。
-*Tools are in `office/` (drop `.txt`): generators `km1_docx.js` and `km1_pptx.js`, checker `officecheck.py`. Outputs: the `KM1_文書.dotx` and `KM1_スライド.potx` templates and two sample files.*
+道具は `office/` にある: ひな形と見本を作る `km1_docx.js`・`km1_pptx.js`、検査 `officecheck.py`。できあがったひな形は `KM1_文書.dotx`・`KM1_スライド.potx`、見本は `KM1_文書見本.docx`・`KM1_スライド見本.pptx`。
+*Tools are in `office/`: generators `km1_docx.js` and `km1_pptx.js`, checker `officecheck.py`. Outputs: the `KM1_文書.dotx` and `KM1_スライド.potx` templates and two sample files.*
 
 ## 1. どれで作るか / Which format
 
@@ -118,7 +118,7 @@ KM1-DOC-002（Word）と KM1-DOC-003（PowerPoint）。KM1 で作る Word の文
 
 1. ひな形から始める: Word は `KM1_文書.dotx`、PowerPoint は `KM1_スライド.potx` を開いて（ダブルクリックで新しいファイルになる）書く。
    *Start from the templates.*
-2. ひな形を作り直すとき: `node km1_docx.js <出力先>`、`node km1_pptx.js <出力先>`（`docx`・`pptxgenjs` が必要。PowerPoint はテーマを書き込むため、環境変数 `APPLY_THEME` に `apply_theme.js` の場所を渡す）。トークンを変えたら、ここの値も合わせて変える。
+2. ひな形を作り直すとき: `node km1_docx.js <出力先>`、`node km1_pptx.js <出力先>`（`docx`・`pptxgenjs` が必要。テーマの色は `km1_pptx.js` が自分で書き込む）。トークンを変えたら、ここの値も合わせて変える。
    *Regenerate with the scripts; keep values in step with tokens.*
 3. 検査: `python3 officecheck.py <ファイル>`。FAIL が 0 になるまで直す。
    *Run `officecheck.py` until there are no FAILs.*

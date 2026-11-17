@@ -22,7 +22,7 @@
   "assetGroups": {},
   "blobs": {},
   "docs": {
-    "readme": "project/README.md",
+    "readme": "README.md",
     "sections": []
   },
   "lastChange": "点検への対応: 部品の対応表・出典と帰属・グラフと仕様案・導入の記録・保留の期限・書体の代替を追加 / Review follow-ups: coverage, notices, dataviz, proposals, adoption, deadlines, font fallback"

@@ -3,8 +3,8 @@
 KM1-ICO-001。KM1 で使うアイコンの決まり。アイコンは **KM1 の名前で引く 1 つのセット**にし、Web・Flutter・Office・アプリアイコンで同じ絵柄を使う。
 *KM1-ICO-001. One icon set addressed by KM1 names, shared across web, Flutter, Office and app icons.*
 
-道具は `icons/` にある（`.txt` を外して使う）: 形を作る `km1_icons.py`、Flutter のアイコンフォントを作る `km1_font.py`、アプリアイコンを作る `km1_appicon.py`、検査 `iconcheck.py`。できあがったものは `icons/build/`（`km1-icons.json`・`sprite-20.svg`・`km1_icons.dart`。SVG 一式・フォント・Office 用の素材集・アプリアイコンは配布用の zip 1 つ `KM1_icons.zip` にまとめる。中は `icons/`・`office/`・`appicon/`）。
-*Tools in `icons/` (drop `.txt`): `km1_icons.py` builds the shapes, `km1_font.py` the Flutter font, `km1_appicon.py` app icons, `iconcheck.py` checks. Outputs live in `icons/build/`; SVGs, font, Office pack and app icons ship together in one `KM1_icons.zip` (`icons/`, `office/`, `appicon/`).*
+道具は `icons/` にある: 形を作る `km1_icons.py`、Flutter のアイコンフォントを作る `km1_font.py`、アプリアイコンを作る `km1_appicon.py`、検査 `iconcheck.py`。できあがったものは `icons/build/`（`km1-icons.json`・`sprite-20.svg`・`km1_icons.dart`。SVG 一式・フォント・Office 用の素材集・アプリアイコンは配布用の zip 1 つ `KM1_icons.zip` にまとめる。中は `icons/`・`office/`・`appicon/`）。
+*Tools in `icons/`: `km1_icons.py` builds the shapes, `km1_font.py` the Flutter font, `km1_appicon.py` app icons, `iconcheck.py` checks. Outputs live in `icons/build/`; SVGs, font, Office pack and app icons ship together in one `KM1_icons.zip` (`icons/`, `office/`, `appicon/`).*
 
 ## 1. 中身 / What is in the set
 

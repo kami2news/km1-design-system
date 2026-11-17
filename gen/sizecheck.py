@@ -4,7 +4,7 @@
 import json,subprocess,sys,os
 os.makedirs('/tmp/aud',exist_ok=True)
 G=os.path.dirname(os.path.abspath(__file__))
-T=json.load(open(os.path.join(G,'..','project','tokens.json')))
+T=json.load(open(os.path.join(G,'..','tokens.json')))
 px=lambda v:str(v)
 FS=set();LH={'normal'}
 for g in T['type']['groups']:

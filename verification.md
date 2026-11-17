@@ -55,7 +55,7 @@ KM1 の検証は「自動の検査（ここで実施）」と「実機・読み�
 - Compose: `Km1Theme.kt` を入れてビルド。主ボタンの縁取り（ダーク）と 48dp の操作領域。
 
 ### Flutter（F1）
-- `km1_theme.dart.txt`・`km1_widgets.dart.txt` を `.dart` に戻し、`flutter analyze` で警告 0。`flutter build`（使う OS ごと）。
+- `km1_theme.dart`・`km1_widgets.dart` で `flutter analyze` で警告 0。`flutter build`（使う OS ごと）。
 - `Km1Density` と `Km1Table`・`Km1SortableList` の `density`、`Km1StepFlow`、`showKm1BottomSheet` を実際の画面で見る。
 - 結果（解析の出力）を KM1 の会話に貼れば、こちらで直す。
   *Run `flutter analyze` and builds; paste the output into a KM1 conversation for fixes.*

@@ -124,7 +124,19 @@ function props(pres, title) {
 }
 
 async function build() {
-  const { applyTheme } = require(process.env.APPLY_THEME);
+  // テーマの色と名前を書き込む（外部の道具は要らない）/ write theme colors and name (no external tool needed)
+  const applyTheme = async (file, th) => {
+    const z = await JSZip.loadAsync(fs.readFileSync(file));
+    for (const n of Object.keys(z.files).filter(n => /theme\/theme\d+\.xml$/.test(n))) {
+      let x = await z.file(n).async('string');
+      x = x.replace(/(<a:theme\b[^>]*\bname=")[^"]*"/, `$1${th.name}"`).replace(/(<a:clrScheme\b[^>]*\bname=")[^"]*"/, `$1${th.name}"`);
+      for (const [k, v] of Object.entries(th.colors)) {
+        x = x.replace(new RegExp(`<a:${k}>[\\s\\S]*?</a:${k}>`), `<a:${k}><a:srgbClr val="${v}"/></a:${k}>`);
+      }
+      z.file(n, x);
+    }
+    fs.writeFileSync(file, await z.generateAsync({ type: 'nodebuffer', compression: 'DEFLATE' }));
+  };
   // 1) ひな形 / template
   {
     const pres = new pptxgen(); props(pres, 'KM1 スライドのひな形 / KM1 slide template'); layouts(pres, '文書名 / Document name');

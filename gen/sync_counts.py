@@ -5,7 +5,7 @@
 - Web: components/bundle.js の 1 行目（@ds-bundle の components）＝見本のある部品。
   ほかに window.Fluent2 が公開している大文字始まりの部品（FormActions・ListItem など）とフック（use*）。
 - Flutter: km1_widgets.dart の冒頭の「部品 / Widgets」の一覧。
-結果を project/inventory.json に書き、README・platforms・PDF の表紙の数を書き換える。--check は書き換えずに食い違いを報告し、あれば終了コード 1。
+結果を inventory.json に書き、README・platforms の数を書き換える。--check は書き換えずに食い違いを報告し、あれば終了コード 1。
 coverage.md の部品名の一覧が数えた名前とずれていないか、どこかに古い部品数が残っていないかも見る。
 """
 import json,re,sys,subprocess
@@ -36,7 +36,6 @@ rules=[('README.md',r'KM1 専用の \d+ 部品',f'KM1 専用の {F} 部品',2),
  ('README.md',r'\*(?:Fifty|Forty|\d+ components)[^*]*?live in `window\.Fluent2`',f'*{W} components with previews ({C} exported in total) plus the `useForm` and `useSelection` hooks live in `window.Fluent2`',1),
  ('platforms.md',r'\| (?:見本のある部品 \d+（公開 \d+）|\d+ 部品)。自動検査',f'| 見本のある部品 {W}（公開 {C}）。自動検査',1),
  ('platforms.md',r'KM1 専用の \d+ 部品',f'KM1 専用の {F} 部品',1),
- ('../gen/pdf.py',r'Web \d+・Flutter 専用 \d+',f'Web {W}・Flutter 専用 {F}',1),
  # アイコンの数（km1-icons.json から）/ icon counts from km1-icons.json
  ('icons.md',r'全部のアイコンを KM1 B 案で描く（\d+ 個）',f'全部のアイコンを KM1 B 案で描く（{IN} 個）',1),
  ('icons.md',r'\*Every icon \(\d+\)',f'*Every icon ({IN})',1),
@@ -52,7 +51,6 @@ rules=[('README.md',r'KM1 専用の \d+ 部品',f'KM1 専用の {F} 部品',2),
 bad=[]
 if _hdr_bad: bad.append(f'km1_widgets.dart の見出しの部品一覧とファイルの中身が違う / header list differs: {_hdr_bad}')
 for f,pat,rep,n in rules:
-    if not _os.path.exists(P+f): continue  # 公開しないファイル（gen/pdf.py）は飛ばす / skip files intentionally not published
     s=open(P+f).read(); found=re.findall(pat,s,flags=re.M)
     if len(found)!=n: bad.append(f'{f}: {pat} が {len(found)} か所（{n} か所のはず）')
     stale=[x for x in found if x!=rep]
