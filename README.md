@@ -3,6 +3,8 @@
 | 場所 / Path | 内容 / Contents |
 |---|---|
 | `dist/` | 配布物: デザイン標準と部品カタログの PDF、`KM1_icons.zip`、Word・PowerPoint のひな形と見本（.dotx/.docx/.potx/.pptx）。作り直しは `gen/build_pdf.py`・`office/`・`icons/build_all.py` |
+| `components/README.md` | 部品カタログ（全部品の見本の画像つき。画像は `gen/shoot_previews.js` で撮る） |
+| `icons/icon-list.svg` | アイコン一覧の図（`icons/icon_sheet.py` で作る。`icons.md` §4 に掲載） |
 | `*.md` | 本編の文書（原則・画面の組み立て・プロダクトデザイン・プラットフォーム・トークン・アイコン・文書・運用・検証・変更履歴など） |
 | `tokens.json` / `tokens.css` | トークン（正本は JSON、CSS は生成物） |
 | `components/` | Web の部品（各部品の `README.md` と `preview.html`、`bundle.css`・`bundle.js`・`index.d.ts`） |

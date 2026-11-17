@@ -10,6 +10,8 @@
   *`km1_pptx.js` writes its own theme colors; previews render from the repo so `sizecheck.py` runs on its own.*
 - **M1 比較:** 再現図をファイルにした（Grid・List は元の PNG、ほか 5 つは出典の寸法から SVG で描き直し）。
   *M1 reconstructions are now files (two original PNGs, five redrawn as SVG).*
+- **カタログと一覧:** `components/README.md`（全部品の見本の画像つき）と `icons/icon-list.svg` を追加。PDF の部品カタログに見本の画像を入れ、本文の生の HTML で後半が欠けていた不具合を直した。
+  *Added an illustrated component catalog and icon sheet; the catalog PDF now has previews and no longer truncates.*
 
 ## 2026-11-15 — 点検への対応（実機検証とブランド色の命名を除く） / Review follow-ups
 

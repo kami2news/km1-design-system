@@ -47,6 +47,8 @@ KM1-ICO-001。KM1 で使うアイコンの決まり。アイコンは **KM1 の�
 
 ## 4. 一覧 / The set
 
+![KM1 アイコン一覧（144 個、名前と日本語名つき）/ KM1 icon list](icons/icon-list.svg)
+
 全部で 144 個。通常表示も塗りの形も B 案。淡い面があるのは 63 個。別名 `calendar-empty` → `calendar`。2026-11-14 に足したもの: `task-list`・`notification-off`・`lock-open`・`timer`・`sparkle`・`view-month`・`text-size`・`filter-dismiss`（理由は §9）。
 *144 icons, all B (Regular and Filled); 63 with the soft tint. Alias `calendar-empty` → `calendar`. Eight added on 2026-11-14 (see §9).*
 

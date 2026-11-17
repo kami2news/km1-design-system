@@ -5,7 +5,7 @@ components/*/preview.html を tokens.css・bundle.css・React 18・bundle.js と
 <名前>-light.html と <名前>-dark.html を作る。React は gen/node_modules（`npm i` で入る）から読む。
 Combines each preview with tokens.css, bundle.css, React 18 and bundle.js into <name>-light/-dark.html.
 React comes from gen/node_modules (run `npm i` in gen/)."""
-import os, sys, glob, shutil
+import os, re, sys, glob, shutil
 G = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(G)
 OUT = os.path.abspath(sys.argv[1] if len(sys.argv) > 1 else '/tmp/rc')
 NM = os.environ.get('KM1_NODE_MODULES', os.path.join(G, 'node_modules'))
@@ -23,6 +23,8 @@ for name, src in assets.items():
 n = 0
 for p in sorted(glob.glob(os.path.join(ROOT, 'components', '*', 'preview.html'))):
     comp = os.path.basename(os.path.dirname(p)); body = open(p, encoding='utf-8').read()
+    # 部品フォルダの画像（m1.png など）は元の場所を指す / point local images at the component folder
+    body = re.sub(r'src="(m1\.(?:png|svg))"', lambda m: 'src="file://' + os.path.join(os.path.dirname(p), m.group(1)) + '"', body)
     for theme in ('light', 'dark'):
         html = (f'<!doctype html><html lang="ja" data-theme="{theme}"><head><meta charset="utf-8">'
                 f'<meta name="viewport" content="width=device-width,initial-scale=1"><title>{comp}</title>'
