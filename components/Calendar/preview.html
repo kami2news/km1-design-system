@@ -1,0 +1,10 @@
+<!-- @dsCard group="Date and time" height=330 -->
+<div id="r" style="padding:16px"></div>
+<script>
+var h=React.createElement,F=window.Fluent2;
+function App(){var s=React.useState('2026-11-14');
+ return h('div',{style:{display:'flex',gap:24,alignItems:'flex-start',flexWrap:'wrap'}},
+  h(F.Calendar,{label:'予定の日付',today:'2026-11-12',value:s[0],onChange:s[1],marks:{'2026-11-12':3,'2026-11-14':1,'2026-11-20':2},min:'2026-11-03'}),
+  h('p',{style:{font:'400 14px/20px var(--font-sans)',color:'var(--ink)',margin:0}},'選択中: '+s[0]));}
+ReactDOM.createRoot(document.getElementById("r")).render(h(App));
+</script>

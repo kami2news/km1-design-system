@@ -1,0 +1,8 @@
+<!-- @dsCard group="Forms" height=360 -->
+<div id="r" style="padding:16px"></div>
+<script>
+var h=React.createElement,F=window.Fluent2;
+var O=['地球化学','気象学','気象学演習','統計演習','雪氷学','陸水学','大気化学','地震学','リモートセンシング','環境分析化学'].map(function(x,i){return {value:'c'+i,label:x};});
+function App(){var s=React.useState('c3');return h('div',{style:{maxWidth:360}},h(F.Combobox,{label:'授業',hint:'名前の一部を入力すると絞り込めます。',options:O,value:s[0],onChange:s[1]}));}
+ReactDOM.createRoot(document.getElementById("r")).render(h(App));
+</script>

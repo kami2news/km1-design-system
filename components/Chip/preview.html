@@ -1,0 +1,10 @@
+<!-- @dsCard group="Actions" height=90 -->
+<div id="r" style="padding:16px"></div>
+<script>
+var h=React.createElement,F=window.Fluent2;
+function App(){var s=React.useState({a:true,b:false,c:true}),v=s[0];
+ function t(k){var n=Object.assign({},v);n[k]=!n[k];s[1](n);}
+ return h('div',{style:{display:'flex',gap:8,flexWrap:'wrap'},role:'group','aria-label':'表示する予定'},
+  h(F.Chip,{selected:v.a,onClick:function(){t('a');}},'授業'),h(F.Chip,{selected:v.b,onClick:function(){t('b');}},'バイト'),h(F.Chip,{selected:v.c,onClick:function(){t('c');}},'締め切り'));}
+ReactDOM.createRoot(document.getElementById("r")).render(h(App));
+</script>

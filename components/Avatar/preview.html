@@ -1,0 +1,9 @@
+<!-- @dsCard group="Data" height=90 -->
+<div id="r" style="padding:16px"></div>
+<script>
+var h=React.createElement,F=window.Fluent2;
+function App(){return h('div',{style:{display:'flex',gap:12,alignItems:'center'}},
+ h(F.Avatar,{name:'山田 花子',size:'lg'}),h(F.Avatar,{name:'Alex Kim'}),h(F.Avatar,{name:'佐藤',size:'sm'}),
+ h('span',{style:{display:'inline-flex',alignItems:'center',gap:8,font:'400 14px/20px var(--font-sans)',color:'var(--ink)'}},h(F.Avatar,{name:'駅前店',decorative:true}),'駅前店'));}
+ReactDOM.createRoot(document.getElementById("r")).render(h(App));
+</script>

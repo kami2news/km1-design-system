@@ -1,0 +1,7 @@
+<!-- @dsCard group="Status" height=100 -->
+<div id="r" style="padding:16px;display:flex;gap:8px;flex-wrap:wrap;align-items:center"></div>
+<script>
+var h=React.createElement,Bd=window.Fluent2.Badge;
+ReactDOM.createRoot(document.getElementById('r')).render(h(React.Fragment,null,
+ h(Bd,null,'新着'),h(Bd,{appearance:'subtle'},'情報'),h(Bd,{appearance:'success'},'完了'),h(Bd,{appearance:'warning'},'まもなく期限'),h(Bd,{appearance:'danger'},'期限切れ'),h(Bd,{appearance:'outline'},'下書き')));
+</script>

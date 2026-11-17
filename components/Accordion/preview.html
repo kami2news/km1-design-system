@@ -1,0 +1,10 @@
+<!-- @dsCard group="Containers" height=260 -->
+<div id="r" style="padding:16px"></div>
+<script>
+var h=React.createElement,F=window.Fluent2;
+function App(){return h('div',{style:{maxWidth:440}},h(F.Accordion,{defaultOpen:['n'],items:[
+ {value:'n',title:'通知',meta:'オン',content:'予定の 15 分前と、締め切りの前日 20:00 に知らせます。'},
+ {value:'s',title:'同期',meta:'1 分前',content:'ほかの端末とは 5 分ごとに同期します。'},
+ {value:'a',title:'アカウント',content:'ログインしなくても使えます。ログインすると端末をまたいで同期できます。'}]}));}
+ReactDOM.createRoot(document.getElementById("r")).render(h(App));
+</script>

@@ -1,0 +1,15 @@
+<!-- @dsCard group="Lists and selection" height=520 -->
+<div id="r" style="padding:16px;min-height:480px;position:relative"></div>
+<script>
+var h=React.createElement,F=window.Fluent2;
+function Demo(){var o=React.useState(false);
+  return h('div',null,
+    h('p',{className:'f2-hint',style:{marginTop:0}},'スマホ幅では下から、640px 以上では中央のダイアログとして開きます。'),
+    h(F.Button,{onClick:function(){o[1](true);}},'並び順を変える'),
+    h(F.BottomSheet,{open:o[0],onClose:function(){o[1](false);},title:'並び順',
+      actions:h(React.Fragment,null,h(F.Button,{onClick:function(){o[1](false);}},'キャンセル'),h(F.Button,{appearance:'primary',onClick:function(){o[1](false);}},'適用'))},
+      h(F.RadioGroup,{legend:'予定の並び順',defaultValue:'time',options:[{value:'time',label:'開始時刻が早い順'},{value:'new',label:'追加した順'},{value:'cat',label:'種類ごと'}]})),
+    h('div',{style:{position:'absolute',left:0,right:0,bottom:0}},
+      h(F.BottomSheet,{variant:'persistent',title:'選んだ場所：W9 棟'},h('p',{style:{margin:0}},'大岡山キャンパス。最寄りの入口は北側です。'))));}
+ReactDOM.createRoot(document.getElementById('r')).render(h(Demo));
+</script>

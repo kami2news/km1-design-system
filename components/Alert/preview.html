@@ -1,0 +1,10 @@
+<!-- @dsCard group="Status" height=330 -->
+<div id="r" style="padding:16px;display:grid;gap:12px;max-width:520px"></div>
+<script>
+var h=React.createElement,A=window.Fluent2.Alert;
+ReactDOM.createRoot(document.getElementById('r')).render(h(React.Fragment,null,
+ h(A,{status:'info',title:'メンテナンスのお知らせ'},'11 月 20 日 2:00〜4:00 は保存できません。'),
+ h(A,{status:'success',title:'保存しました',onClose:function(){}}),
+ h(A,{status:'warning',title:'提出期限が近づいています'},'明日 17:00 までに提出してください。'),
+ h(A,{status:'danger',title:'保存できませんでした'},'通信状況を確認して、もう一度お試しください。')));
+</script>

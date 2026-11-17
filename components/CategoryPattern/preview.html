@@ -1,0 +1,28 @@
+<!-- @dsCard group="Data" height=640 -->
+<div id="r" style="padding:16px"></div>
+<script>
+var h=React.createElement,F=window.Fluent2;
+var COLS=['blue','cornflower','cyan','teal','seafoam','green','lime','marigold','pumpkin','dark-orange','red','cranberry','pink','berry','purple','grape','brown','gray'];
+var JA={solid:'塗り',horizontal:'横線',vertical:'縦線',diagonal:'斜線',grid:'格子',crosshatch:'斜め格子',dots:'点',checker:'市松'};
+var cap={font:'600 14px/20px var(--font-sans)',margin:'0 0 8px'};
+var th={font:'400 12px/16px var(--font-sans)',color:'var(--ink-secondary)',padding:'2px 4px',textAlign:'left',whiteSpace:'nowrap'};
+var LEG=['授業','バイト','サークル','締め切り','通院','買い物','旅行','その他'].map(function(l){return {label:l};});
+var BARS=[{label:'授業',v:18},{label:'バイト',v:12},{label:'サークル',v:6},{label:'その他',v:9}];
+function Bars(){return h('div',{role:'img','aria-label':'1 週間の時間の内訳の棒グラフ。授業 18 時間、バイト 12 時間、サークル 6 時間、その他 9 時間',style:{display:'flex',gap:'16px',alignItems:'flex-end',height:'132px'}},
+  BARS.map(function(b,i){var s=F.categoryStyle(i);return h('div',{key:i,style:{display:'flex',flexDirection:'column',alignItems:'center',gap:'4px',width:'48px'}},
+    h('span',{style:{font:'600 12px/16px var(--font-sans)'}},b.v+' 時間'),
+    h('span',{className:'f2-pat f2-pat--lg','data-pattern':s.pattern,style:{'--f2-cat':'var(--cat-'+s.color+')',display:'block',width:'48px',height:(b.v*5)+'px',border:'1px solid var(--stroke-strong)',boxSizing:'border-box'}}),
+    h('span',{style:{font:'400 12px/16px var(--font-sans)'}},b.label));}));}
+function App(){
+ return h('div',{style:{display:'flex',flexDirection:'column',gap:'24px'}},
+  h('section',null,h('h3',{style:cap},'色 18 × 模様 8 ＝ 144 通り / 18 colors × 8 patterns'),
+   h('div',{role:'region','aria-label':'色と模様の組み合わせの表（横に動かせる）',tabIndex:0,style:{overflowX:'auto'}},h('table',{style:{borderCollapse:'collapse'}},
+    h('thead',null,h('tr',null,h('th',{scope:'col',style:th},'模様'),COLS.map(function(c){return h('th',{key:c,scope:'col',style:Object.assign({},th,{writingMode:'vertical-rl',height:'64px'})},c);}))),
+    h('tbody',null,F.PATTERNS.map(function(p){return h('tr',{key:p},h('th',{scope:'row',style:th},JA[p]+' '+p),
+      COLS.map(function(c){return h('td',{key:c,style:{padding:'1px 3px'}},h(F.CategoryMark,{color:c,pattern:p,label:c}));}));}))))),
+  h('div',{style:{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(260px,1fr))',gap:'24px 32px',maxWidth:'940px'}},
+   h('section',null,h('h3',{style:cap},'既定の割り当て / Defaults'),h(F.CategoryLegend,{label:'予定の分類',items:LEG})),
+   h('section',null,h('h3',{style:cap},'白黒で見る / In grayscale'),h('div',{style:{filter:'grayscale(1)'}},h(F.CategoryLegend,{label:'予定の分類（白黒）',items:LEG}))),
+   h('section',null,h('h3',{style:cap},'グラフの塗り / Chart fills'),h(Bars))));}
+ReactDOM.createRoot(document.getElementById('r')).render(h(App));
+</script>
