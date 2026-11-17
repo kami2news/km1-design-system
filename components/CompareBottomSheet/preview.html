@@ -17,7 +17,7 @@
 </style>
 <div class="cmp">
 <div class="cmp__col"><span class="cmp__tag cmp__tag--m1">M1 原型 — 再現（公式画像ではない）/ M1 original — reconstruction</span>
-<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 322 200'%3E%3Crect width='322' height='200' fill='%23fafafa' stroke='%23bdbdbd' stroke-dasharray='4'/%3E%3Ctext x='161' y='104' text-anchor='middle' font-size='12' fill='%23616161'%3EM1 reconstruction (omitted)%3C/text%3E%3C/svg%3E" alt="M1 のボトムシートの再現図。画面下から白いシートが出て、共有・リンクをコピー・保存・印刷のアイコン付きの行が並び、背景は暗い。" style="width:322px;max-width:100%;height:auto;border:1px dashed var(--stroke-strong)">
+<img src="m1.svg" alt="M1 のボトムシートの再現図。画面下から白いシートが出て、共有・リンクをコピー・保存・印刷のアイコン付きの行が並び、背景は暗い。" style="width:322px;max-width:100%;height:auto;border:1px dashed var(--stroke-strong)">
 <p class="cmp__src">出典 / Source: <a href="https://m1.material.io/components/bottom-sheets.html">m1.material.io/components/bottom-sheets.html</a>（2026-11-13 参照）。寸法: 一覧型: 左右 16dp・上下 8dp、項目 48dp、アイコン 24dp、アイコンと文字の間 32dp、背景の幕 20% 黒。下に引くと閉じる・上に引くと全画面。色と書体は M1 の初期値（Indigo 500・Roboto）で KM1 が再描画。/ Redrawn by KM1 from the published specs.</p></div>
 <div class="cmp__col"><span class="cmp__tag cmp__tag--km1">KM1 案 — 実装と同じクラスで静的に描画（BottomSheet は実際には画面全体に開く）/ KM1 — same classes, drawn statically</span><div id="km1"></div></div>
 <ul class="cmp__diff"><li>残したこと: 利用者の操作でだけ開く、背景を暗くして下から出す、中身が長ければ中でスクロール（M1 Bottom sheets）。</li><li>変えたこと: 引っ張る操作の代わりに「全画面に広げる」と「閉じる（×）」のボタンを必ず置く（WCAG 2.5.7 ドラッグ操作）。640px 以上では中央のダイアログとして開く（M1 も大きな画面では別の形を勧めている）。</li><li>持続型（persistent）は画面の一部として置き、背景の操作を止めない。</li></ul></div>

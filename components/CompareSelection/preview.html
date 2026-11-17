@@ -17,7 +17,7 @@
 </style>
 <div class="cmp">
 <div class="cmp__col"><span class="cmp__tag cmp__tag--m1">M1 原型 — 再現（公式画像ではない）/ M1 original — reconstruction</span>
-<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 322 200'%3E%3Crect width='322' height='200' fill='%23fafafa' stroke='%23bdbdbd' stroke-dasharray='4'/%3E%3Ctext x='161' y='104' text-anchor='middle' font-size='12' fill='%23616161'%3EM1 reconstruction (omitted)%3C/text%3E%3C/svg%3E" alt="M1 のデータ表の選択状態の再現図。上部がピンクの帯になり「2 items selected」とごみ箱アイコン、行はチェックボックス付き。帯の文字のコントラストは 2.76:1。" style="width:429px;max-width:100%;height:auto;border:1px dashed var(--stroke-strong)">
+<img src="m1.svg" alt="M1 のデータ表の選択状態の再現図。上部がピンクの帯になり「2 items selected」とごみ箱アイコン、行はチェックボックス付き。帯の文字のコントラストは 2.76:1。" style="width:429px;max-width:100%;height:auto;border:1px dashed var(--stroke-strong)">
 <p class="cmp__src">出典 / Source: <a href="https://m1.material.io/components/data-tables.html">m1.material.io/components/data-tables.html</a>（2026-11-13 参照）。寸法: 選択時の色つきの見出し（副色の 50）に件数、行 48dp、選んだ行は灰色の背景、チェックは副色。Selection のページ自体には件数つきのバーの記述はない。色と書体は M1 の初期値（Indigo 500・Roboto）で KM1 が再描画。/ Redrawn by KM1 from the published specs.</p></div>
 <div class="cmp__col"><span class="cmp__tag cmp__tag--km1">KM1 案 — 実装（ContextualActionBar・useSelection・List）/ KM1 — implemented</span><div id="km1"></div></div>
 <ul class="cmp__diff"><li>残したこと: 選んでいる間だけ件数と操作を出す（M1 Data tables の「選択時の見出し」）。</li><li>M1 の配色のままだと、帯の文字（Pink A200 と Pink 50）は 2.76:1 で WCAG AA の 4.5:1 に届かない。KM1 は ink と brand-tint で 4.5:1 以上。</li><li>変えたこと: 操作はアイコンだけにせず言葉を付ける。危険な操作（削除）は件数つきの Dialog で確認する。チェックはマウスでも常に見せる（M1 は PC ではマウスを重ねたときだけ表示。KM1 はキーボードとタッチで見つけやすい方を取る）。</li><li>足したこと: 件数を読み上げに伝える。「選択を解除」のあともフォーカスがバーに残る。</li></ul></div>

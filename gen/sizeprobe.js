@@ -1,13 +1,14 @@
-const puppeteer=require(process.env.PUPPETEER||'/tmp/perf/node_modules/puppeteer-core');
+// 使い方 / usage: node sizeprobe.js <pc|touch> <見本のフォルダ / previews dir> <結果の JSON / out json>
+const puppeteer=require(process.env.PUPPETEER||'puppeteer-core');
 const fs=require('fs');
 (async()=>{
- const mode=process.argv[2]||'pc';
- const b=await puppeteer.launch({executablePath:'/usr/bin/google-chrome',args:['--no-sandbox']});
- const files=fs.readdirSync('/tmp/rc').filter(f=>f.endsWith('-light.html'));
+ const mode=process.argv[2]||'pc', DIR=process.argv[3]||'/tmp/rc', OUTF=process.argv[4]||('/tmp/aud/'+mode+'.json');
+ const b=await puppeteer.launch({executablePath:process.env.CHROME||'/usr/bin/google-chrome',args:['--no-sandbox']});
+ const files=fs.readdirSync(DIR).filter(f=>f.endsWith('-light.html'));
  const out={};
  for(const f of files){
   const p=await b.newPage(); await p.setViewport(mode==='touch'?{width:390,height:844,hasTouch:true,isMobile:true}:{width:1000,height:900});
-  await p.goto('file:///tmp/rc/'+f); await new Promise(r=>setTimeout(r,500));
+  await p.goto('file://'+require('path').resolve(DIR,f)); await new Promise(r=>setTimeout(r,500));
   out[f.replace('-light.html','')]=await p.evaluate(()=>{
    const r={h:{},fs:{},rad:{},ic:{}};
    const add=(o,k,el)=>{(o[k]=o[k]||[]).push(el.tagName.toLowerCase()+'.'+String(el.className&&el.className.baseVal!==undefined?el.className.baseVal:el.className).split(' ')[0]);};
@@ -23,6 +24,6 @@ const fs=require('fs');
    return r;});
   await p.close();
  }
- fs.writeFileSync('/tmp/aud/'+mode+'.json',JSON.stringify(out,null,1));
+ fs.writeFileSync(OUTF,JSON.stringify(out,null,1));
  await b.close();
 })();

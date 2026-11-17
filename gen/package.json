@@ -1,0 +1,10 @@
+{
+  "name": "km1-gen-tools",
+  "private": true,
+  "description": "KM1 の見本の描画と検査に使う道具 / tools to render and check KM1 previews",
+  "devDependencies": {
+    "puppeteer-core": "^23.11.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  }
+}

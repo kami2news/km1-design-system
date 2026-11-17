@@ -17,7 +17,7 @@
 </style>
 <div class="cmp">
 <div class="cmp__col"><span class="cmp__tag cmp__tag--m1">M1 原型 — 再現（公式画像ではない）/ M1 original — reconstruction</span>
-<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 322 200'%3E%3Crect width='322' height='200' fill='%23fafafa' stroke='%23bdbdbd' stroke-dasharray='4'/%3E%3Ctext x='161' y='104' text-anchor='middle' font-size='12' fill='%23616161'%3EM1 reconstruction (omitted)%3C/text%3E%3C/svg%3E" alt="M1 の一覧の再現図。藍色の上部バー、小見出し、丸いアバターと 2 行の文字、右端の星のアイコンが並ぶ。" style="width:362px;max-width:100%;height:auto;border:1px dashed var(--stroke-strong)">
+<img src="m1.png" alt="M1 の一覧の再現図。藍色の上部バー、小見出し、丸いアバターと 2 行の文字、右端の星のアイコンが並ぶ。" style="width:362px;max-width:100%;height:auto;border:1px dashed var(--stroke-strong)">
 <p class="cmp__src">出典 / Source: <a href="https://m1.material.io/components/lists.html">m1.material.io/components/lists.html</a>（2026-11-13 参照）。寸法: 2 行の行 72dp、アバター 40dp（左 16dp）、文字の開始 72dp、右アイコン 24dp・右 16dp、小見出し 48dp・Roboto Medium 14sp。色と書体は M1 の初期値（Indigo 500・Roboto）で KM1 が再描画。/ Redrawn by KM1 from the published specs.</p></div>
 <div class="cmp__col"><span class="cmp__tag cmp__tag--km1">KM1 案 — 実装（List・ListSection・ListItem）/ KM1 — implemented</span><div id="km1"></div></div>
 <ul class="cmp__diff"><li>残したこと: 行の大半を主操作にする、識別する情報を左、補助操作を右に別の押し場所として置く、3 行まで（M1 Lists・Lists: Controls）。</li><li>変えたこと: 高さは KM1 の入力方法の規則（PC 32px・タッチ 44px 以上）。アバターの丸は使わず Fluent アイコン 20px。小見出しは色ではなく太字と件数で示す。</li><li>足したこと: 小見出しを本物の見出し（h3）にし、グループを入れ子のリストにして読み上げで件数とまとまりが分かるようにした。</li></ul></div>

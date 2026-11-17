@@ -17,7 +17,7 @@
 </style>
 <div class="cmp">
 <div class="cmp__col"><span class="cmp__tag cmp__tag--m1">M1 原型 — 再現（公式画像ではない）/ M1 original — reconstruction</span>
-<img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 322 200'%3E%3Crect width='322' height='200' fill='%23fafafa' stroke='%23bdbdbd' stroke-dasharray='4'/%3E%3Ctext x='161' y='104' text-anchor='middle' font-size='12' fill='%23616161'%3EM1 reconstruction (omitted)%3C/text%3E%3C/svg%3E" alt="M1 のグリッドリストの再現図。2 列の正方形の写真の上に、半透明の黒い帯で白い題名が重なる。" style="width:430px;max-width:100%;height:auto;border:1px dashed var(--stroke-strong)">
+<img src="m1.png" alt="M1 のグリッドリストの再現図。2 列の正方形の写真の上に、半透明の黒い帯で白い題名が重なる。" style="width:430px;max-width:100%;height:auto;border:1px dashed var(--stroke-strong)">
 <p class="cmp__src">出典 / Source: <a href="https://m1.material.io/components/grid-lists.html">m1.material.io/components/grid-lists.html</a>（2026-11-13 参照）。寸法: すき間 4dp（または 1dp）、1 行の見出し 48dp・文字の余白 16dp・16sp。画像の上に半透明の帯で題名。色と書体は M1 の初期値（Indigo 500・Roboto）で KM1 が再描画。/ Redrawn by KM1 from the published specs.</p></div>
 <div class="cmp__col"><span class="cmp__tag cmp__tag--km1">KM1 案 — 実装（ImageGrid）/ KM1 — implemented</span><div id="km1"></div></div>
 <ul class="cmp__diff"><li>残したこと: 画像が主役の同じ種類のものを格子に並べる、タイル全体が主操作、縦にだけスクロール、画像がないときの代わりの表示（M1 Grid lists）。</li><li>変えたこと: 題名を画像の上の半透明の帯に重ねず、画像の下に置く（写真によって文字のコントラストが下がるため）。すき間は KM1 の space-sm（8px）。</li><li>足したこと: 代替テキスト、遅延読み込み、読み込み失敗時の表示、選択のチェック（別の押し場所）。</li></ul></div>

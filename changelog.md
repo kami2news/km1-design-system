@@ -1,5 +1,16 @@
 # 変更履歴 / Changelog
 
+## 2026-11-18 — 正本を GitHub に移す / Source of truth moved to GitHub
+
+- **正本:** このリポジトリ（`kami2news/km1-design-system`）を正本にし、claude.ai のデザインシステムは使わない。配布物は `dist/`。
+  *This repository is now the source of truth; distributables live in `dist/`.*
+- **構成:** 公開用の `.txt` と `project/` の前提を外した。名前・勤め先を消す表が入った PDF の道具は入れず、`gen/build_pdf.py` で PDF 2 冊を作り直した。
+  *Dropped the `.txt` and `project/` assumptions; PDFs are rebuilt with `gen/build_pdf.py`.*
+- **道具:** `km1_pptx.js` がテーマの色を自分で書く。`gen/render_previews.py` と `gen/package.json` で見本を描き、`sizecheck.py` が単独で動く（FAIL 0）。
+  *`km1_pptx.js` writes its own theme colors; previews render from the repo so `sizecheck.py` runs on its own.*
+- **M1 比較:** 再現図をファイルにした（Grid・List は元の PNG、ほか 5 つは出典の寸法から SVG で描き直し）。
+  *M1 reconstructions are now files (two original PNGs, five redrawn as SVG).*
+
 ## 2026-11-15 — 点検への対応（実機検証とブランド色の命名を除く） / Review follow-ups
 
 - **部品の対応表を追加:** `coverage.md`（KM1-COV-001）。Web 60・Flutter 30 の全名と、ネイティブはテーマだけであること、不足 G1〜G5（Flutter の Alert・Link の対応が無いことを含む）を記録。

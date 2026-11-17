@@ -1,9 +1,12 @@
 """部品の寸法を KM1 の定義と照らす / Check rendered component sizes against KM1 definitions.
-見本（/tmp/rc）を PC（1000px、マウス）とスマホ（390px、タッチ）で開き、押せる部品の高さ・文字の大きさと行の高さ・角丸・アイコンの大きさを測る。
-定義（tokens.json と tokens.md「部品の寸法」）にない値が出たら FAIL。決まった例外は EXC に理由つきで書く。"""
-import json,subprocess,sys,os
-os.makedirs('/tmp/aud',exist_ok=True)
+見本（render_previews.py で作る）を PC（1000px、マウス）とスマホ（390px、タッチ）で開き、押せる部品の高さ・文字の大きさと行の高さ・角丸・アイコンの大きさを測る。
+定義（tokens.json と tokens.md「部品の寸法」）にない値が出たら FAIL。決まった例外は EXC に理由つきで書く。
+使い方 / Usage: gen で npm i をしてから python3 sizecheck.py（Chrome が要る。CHROME で場所を指定できる）
+Run `npm i` in gen/ first; needs Chrome (set CHROME to override the path)."""
+import json,subprocess,sys,os,tempfile
 G=os.path.dirname(os.path.abspath(__file__))
+WORK=tempfile.mkdtemp(prefix='km1-size-'); RC=os.path.join(WORK,'rc')
+subprocess.run([sys.executable,os.path.join(G,'render_previews.py'),RC],check=True)
 T=json.load(open(os.path.join(G,'..','tokens.json')))
 px=lambda v:str(v)
 FS=set();LH={'normal'}
@@ -26,8 +29,9 @@ EXC={
 }
 LIST2={'52'}  # 2 行の一覧の行 / two-line list row
 def run(mode):
-  subprocess.run(['timeout','300','node',os.path.join(G,'sizeprobe.js'),mode],check=True)
-  return json.load(open(f'/tmp/aud/{mode}.json'))
+  o=os.path.join(WORK,mode+'.json')
+  subprocess.run(['timeout','300','node',os.path.join(G,'sizeprobe.js'),mode,RC,o],check=True,env=dict(os.environ,NODE_PATH=os.path.join(G,'node_modules')))
+  return json.load(open(o))
 def exc(c,v):
   return all((c,s.split(' ×')[0]) in EXC for s in v.split(',')) or all(any((c2,x) in EXC for c2 in [c]) for x in v.split(' ×')[0].split(','))
 fails=[]
