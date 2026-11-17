@@ -1,0 +1,50 @@
+/* KM1 印刷・PDF 用テンプレート / KM1 print & PDF template
+   使い方 / Usage: HTML に読み込み、Chrome の印刷（または headless の --print-to-pdf）で PDF にする。
+   Link this from HTML and export with Chrome print (or headless --print-to-pdf).
+   文書名と版の日付は @page の 2 か所を書き換える（CSS 変数は @page の中で使えないため）。
+   Replace the document name and edition date in @page (CSS variables don't work inside @page).
+   色は KM1 のライトテーマのトークン値。 / Colors are KM1 light-theme token values. */
+
+@page{size:A4;margin:20mm 17mm;
+  @top-left{content:"文書名 / Document name";font:8pt "Noto Sans JP","Noto Sans CJK JP",sans-serif;color:#616161}   /* ink-tertiary */
+  @top-right{content:"YYYY-MM-DD";font:8pt "Noto Sans JP","Noto Sans CJK JP",sans-serif;color:#616161}
+  @bottom-center{content:counter(page);font:8.5pt "Noto Sans JP","Noto Sans CJK JP",sans-serif;color:#424242}}      /* ink-secondary */
+@page:first{@top-left{content:none}@top-right{content:none}@bottom-center{content:none}}
+/* 綴じるとき（両面）は内側を広く / for bound double-sided documents */
+/* @page :left{margin-left:17mm;margin-right:25mm} @page :right{margin-left:25mm;margin-right:17mm} */
+
+html{font-family:"Noto Sans JP","Noto Sans CJK JP","Hiragino Sans","Yu Gothic UI","Segoe UI",sans-serif;font-size:10pt;line-height:1.7;color:#242424;
+  -webkit-print-color-adjust:exact;print-color-adjust:exact;font-feature-settings:"palt"}
+body{margin:0}
+p,li,td{orphans:2;widows:2}
+p{margin:1.5mm 0 2.5mm}
+.en{display:block;color:#616161;font-size:9pt;line-height:1.55;font-feature-settings:normal}
+h1{font-size:20pt;line-height:1.3;color:#10218B;margin:0 0 6mm;padding-bottom:3mm;border-bottom:2px solid #10218B;font-weight:700}   /* brand-ink */
+h2{font-size:13pt;line-height:1.4;margin:8mm 0 3mm;break-after:avoid;font-weight:700}
+h3{font-size:11pt;margin:5mm 0 2mm;break-after:avoid;font-weight:700}
+h4{font-size:10pt;margin:4mm 0 1.5mm;break-after:avoid;font-weight:700}
+.chapter{break-before:page}
+ul,ol{padding-left:5mm;margin:1.5mm 0 3mm} li{margin:1.2mm 0}
+a{color:#10218B;text-decoration:underline;text-underline-offset:.15em}
+table{width:100%;border-collapse:collapse;margin:2mm 0 4mm;font-size:9pt;line-height:1.55}
+thead{display:table-header-group}          /* 見出し行をページごとに繰り返す / repeat header row on each page */
+tr{break-inside:avoid}
+th,td{border:1px solid #d1d1d1;padding:1.6mm 2mm;text-align:left;vertical-align:top;overflow-wrap:anywhere}   /* stroke */
+th{background:#f0f0f0;font-weight:700}
+figure{margin:3mm 0;break-inside:avoid} figure img{display:block;max-width:100%;border:1px solid #d1d1d1}
+figcaption{font-size:8.5pt;color:#616161;margin-top:1mm}
+code{font-family:"Cascadia Mono","Noto Sans Mono CJK JP",monospace;font-size:8.6pt;background:#f0f0f0;border-radius:3px;padding:0 3px;overflow-wrap:anywhere}
+pre{background:#f5f5f5;border:1px solid #e0e0e0;border-radius:4px;padding:3mm;white-space:pre-wrap;font-size:8.8pt;line-height:1.5;break-inside:avoid}
+.note{border-left:4px solid #10218B;background:#fafafa;padding:2mm 3mm;margin:3mm 0}
+/* 表紙 / cover */
+.cover{height:257mm;position:relative}
+.cover .mark{width:22mm;height:6mm;background:#10218B;margin-top:30mm}
+.cover .title{font-size:36pt;font-weight:700;color:#10218B;line-height:1.2;margin-top:10mm}
+.cover .subtitle{font-size:16pt;font-weight:700;margin-top:4mm}
+.cover .meta{position:absolute;bottom:0;left:0;right:0;font-size:9pt}
+/* 目次 / table of contents */
+.toc{break-before:page} .toc ol{list-style:none;padding:0;margin:0}
+.toc li{display:flex;align-items:baseline;gap:2mm;margin:1mm 0}
+.toc li a{color:#242424;text-decoration:none}
+.toc li::after{content:"";order:1;flex:1;border-bottom:1px dotted #bdbdbd}
+.toc .pg{order:2;font-variant-numeric:tabular-nums;color:#424242}
