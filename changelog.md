@@ -22,6 +22,8 @@
   *Confirmed `bundle.js` bundles neither React nor Fluent UI code.*
 - **スライドのひな形:** テーマを書き込む処理を自前にしたとき、書体の組の名前が「KM1」から「Office」に戻っていた（書体は游ゴシックのまま）。「KM1」に直し、テーマが 2026-11-15 の版と同じになったことを確かめた。
   *Restored the font-scheme name "KM1" in the slide theme; the theme again matches the 2026-11-15 build.*
+- **検証セット:** 別のリポジトリ `km1-verify`（2026-11-15）の Windows 実機用の検証セットを `verify/` に移した。中の KM1 のファイルは持たず、`make_kit.py` が本体の今のファイルから組み立てる。`km1-verify` は消す。
+  *Moved the Windows verification kit from `km1-verify` into `verify/`; `make_kit.py` assembles it from current KM1 files.*
 
 ## 2026-11-15 — 点検への対応（実機検証とブランド色の命名を除く） / Review follow-ups
 

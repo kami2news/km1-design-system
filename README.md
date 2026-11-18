@@ -5,6 +5,7 @@
 | `dist/` | 配布物: デザイン標準と部品カタログの PDF、`KM1_icons.zip`、Word・PowerPoint のひな形と見本（.dotx/.docx/.potx/.pptx）。作り直しの順: `cd gen && npm i` → `node gen/shoot_previews.js <render_previews.py の出力> components` → `python3 gen/catalog_md.py` → `node gen/token_sheets.js` → `python3 icons/icon_sheet.py` → `python3 gen/build_pdf.py dist`（寸法と件数の検査を通してから 2 冊を作る）。Office は `office/`、アイコン一式は `icons/build_all.py` |
 | `components/README.md` | 部品カタログ（グループ別、ライトとダークの見本の画像つき。`gen/catalog_md.py` で作る） |
 | `assets/tokens/` | トークンの見本の図（色のライト・ダーク、文字、余白、角丸、影、大きさ。`gen/token_sheets.js` で作る。`tokens.md` に掲載） |
+| `verify/` | Windows 実機用の検証セット（`make_kit.py` で本体の今のファイルから組み立て、`verify.ps1` で実行） |
 | `icons/icon-list.svg` | アイコン一覧の図（`icons/icon_sheet.py` で作る。`icons.md` §4 に掲載） |
 | `*.md` | 本編の文書（原則・画面の組み立て・プロダクトデザイン・プラットフォーム・トークン・アイコン・文書・運用・検証・変更履歴など） |
 | `tokens.json` / `tokens.css` | トークン（正本は JSON、CSS は生成物） |

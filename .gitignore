@@ -4,3 +4,4 @@ node_modules/
 icons/build/
 results/
 .DS_Store
+verify/build/

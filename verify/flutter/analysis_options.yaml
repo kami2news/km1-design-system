@@ -1,0 +1,4 @@
+# 既定の解析だけ（flutter_lints などの追加パッケージを使わない）/ default analysis only
+analyzer:
+  language:
+    strict-casts: false

@@ -1,0 +1,18 @@
+name: km1_verify
+description: KM1 の Flutter 部品とアイコンの検証用 / Verification app for KM1 Flutter parts and icons
+publish_to: none
+version: 0.1.0
+environment:
+  sdk: ">=3.6.0 <4.0.0"
+dependencies:
+  flutter:
+    sdk: flutter
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+flutter:
+  uses-material-design: false
+  fonts:
+    - family: KM1Icons
+      fonts:
+        - asset: fonts/KM1Icons.ttf

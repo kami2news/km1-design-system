@@ -35,6 +35,8 @@ KM1 の検証は「自動の検査（ここで実施）」と「実機・読み�
 ## 3. 各 OS の手順 / Per-OS procedures
 
 ### Windows（N1・N2）
+- 自動で確かめられる部分（Flutter の解析とアイコンの画像比較、Word・PowerPoint での書き出し、入っている書体、Edge での見本の表示）は、検証セット `verify/`（`python3 verify/make_kit.py` で組み立て、Windows で `verify.ps1`）でまとめて走らせる。結果の `results` を 1 章に記録する。
+  *Automatable parts run from the kit in `verify/`; record its `results` in section 1.*
 - NVDA（最新版）とナレーターで S1〜S3。見出しで移動（H キー）、フォームのモードの切り替え、ダイアログの中に読み上げが閉じ込められるか、Tab の順が見た目と同じか。
   *NVDA and Narrator: S1–S3; heading navigation, focus mode, dialog containment, tab order = visual order.*
 - キーボードだけで S1〜S3（Tab・Shift+Tab・Enter・Space・Esc・矢印）。フォーカスの枠が常に見えるか。
