@@ -129,7 +129,7 @@ async function build() {
     const z = await JSZip.loadAsync(fs.readFileSync(file));
     for (const n of Object.keys(z.files).filter(n => /theme\/theme\d+\.xml$/.test(n))) {
       let x = await z.file(n).async('string');
-      x = x.replace(/(<a:theme\b[^>]*\bname=")[^"]*"/, `$1${th.name}"`).replace(/(<a:clrScheme\b[^>]*\bname=")[^"]*"/, `$1${th.name}"`);
+      x = x.replace(/(<a:theme\b[^>]*\bname=")[^"]*"/, `$1${th.name}"`).replace(/(<a:clrScheme\b[^>]*\bname=")[^"]*"/, `$1${th.name}"`).replace(/(<a:fontScheme\b[^>]*\bname=")[^"]*"/, `$1${th.name}"`);
       for (const [k, v] of Object.entries(th.colors)) {
         x = x.replace(new RegExp(`<a:${k}>[\\s\\S]*?</a:${k}>`), `<a:${k}><a:srgbClr val="${v}"/></a:${k}>`);
       }

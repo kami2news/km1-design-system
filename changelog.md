@@ -20,6 +20,8 @@
   *`#10218B` is now described as a navy chosen with Epson's blue as a reference, not as "EPSON blue"; the pending source check is dropped. The value is unchanged.*
 - **第三者表記:** `bundle.js` に React と Fluent UI のコードが入っていないことを確かめ、未確認の項目から外した。
   *Confirmed `bundle.js` bundles neither React nor Fluent UI code.*
+- **スライドのひな形:** テーマを書き込む処理を自前にしたとき、書体の組の名前が「KM1」から「Office」に戻っていた（書体は游ゴシックのまま）。「KM1」に直し、テーマが 2026-11-15 の版と同じになったことを確かめた。
+  *Restored the font-scheme name "KM1" in the slide theme; the theme again matches the 2026-11-15 build.*
 
 ## 2026-11-15 — 点検への対応（実機検証とブランド色の命名を除く） / Review follow-ups
 
