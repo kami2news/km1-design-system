@@ -29,11 +29,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
+KM1_LICENSE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'LICENSE')  # KM1 本体の MIT / KM1's own MIT
 NOTE = """KM1 のアイコン / KM1 icons (KM1-ICO-001)
 
 - 通常（regular）も塗り（filled）も、すべて KM1 が B 案で描いたもの（KM1-ICO-001 §8）。
 - km1-icons.json の fluent の欄だけ、導入前と比べるための Fluent System Icons（Microsoft、MIT。LICENSE-Fluent.txt）の形（20px）を残している。
+- ライセンス: KM1 の部分は MIT（著作権表示と全文は LICENSE）。もとにした Fluent System Icons の MIT（LICENSE-Fluent.txt）も一緒に残す。
 - 名前: km1_<名前>_<大きさ>_<regular|filled>.svg
+License: KM1's work is MIT (LICENSE); keep the Fluent System Icons MIT notice (LICENSE-Fluent.txt) with it.
 All regular and filled shapes are KM1 B drawings; only the "fluent" field in km1-icons.json keeps Fluent System Icons (MIT, LICENSE-Fluent.txt) at 20px for before/after comparison.
 """
 
@@ -121,16 +124,18 @@ def main(fluent, out):
     shutil.copytree(os.path.join(BUILD, 'svg'), os.path.join(web, 'svg'))
     for f in ('km1-icons.json', 'sprite-20.svg', 'KM1Icons.ttf', 'km1_icons.dart', 'km1_icons_b.dart'): shutil.copy(os.path.join(BUILD, f), web)
     open(os.path.join(web, 'LICENSE-Fluent.txt'), 'w').write(MIT); open(os.path.join(web, 'README.txt'), 'w').write(NOTE)
+    shutil.copy(KM1_LICENSE, os.path.join(web, 'LICENSE'))
     # 配布は 1 つの zip にまとめる / ship everything as one zip
     bundle = os.path.join(out, 'KM1_icons_pack'); shutil.rmtree(bundle, ignore_errors=True); os.makedirs(bundle)
     shutil.copytree(web, os.path.join(bundle, 'icons'))          # SVG・JSON・スプライト・Flutter
     shutil.copytree(off, os.path.join(bundle, 'office'))         # PowerPoint・Word 用
     shutil.copytree(app, os.path.join(bundle, 'appicon'))        # アプリアイコン・ファビコン
     for sub in ('icons', 'office'):
-        for f in ('LICENSE-Fluent.txt', 'README.txt'):
+        for f in ('LICENSE-Fluent.txt', 'README.txt', 'LICENSE'):
             q = os.path.join(bundle, sub, f)
             if os.path.exists(q): os.remove(q)
     open(os.path.join(bundle, 'LICENSE-Fluent.txt'), 'w').write(MIT)
+    shutil.copy(KM1_LICENSE, os.path.join(bundle, 'LICENSE'))
     open(os.path.join(bundle, 'README.txt'), 'w').write(NOTE + """
 中身 / Contents
 - icons/    SVG（16・20・24px の Regular と Filled）、km1-icons.json、sprite-20.svg、Flutter 用の KM1Icons.ttf・km1_icons.dart・km1_icons_b.dart

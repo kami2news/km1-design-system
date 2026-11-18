@@ -20,6 +20,9 @@
 アイコンは KM1 B 案で、KM1 が描いたものです。もとにした絵は Fluent System Icons（Microsoft、MIT）です。ライセンスは `LICENSE-Fluent.txt`。
 *The icons are KM1's B style, drawn by KM1, based on Fluent System Icons (Microsoft, MIT); see `LICENSE-Fluent.txt`.*
 
+**ライセンス / License:** KM1 は MIT License（著作権表示と全文は `LICENSE`）。アイコンを配るときは、もとにした Fluent System Icons の MIT（`LICENSE-Fluent.txt`）も一緒に付ける。第三者の素材の扱いは `notices.md`。
+*KM1 is MIT-licensed (copyright notice and full text in `LICENSE`). When shipping icons, include the Fluent System Icons MIT notice (`LICENSE-Fluent.txt`) too. Third-party terms are in `notices.md`.*
+
 ---
 
 KM1 は Microsoft Fluent 2 の構造に、Science Tokyo と EPSON の考え方、デジタル庁デザインシステムの部品の使い方を重ねた標準デザインシステム。Google / Material 風の表現（大きな丸み、FAB、tonal 面）は使わない。判断の軸は「デザイン原則」セクションにある。

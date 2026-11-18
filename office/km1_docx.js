@@ -14,7 +14,13 @@ const LINE = r => Math.round(240 * r);                   // 行送りの倍率 /
 const C = { ink: '242424', ink2: '424242', ink3: '616161', brand: '10218B', head: 'F0F0F0', rule: 'D1D1D1' };
 const LANG = { value: 'ja-JP', eastAsia: 'ja-JP' };
 
+// KM1 の表記（notices 2.1・2.6）。ひな形は本文に入れず、ノートかファイルの説明に入れる（使う人の文書に写らないように）
+// KM1 notices 2.1 and 2.6; templates carry them in notes or file properties, never in the body
+const KM1_NOTICE_JA = 'KM1 は個人が作ったデザイン標準です。Microsoft、セイコーエプソン、東京科学大学（Science Tokyo）、デジタル庁、そのほかの組織が作成・承認・推奨したものではなく、これらの組織とは関係がありません。名称・商標は各権利者のものです。KM1 は MIT License で公開しています。ライセンスの全文と著作権表示は https://github.com/kami2news/km1-design-system の LICENSE を参照してください。';
+const KM1_NOTICE_EN = "KM1 is a personal design standard. It was not created, approved or endorsed by Microsoft, Seiko Epson, Institute of Science Tokyo, Japan's Digital Agency or any other organization, and is not affiliated with them. All names and trademarks belong to their owners. KM1 is released under the MIT License. See the LICENSE in https://github.com/kami2news/km1-design-system for the full text and copyright notice.";
+
 const styles = {
+
   default: {
     document: { run: { font: F, size: PT(10), color: C.ink, language: LANG }, paragraph: { spacing: { line: LINE(1.7), before: 0, after: 120 } } },
     title: { run: { font: F, size: PT(28), bold: true, color: C.brand }, paragraph: { spacing: { before: 0, after: 240, line: LINE(1.3) }, keepNext: true } },
@@ -97,8 +103,8 @@ async function finish(doc, file, template) {
   }
   fs.writeFileSync(file, await o.generateAsync({ type: 'nodebuffer', compression: 'DEFLATE' }));
 }
-function makeDoc(title, sections) {
-  return new d.Document({ title, subject: 'KM1-DOC-002', creator: '', lastModifiedBy: '', description: '', styles, numbering, features: { updateFields: false }, sections });
+function makeDoc(title, sections, description) {
+  return new d.Document({ title, subject: 'KM1-DOC-002', creator: '', lastModifiedBy: '', description: description || '', styles, numbering, features: { updateFields: false }, sections });
 }
 
 (async () => {
@@ -111,7 +117,7 @@ function makeDoc(title, sections) {
     new d.Paragraph({ style: 'KM1Meta', children: [new d.TextRun('YYYY-MM-DD・作成者 / Author')] }),
     new d.Paragraph({ heading: d.HeadingLevel.HEADING_1, children: [new d.TextRun('1. 章の題名 / Chapter')] }),
     P('本文 / Body'), EN('English line'),
-  ])]), path.join(OUT, 'KM1_文書.dotx'), true);
+  ])], KM1_NOTICE_JA + ' ' + KM1_NOTICE_EN), path.join(OUT, 'KM1_文書.dotx'), true);
 
   // 2) 見本 / sample
   const date = '2026-11-13', name = 'KM1 文書の規定 見本';
@@ -146,7 +152,10 @@ function makeDoc(title, sections) {
     LI('ファイルのプロパティ（作成者・題名）を確かめる。', 'km1-num'),
     LI('PDF にするときは「名前を付けて保存」で PDF を選ぶ（PDF の規定 §8）。', 'km1-num'),
     EN('Run officecheck.py to zero FAILs, clear Word\'s Accessibility Checker, check file properties, and export PDFs with Save As (PDF rules §8).'),
+    new d.Paragraph({ heading: d.HeadingLevel.HEADING_1, children: [new d.TextRun('KM1 について / About KM1')] }),
+    P(KM1_NOTICE_JA),
+    EN(KM1_NOTICE_EN),
   ];
-  await finish(makeDoc('KM1 文書の規定 見本 / KM1 document rules sample', [page(name, date, kids)]), path.join(OUT, 'KM1_文書見本.docx'), false);
+  await finish(makeDoc('KM1 文書の規定 見本 / KM1 document rules sample', [page(name, date, kids)], KM1_NOTICE_JA + ' ' + KM1_NOTICE_EN), path.join(OUT, 'KM1_文書見本.docx'), false);
   console.log('ok');
 })().catch(e => { console.error(e); process.exit(1); });

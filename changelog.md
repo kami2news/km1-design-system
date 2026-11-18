@@ -28,6 +28,10 @@
   *Review fixes: inert disabled ListItem, generated ids for ErrorSummary/StepFlow, TimeGrid label-in-name, TagPicker focus ring, scrim token, base font contract.*
 - **検査を再現できる形に:** `gen/web_test.js`（axe・キーボード・320px・再発防止・利用シナリオ 3 つ）と `gen/check_all.sh`（全部の検査）を足し、GitHub の CI で push のたびに流す（Flutter の解析とテストも）。依存を `requirements.txt`・`gen/package.json`・`office/package.json` で固定し、`puppeteer-core` を 25 に上げて `npm audit` の指摘を 0 にした。`sync_counts.py` は管理外のファイルを読まないようにした。版ごとに Git のタグ `km1-YYYY-MM-DD` を付ける。
   *Reproducible checks: web tests and a check-all script run in CI; dependencies pinned (npm audit clean); edition tags.*
+- **ライセンス（D14）:** KM1 本体を MIT License にした（`LICENSE`）。README と notices に書き、PDF の奥付とアイコンの zip にも入れた。PDF と Office には名前を書かず、ライセンスの一文（notices 2.6）だけを載せる。Microsoft の MIT の年（2020 年）を notices 2.3 に入れ、未確認から外した。
+  *KM1 is now MIT-licensed (`LICENSE`); the line goes into PDFs, Office files and the icon zip without a personal name.*
+- **Office の表記:** notices で決めていた非公認の表記（2.1）がひな形と見本に入っていなかったので、ライセンスの一文と一緒に入れた。見本は最後のページかノート、ひな形は本文に入れず、PowerPoint はノート、Word はファイルの説明に入れる。
+  *Office samples and templates now carry the non-affiliation and license lines (templates only in notes or file properties).*
 
 ## 2026-11-15 — 点検への対応（実機検証とブランド色の命名を除く） / Review follow-ups
 

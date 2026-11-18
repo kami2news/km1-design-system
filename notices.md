@@ -8,6 +8,9 @@ KM1-LIC-001。KM1 が参考にしたもの、取り込んだもの、使って�
 KM1 は個人が作ったデザイン標準で、Microsoft、セイコーエプソン、東京科学大学（Science Tokyo）、デジタル庁をはじめ、本文に名前が出る組織のいずれとも関係がない。どの組織も KM1 を作成・承認・推奨していない。名前は、考え方や出典を示すためだけに書いている。名称・ロゴ・商標は各権利者のもの。
 *KM1 is a personal design standard with no affiliation to Microsoft, Seiko Epson, Institute of Science Tokyo, Japan's Digital Agency or any other organization named in the text. None of them created, approved or endorsed it. Names appear only to credit ideas and sources; names, logos and trademarks belong to their owners.*
 
+**KM1 のライセンス / KM1's license:** KM1（コード・文書・アイコンの絵・PDF・Office のひな形）は MIT License で公開する。著作権表示と全文はリポジトリの `LICENSE`（名前はそこにだけ書く）。第三者の素材（Fluent System Icons の MIT など）は、それぞれの条件が別にかかる（3 章）。
+*KM1 (code, docs, icon drawings, PDFs, Office templates) is released under the MIT License; the copyright notice and full text are in `LICENSE`, the only place the name appears. Third-party material keeps its own terms (section 3).*
+
 ## 2. 外に配る文書の固定の文言 / Fixed wording for shared documents
 
 PDF の奥付、Office のひな形、素材集の README などに、必要な分をそのまま入れる。
@@ -31,8 +34,8 @@ KM1 の部品の使い方の規則（ボタンの配置、無効にしない扱�
 
 ### 2.3 アイコン（KM1 のアイコンを含むもの）/ Icons
 
-> KM1 のアイコンは、Fluent System Icons（Microsoft、MIT License）をもとに描き直したものです。Copyright (c) Microsoft Corporation. ライセンスの全文は https://github.com/microsoft/fluentui-system-icons の LICENSE を参照してください。
-> *KM1 icons are redrawn from Fluent System Icons (Microsoft, MIT License). Copyright (c) Microsoft Corporation. See the LICENSE in https://github.com/microsoft/fluentui-system-icons for the full text.*
+> KM1 のアイコンは、Fluent System Icons（Microsoft、MIT License）をもとに描き直したものです。Copyright (c) 2020 Microsoft Corporation. ライセンスの全文は https://github.com/microsoft/fluentui-system-icons の LICENSE を参照してください。
+> *KM1 icons are redrawn from Fluent System Icons (Microsoft, MIT License). Copyright (c) 2020 Microsoft Corporation. See the LICENSE in https://github.com/microsoft/fluentui-system-icons for the full text.*
 
 素材集（SVG・PNG）を配るときは、LICENSE の全文を同梱する。MIT は、複製や大部分の使用に著作権表示と許諾文を付けることを条件にしている。著作権表示の年は原文で確かめて転記する。
 *When shipping the SVG/PNG pack, include the full LICENSE text. MIT requires the copyright and permission notice with copies or substantial portions; copy the exact year from the original.*
@@ -49,6 +52,14 @@ KM1 の部品の使い方の規則（ボタンの配置、無効にしない扱�
 
 既定は「KM1 作成者」。実名を書くかどうかは持ち主が決める。`documents.md` 7 章は、外に配る PDF に個人名を残さない決まりなので、実名を書くなら、その決まりとの食い違いを先に直す。
 *The default is "KM1 author". Whether to print a real name is the owner's call; `documents.md` ch. 7 keeps personal names out of shared PDFs, so resolve that conflict first.*
+
+### 2.6 KM1 のライセンス / KM1 license
+
+> KM1 は MIT License で公開しています。ライセンスの全文と著作権表示は https://github.com/kami2news/km1-design-system の LICENSE を参照してください。
+> *KM1 is released under the MIT License. See the LICENSE in https://github.com/kami2news/km1-design-system for the full text and copyright notice.*
+
+PDF と Office のひな形にはこの文だけを載せ、個人名は書かない（`documents.md` 7 章）。名前は `LICENSE` の著作権表示にだけ書く。コードや素材集を配るときは `LICENSE` の全文を同梱する。
+*PDFs and Office templates carry only this line, no personal name (documents.md §7); the name appears only in the `LICENSE` notice. Ship the full `LICENSE` with code and asset packs.*
 
 ## 3. 出典ごとの扱い / Source by source
 
@@ -78,11 +89,11 @@ KM1 の部品の使い方の規則（ボタンの配置、無効にしない扱�
 
 | 配布物 / Deliverable | 入れるもの / Include |
 |---|---|
-| KM1 の PDF（本編・部品カタログ）| 奥付に 2.1・2.2・2.3・2.4。作成者は 2.5 |
-| Office のひな形（`.dotx`・`.potx`）| 2.1 を最後のページかノートに。游ゴシックは埋め込まない |
-| アイコンの素材集（SVG・PNG）| 2.3 と LICENSE の全文 |
-| Flutter のコード・パッケージ | README に 2.1・2.3。フォントを同梱するなら `OFL.txt`（2.4） |
-| Web の部品（`bundle.js`・`bundle.css`）| README に 2.1。React を同梱するなら MIT の表記 |
+| KM1 の PDF（本編・部品カタログ）| 奥付に 2.1・2.2・2.3・2.4・2.6。作成者は 2.5 |
+| Office のひな形と見本（`.dotx`・`.potx`・`.docx`・`.pptx`）| 2.1 と 2.6。見本は最後のページかノートに。ひな形は本文に入れず、PowerPoint はノート、Word はファイルの説明（使う人の文書に写らないように）。游ゴシックは埋め込まない |
+| アイコンの素材集（SVG・PNG）| 2.3、KM1 の `LICENSE` と `LICENSE-Fluent.txt` の全文 |
+| Flutter のコード・パッケージ | README に 2.1・2.3、KM1 の `LICENSE` の全文。フォントを同梱するなら `OFL.txt`（2.4） |
+| Web の部品（`bundle.js`・`bundle.css`）| README に 2.1、KM1 の `LICENSE` の全文。React を同梱するなら MIT の表記 |
 | 社外に見せる画面の写し | 他社のロゴ・商標をそのまま写さない |
 
 ## 5. 言葉の使い方 / Wording rules
@@ -99,9 +110,8 @@ KM1 の部品の使い方の規則（ボタンの配置、無効にしない扱�
 ## 6. 未確認 / Open items
 
 - Fluent 2 のデザイン文書の利用条件、Science Tokyo の利用条件、セイコーエプソンの商標の使い方。
-- MIT 原文の著作権表示の年（2.3 の転記）。
 - 作成者の表記（2.5）。
 
-`bundle.js` に React と Fluent UI のコードが入っていないことは 2026-11-18 に確かめた。
+`bundle.js` に React と Fluent UI のコードが入っていないこと、Microsoft の MIT の年（2020 年、`LICENSE-Fluent.txt`）は 2026-11-18 に確かめた。
 
-*Open: Fluent 2 design-doc terms, Science Tokyo terms, Seiko Epson trademark use, the MIT copyright year and the author line. (`bundle.js` was checked on 2026-11-18: it bundles neither React nor Fluent UI code.)*
+*Open: Fluent 2 design-doc terms, Science Tokyo terms, Seiko Epson trademark use, and the author line. (Microsoft's MIT year, 2020, was taken from `LICENSE-Fluent.txt` on 2026-11-18.) (`bundle.js` was checked on 2026-11-18: it bundles neither React nor Fluent UI code.)*
