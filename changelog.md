@@ -14,6 +14,8 @@
   *Added the grouped light/dark catalog, the icon sheet and token sheets — what the claude.ai viewer used to show.*
 - **PDF:** `gen/build_pdf.py` を「PDF の規定」どおりに作り直した: 表紙に全 2 冊の組、ページ番号つきの目次、2 冊で通しの章番号（本編の第 11 章は別冊の案内）、変更履歴、奥付、見本は等倍で空白の行で分割、Dialog などは開いた状態、作る前に寸法と件数の検査。本編 142 ページ・別冊 119 ページ、どちらも FAIL 0。
   *Rebuilt the PDF generator to the PDF rules: set cover, paged contents, chapter numbers across volumes, changelog, colophon, true-size previews split at gaps, open overlays, checks first.*
+- **適用記録:** スケジュール確認アプリのアイコンの点検（KM1 の 144 個の版に取り込み直し）を台帳に記録し、KM1 に無いアイコン 5 つ（オンライン会議・端末・未完了の丸・空き時間を探す・毎週以外の繰り返し）を不足の台帳 A5〜A9 に足した。どれも見た製品は 1 つで、2 つ目の製品での確認待ち。
+  *Logged the schedule-check icon audit and added five missing icons as gaps A5–A9 (one product so far).*
 
 ## 2026-11-15 — 点検への対応（実機検証とブランド色の命名を除く） / Review follow-ups
 

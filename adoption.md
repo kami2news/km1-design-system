@@ -20,7 +20,7 @@ KM1 の決まりを破る必要が出たら、破る前に決まりのほうを�
 
 | 製品 | 種類 | 適用の範囲 | KM1 の版 | 最後に確かめた日 | 外した原則 | 備考 |
 |---|---|---|---|---|---|---|
-| スケジュール確認アプリ（`schedule-check`） | Flutter（Web・スマホ） | 最初は色だけ（ブランド色と、高さ・レイアウトは据え置き）。2026-11-14 に、色以外も KM1 に合わせる方向 | 未記録 | 未実施 | 未記録 | 専用の入力部品を作って「下辺だけ強調」を補っている（G2） |
+| スケジュール確認アプリ（`schedule-check`） | Flutter（Web・スマホ） | 最初は色だけ（ブランド色と、高さ・レイアウトは据え置き）。2026-11-14 に、色以外も KM1 に合わせる方向。2026-11-18 にアイコンを KM1 の 144 個の版に取り込み直し、意味と絵のずれ 6 か所と、大きさ 14・18px の 21 か所（16・20・24・32px へ）を直した | アイコン: 144 個の版（2026-11-18 の GitHub 版と同じ形） | 2026-11-18（アプリ側の自動テスト 173 件、広い画面とスマホ幅の画面写し） | 未記録 | 専用の入力部品を作って「下辺だけ強調」を補っている（G2）。KM1 に無いアイコン 5 つは Fluent のまま（A5〜A9）。部品の中の小さな印（チェックボックスの中のチェックなど）は大きさの決まりの対象外として残した |
 | `kami2pos`（イベント向け POS） | Flutter Web | 全面適用の方針（テーマ・色・アイコン・部品の高さ・文言）。店舗ごとのテーマカラーは分類色として残す | 未記録 | 未実施 | 未記録 | 実装フェーズ。適用の状況はまだ記録していない |
 
 「未記録」「未実施」は、記録をまだ取っていないという意味。適用のたびに埋める。
@@ -34,12 +34,17 @@ KM1 の決まりを破る必要が出たら、破る前に決まりのほうを�
 | A2 | 2026-11-15 | KM1 の文書の点検 | Flutter の `Input` で「下辺だけ強調」を再現できない。スケジュール確認アプリは専用の部品で補った | 部品の不足 | 1（`schedule-check`） | 2 つ目の製品での確認待ち | `coverage.md` G2 |
 | A3 | 2026-11-15 | KM1 の文書の点検（`verification.md` 4 章） | 一覧・表が 500 行を超える画面（`kami2pos` の注文一覧など）で、選択の反応が遅れうる | 規則の限界 | 0（実測は headless Chrome のみ） | 未判断 | D8 |
 | A4 | 2026-11-15 | KM1 の文書の点検 | 期間を選ぶ・階層を選ぶ・グラフを出す部品がない | 部品の不足 | 0 | 提案あり | P1・P2・P3（D11） |
+| A5 | 2026-11-18 | `schedule-check`・予定の場所 | オンライン会議（動画）のアイコンがない。Fluent のまま | アイコンの不足 | 1（`schedule-check`） | 2 つ目の製品での確認待ち | — |
+| A6 | 2026-11-18 | `schedule-check`・設定 | 端末（PC とスマホ、「システムに合わせる」）のアイコンがない。Fluent のまま。KM1 の `phone` は電話（通話）の絵 | アイコンの不足 | 1（`schedule-check`） | 2 つ目の製品での確認待ち | — |
+| A7 | 2026-11-18 | `schedule-check`・To Do | 未完了の丸（タスクのチェックの丸）がない。Fluent のまま | アイコンの不足 | 1（`schedule-check`） | 2 つ目の製品での確認待ち | — |
+| A8 | 2026-11-18 | `schedule-check`・空き時間を探す | 「空き時間を探す」がない。いまは `clock`（時刻）で代用しており、時刻の欄と同じ絵になる | アイコンの不足 | 1（`schedule-check`） | 2 つ目の製品での確認待ち | — |
+| A9 | 2026-11-18 | `schedule-check`・繰り返し | 毎週以外の繰り返し（毎日・毎月など）がない。いまは `repeat-weekly` で代用 | アイコンの不足 | 1（`schedule-check`） | 2 つ目の製品での確認待ち | — |
 
-種類: **部品の不足** / **規則の曖昧さ** / **規則の限界** / **製品側の都合**（KM1 に入れない）。
-*Kinds: missing component / ambiguous rule / rule limit / product-specific (stays out of KM1).*
+種類: **部品の不足** / **アイコンの不足** / **規則の曖昧さ** / **規則の限界** / **製品側の都合**（KM1 に入れない）。
+*Kinds: missing component / missing icon / ambiguous rule / rule limit / product-specific (stays out of KM1).*
 
-この表の A1〜A4 は、製品を使って見つけたものではなく、KM1 の文書を点検して見つけたもの。製品での確認は、これから埋める。
-*A1–A4 come from reviewing KM1's documents, not from using a product; confirmation in products is still to be filled in.*
+この表の A1〜A4 は、製品を使って見つけたものではなく、KM1 の文書を点検して見つけたもの。製品での確認は、これから埋める。A5〜A9 は `schedule-check` のアイコンの点検（2026-11-18）で見つけたもの。
+*A1–A4 come from reviewing KM1's documents, not from using a product; confirmation in products is still to be filled in. A5–A9 come from the schedule-check icon audit on 2026-11-18.*
 
 ## 4. 続け方 / Routine
 
