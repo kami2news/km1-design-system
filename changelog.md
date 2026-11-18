@@ -24,6 +24,10 @@
   *Restored the font-scheme name "KM1" in the slide theme; the theme again matches the 2026-11-15 build.*
 - **検証セット:** 別のリポジトリ `km1-verify`（2026-11-15）の Windows 実機用の検証セットを `verify/` に移した。中の KM1 のファイルは持たず、`make_kit.py` が本体の今のファイルから組み立てる。`km1-verify` は消す。
   *Moved the Windows verification kit from `km1-verify` into `verify/`; `make_kit.py` assembles it from current KM1 files.*
+- **外部レビューへの対応:** ListItem は無効のとき押しても動かないようにした（ボタンとリンクの両方）。ErrorSummary・StepFlow は固定の id をやめ、自動で振るか `id` で決められるようにした（2 つ置いても重ならない）。TimeGrid の予定の読み上げの名前を、見えている文字の順のあとに日付にした（Web・Flutter、WCAG 2.5.3）。TagPicker の入力欄にフォーカスの枠を足した。スクリムを `--opacity-scrim` の参照にした。`bundle.css` の先頭に書体の土台（`html` の書体、フォーム部品の `font:inherit`）を足し、README に導入の約束として書いた。
+  *Review fixes: inert disabled ListItem, generated ids for ErrorSummary/StepFlow, TimeGrid label-in-name, TagPicker focus ring, scrim token, base font contract.*
+- **検査を再現できる形に:** `gen/web_test.js`（axe・キーボード・320px・再発防止・利用シナリオ 3 つ）と `gen/check_all.sh`（全部の検査）を足し、GitHub の CI で push のたびに流す（Flutter の解析とテストも）。依存を `requirements.txt`・`gen/package.json`・`office/package.json` で固定し、`puppeteer-core` を 25 に上げて `npm audit` の指摘を 0 にした。`sync_counts.py` は管理外のファイルを読まないようにした。版ごとに Git のタグ `km1-YYYY-MM-DD` を付ける。
+  *Reproducible checks: web tests and a check-all script run in CI; dependencies pinned (npm audit clean); edition tags.*
 
 ## 2026-11-15 — 点検への対応（実機検証とブランド色の命名を除く） / Review follow-ups
 

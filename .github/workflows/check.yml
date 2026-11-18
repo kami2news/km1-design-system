@@ -1,0 +1,54 @@
+# KM1 の検査 / KM1 checks
+# push と pull request のたびに、clone したままの状態から全部の検査を流す（gen/check_all.sh と同じもの）。
+# Runs every check from a clean clone on each push and pull request (same as gen/check_all.sh).
+name: check
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  web-docs:
+    name: トークン・Web・Office・PDF / tokens, web, Office, PDF
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12', cache: pip }
+      - uses: actions/setup-node@v4
+        with: { node-version: '22', cache: npm, cache-dependency-path: '**/package-lock.json' }
+      - name: 外部のコマンドと日本語の書体 / system tools and CJK fonts
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils librsvg2-bin fonts-noto-cjk
+      - run: pip install -r requirements.txt
+      - run: npm ci
+        working-directory: gen
+      - run: npm ci
+        working-directory: office
+      - name: 検査 / checks
+        run: bash gen/check_all.sh
+        env:
+          CHROME: /usr/bin/google-chrome
+  flutter:
+    name: Flutter（解析・テスト）/ Flutter analyze and test
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: { channel: stable, cache: true }
+      - name: 検証アプリに KM1 のファイルを入れる / put KM1 files into the verification app
+        run: |
+          cp km1_theme.dart km1_widgets.dart icons/km1_icons.dart icons/km1_icons_b.dart verify/flutter/lib/
+          mkdir -p verify/flutter/fonts && cp icons/KM1Icons.ttf verify/flutter/fonts/
+      - run: flutter pub get
+        working-directory: verify/flutter
+      - run: flutter analyze
+        working-directory: verify/flutter
+      - name: テスト（アイコンの一覧は画像に書き出す）/ tests; icon sheets are written as images
+        run: flutter test --update-goldens
+        working-directory: verify/flutter
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: { name: flutter-goldens, path: verify/flutter/test/goldens/, if-no-files-found: ignore }

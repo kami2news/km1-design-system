@@ -582,9 +582,10 @@ function TimeGrid(p){
   var allDay=evs.filter(function(e){return e.allDay;}),timed=evs.filter(function(e){return !e.allDay;});
   var nowDay=-1,nowMin=null;if(p.now){var nm=/^(\d{4}-\d{2}-\d{2})T(\d{1,2}:\d{2})/.exec(p.now);if(nm){days.forEach(function(dd,i){if(dd.date===nm[1])nowDay=i;});nowMin=hm(nm[2]);}}
   function dayLabel(i){return days[i]?days[i].label:'';}
-  function evLabel(e){var t=e.allDay?'終日':(e.kind==='deadline'?e.start+' 締め切り':e.start+'〜'+e.end);return dayLabel(e.day)+' '+t+' '+e.title+(e.sub?'、'+e.sub:'');}
+  // 名前は見えている文字の順（題名・時刻・補足）のあとに日付（WCAG 2.5.3）/ visible text in order, then the day
+  function evLabel(e){var timed=e.kind!=='deadline'&&!e.allDay,vis=e.title+(timed?' '+e.start+'〜'+e.end:'')+(e.sub?' '+e.sub:'');return vis+'、'+dayLabel(e.day)+(e.allDay?' 終日':e.kind==='deadline'?' '+e.start+' 締め切り':'');}
   function body(e){return [e.kind==='deadline'?icon16('flag','f2-tg__flag'):null,e.pattern?h('span',{key:'t',className:'f2-tg__evhead'},h(CategoryMark,{color:e.cat||'blue',pattern:e.pattern}),h('span',{className:'f2-tg__title'},e.title)):h('span',{key:'t',className:'f2-tg__title'},e.title),
-    e.kind!=='deadline'&&!e.allDay?h('span',{key:'m',className:'f2-tg__time'},e.start+'〜'+e.end):null,e.sub?h('span',{key:'s',className:'f2-tg__sub'},e.sub):null];}
+    e.kind!=='deadline'&&!e.allDay?[' ',h('span',{key:'m',className:'f2-tg__time'},e.start+'〜'+e.end)]:null,e.sub?[' ',h('span',{key:'s',className:'f2-tg__sub'},e.sub)]:null];}  // 空白で区切り、文字としてつながらないように / spaces keep words apart in the text
   function item(e,style,cls){var a={className:cx('f2-tg__ev',e.kind==='deadline'&&'f2-tg__ev--deadline',e.tentative&&'f2-tg__ev--tentative',cls),style:Object.assign({'--f2-cat':'var(--cat-'+(e.cat||'blue')+')'},style),'aria-label':evLabel(e)};
     return typeof p.onSelect==='function'?h('button',Object.assign({key:e._i,type:'button',onClick:function(){p.onSelect(e);}},a),body(e)):h('div',Object.assign({key:e._i,role:'listitem'},a),body(e));}
   var hours=[];for(var k=sh;k<eh;k++)hours.push(k);
@@ -751,11 +752,11 @@ function focusField(id){var el=document.getElementById(id);if(!el)return;
   if(el.tagName==='FIELDSET'){var f=el.querySelector('input:not([disabled]),select,textarea,button');if(f)el=f;}
   if(el.scrollIntoView)el.scrollIntoView({block:'center'});el.focus();}
 function ErrorSummary(p){
-  var ref=React.useRef(null),items=p.errors||[];
+  var ref=React.useRef(null),items=p.errors||[],tid=React.useRef(null); if(!tid.current) tid.current=p.id?p.id+'-title':nextId('errsum');
   React.useEffect(function(){if(p.focusKey&&items.length&&ref.current)ref.current.focus();},[p.focusKey]);
   if(!items.length)return null;
-  return h('div',{ref:ref,tabIndex:-1,className:cx('f2-errsum',p.className),role:'region','aria-labelledby':'f2-errsum-t'},
-    h('h2',{id:'f2-errsum-t',className:'f2-errsum__title'},icon16('errorCircle','f2-errsum__icon'),(p.title||'入力内容を確認してください')+'（'+items.length+' 件）'),
+  return h('div',{ref:ref,id:p.id,tabIndex:-1,className:cx('f2-errsum',p.className),role:'region','aria-labelledby':tid.current},
+    h('h2',{id:tid.current,className:'f2-errsum__title'},icon16('errorCircle','f2-errsum__icon'),(p.title||'入力内容を確認してください')+'（'+items.length+' 件）'),
     h('ul',{className:'f2-errsum__list'},items.map(function(e){return h('li',{key:e.id},
       h('a',{href:'#'+e.id,className:'f2-link',onClick:function(ev){ev.preventDefault();focusField(e.id);}},e.label+'：'+e.message));})));
 }
@@ -827,8 +828,10 @@ function ListItem(p){
   var body=[p.leading?h('span',{key:'l',className:'f2-li__lead'},p.leading):null,
     h('span',{key:'t',className:'f2-li__text'},h('span',{className:'f2-li__title'},p.title),p.description?h('span',{className:'f2-li__desc'},p.description):null),
     p.meta?h('span',{key:'m',className:'f2-li__meta'},p.meta):null];
-  var prim=p.href?h('a',{className:'f2-li__primary',href:p.href,onClick:p.onClick,'aria-current':p.current?'page':undefined},body)
-    :p.onClick?h('button',{type:'button',className:'f2-li__primary',onClick:p.onClick,'aria-current':p.current?'true':undefined,'aria-disabled':p.disabled?'true':undefined},body)
+  // 無効のときはフォーカスできるが押しても何もしない（KM1 の「無効」の規則）/ disabled: focusable but inert
+  function act(e){if(p.disabled){e.preventDefault();return;}if(p.onClick)p.onClick(e);}
+  var prim=p.href?h('a',{className:'f2-li__primary',href:p.href,onClick:act,'aria-current':p.current?'page':undefined,'aria-disabled':p.disabled?'true':undefined},body)
+    :p.onClick?h('button',{type:'button',className:'f2-li__primary',onClick:act,'aria-current':p.current?'true':undefined,'aria-disabled':p.disabled?'true':undefined},body)
     :h('div',{className:'f2-li__primary f2-li__primary--static'},body);
   return h('li',{className:cx('f2-li',isSel&&'f2-li--selected',p.className)},
     selOn?h('label',{className:'f2-li__check'},h('input',{type:'checkbox',className:'f2-check__box',checked:isSel,onChange:toggle,'aria-label':(p.selectLabel||textOf(p.title))+' を選択'})):null,
@@ -879,10 +882,11 @@ function ExpansionEditor(p){
 /* StepFlow: 順序のある複数の工程（利用者が進める。処理の待ちは Progress） */
 function StepFlow(p){
   var steps=p.steps||[],idx=Math.max(0,steps.findIndex(function(s){return s.id===p.active;})),cur=steps[idx]||{};
-  var done=p.completed||[],errs=p.errors||[],lin=p.mode!=='nonlinear',hd=React.useRef(null),first=React.useRef(true);
+  var done=p.completed||[],errs=p.errors||[],lin=p.mode!=='nonlinear',hd=React.useRef(null),first=React.useRef(true),hid=React.useRef(null);
+  if(!hid.current) hid.current=p.id?p.id+'-heading':nextId('stepflow');
   React.useEffect(function(){if(first.current){first.current=false;return;}if(hd.current)hd.current.focus();},[p.active]);
   var last=idx===steps.length-1;
-  return h('div',{className:cx('f2-stepflow',p.className)},
+  return h('div',{id:p.id,className:cx('f2-stepflow',p.className)},
     h('nav',{className:'f2-steps','aria-label':p.label||'手順'},h('ol',{className:'f2-steps__list'},steps.map(function(s,i){
       var isCur=i===idx,isDone=done.indexOf(s.id)>=0,isErr=errs.indexOf(s.id)>=0;
       var state=isErr?'error':isCur?'current':isDone?'done':'todo';
@@ -893,8 +897,8 @@ function StepFlow(p){
           s.optional?h('span',{className:'f2-step__opt'},'任意'):null,h('span',{className:'f2-sr'},'（'+(i+1)+' / '+steps.length+'、'+srState+'）'))];
       return h('li',{key:s.id,className:cx('f2-step','f2-step--'+state),'aria-current':isCur?'step':undefined},
         jump?h('button',{type:'button',className:'f2-step__btn',onClick:function(){if(p.onStepChange)p.onStepChange(s.id);}},inner):h('span',{className:'f2-step__btn f2-step__btn--static'},inner));}))),
-    h('section',{className:'f2-stepflow__body','aria-labelledby':'f2-stepflow-h'},
-      h('h2',{id:'f2-stepflow-h',ref:hd,tabIndex:-1,className:'f2-stepflow__heading'},h('span',{className:'f2-stepflow__count'},'手順 '+(idx+1)+' / '+steps.length),cur.title),
+    h('section',{className:'f2-stepflow__body','aria-labelledby':hid.current},
+      h('h2',{id:hid.current,ref:hd,tabIndex:-1,className:'f2-stepflow__heading'},h('span',{className:'f2-stepflow__count'},'手順 '+(idx+1)+' / '+steps.length),cur.title),
       cur.description?h('p',{className:'f2-stepflow__desc'},cur.description):null,
       h('div',{className:'f2-stepflow__content'},p.children),
       h(FormActions,null,idx>0?h('button',{type:'button',className:'f2-btn f2-btn--secondary',onClick:p.onBack},p.backLabel||'戻る'):null,

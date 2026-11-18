@@ -15,7 +15,7 @@ P=_os.environ.get('KM1_PROJECT') or (_os.path.join(_H,'..','project') if _os.pat
 P=_os.path.normpath(P)+'/'
 js=open(P+'components/bundle.js').read()
 cards=[c['name'] for c in json.loads(re.match(r'/\* @ds-bundle: (\{.*?\}) \*/',js).group(1))['components']]
-keys=json.loads(subprocess.run(['node','-e',"global.window={React:require('"+(_os.environ.get('REACT_PATH') or 'react')+"')};global.React=window.React;require('"+P+"components/bundle.js');console.log(JSON.stringify(Object.keys(window.Fluent2)))"],capture_output=True,text=True).stdout)
+keys=json.loads(subprocess.run(['node','-e',"global.window={React:require('"+(_os.environ.get('REACT_PATH') or P+'gen/node_modules/react')+"')};global.React=window.React;require('"+P+"components/bundle.js');console.log(JSON.stringify(Object.keys(window.Fluent2)))"],capture_output=True,text=True).stdout)
 comps=sorted(k for k in keys if k[0].isupper()); hooks=sorted(k for k in keys if k.startswith('use'))
 dart=open(P+'km1_widgets.dart').read()
 head=dart.split('// 部品 / Widgets:')[1].split('\n//\n')[0]
@@ -25,7 +25,7 @@ _pub=set(re.findall(r'^class (Km1\w+)(?:<\w+>)? extends (?:StatelessWidget|State
 _hdr_bad=sorted(set(fl)^_pub)
 inv={'web':{'cards':len(cards),'components':len(comps),'hooks':hooks,'cardNames':cards,'componentNames':comps},'flutter':{'widgets':len(fl),'names':fl}}
 W,C,F=len(cards),len(comps),len(fl)
-_IJ=json.load(open(P+'icons/build/km1-icons.json'))['icons']
+_IJ=json.load(open(P+'icons/km1-icons.json'))['icons']  # リポジトリにある版を読む / read the tracked file
 IN=len(_IJ); IT=sum(1 for e in _IJ.values() if (e.get('b') or {}).get('tint'))
 rules=[('README.md',r'KM1 専用の \d+ 部品',f'KM1 専用の {F} 部品',2),
  ('README.md',r'plus `km1_widgets\.dart` \(\d+ KM1 widgets\)',f'plus `km1_widgets.dart` ({F} KM1 widgets)',1),

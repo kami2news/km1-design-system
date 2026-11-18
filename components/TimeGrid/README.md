@@ -20,6 +20,8 @@
   ***Hit areas**: block height is the duration, so it is not inflated. An hour is 64px on touch (a 50-minute event is 53px) and 56px on PC; deadlines are 24px. Short events still fall below 44px, so **on phones the same events must also be pressable in an agenda list of `Card`s** (the WCAG 2.2 2.5.8 equivalent-control exception).*
 - 読み上げとキーボードの順番は、日ごと・時刻順。時刻の目盛りは読み上げない。
   *Reading and Tab order follow day, then time; the hour scale is not announced.*
+- 予定ごとの読み上げの名前は、見えている文字の順（題名・時刻・補足）のあとに日付（例:「地球化学 10:00〜10:50 3 号館 201、11/9（月）」）。見えている言葉をそのまま名前に含め、声で操作する人が見えている言葉で呼べるようにする（WCAG 2.5.3）。
+  *Each event's accessible name is its visible text in order (title, time, details), then the day (WCAG 2.5.3, label in name).*
 - 週表示は 1 列 96px を下回ると横にスクロールする。スマホでは 1 日表示を基本にし、日の切り替えは `Tabs` か前後のボタンで行う。
   *The week view scrolls horizontally below 96px per day; phones should default to the day view.*
 

@@ -10,7 +10,7 @@ KM1 の検証は「自動の検査（ここで実施）」と「実機・読み�
 
 | # | 対象 / Target | 内容 / What | 状態 | 日付・環境 | 課題 |
 |---|---|---|---|---|---|
-| W1 | Web（headless Chrome） | 部品の自動検査（axe）・キーボード・320px・密度・利用シナリオ 3 つ・大量データ | 済 | 2026-11-13・Chrome（このセッションの環境） | 大量データ（下の 4 章） |
+| W1 | Web（headless Chrome） | 部品の自動検査（axe、WCAG 2.2 A・AA の規則）・キーボード・320px・再発防止・利用シナリオ 3 つ・大量データ | 済 | 2026-11-18・Chrome（`gen/web_test.js`。clone から `bash gen/check_all.sh` で再現でき、GitHub の CI でも push のたびに流す） | axe 134 ページ・キーボード 67・320px 63（説明用の図 4 つは対象外）・再発防止 5・シナリオ 42 項目、すべて合格。大量データは下の 4 章（2026-11-13） |
 | W2 | Web（実際のブラウザ） | 利用シナリオ 3 つを Chrome・Edge・Safari・Firefox で | 未実施 | | |
 | N1 | Windows | NVDA とナレーターで利用シナリオ 3 つ | 未実施 | | |
 | N2 | Windows | WinUI 3 のビルドと表示（`KM1.xaml`） | 未実施 | | |
@@ -19,7 +19,7 @@ KM1 の検証は「自動の検査（ここで実施）」と「実機・読み�
 | A1 | Android | TalkBack、戻るジェスチャー、Compose のビルド | 未実施 | | |
 | F1 | Flutter | `flutter analyze`、ビルド、実際の画面 | 未実施 | | |
 | T1 | 書体 / Typefaces | Office（Windows・Mac）、iOS・Android・Windows の画面で、文字がゴシック体で描かれるか（明朝・セリフ体に落ちていないか）。日本語・英語・数字・記号（①・℃・〜）の混じった文で見る。手順は 5 章 | 未実施 | | 自動の検査（`fontcheck.py`・`fontcheck_render.js`）は 2026-11-14 に合格 |
-| C1 | 文書の整合 / Docs consistency | `gen/sync_counts.py --check`（部品数・対応表の食い違い）と `gen/govcheck.py`（保留・提案の期限）を一緒に流す | 未実施 | | 2026-11-15 に追加。変更のたびに流す |
+| C1 | 文書の整合 / Docs consistency | `gen/sync_counts.py --check`（部品数・対応表の食い違い）と `gen/govcheck.py`（保留・提案の期限）を一緒に流す | 済 | 2026-11-18・`gen/check_all.sh` の中で流す（CI も同じ） | 2026-11-15 に追加。変更のたびに流す |
 
 ## 2. 利用シナリオ / Scenarios
 

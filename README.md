@@ -177,6 +177,19 @@ KM1 は Microsoft Fluent 2 の構造に、Science Tokyo と EPSON の考え方�
 
 ## 確認していること / What has been checked
 
+### 検査を自分で流す / Running the checks（2026-11-18）
+
+clone したままの状態から、次の手順で全部の検査を流せる。GitHub の CI（`.github/workflows/check.yml`）も push のたびに同じものを流し、Flutter の解析とテストも別に流す。
+*Every check runs from a clean clone as below; CI runs the same on each push, plus Flutter analyze and tests.*
+
+1. 必要なもの: Python 3.10 以上、Node 22、Google Chrome、poppler-utils（`pdffonts`）、librsvg（`rsvg-convert`）、日本語のゴシック体（Noto Sans CJK など）。
+2. `pip install -r requirements.txt`、`(cd gen && npm ci)`、`(cd office && npm ci)`
+3. `bash gen/check_all.sh` → トークンの生成物の差分・トークンの別名・部品の数・保留の期限・アイコン・Web の自動検査（axe・キーボード・320px・再発防止・シナリオ、`gen/web_test.js`）・寸法・Office・PDF・書体の 11 項目。1 つでも落ちれば終了コード 1。
+*Requires Python 3.10+, Node 22, Chrome, poppler-utils, librsvg and a CJK sans font; install the pinned dependencies, then run `bash gen/check_all.sh` (11 checks; non-zero exit on any failure).*
+
+実機・読み上げソフト（NVDA・ナレーター・VoiceOver・TalkBack）・各 OS のネイティブのビルドは、ここでは流せない。手順と記録は「検証」（`verification.md`）、Windows 用の検証セットは `verify/`。
+*Real devices, screen readers and native builds can't run here; see `verification.md` and the Windows kit in `verify/`.*
+
 ### 利用シナリオと見直し（2026-11-13）/ Scenarios and review fixes
 
 | 点検 / Check | 方法 / Method | 結果 / Result |
@@ -262,7 +275,8 @@ headless Chrome だけで実施。実機・スクリーンリーダーは未確�
 2. `<html lang="ja">` を付ける。ダークは `<html data-theme="dark">` で固定でき、付けなければ OS の設定に従う。
 3. 部品は `bundle.css` のクラスをそのまま使う（例: `<button class="f2-btn f2-btn--primary">保存</button>`）。クラス名と構造は、各部品の `README.md` と `bundle.js` を見る。React は要らない。
 4. 値を変えるときは `tokens.json` を直して `tokens.css` を作り直す。`tokens.css` は手で編集しない。
-*1. Paste `tokens.css` (CSS variables generated from `tokens.json`) and `components/bundle.css` (component classes) into `<style>`. Drop the first `@import` line of `bundle.css` for offline use (fonts fall back to system fonts). 2. Set `<html lang="ja">`. Dark can be pinned with `data-theme="dark"`; otherwise it follows the OS. 3. Use the `bundle.css` classes directly, e.g. `<button class="f2-btn f2-btn--primary">`; see each component README and `bundle.js` for structure. No React needed. 4. To change values, edit `tokens.json` and regenerate `tokens.css`; never hand-edit it.*
+5. **書体の約束（KM1-TYP-002）:** `bundle.css` の先頭にある土台の 2 行（`html{font-family:var(--font-sans)}` と、`button`・`input`・`select`・`textarea` の `font:inherit`）を消さない。`tokens.css` だけを使うときは、同じ 2 行を自分で書く。これがないと、素の文字やフォーム部品がブラウザ既定の書体（明朝など）になる。
+*1. Paste `tokens.css` (CSS variables generated from `tokens.json`) and `components/bundle.css` (component classes) into `<style>`. Drop the first `@import` line of `bundle.css` for offline use (fonts fall back to system fonts). 2. Set `<html lang="ja">`. Dark can be pinned with `data-theme="dark"`; otherwise it follows the OS. 3. Use the `bundle.css` classes directly, e.g. `<button class="f2-btn f2-btn--primary">`; see each component README and `bundle.js` for structure. No React needed. 4. To change values, edit `tokens.json` and regenerate `tokens.css`; never hand-edit it. 5. Keep the two base rules at the top of `bundle.css` (`html{font-family:var(--font-sans)}` and `font:inherit` on form controls); add them yourself if you use `tokens.css` alone, or plain text and form controls fall back to the browser's default (often serif) font.*
 
 **スマホ / Mobile:** タッチ操作の端末（`pointer: coarse`）では、入力欄と選択欄の文字を 16px にする。iPhone の Safari は、16px 未満の欄にフォーカスすると画面を拡大するため。
 *On touch devices (`pointer: coarse`) input and select text is 16px, because iPhone Safari zooms the page when a field under 16px is focused.*

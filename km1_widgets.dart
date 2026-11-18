@@ -1338,8 +1338,11 @@ class Km1TimeGrid extends StatelessWidget {
   final ValueChanged<Km1TimeGridEvent>? onSelect;
 
   String _semantic(Km1TimeGridEvent e) {
-    final t = e.allDay ? '終日' : (e.deadline ? '${_km1Hm(e.start ?? 0)} 締め切り' : '${_km1Hm(e.start ?? 0)}〜${_km1Hm(e.end ?? 0)}');
-    return '${days[e.day]} $t ${e.title}${e.sub == null ? '' : '、${e.sub}'}';
+    // 見えている文字の順（題名・時刻・補足）のあとに日付（WCAG 2.5.3）/ visible text in order, then the day
+    final timed = !e.deadline && !e.allDay;
+    final vis = '${e.title}${timed ? ' ${_km1Hm(e.start ?? 0)}〜${_km1Hm(e.end ?? 0)}' : ''}${e.sub == null ? '' : ' ${e.sub}'}';
+    final tail = e.allDay ? ' 終日' : (e.deadline ? ' ${_km1Hm(e.start ?? 0)} 締め切り' : '');
+    return '$vis、${days[e.day]}$tail';
   }
 
   Widget _event(BuildContext context, Km1TimeGridEvent e, {bool compact = false}) {

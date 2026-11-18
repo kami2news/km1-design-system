@@ -99,7 +99,7 @@ export declare function FormActions(props: { className?: string; children?: Reac
 export interface ConditionalFieldProps { show: boolean; announce?: string; announceHide?: string; id?: string; className?: string; children?: React.ReactNode }
 export declare function ConditionalField(props: ConditionalFieldProps): JSX.Element;
 export interface FormError { id: string; label: string; message: string; name?: string }
-export interface ErrorSummaryProps { errors: FormError[]; title?: string; focusKey?: number; className?: string }
+export interface ErrorSummaryProps { errors: FormError[]; title?: string; focusKey?: number; /** 外から決める id（見出しは `${id}-title`）。省くと自動で振る / optional id; heading becomes `${id}-title` */ id?: string; className?: string }
 export declare function ErrorSummary(props: ErrorSummaryProps): JSX.Element | null;
 export interface UseFormConfig<V extends Record<string, any>> {
   initial?: Partial<V>;
@@ -135,7 +135,7 @@ export declare function ListSectionHeader(props: ListSectionProps & { id?: strin
 export interface ExpansionEditorProps { title: React.ReactNode; summary?: React.ReactNode; children?: React.ReactNode; onSave?: () => boolean | Promise<boolean | void> | void; onCancel?: () => void; dirty?: boolean; open?: boolean; defaultOpen?: boolean; onOpenChange?: (open: boolean) => void; readOnly?: boolean; readOnlyReason?: string; saveLabel?: string; savedMessage?: string; headingLevel?: 2 | 3 | 4; className?: string }
 export declare function ExpansionEditor(props: ExpansionEditorProps): JSX.Element;
 export interface FlowStep { id: string; title: string; optional?: boolean; editable?: boolean; description?: string }
-export interface StepFlowProps { steps: FlowStep[]; active: string; completed?: string[]; errors?: string[]; mode?: 'linear' | 'nonlinear'; onStepChange?: (id: string) => void; onBack?: () => void; onNext?: () => void; onFinish?: () => void; nextLabel?: string; backLabel?: string; finishLabel?: string; busy?: boolean; label?: string; className?: string; children?: React.ReactNode }
+export interface StepFlowProps { steps: FlowStep[]; active: string; completed?: string[]; errors?: string[]; mode?: 'linear' | 'nonlinear'; onStepChange?: (id: string) => void; onBack?: () => void; onNext?: () => void; onFinish?: () => void; nextLabel?: string; backLabel?: string; finishLabel?: string; busy?: boolean; label?: string; /** 外から決める id（見出しは `${id}-heading`）。省くと自動で振る / optional id */ id?: string; className?: string; children?: React.ReactNode }
 export declare function StepFlow(props: StepFlowProps): JSX.Element;
 export interface BottomSheetProps { title: string; open?: boolean; onClose?: () => void; variant?: 'modal' | 'persistent'; actions?: React.ReactNode; expandable?: boolean; defaultCollapsed?: boolean; className?: string; children?: React.ReactNode }
 export declare function BottomSheet(props: BottomSheetProps): JSX.Element;
