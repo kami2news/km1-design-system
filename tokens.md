@@ -3,6 +3,20 @@
 KM1 のトークンの組み立てと、用途別のエイリアス・密度・OS ごとの操作領域の決まり（KM1-TOK-001）。値そのものは `tokens.json` が正で、各 OS 向けのファイルはそこから生成する。Adobe Spectrum 2 のトークン設計と余白の考え方を参考にしたが、値と見た目は KM1 のまま。
 *How KM1 tokens are layered, plus role aliases, density and per-OS hit areas (KM1-TOK-001). `tokens.json` is the source; platform files are generated from it. Borrows Spectrum 2's token and spacing thinking, keeping KM1's values and look.*
 
+## 見本の図 / Visual reference
+
+`tokens.css` で実際に描いた図（`gen/token_sheets.js` で作る）。値は描いたあとの計算値。
+*Sheets drawn through `tokens.css` by `gen/token_sheets.js`; values are the computed results.*
+
+![色（意味づけ）1 — 名前、ライトとダークの色見本と値、用途 / Semantic colors 1](assets/tokens/color-semantic-1.png)
+![色（意味づけ）2 — 名前、ライトとダークの色見本と値、用途 / Semantic colors 2](assets/tokens/color-semantic-2.png)
+![色（原色）— 原色の色見本と値 / Primitive colors](assets/tokens/color-primitive.png)
+![文字 — 型の段階ごとの見本、大きさ・行の高さ・太さ、用途 / Type ramp](assets/tokens/type.png)
+![余白 — 名前、値、長さの見本、用途 / Spacing](assets/tokens/spacing.png)
+![角丸 — 名前、値、形の見本、用途 / Radius](assets/tokens/radius.png)
+![影 — 名前、値、面の見本、用途 / Shadow](assets/tokens/shadow.png)
+![大きさ — 名前、値、大きさの見本、用途 / Size](assets/tokens/size.png)
+
 ## 1. 三つの段 / Three tiers
 
 | 段 / Tier | KM1 での例 / In KM1 | 使い方 / Use |

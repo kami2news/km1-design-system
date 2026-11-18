@@ -10,8 +10,10 @@
   *`km1_pptx.js` writes its own theme colors; previews render from the repo so `sizecheck.py` runs on its own.*
 - **M1 比較:** 再現図をファイルにした（Grid・List は元の PNG、ほか 5 つは出典の寸法から SVG で描き直し）。
   *M1 reconstructions are now files (two original PNGs, five redrawn as SVG).*
-- **カタログと一覧:** `components/README.md`（全部品の見本の画像つき）と `icons/icon-list.svg` を追加。PDF の部品カタログに見本の画像を入れ、本文の生の HTML で後半が欠けていた不具合を直した。
-  *Added an illustrated component catalog and icon sheet; the catalog PDF now has previews and no longer truncates.*
+- **カタログと一覧:** `components/README.md`（16 のグループ別、ライトとダークの見本）、`icons/icon-list.svg`、トークンの図 `assets/tokens/`（`tokens.md` に掲載）を追加。claude.ai の閲覧画面が見せていたものをファイルにした。
+  *Added the grouped light/dark catalog, the icon sheet and token sheets — what the claude.ai viewer used to show.*
+- **PDF:** `gen/build_pdf.py` を「PDF の規定」どおりに作り直した: 表紙に全 2 冊の組、ページ番号つきの目次、2 冊で通しの章番号（本編の第 11 章は別冊の案内）、変更履歴、奥付、見本は等倍で空白の行で分割、Dialog などは開いた状態、作る前に寸法と件数の検査。本編 142 ページ・別冊 119 ページ、どちらも FAIL 0。
+  *Rebuilt the PDF generator to the PDF rules: set cover, paged contents, chapter numbers across volumes, changelog, colophon, true-size previews split at gaps, open overlays, checks first.*
 
 ## 2026-11-15 — 点検への対応（実機検証とブランド色の命名を除く） / Review follow-ups
 
