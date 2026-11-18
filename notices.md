@@ -64,7 +64,7 @@ KM1 の部品の使い方の規則（ボタンの配置、無効にしない扱�
 | Segoe UI・游ゴシック・Meiryo UI・ヒラギノ角ゴ | 各 OS・Office の書体 | 書体名を並びに書くだけ。ファイルは同梱も再配布もしない。Office 文書にも埋め込まない | 不要 | — |
 | デジタル庁デザインシステム | デジタル庁。本体は出典と加工の記載が条件。Figma は CC BY 4.0、コードは MIT、ロゴは別 | 部品の使い方の考え方を KM1 の言葉で書き直した。Figma・コード・ロゴは取り込んでいない | 2.2 | 済 |
 | Science Tokyo デザインシステム | 東京科学大学。利用条件のページは読んでいない | アクセシビリティの条件と書体の考え方を読み取った。配色・ロゴ・形状・文章は取り込んでいない | 2.1 | 要確認 |
-| EPSON（FlipUI・Smart Panel・ユニバーサルデザインの公開説明）| セイコーエプソン。「EPSON」は同社の商標 | 考え方を読み取った。ロゴ・文章・画像は取り込んでいない。ブランド色の呼び名と原典の扱いは `principles.md` の「EPSON ブルー `#10218B` について」に従い、この文書では変えない | 2.1 | 要確認（商標の使い方） |
+| EPSON（FlipUI・Smart Panel・ユニバーサルデザインの公開説明）| セイコーエプソン。「EPSON」は同社の商標 | 考え方を読み取った。ロゴ・文章・画像は取り込んでいない。メインカラー `#10218B` は EPSON の青を参考にして KM1 が選んだ色で、EPSON の色として示さない（`principles.md`） | 2.1 | 要確認（商標の使い方） |
 | IBM Carbon（フォームほか）| IBM。コードは Apache-2.0 で公開 | 考え方だけ。コードと CSS は取り込んでいない | 2.1。出典は本文に書いてある | 一般 |
 | Material Design 1 | Google | 「用途と目的がはっきりした UI」の考え方だけ。見た目・コード・アイコンは取り込まない | 2.1 | 一般 |
 | Adobe Spectrum 2 | Adobe | トークンの考え方（三段・余白の二系統）だけ | 2.1 | 一般 |
@@ -72,7 +72,7 @@ KM1 の部品の使い方の規則（ボタンの配置、無効にしない扱�
 | Nielsen の 10 のユーザビリティ原則 | Nielsen Norman Group | 趣旨を KM1 の言葉で書き直した | 出典（`product.md`） | 一般 |
 | ISO 9241-210 | ISO | 4 つの活動の順番だけ。規格の文章は転記していない | 出典（`product.md`） | 一般 |
 | axe-core | Deque、MPL-2.0 | 検査の道具として使うだけ。配布物に含めない | 不要 | 一般 |
-| React 18 | Meta、MIT | 部品の実行に使う（`libraries`）。`bundle.js` に同梱しているかは未確認 | 同梱するなら MIT の表記 | 要確認 |
+| React 18 | Meta、MIT | 部品の実行に使う。`bundle.js` には同梱せず、外で読み込んだ React（`window.React`）を使う。見本の描画では `gen/package.json` で入れる（2026-11-18 に確認） | 同梱しないので不要。同梱するなら MIT の表記 | 済 |
 
 ## 4. 配布物ごとの確認 / Checklist per deliverable
 
@@ -100,8 +100,8 @@ KM1 の部品の使い方の規則（ボタンの配置、無効にしない扱�
 
 - Fluent 2 のデザイン文書の利用条件、Science Tokyo の利用条件、セイコーエプソンの商標の使い方。
 - MIT 原文の著作権表示の年（2.3 の転記）。
-- `bundle.js` に React や Fluent UI のコードが入っているか。
 - 作成者の表記（2.5）。
-- ブランド色の呼び名と原典（`principles.md`）。この文書では扱わない。
 
-*Open: Fluent 2 design-doc terms, Science Tokyo terms, Seiko Epson trademark use, the MIT copyright year, whether `bundle.js` includes React or Fluent UI code, the author line, and the brand-color naming (handled in `principles.md`, not here).*
+`bundle.js` に React と Fluent UI のコードが入っていないことは 2026-11-18 に確かめた。
+
+*Open: Fluent 2 design-doc terms, Science Tokyo terms, Seiko Epson trademark use, the MIT copyright year and the author line. (`bundle.js` was checked on 2026-11-18: it bundles neither React nor Fluent UI code.)*
