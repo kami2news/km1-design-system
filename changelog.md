@@ -32,6 +32,8 @@
   *KM1 is now MIT-licensed (`LICENSE`); the line goes into PDFs, Office files and the icon zip without a personal name.*
 - **Office の表記:** notices で決めていた非公認の表記（2.1）がひな形と見本に入っていなかったので、ライセンスの一文と一緒に入れた。見本は最後のページかノート、ひな形は本文に入れず、PowerPoint はノート、Word はファイルの説明に入れる。
   *Office samples and templates now carry the non-affiliation and license lines (templates only in notes or file properties).*
+- **Flutter の CI:** 初回の CI で、最新の Flutter（3.50）では `km1_theme.dart` の画面切り替えの指定（`CupertinoPageTransitionsBuilder`）がエラーになると分かった。`material.dart` が含まなくなったため、`cupertino.dart` から読むように生成元を直した。`material.dart` の非推奨（`material_ui` への移行）は platforms に今後の課題として書き、CI ではその情報だけ落とさない。
+  *First CI run found `CupertinoPageTransitionsBuilder` no longer comes via material.dart in Flutter 3.50; now imported from cupertino.dart. The material_ui migration is noted as pending.*
 
 ## 2026-11-15 — 点検への対応（実機検証とブランド色の命名を除く） / Review follow-ups
 

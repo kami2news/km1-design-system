@@ -13,6 +13,8 @@
 
 import 'package:flutter/foundation.dart' show defaultTargetPlatform;
 import 'package:flutter/material.dart';
+// Flutter 3.50 から material.dart が Cupertino の画面切り替えを含まないため、直接読む / Flutter 3.50+ no longer re-exports it from material.dart
+import 'package:flutter/cupertino.dart' show CupertinoPageTransitionsBuilder;
 
 @immutable
 class Km1Colors extends ThemeExtension<Km1Colors> {

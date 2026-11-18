@@ -33,6 +33,8 @@ o='''// KM1 km1_theme.dart — tokens.json から自動生成。直接編集し�
 
 import 'package:flutter/foundation.dart' show defaultTargetPlatform;
 import 'package:flutter/material.dart';
+// Flutter 3.50 から material.dart が Cupertino の画面切り替えを含まないため、直接読む / Flutter 3.50+ no longer re-exports it from material.dart
+import 'package:flutter/cupertino.dart' show CupertinoPageTransitionsBuilder;
 
 '''
 # colors

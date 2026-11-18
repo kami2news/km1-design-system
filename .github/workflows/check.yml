@@ -44,7 +44,9 @@ jobs:
           mkdir -p verify/flutter/fonts && cp icons/KM1Icons.ttf verify/flutter/fonts/
       - run: flutter pub get
         working-directory: verify/flutter
-      - run: flutter analyze
+      # material.dart の非推奨（Flutter 3.47 以降、material_ui への移行）の「情報」では落とさない。エラーと警告では落とす
+      # Don't fail on the material.dart deprecation infos (material_ui migration); errors and warnings still fail
+      - run: flutter analyze --no-fatal-infos
         working-directory: verify/flutter
       - name: テスト（アイコンの一覧は画像に書き出す）/ tests; icon sheets are written as images
         run: flutter test --update-goldens

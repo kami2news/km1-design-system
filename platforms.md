@@ -124,6 +124,9 @@ KM1 は、1 つの見た目を全端末で同じに保つのではなく、**色
 
 ## Flutter での部品の対応 / Web components in Flutter
 
+**Flutter の版 / Flutter version:** GitHub の CI で、最新の安定版（2026-11-18 時点で 3.50）を使って `flutter analyze` と `flutter test` を流す。Flutter 3.47 から `package:flutter/material.dart` が非推奨になり、`material_ui` パッケージへの移行が始まっている。KM1 はまだ `material.dart` を使っていて、CI ではこの非推奨の「情報」だけは落とさない。移行は今後の課題。
+*CI runs `flutter analyze` and `flutter test` on the latest stable (3.50 as of 2026-11-18). `material.dart` is deprecated since 3.47 in favour of the `material_ui` package; KM1 still uses it, CI tolerates that info, and the migration is pending.*
+
 | KM1（Web） | Flutter | テーマで当たるか / Themed |
 |---|---|---|
 | Button | `FilledButton`（primary）、`OutlinedButton`（secondary）、`TextButton`（subtle） | ◯ |
