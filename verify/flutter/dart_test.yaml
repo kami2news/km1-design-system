@@ -1,0 +1,3 @@
+# 画像の比較のテストに付ける印 / tag for golden-image tests
+tags:
+  golden:

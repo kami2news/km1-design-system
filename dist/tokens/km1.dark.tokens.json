@@ -1,0 +1,1214 @@
+{
+  "$description": "KM1 design tokens (dark). Generated from tokens.json by gen/tokens_dtcg.py. Do not edit.",
+  "color": {
+    "$type": "color",
+    "gray-100": {
+      "$value": "#ffffff",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "gray-98": {
+      "$value": "#fafafa",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "gray-96": {
+      "$value": "#f5f5f5",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "gray-94": {
+      "$value": "#f0f0f0",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "gray-88": {
+      "$value": "#e0e0e0",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "gray-84": {
+      "$value": "#d6d6d6",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "gray-82": {
+      "$value": "#d1d1d1",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "gray-74": {
+      "$value": "#bdbdbd",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "gray-68": {
+      "$value": "#adadad",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "gray-40": {
+      "$value": "#666666",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "gray-38": {
+      "$value": "#616161",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "gray-36": {
+      "$value": "#5c5c5c",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "gray-32": {
+      "$value": "#525252",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "gray-26": {
+      "$value": "#424242",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "gray-22": {
+      "$value": "#383838",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "gray-16": {
+      "$value": "#292929",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "gray-14": {
+      "$value": "#242424",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "gray-12": {
+      "$value": "#1f1f1f",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "gray-8": {
+      "$value": "#141414",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "gray-4": {
+      "$value": "#0a0a0a",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "gray-0": {
+      "$value": "#000000",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "brand-50": {
+      "$value": "#eceffc",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "brand-100": {
+      "$value": "#d5dbf7",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "brand-200": {
+      "$value": "#99a6ff",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "brand-300": {
+      "$value": "#7a8cf5",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "brand-400": {
+      "$value": "#4a5fe0",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "brand-500": {
+      "$value": "#3a4fd1",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "brand-600": {
+      "$value": "#2c3fb8",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "brand-700": {
+      "$value": "#10218b",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "brand-800": {
+      "$value": "#0c1a6e",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "brand-900": {
+      "$value": "#081257",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "brand-950": {
+      "$value": "#0d1238",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "blue-50": {
+      "$value": "#ebf3fc",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "blue-400": {
+      "$value": "#479ef5",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "blue-700": {
+      "$value": "#0f6cbd",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "blue-950": {
+      "$value": "#082338",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "red-50": {
+      "$value": "#fdf3f4",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "red-400": {
+      "$value": "#e37d80",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "red-600": {
+      "$value": "#c50f1f",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "red-700": {
+      "$value": "#b10e1c",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "red-950": {
+      "$value": "#3b0509",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "green-50": {
+      "$value": "#f1faf1",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "green-400": {
+      "$value": "#54b054",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "green-700": {
+      "$value": "#107c10",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "green-950": {
+      "$value": "#052505",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "orange-50": {
+      "$value": "#fff9f5",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "orange-300": {
+      "$value": "#faa06b",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "orange-700": {
+      "$value": "#bc4b09",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "orange-950": {
+      "$value": "#411200",
+      "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "surface": {
+      "$value": "{color.gray-16}",
+      "$description": "ページ・カード・ダイアログの標準背景。ink / ink-secondary / ink-tertiary / brand-ink / danger-ink の下地。 / Default background for pages, cards and dialogs; ground for ink, ink-secondary, ink-tertiary, brand-ink, danger-ink."
+    },
+    "surface-subtle": {
+      "$value": "{color.gray-12}",
+      "$description": "ナビや第2層の背景。surface の背後に敷く面。 / Second-level background such as navigation; sits behind surface."
+    },
+    "surface-muted": {
+      "$value": "{color.gray-8}",
+      "$description": "アプリ全体の下地、サイドバー、入れ子領域。 / App-wide base, sidebars, nested regions."
+    },
+    "surface-sunken": {
+      "$value": "{color.gray-4}",
+      "$description": "最も奥の面。キャンバスの外側、区切り帯。 / Deepest layer: outside the canvas, divider bands."
+    },
+    "surface-hover": {
+      "$value": "{color.gray-22}",
+      "$description": "surface 上のコントロールのホバー背景。 / Hover background for controls on surface."
+    },
+    "surface-pressed": {
+      "$value": "{color.gray-12}",
+      "$description": "surface 上のコントロールの押下背景。 / Pressed background for controls on surface."
+    },
+    "ink": {
+      "$value": "{color.gray-100}",
+      "$description": "本文・見出しの標準文字色。surface と surface-subtle の上。 / Default text for body and headings on surface and surface-subtle."
+    },
+    "ink-secondary": {
+      "$value": "{color.gray-84}",
+      "$description": "補助文字、ラベル。surface 上。 / Secondary text and labels on surface."
+    },
+    "ink-tertiary": {
+      "$value": "{color.gray-68}",
+      "$description": "キャプション、プレースホルダ。surface 上（4.5:1 以上）。 / Captions and placeholders on surface (4.5:1 or more)."
+    },
+    "ink-disabled": {
+      "$value": "{color.gray-36}",
+      "$description": "無効状態の文字。WCAG のコントラスト要件の対象外。入力欄・選択肢は HTML の disabled 属性と、ボタンは aria-disabled（Tab で届き、理由を読み上げられる）と組み合わせる。 / Disabled text; exempt from WCAG contrast. Pair with the HTML disabled attribute on fields and options, and with aria-disabled on buttons (still reachable by Tab so the reason can be read)."
+    },
+    "stroke": {
+      "$value": "{color.gray-40}",
+      "$description": "カード・区切り・ボタンの標準枠線。Fluent 原典値のため surface 上で 3:1 に満たない（装飾的境界専用）。操作の識別には stroke-strong を使う。 / Default border for cards, dividers, buttons. Fluent source value, below 3:1 on surface: decorative only; use stroke-strong to identify controls."
+    },
+    "stroke-subtle": {
+      "$value": "{color.gray-32}",
+      "$description": "区切り線・表の罫線など最も弱い境界。 / Weakest border: dividers, table rules."
+    },
+    "stroke-strong": {
+      "$value": "{color.gray-84}",
+      "$description": "入力欄の下罫線・チェックボックス枠など操作要素の境界。surface 上で 3:1 以上。 / Borders of interactive elements (input underline, checkbox); 3:1 or more on surface."
+    },
+    "icon-ink": {
+      "$value": "#9aa7b8",
+      "$description": "KM1 B 案のアイコンの通常表示の線と記号（青みのあるグレー）。白地で 4.9:1、ダークの面で 5.95:1。押す・選ぶなどの状態では親の文字色に従う。 / Strokes and marks of KM1 B icons at rest (blue-grey); 4.9:1 on white, 5.95:1 on dark surface. States inherit the parent text color."
+    },
+    "icon-tint-start": {
+      "$value": "#3b4452",
+      "$description": "KM1 B 案のアイコンの淡い面（予定・フォルダ・通知）のグラデーションの上端。 / Top of the soft fill gradient in KM1 B icons (calendar, folder, notification)."
+    },
+    "icon-tint-end": {
+      "$value": "#2a313b",
+      "$description": "KM1 B 案のアイコンの淡い面のグラデーションの下端。icon-ink との差は 3:1 以上（ライト 3.54:1、ダーク 5.37:1）。 / Bottom of the soft fill gradient; at least 3:1 against icon-ink (3.54:1 light, 5.37:1 dark)."
+    },
+    "brand": {
+      "$value": "{color.brand-500}",
+      "$description": "メインカラー（#10218B。EPSON の青を参考にした紺）。プライマリボタンなど強調面の塗り。on-brand の文字を載せる。 / Main color (#10218B, a navy inspired by Epson's blue). Fill for primary buttons and emphasis; pair with on-brand text."
+    },
+    "brand-hover": {
+      "$value": "{color.brand-400}",
+      "$description": "brand のホバー。on-brand 文字を載せる。 / Hover for brand; pair with on-brand text."
+    },
+    "brand-pressed": {
+      "$value": "{color.brand-600}",
+      "$description": "brand の押下。on-brand 文字を載せる。 / Pressed for brand; pair with on-brand text."
+    },
+    "on-brand": {
+      "$value": "{color.gray-100}",
+      "$description": "brand / brand-hover / brand-pressed の上の文字・アイコン。 / Text and icons on brand, brand-hover, brand-pressed."
+    },
+    "brand-ink": {
+      "$value": "{color.brand-200}",
+      "$description": "リンク・強調テキスト・アクセント線。surface 上で 4.5:1 以上。 / Links, emphasized text, accent lines; 4.5:1 or more on surface."
+    },
+    "brand-tint": {
+      "$value": "{color.brand-950}",
+      "$description": "選択行・情報バナーの淡い背景。文字は ink。 / Light background for selected rows and info banners; text in ink."
+    },
+    "brand-stroke": {
+      "$value": "{color.brand-300}",
+      "$description": "選択状態・入力フォーカス下罫線。surface 上で 3:1 以上。 / Selected state and input focus underline; 3:1 or more on surface."
+    },
+    "focus-ring": {
+      "$value": "{color.gray-100}",
+      "$description": "キーボードフォーカスの 2px 実線リング。全ての面の上で 3:1 以上。 / 2px solid keyboard focus ring; 3:1 or more on every surface."
+    },
+    "info-ink": {
+      "$value": "{color.blue-400}",
+      "$description": "情報メッセージ・補助リンクの文言とアイコン（Fluent 2 の青）。surface 上で 4.5:1 以上。文言併記。 / Info message text and icons, secondary links (Fluent 2 blue); 4.5:1 or more on surface; add a label."
+    },
+    "info-tint": {
+      "$value": "{color.blue-950}",
+      "$description": "情報バナーの背景。文字は ink。 / Info banner background; text in ink."
+    },
+    "danger": {
+      "$value": "{color.red-600}",
+      "$description": "破壊的操作・エラーの塗り。on-brand の文字を載せる。必ず文言かアイコンを併記。 / Fill for destructive actions and errors; pair with on-brand text and a label or icon."
+    },
+    "danger-ink": {
+      "$value": "{color.red-400}",
+      "$description": "エラー文言・エラー枠。surface 上で 4.5:1 以上。 / Error text and borders; 4.5:1 or more on surface."
+    },
+    "danger-tint": {
+      "$value": "{color.red-950}",
+      "$description": "エラーバナーの背景。文字は ink。 / Error banner background; text in ink."
+    },
+    "success-ink": {
+      "$value": "{color.green-400}",
+      "$description": "成功文言・アイコン。surface 上で 4.5:1 以上。文言併記。 / Success text and icons; 4.5:1 or more on surface; add a label."
+    },
+    "success-tint": {
+      "$value": "{color.green-950}",
+      "$description": "成功バナーの背景。文字は ink。 / Success banner background; text in ink."
+    },
+    "warning-ink": {
+      "$value": "{color.orange-300}",
+      "$description": "警告文言・アイコン。surface 上で 4.5:1 以上。文言併記。 / Warning text and icons; 4.5:1 or more on surface; add a label."
+    },
+    "warning-tint": {
+      "$value": "{color.orange-950}",
+      "$description": "警告バナーの背景。文字は ink。 / Warning banner background; text in ink."
+    },
+    "cat-blue": {
+      "$value": "#0f6cbd",
+      "$description": "分類色（ブルー）。帯と淡い塗りだけに使い、文字には使わない。surface との比はライト 5.38:1、ダーク 2.70:1。ダークで 3:1 に満たないので、この色だけで区別させない。 / Category color (Blue). Accent bars and tinted fills only, never text. Against surface: light 5.38:1, dark 2.70:1. Below 3:1 in dark: never the only cue."
+    },
+    "cat-cornflower": {
+      "$value": "#4f6bed",
+      "$description": "分類色（コーンフラワー）。帯と淡い塗りだけに使い、文字には使わない。surface との比はライト 4.51:1、ダーク 3.23:1。 / Category color (Cornflower). Accent bars and tinted fills only, never text. Against surface: light 4.51:1, dark 3.23:1."
+    },
+    "cat-cyan": {
+      "$value": "#0099bc",
+      "$description": "分類色（シアン）。帯と淡い塗りだけに使い、文字には使わない。surface との比はライト 3.34:1、ダーク 4.35:1。 / Category color (Cyan). Accent bars and tinted fills only, never text. Against surface: light 3.34:1, dark 4.35:1."
+    },
+    "cat-teal": {
+      "$value": "#038387",
+      "$description": "分類色（ティール）。帯と淡い塗りだけに使い、文字には使わない。surface との比はライト 4.56:1、ダーク 3.19:1。 / Category color (Teal). Accent bars and tinted fills only, never text. Against surface: light 4.56:1, dark 3.19:1."
+    },
+    "cat-seafoam": {
+      "$value": "#00b294",
+      "$description": "分類色（シーフォーム）。帯と淡い塗りだけに使い、文字には使わない。surface との比はライト 2.69:1、ダーク 5.40:1。ライトで 3:1 に満たないので、この色だけで区別させない。 / Category color (Seafoam). Accent bars and tinted fills only, never text. Against surface: light 2.69:1, dark 5.40:1. Below 3:1 in light: never the only cue."
+    },
+    "cat-green": {
+      "$value": "#13a10e",
+      "$description": "分類色（グリーン）。帯と淡い塗りだけに使い、文字には使わない。surface との比はライト 3.42:1、ダーク 4.25:1。 / Category color (Green). Accent bars and tinted fills only, never text. Against surface: light 3.42:1, dark 4.25:1."
+    },
+    "cat-lime": {
+      "$value": "#8bbf26",
+      "$description": "分類色（ライム）。帯と淡い塗りだけに使い、文字には使わない。surface との比はライト 2.19:1、ダーク 6.64:1。ライトで 3:1 に満たないので、この色だけで区別させない。 / Category color (Lime). Accent bars and tinted fills only, never text. Against surface: light 2.19:1, dark 6.64:1. Below 3:1 in light: never the only cue."
+    },
+    "cat-marigold": {
+      "$value": "#eaa300",
+      "$description": "分類色（マリーゴールド）。帯と淡い塗りだけに使い、文字には使わない。surface との比はライト 2.16:1、ダーク 6.75:1。ライトで 3:1 に満たないので、この色だけで区別させない。 / Category color (Marigold). Accent bars and tinted fills only, never text. Against surface: light 2.16:1, dark 6.75:1. Below 3:1 in light: never the only cue."
+    },
+    "cat-pumpkin": {
+      "$value": "#f7630c",
+      "$description": "分類色（パンプキン）。帯と淡い塗りだけに使い、文字には使わない。surface との比はライト 3.11:1、ダーク 4.67:1。 / Category color (Pumpkin). Accent bars and tinted fills only, never text. Against surface: light 3.11:1, dark 4.67:1."
+    },
+    "cat-dark-orange": {
+      "$value": "#ca5010",
+      "$description": "分類色（ダークオレンジ）。帯と淡い塗りだけに使い、文字には使わない。surface との比はライト 4.50:1、ダーク 3.23:1。 / Category color (Dark orange). Accent bars and tinted fills only, never text. Against surface: light 4.50:1, dark 3.23:1."
+    },
+    "cat-red": {
+      "$value": "#d13438",
+      "$description": "分類色（レッド）。帯と淡い塗りだけに使い、文字には使わない。surface との比はライト 4.93:1、ダーク 2.95:1。ダークで 3:1 に満たないので、この色だけで区別させない。 / Category color (Red). Accent bars and tinted fills only, never text. Against surface: light 4.93:1, dark 2.95:1. Below 3:1 in dark: never the only cue."
+    },
+    "cat-cranberry": {
+      "$value": "#c50f1f",
+      "$description": "分類色（クランベリー）。帯と淡い塗りだけに使い、文字には使わない。surface との比はライト 6.07:1、ダーク 2.40:1。ダークで 3:1 に満たないので、この色だけで区別させない。 / Category color (Cranberry). Accent bars and tinted fills only, never text. Against surface: light 6.07:1, dark 2.40:1. Below 3:1 in dark: never the only cue."
+    },
+    "cat-pink": {
+      "$value": "#e43ba6",
+      "$description": "分類色（ピンク）。帯と淡い塗りだけに使い、文字には使わない。surface との比はライト 3.84:1、ダーク 3.79:1。 / Category color (Pink). Accent bars and tinted fills only, never text. Against surface: light 3.84:1, dark 3.79:1."
+    },
+    "cat-berry": {
+      "$value": "#c239b3",
+      "$description": "分類色（ベリー）。帯と淡い塗りだけに使い、文字には使わない。surface との比はライト 4.64:1、ダーク 3.14:1。 / Category color (Berry). Accent bars and tinted fills only, never text. Against surface: light 4.64:1, dark 3.14:1."
+    },
+    "cat-purple": {
+      "$value": "#8764b8",
+      "$description": "分類色（パープル）。帯と淡い塗りだけに使い、文字には使わない。surface との比はライト 4.62:1、ダーク 3.15:1。 / Category color (Purple). Accent bars and tinted fills only, never text. Against surface: light 4.62:1, dark 3.15:1."
+    },
+    "cat-grape": {
+      "$value": "#5c2e91",
+      "$description": "分類色（グレープ）。帯と淡い塗りだけに使い、文字には使わない。surface との比はライト 9.31:1、ダーク 1.56:1。ダークで 3:1 に満たないので、この色だけで区別させない。 / Category color (Grape). Accent bars and tinted fills only, never text. Against surface: light 9.31:1, dark 1.56:1. Below 3:1 in dark: never the only cue."
+    },
+    "cat-brown": {
+      "$value": "#8e562e",
+      "$description": "分類色（ブラウン）。帯と淡い塗りだけに使い、文字には使わない。surface との比はライト 5.96:1、ダーク 2.44:1。ダークで 3:1 に満たないので、この色だけで区別させない。 / Category color (Brown). Accent bars and tinted fills only, never text. Against surface: light 5.96:1, dark 2.44:1. Below 3:1 in dark: never the only cue."
+    },
+    "cat-gray": {
+      "$value": "#7a7574",
+      "$description": "分類色（グレー）。帯と淡い塗りだけに使い、文字には使わない。surface との比はライト 4.54:1、ダーク 3.20:1。 / Category color (Gray). Accent bars and tinted fills only, never text. Against surface: light 4.54:1, dark 3.20:1."
+    }
+  },
+  "spacing": {
+    "$type": "dimension",
+    "space-none": {
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      },
+      "$description": "余白なし。 / No spacing."
+    },
+    "space-xxs": {
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$description": "アイコンと極小要素の隙間。 / Gap between icon and tiny elements."
+    },
+    "space-xs": {
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      },
+      "$description": "アイコンとラベル、密なインライン間隔。 / Icon-to-label, dense inline gaps."
+    },
+    "space-sm-nudge": {
+      "$value": {
+        "value": 6,
+        "unit": "px"
+      },
+      "$description": "コンパクトなボタンの水平パディング。 / Horizontal padding of compact buttons."
+    },
+    "space-sm": {
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
+      "$description": "隣接コントロール間・リスト項目の内側。 / Between adjacent controls; list item inner."
+    },
+    "space-md-nudge": {
+      "$value": {
+        "value": 10,
+        "unit": "px"
+      },
+      "$description": "標準入力欄の内側余白。 / Inner padding of standard inputs."
+    },
+    "space-md": {
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      },
+      "$description": "ボタンの左右の内側・アイコンと文字の間、カードの中の小さなまとまりの間、compact 密度のコンテナの内側（container-card-padding-compact）。 / Button side padding, icon-to-text gaps, small groups in a card, and compact-density container padding."
+    },
+    "space-lg": {
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$description": "カード内側パディング・セクション内の標準間隔。 / Card padding; standard gap within a section."
+    },
+    "space-xl": {
+      "$value": {
+        "value": 20,
+        "unit": "px"
+      },
+      "$description": "大きめのカード内側。 / Larger card padding."
+    },
+    "space-xxl": {
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "$description": "セクション間・ダイアログ内側。 / Between sections; dialog padding."
+    },
+    "space-xxxl": {
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      },
+      "$description": "ページ余白・大きなブロック間。 / Page margins; large block gaps."
+    },
+    "space-target-compact": {
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      },
+      "$description": "マウス操作（PC）の部品の標準の高さ。Fluent 2 の medium。WCAG 2.2 の AA（2.5.8、24px）を満たす。 / Default control height with a mouse (PC); Fluent 2 medium; meets WCAG 2.2 AA 2.5.8 (24px)."
+    },
+    "space-target": {
+      "$value": {
+        "value": 44,
+        "unit": "px"
+      },
+      "$description": "タッチ操作（スマホ・タブレット）の操作領域と部品の高さ。WCAG 2.2 の AAA（2.5.5）。 / Hit area and control height on touch devices (phones, tablets); WCAG 2.2 AAA 2.5.5."
+    }
+  },
+  "radius": {
+    "$type": "dimension",
+    "radius-none": {
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      },
+      "$description": "全画面ダイアログ、端に接する面。 / Full-screen dialogs, edge-touching surfaces."
+    },
+    "radius-sm": {
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$description": "チェックボックス・タグ。 / Checkboxes, tags."
+    },
+    "radius-md": {
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      },
+      "$description": "ボタン・入力欄・メニュー項目（標準）。 / Buttons, inputs, menu items (default)."
+    },
+    "radius-lg": {
+      "$value": {
+        "value": 6,
+        "unit": "px"
+      },
+      "$description": "カード・ポップオーバー。 / Cards, popovers."
+    },
+    "radius-xl": {
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
+      "$description": "大きなカード・ダイアログ。 / Large cards, dialogs."
+    },
+    "radius-xxl": {
+      "$value": {
+        "value": 12,
+        "unit": "px"
+      },
+      "$description": "ヒーローカード・シート。 / Hero cards, sheets."
+    },
+    "radius-circular": {
+      "$value": {
+        "value": 9999,
+        "unit": "px"
+      },
+      "$description": "バッジ・アバター・スイッチ。 / Badges, avatars, switches (Pill)."
+    }
+  },
+  "size": {
+    "$type": "dimension",
+    "icon-sm": {
+      "$value": {
+        "value": 16,
+        "unit": "px"
+      },
+      "$description": "小さなアイコン（チップ・入力欄の中・キャプション横）。 / Small icons: chips, inside fields, beside captions."
+    },
+    "icon-md": {
+      "$value": {
+        "value": 20,
+        "unit": "px"
+      },
+      "$description": "アイコンの標準。ボタン・リスト・タブ。 / Default icon: buttons, lists, tabs."
+    },
+    "icon-lg": {
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "$description": "ナビゲーションと上部バーのアイコン。 / Navigation and top-bar icons."
+    },
+    "icon-xl": {
+      "$value": {
+        "value": 32,
+        "unit": "px"
+      },
+      "$description": "空の状態（EmptyState）の案内アイコンだけに使う。操作には使わない。 / Only for the EmptyState guidance icon; never for controls."
+    },
+    "stroke-thin": {
+      "$value": {
+        "value": 1,
+        "unit": "px"
+      },
+      "$description": "境界線の標準。 / Default border width."
+    },
+    "stroke-thick": {
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$description": "フォーカスリング、選択中の下線、入力欄フォーカス時の下辺。 / Focus ring, selected underline, focused field bottom edge."
+    },
+    "stroke-accent": {
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      },
+      "$description": "分類色の帯（予定ブロックの左、プレビューカードの上辺）。 / Category accent bar (left of a block, top of a preview card)."
+    },
+    "control-sm": {
+      "$value": {
+        "value": 24,
+        "unit": "px"
+      },
+      "$description": "PC の small ボタンの高さ（Fluent 2 の small、WCAG 2.2 AA の下限）。スマホでは使わず 44px にする。 / Small button height on PC (Fluent 2 small, the WCAG 2.2 AA floor); 44px on touch instead."
+    },
+    "control-lg": {
+      "$value": {
+        "value": 40,
+        "unit": "px"
+      },
+      "$description": "PC の large ボタンの高さ（Fluent 2 の large）。 / Large button height on PC (Fluent 2 large)."
+    },
+    "control-lg-touch": {
+      "$value": {
+        "value": 48,
+        "unit": "px"
+      },
+      "$description": "スマホの large ボタンの高さ。 / Large button height on touch."
+    },
+    "dialog-width": {
+      "$value": {
+        "value": 480,
+        "unit": "px"
+      },
+      "$description": "ダイアログの標準の幅。 / Default dialog width."
+    },
+    "dialog-width-sm": {
+      "$value": {
+        "value": 420,
+        "unit": "px"
+      },
+      "$description": "確認・小さな設定のダイアログ。 / Confirmations and small settings dialogs."
+    },
+    "content-width": {
+      "$value": {
+        "value": 720,
+        "unit": "px"
+      },
+      "$description": "読み物・フォームの 1 カラムの最大幅。 / Max width of a single reading or form column."
+    },
+    "breakpoint-md": {
+      "$value": {
+        "value": 480,
+        "unit": "px"
+      },
+      "$description": "Fluent 2 medium の始まり。 / Start of Fluent 2 medium."
+    },
+    "breakpoint-lg": {
+      "$value": {
+        "value": 640,
+        "unit": "px"
+      },
+      "$description": "Fluent 2 large の始まり。これ以上で編集をダイアログにする。 / Start of large; from here editing opens in a dialog."
+    },
+    "breakpoint-xl": {
+      "$value": {
+        "value": 1024,
+        "unit": "px"
+      },
+      "$description": "Fluent 2 x-large の始まり。これ以上でサイドバーを常時表示する。 / Start of x-large; from here the sidebar stays visible."
+    },
+    "breakpoint-xxl": {
+      "$value": {
+        "value": 1366,
+        "unit": "px"
+      },
+      "$description": "Fluent 2 xx-large の始まり。3 ペインにしてよい幅。 / Start of xx-large; wide enough for three panes."
+    }
+  },
+  "spacingRole": {
+    "$type": "dimension",
+    "layout-section-gap": {
+      "$value": "{spacing.space-xxl}",
+      "$description": "= space-xxl。ページの中で、見出しのついたセクションどうしの間。部品と部品の間にも使う。Spectrum 2 の layout spacing に当たる。 / Between headed sections on a page, and between components. Corresponds to Spectrum 2 layout spacing."
+    },
+    "layout-region-gap": {
+      "$value": "{spacing.space-xxxl}",
+      "$description": "= space-xxxl。ページの中の大きな領域（サイドバーと本文、本文と補助ペイン）の間と、広い画面のページの余白。 / Between page regions (sidebar and content, content and side pane) and page margins on wide screens."
+    },
+    "container-card-padding-compact": {
+      "$value": "{spacing.space-md}",
+      "$description": "= space-md。Card の内側の余白（密度 compact）。 / Card inner padding, compact density."
+    },
+    "container-card-padding-regular": {
+      "$value": "{spacing.space-lg}",
+      "$description": "= space-lg。Card の内側の余白（密度 regular、既定）。今までの Card と同じ値。 / Card inner padding, regular density (default); same as before."
+    },
+    "container-card-padding-spacious": {
+      "$value": "{spacing.space-xxl}",
+      "$description": "= space-xxl。Card の内側の余白（密度 spacious）。 / Card inner padding, spacious density."
+    },
+    "collection-item-gap-compact": {
+      "$value": "{spacing.space-xs}",
+      "$description": "= space-xs。集合部品の項目の間（密度 compact）。Table の行と SortableList の項目は、この値の半分を上下に配る。 / Gap between collection items, compact. Table rows and SortableList items use half of it on each side."
+    },
+    "collection-item-gap-regular": {
+      "$value": "{spacing.space-sm}",
+      "$description": "= space-sm。集合部品の項目の間（密度 regular、既定）。Table の行の上下の余白（space-xs）と SortableList の項目の間（space-xs）は、今までと同じになる。 / Gap between collection items, regular (default); keeps the existing Table and SortableList spacing."
+    },
+    "collection-item-gap-spacious": {
+      "$value": "{spacing.space-lg}",
+      "$description": "= space-lg。集合部品の項目の間（密度 spacious）。 / Gap between collection items, spacious."
+    }
+  },
+  "platformTarget": {
+    "$type": "dimension",
+    "control-target-web-mouse": {
+      "$value": "{spacing.space-target-compact}",
+      "$description": "= space-target-compact。Web のマウス操作（pointer: fine）。CSS の --control-height が使う。 / Web with a mouse (pointer: fine); used by --control-height."
+    },
+    "control-target-web-touch": {
+      "$value": "{spacing.space-target}",
+      "$description": "= space-target。Web のタッチ操作（pointer: coarse）。 / Web with touch (pointer: coarse)."
+    },
+    "control-target-android": {
+      "$value": "{size.control-lg-touch}",
+      "$description": "= control-lg-touch。Android（Material 3 の推奨 48dp）。Flutter の Km1Theme.targetFor と Compose が使う。 / Android (48dp); used by Flutter Km1Theme.targetFor and Compose."
+    },
+    "control-target-ios": {
+      "$value": "{spacing.space-target}",
+      "$description": "= space-target。iOS・iPadOS（44pt）。Flutter と SwiftUI が使う。 / iOS / iPadOS (44pt); used by Flutter and SwiftUI."
+    },
+    "control-target-windows": {
+      "$value": "{spacing.space-target-compact}",
+      "$description": "= space-target-compact。Windows（マウス中心、32px）。Flutter と WinUI が使う。 / Windows (mouse-first, 32px); used by Flutter and WinUI."
+    },
+    "control-target-macos": {
+      "$value": "{spacing.space-target-compact}",
+      "$description": "= space-target-compact。macOS（マウス中心、32px）。Flutter が使う。 / macOS (mouse-first, 32px); used by Flutter."
+    }
+  },
+  "shadow": {
+    "$type": "shadow",
+    "shadow-2": {
+      "$value": [
+        {
+          "color": "rgba(0,0,0,0.12)",
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 0,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 2,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        {
+          "color": "rgba(0,0,0,0.14)",
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 1,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 2,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
+        }
+      ],
+      "$description": "静止カード。 / Resting card."
+    },
+    "shadow-4": {
+      "$value": [
+        {
+          "color": "rgba(0,0,0,0.12)",
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 0,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 2,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        {
+          "color": "rgba(0,0,0,0.14)",
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 2,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 4,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
+        }
+      ],
+      "$description": "ホバー中のカード・ツールバー。 / Hovered card, toolbar."
+    },
+    "shadow-8": {
+      "$value": [
+        {
+          "color": "rgba(0,0,0,0.12)",
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 0,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 2,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        {
+          "color": "rgba(0,0,0,0.14)",
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 4,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 8,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
+        }
+      ],
+      "$description": "ドロップダウン・メニュー。 / Dropdowns, menus."
+    },
+    "shadow-16": {
+      "$value": [
+        {
+          "color": "rgba(0,0,0,0.12)",
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 0,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 2,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        {
+          "color": "rgba(0,0,0,0.14)",
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 8,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 16,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
+        }
+      ],
+      "$description": "ポップオーバー・ティーチングバルーン。 / Popovers, teaching balloons."
+    },
+    "shadow-28": {
+      "$value": [
+        {
+          "color": "rgba(0,0,0,0.12)",
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 0,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 8,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
+        },
+        {
+          "color": "rgba(0,0,0,0.24)",
+          "offsetX": {
+            "value": 0,
+            "unit": "px"
+          },
+          "offsetY": {
+            "value": 14,
+            "unit": "px"
+          },
+          "blur": {
+            "value": 28,
+            "unit": "px"
+          },
+          "spread": {
+            "value": 0,
+            "unit": "px"
+          }
+        }
+      ],
+      "$description": "ダイアログ。 / Dialogs."
+    }
+  },
+  "layer": {
+    "$type": "number",
+    "layer-content": {
+      "$value": 1,
+      "$description": "面の上の内容（固定の見出し行など）。 / Content above the base (sticky headers)."
+    },
+    "layer-overlay": {
+      "$value": 1000,
+      "$description": "暗幕とダイアログ。 / Scrim and dialogs."
+    },
+    "layer-popup": {
+      "$value": 2000,
+      "$description": "メニュー・ポップオーバー・ツールチップ。 / Menus, popovers, tooltips."
+    },
+    "layer-message": {
+      "$value": 3000,
+      "$description": "トースト・通知。 / Toasts, notifications."
+    }
+  },
+  "opacity": {
+    "$type": "number",
+    "opacity-scrim": {
+      "$value": 0.4,
+      "$description": "ダイアログの暗幕（黒）。 / Dialog scrim (black)."
+    },
+    "opacity-cat-tint-light": {
+      "$value": 0.14,
+      "$description": "ライトでの分類色の淡い塗り。 / Category tint fill in light."
+    },
+    "opacity-cat-tint-dark": {
+      "$value": 0.32,
+      "$description": "ダークでの分類色の淡い塗り。 / Category tint fill in dark."
+    }
+  },
+  "fontFamily": {
+    "$type": "fontFamily",
+    "sans": {
+      "$value": [
+        "Noto Sans JP",
+        "Hiragino Sans",
+        "Yu Gothic UI",
+        "Meiryo UI",
+        "system-ui",
+        "sans-serif"
+      ]
+    },
+    "sans-en": {
+      "$value": [
+        "Segoe UI Variable Text",
+        "Segoe UI",
+        "Hind",
+        "system-ui",
+        "sans-serif"
+      ]
+    },
+    "mono": {
+      "$value": [
+        "Cascadia Mono",
+        "Consolas",
+        "Noto Sans Mono CJK JP",
+        "Menlo",
+        "monospace"
+      ]
+    }
+  },
+  "typography": {
+    "$type": "typography",
+    "display": {
+      "$value": {
+        "fontFamily": "{fontFamily.sans}",
+        "fontSize": {
+          "value": 68,
+          "unit": "px"
+        },
+        "fontWeight": 600,
+        "lineHeight": 1.3529,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      "$description": "ヒーロー数値・LP の大見出し。 / Hero numbers, landing-page headline."
+    },
+    "large-title": {
+      "$value": {
+        "fontFamily": "{fontFamily.sans}",
+        "fontSize": {
+          "value": 40,
+          "unit": "px"
+        },
+        "fontWeight": 600,
+        "lineHeight": 1.3,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      "$description": "ページ冒頭の最大見出し。 / Largest page heading."
+    },
+    "title-1": {
+      "$value": {
+        "fontFamily": "{fontFamily.sans}",
+        "fontSize": {
+          "value": 32,
+          "unit": "px"
+        },
+        "fontWeight": 600,
+        "lineHeight": 1.25,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      "$description": "ページタイトル。 / Page title."
+    },
+    "title-2": {
+      "$value": {
+        "fontFamily": "{fontFamily.sans}",
+        "fontSize": {
+          "value": 28,
+          "unit": "px"
+        },
+        "fontWeight": 600,
+        "lineHeight": 1.2857,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      "$description": "セクション大見出し。 / Large section heading."
+    },
+    "title-3": {
+      "$value": {
+        "fontFamily": "{fontFamily.sans}",
+        "fontSize": {
+          "value": 24,
+          "unit": "px"
+        },
+        "fontWeight": 600,
+        "lineHeight": 1.3333,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      "$description": "セクション見出し。 / Section heading."
+    },
+    "subtitle-1": {
+      "$value": {
+        "fontFamily": "{fontFamily.sans}",
+        "fontSize": {
+          "value": 20,
+          "unit": "px"
+        },
+        "fontWeight": 600,
+        "lineHeight": 1.4,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      "$description": "カード・ダイアログのタイトル。 / Card and dialog title."
+    },
+    "subtitle-2": {
+      "$value": {
+        "fontFamily": "{fontFamily.sans}",
+        "fontSize": {
+          "value": 16,
+          "unit": "px"
+        },
+        "fontWeight": 600,
+        "lineHeight": 1.375,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      "$description": "小見出し・リスト見出し。 / Subheading, list heading."
+    },
+    "body-2": {
+      "$value": {
+        "fontFamily": "{fontFamily.sans}",
+        "fontSize": {
+          "value": 16,
+          "unit": "px"
+        },
+        "fontWeight": 400,
+        "lineHeight": 1.375,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      "$description": "長文・読み物の本文。 / Long-form body text."
+    },
+    "body-1": {
+      "$value": {
+        "fontFamily": "{fontFamily.sans}",
+        "fontSize": {
+          "value": 14,
+          "unit": "px"
+        },
+        "fontWeight": 400,
+        "lineHeight": 1.4286,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      "$description": "UI の標準本文（既定）。 / Default UI body text."
+    },
+    "body-1-strong": {
+      "$value": {
+        "fontFamily": "{fontFamily.sans}",
+        "fontSize": {
+          "value": 14,
+          "unit": "px"
+        },
+        "fontWeight": 600,
+        "lineHeight": 1.4286,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      "$description": "ボタンラベル・強調ラベル。 / Button labels, emphasized labels."
+    },
+    "caption-1": {
+      "$value": {
+        "fontFamily": "{fontFamily.sans}",
+        "fontSize": {
+          "value": 12,
+          "unit": "px"
+        },
+        "fontWeight": 400,
+        "lineHeight": 1.3333,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      "$description": "補足・メタ情報。 / Notes and metadata."
+    },
+    "caption-2": {
+      "$value": {
+        "fontFamily": "{fontFamily.sans}",
+        "fontSize": {
+          "value": 10,
+          "unit": "px"
+        },
+        "fontWeight": 400,
+        "lineHeight": 1.4,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      "$description": "最小の注記（10px）。単位や出典など、読めなくても判断に困らない補足だけに使う。予定・時刻・金額・エラーなど判断に使う情報は caption-1（12px）以上にする。 / Smallest note (10px), only for supplements whose loss does not affect decisions (units, credits). Information used to decide (times, amounts, errors) uses caption-1 (12px) or larger."
+    }
+  }
+}

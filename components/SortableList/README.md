@@ -6,7 +6,7 @@
   *Three equivalent ways to reorder:*
   1. マウス・指で、左のつまみをドラッグする。 / *drag the handle;*
   2. 右の「↑」「↓」ボタンを押す（ドラッグができない人のため。WCAG 2.2 の 2.5.7）。 / *press the up/down buttons (WCAG 2.2 2.5.7 single-pointer alternative);*
-  3. キーボードで、つまみにフォーカスして Space で持ち上げ、↑↓で動かし、Space で置く。Esc でやめる。 / *keyboard: Space on the handle to lift, arrows to move, Space to drop, Esc to stop.*
+  3. キーボードで、つまみにフォーカスして Space で持ち上げ、↑↓で動かし、Space で置く。Esc で取り消す（持ち上げる前の位置に戻り、そのことが読み上げられる）。フォーカスが外れたときは、その位置に置いたことにする。 / *keyboard: Space on the handle to lift, arrows to move, Space to drop, Esc to cancel and restore the original position (announced). Losing focus drops the item where it is.*
 - 動かすたびに「（名前）を 3 番目に移動しました（全 5 件）」と読み上げる。
   *Each move is announced with the new position.*
 - 並べ替えた結果はすぐ反映し、保存ボタンを別に要求しない。取り消せるように、必要なら `Toast` に「元に戻す」を付ける。

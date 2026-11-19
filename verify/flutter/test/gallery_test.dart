@@ -1,6 +1,7 @@
 // 部品のギャラリーを、スマホと PC の幅、ライトとダークで組み立てて、例外や はみ出しがないかを見る。
-// アイコンの一覧は画像（goldens/）に書き出す: flutter test --update-goldens
-// Builds the gallery at phone and desktop widths in light and dark; icon sheets are written as golden images.
+// アイコンの一覧は、承認済みの画像（test/goldens/）と比べる。違えば失敗する（回帰の検査）。
+// 画像を作り直すのは、GitHub の「goldens」ワークフローを手で動かしたときだけ（verification.md 6 章）。
+// Builds the gallery at phone and desktop widths in light and dark; icon sheets are compared against approved goldens.
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:km1_verify/km1_theme.dart';
@@ -23,7 +24,7 @@ void main() {
     testWidgets('スマホ幅 390・$tag', (t) => run(t, const Size(390, 844), theme));
     testWidgets('PC 幅 1280・$tag', (t) => run(t, const Size(1280, 800), theme));
     for (final s in [16.0, 20.0, 24.0]) {
-      testWidgets('アイコンの一覧の画像 ${s.toInt()}px・$tag', (t) async {
+      testWidgets('アイコンの一覧の画像 ${s.toInt()}px・$tag', tags: ['golden'], (t) async {
         t.view.physicalSize = const Size(1100, 760);
         t.view.devicePixelRatio = 1;
         addTearDown(t.view.reset);

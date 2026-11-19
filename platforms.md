@@ -5,11 +5,14 @@ KM1 は、1 つの見た目を全端末で同じに保つのではなく、**色
 
 | 対象 / Target | 実装 / Implementation | 状態 / Status |
 |---|---|---|
-| Web（HTML） | `components/bundle.js`（React）、`components/bundle.css`、`tokens.css`（React なしの単体 HTML でも可） | 見本のある部品 50（公開 60）。自動検査・キーボード・320px・強制カラーを確認済み |
-| Flutter（Android・iOS・iPadOS・Windows・macOS・Web） | `km1_theme.dart`（テーマ）と `km1_widgets.dart`（KM1 専用の 30 部品）。ほかは Flutter 標準の部品にテーマを当てる | 文法と、使っているクラス・引数が Flutter の安定版（2026-11-09 時点）に実在するかを照合済み。**型の確認とコンパイルは未実施** |
-| Windows ネイティブ（WinUI 3） | `KM1.xaml`（ResourceDictionary）。WinUI 3 は Fluent 2 そのものなので、アクセント色・角丸・書体と KM1 の色のブラシを当てる | 生成済み。XML として正しいこと、上書きするキーが WinUI のソース（2026-11-12 時点）に実在すること、Windows の背景での読みやすさを確認。**ビルドは未実施** |
-| Android ネイティブ（Jetpack Compose） | `Km1Theme.kt`（`Km1Theme`、`Km1.colors`、`Km1PrimaryButton`） | 生成済み。文法と、使った関数・引数が androidx のソース（2026-11-12 時点）に実在することを確認。**ビルドは未実施** |
-| iOS・iPadOS・macOS ネイティブ（SwiftUI） | `KM1Theme.swift`（`Km1Color`、`Km1Text`、`Km1PrimaryButtonStyle`） | 生成済み。文法のみ確認（SwiftUI はソースが非公開で照合できない）。**ビルドは未実施** |
+| Web（HTML） | `components/bundle.js`（React）、`components/bundle.css`、`tokens.css`（React なしの単体 HTML でも可） | 見本のある部品 50（公開 60）。自動検査・キーボード・320px・強制カラーを headless Chrome で確認済み。**安定（パイロット）**。実際のブラウザ 4 種と読み上げソフトでの確認は未実施（verification W2・N1） |
+| Flutter（Android・iOS・iPadOS・Windows・macOS・Web） | `km1_theme.dart`（テーマ）と `km1_widgets.dart`（KM1 専用の 30 部品）。ほかは Flutter 標準の部品にテーマを当てる | **パイロット**。CI で `flutter analyze` と `flutter test`（ギャラリーの組み立て）を push のたびに実施（2026-11-18 から）。実機でのビルドと表示は未実施（verification F3） |
+| Windows ネイティブ（WinUI 3） | `KM1.xaml`（ResourceDictionary）。WinUI 3 は Fluent 2 そのものなので、アクセント色・角丸・書体と KM1 の色のブラシを当てる | **実験的（experimental）**。生成済み。XML として正しいこと、上書きするキーが WinUI のソース（2026-11-12 時点）に実在すること、Windows の背景での読みやすさを確認。**ビルドは未実施** |
+| Android ネイティブ（Jetpack Compose） | `Km1Theme.kt`（`Km1Theme`、`Km1.colors`、`Km1PrimaryButton`） | **実験的（experimental）**。生成済み。文法と、使った関数・引数が androidx のソース（2026-11-12 時点）に実在することを確認。**ビルドは未実施** |
+| iOS・iPadOS・macOS ネイティブ（SwiftUI） | `KM1Theme.swift`（`Km1Color`、`Km1Text`、`Km1PrimaryButtonStyle`） | **実験的（experimental）**。生成済み。文法のみ確認（SwiftUI はソースが非公開で照合できない）。**ビルドは未実施** |
+
+**状態の意味:** 安定（パイロット）＝自動検査に合格し、試しに製品で使ってよい。パイロット＝自動検査はあるが実機の確認がまだ。実験的＝ビルドしたことがなく、製品では使わない。実機の確認（`verification.md`）が済んだら 1 段上げる。
+*Status: stable (pilot) = passes automated checks, fine for trial use; pilot = automated checks but no device run; experimental = never built, not for products. Promote after the device checks in `verification.md`.*
 
 部品ごとの Web・Flutter・ネイティブの対応と不足は `coverage.md`（KM1-COV-001）。ネイティブはテーマだけで部品はない。
 *Per-component coverage across Web, Flutter and native, with gaps: `coverage.md`. Native ships themes only, no components.*

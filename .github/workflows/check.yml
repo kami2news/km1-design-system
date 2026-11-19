@@ -48,9 +48,17 @@ jobs:
       # Don't fail on the material.dart deprecation infos (material_ui migration); errors and warnings still fail
       - run: flutter analyze --no-fatal-infos
         working-directory: verify/flutter
-      - name: テスト（アイコンの一覧は画像に書き出す）/ tests; icon sheets are written as images
-        run: flutter test --update-goldens
+      # 承認済みの画像（test/goldens/*.png）と比べる。違えば失敗する。--update-goldens は使わない（使うと違いを見逃す）
+      # Compare against approved goldens; never --update-goldens here, which would hide regressions
+      - name: テスト（画像は承認済みのものと比べる）/ tests against approved goldens
         working-directory: verify/flutter
+        run: |
+          if ls test/goldens/*.png >/dev/null 2>&1; then
+            flutter test
+          else
+            echo "::warning title=承認済みの画像がない / no approved goldens::画像の比較を飛ばした。goldens ワークフローで作り、目で確かめてから verify/flutter/test/goldens/ に入れる（verification.md 6 章）"
+            flutter test --exclude-tags golden
+          fi
       - uses: actions/upload-artifact@v4
-        if: always()
-        with: { name: flutter-goldens, path: verify/flutter/test/goldens/, if-no-files-found: ignore }
+        if: failure()
+        with: { name: flutter-golden-failures, path: verify/flutter/test/failures/, if-no-files-found: ignore }

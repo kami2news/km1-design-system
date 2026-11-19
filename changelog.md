@@ -1,5 +1,22 @@
 # 変更履歴 / Changelog
 
+## 2026-11-19 — 外部レビューへの対応 / Review follow-ups
+
+- **Flutter の画像比較を本当の検査に:** CI が `flutter test --update-goldens` で毎回画像を作り直しており、違いを見逃していた。通常の CI は承認済みの画像と比べて違えば失敗にし、作り直しは手で動かす「goldens」ワークフローだけにした（成果物を目で確かめてから commit）。承認済みの画像を入れるまでは比較を飛ばして警告を出す。手順は `verification.md` 6 章。
+  *Golden tests now compare against approved images; regeneration only via the manual "goldens" workflow.*
+- **SortableList:** id を渡さずに 2 つ置くと説明の id（`sort-help`）が重なっていたのを、ほかの部品と同じく自動で振るようにした。Esc は「移動を終える」だけで動かした並びが残っていたのを、説明どおり持ち上げる前の並びに戻して読み上げるようにした。
+  *SortableList: generated help id; Esc now restores the original order and announces it.*
+- **再発防止のテスト:** 自分で id を作る 14 部品を全部 2 つずつ置き、id が重ならないこと・aria の参照先がすべてあることを確かめるテストと、SortableList の Esc のテストを足した。前の版の `bundle.js` では 3 つ不合格になる。
+  *Every id-generating component placed twice, plus the Esc test; the previous bundle fails three of them.*
+- **検証の記録を実際に合わせた:** Flutter の解析とテストは CI で済み（F1）、画像比較（F2）と実機（F3）は未実施、と分けた。`platforms.md` に段階（安定〔パイロット〕・パイロット・実験的）を付け、ビルドしたことのない WinUI・Compose・SwiftUI は「実験的」にした。
+  *Verification log matches CI; platforms labelled stable-pilot, pilot or experimental.*
+- **色の組み合わせの検査:** 意味づけの色の 36 組（ライト・ダークで 72）を WCAG の比で調べる `gen/contrast_check.py` を足し、`check_all.sh` に入れた。すべて合格。
+  *New semantic-pair contrast check (72 pairs, all pass).*
+- **DTCG 形式のトークン:** `tokens.json` から W3C Design Tokens 形式のファイルをライト・ダーク 1 つずつ作る `gen/tokens_dtcg.py` を足した（`dist/tokens/`、生成物で差分を検査）。正本は `tokens.json` のまま。
+  *DTCG export generated from tokens.json.*
+- **公開の手順:** タグは付け直さない（同じ日の 2 回目は `.2`）、タグごとに GitHub の Release を作り `dist/` を添付する、と決め、`CONTRIBUTING.md` に手順を書いた。`CODEOWNERS` と Dependabot（npm・pip・Actions を週 1 回）を足した。
+  *Immutable tags plus GitHub Releases; CONTRIBUTING, CODEOWNERS and Dependabot added.*
+
 ## 2026-11-19 — スライドの文字の大きさと割り付け / Slide type sizes and layout grid
 
 - **文字を大きく（KM1-DOC-003 §4.1）:** 投影して読む前提にし、題名 28→32pt、本文 20→24pt、補足・英語・表・グラフ 16→20pt、柱 12→14pt にした。内容の文字は 20pt 以上、14pt は柱の行だけ。どれも KM1 の型の表の値（title-1・title-3・subtitle-1・body-1）で、行送りもトークンの値。題名は 1 行（全角 27 字まで）、縮めて入れない。

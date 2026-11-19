@@ -1,0 +1,27 @@
+# Flutter の比べる元の画像を作り直す（手で動かすときだけ）/ regenerate Flutter goldens (manual only)
+# 作った画像は成果物（artifact）として出すだけで、リポジトリには書き込まない。目で確かめてから、
+# verify/flutter/test/goldens/ に入れて commit する（verification.md 6 章）。
+# Produces goldens as an artifact only; review them, then commit them to verify/flutter/test/goldens/.
+name: goldens
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  goldens:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: { channel: stable, cache: true }
+      - name: 検証アプリに KM1 のファイルを入れる / put KM1 files into the verification app
+        run: |
+          cp km1_theme.dart km1_widgets.dart icons/km1_icons.dart icons/km1_icons_b.dart verify/flutter/lib/
+          mkdir -p verify/flutter/fonts && cp icons/KM1Icons.ttf verify/flutter/fonts/
+      - run: flutter pub get
+        working-directory: verify/flutter
+      - run: flutter test --tags golden --update-goldens
+        working-directory: verify/flutter
+      - uses: actions/upload-artifact@v4
+        with: { name: flutter-goldens-candidate, path: verify/flutter/test/goldens/ }

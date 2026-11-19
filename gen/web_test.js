@@ -5,7 +5,7 @@
 //            見本が部品の断片なので対象外 / WCAG A/AA rules only; page-level best practices don't apply to fragments
 // 2. keyboard: ライトの見本で Tab を 30 回まで押し、フォーカスが見える所にあり、枠（outline か box-shadow）が出るか
 // 3. reflow: 幅 320px で、ページ全体が横にはみ出さないか（WCAG 1.4.10）
-// 4. regress: 無効の ListItem・Button を押しても何も起きない。ErrorSummary・StepFlow を 2 つ置いても id が重ならない
+// 4. regress: 無効の ListItem・Button を押しても何も起きない。ErrorSummary・StepFlow と、自分で id を作る部品すべてを 2 つ置いても id が重ならない。SortableList の Esc で並びが戻る
 // 5. scenario: 利用シナリオ S1〜S3（verification.md 2 章）を 360px・1366px のライトと 1024px のダークで
 // 1 つでも落ちたら終了コード 1。/ Exits 1 on any failure.
 const fs = require('fs'), path = require('path');
@@ -100,6 +100,34 @@ async function regress(p) {
   ok(d.dup.length === 0, '2 つ置いても id が重ならない / unique ids', JSON.stringify(d.dup));
   ok(d.refs.length >= 5 && d.refs.every(Boolean), '名前の参照先が自分の見出し / aria-labelledby points inside itself', JSON.stringify(d.refs));
   ok(d.mine, '外から決めた id を使う / caller id respected');
+  // 自分で id を作る部品を全部 2 つずつ置く（id を渡さない）/ every id-generating component twice, without ids
+  await load(p, testPage('multi-all', `var O=[{value:'a',label:'あ'},{value:'b',label:'い'}],I=[{id:'x',label:'一'},{id:'y',label:'二'}],T=[{value:'a',label:'一',content:'a'},{value:'b',label:'二',content:'b'}];
+    function two(c,pr){return [h(c,Object.assign({key:1},pr)),h(c,Object.assign({key:2},pr))];}
+    ReactDOM.createRoot(document.getElementById('r')).render(h('div',null,
+      two(F.Input,{label:'名前',hint:'説明'}),two(F.Checkbox,{label:'同意'}),two(F.Select,{label:'選ぶ',options:O,hint:'説明'}),
+      two(F.RadioGroup,{legend:'色',options:O}),two(F.Switch,{label:'通知'}),two(F.Textarea,{label:'メモ',hint:'説明'}),
+      two(F.Tabs,{label:'タブ',items:T}),two(F.Accordion,{items:T}),two(F.SearchBox,{label:'検索'}),
+      two(F.Combobox,{label:'候補',options:O}),two(F.TagPicker,{label:'タグ',options:O,value:[]}),
+      two(F.Slider,{label:'音量'}),two(F.SpinButton,{label:'数'}),two(F.SortableList,{label:'順番',items:I})));`));
+  const m = await p.evaluate(() => {
+    const ids = [...document.querySelectorAll('[id]')].map(e => e.id), dup = [...new Set(ids.filter((x, i) => ids.indexOf(x) !== i))];
+    const broken = [...document.querySelectorAll('[aria-describedby],[aria-labelledby],[aria-controls]')].flatMap(e =>
+      ['aria-describedby', 'aria-labelledby', 'aria-controls'].flatMap(a => (e.getAttribute(a) || '').split(/\s+/).filter(Boolean)).filter(r => !document.getElementById(r)));
+    return { dup, broken, n: ids.length };
+  });
+  ok(m.n > 20 && m.dup.length === 0, '全部の部品を 2 つ置いても id が重ならない / unique ids for every component placed twice', JSON.stringify(m.dup));
+  ok(m.broken.length === 0, '参照先の id がすべてある / every aria reference resolves', JSON.stringify(m.broken));
+  // SortableList: Esc で持ち上げる前の並びに戻る / Esc restores the original order
+  await load(p, testPage('sort-esc', `function App(){var s=React.useState([{id:'a',label:'一'},{id:'b',label:'二'},{id:'c',label:'三'}]);
+      return h(F.SortableList,{label:'順番',items:s[0],onChange:s[1]});}
+    ReactDOM.createRoot(document.getElementById('r')).render(h(App));`));
+  await p.focus('.f2-sort__grip'); await p.keyboard.press('Space'); await p.keyboard.press('ArrowDown'); await sleep(50); await p.keyboard.press('ArrowDown'); await sleep(50);
+  const moved = await p.evaluate(() => [...document.querySelectorAll('.f2-sort__label')].map(e => e.firstChild.textContent).join(''));
+  await p.keyboard.press('Escape'); await sleep(100);
+  const back = await p.evaluate(() => ({ order: [...document.querySelectorAll('.f2-sort__label')].map(e => e.firstChild.textContent).join(''),
+    said: [...document.querySelectorAll('[aria-live]')].map(e => e.textContent).join(' '), focus: document.activeElement.getAttribute('aria-label') || '' }));
+  ok(moved === '二三一' && back.order === '一二三', 'SortableList: Esc で元の並びに戻る / Esc restores order', JSON.stringify({ moved, back }));
+  ok(/取り消/.test(back.said) && /^一/.test(back.focus), 'SortableList: 取り消しが読まれ、フォーカスが動かした項目に戻る / cancel announced, focus kept', JSON.stringify(back));
 }
 
 // ---------- シナリオ / scenarios ----------

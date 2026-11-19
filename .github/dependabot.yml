@@ -1,0 +1,17 @@
+# 依存の更新を週に 1 回まとめて提案する / weekly grouped dependency updates
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /gen
+    schedule: { interval: weekly }
+    groups: { gen: { patterns: ['*'] } }
+  - package-ecosystem: npm
+    directory: /office
+    schedule: { interval: weekly }
+    groups: { office: { patterns: ['*'] } }
+  - package-ecosystem: pip
+    directory: /
+    schedule: { interval: weekly }
+  - package-ecosystem: github-actions
+    directory: /
+    schedule: { interval: weekly }

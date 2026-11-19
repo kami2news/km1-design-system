@@ -10,14 +10,16 @@ KM1 の検証は「自動の検査（ここで実施）」と「実機・読み�
 
 | # | 対象 / Target | 内容 / What | 状態 | 日付・環境 | 課題 |
 |---|---|---|---|---|---|
-| W1 | Web（headless Chrome） | 部品の自動検査（axe、WCAG 2.2 A・AA の規則）・キーボード・320px・再発防止・利用シナリオ 3 つ・大量データ | 済 | 2026-11-18・Chrome（`gen/web_test.js`。clone から `bash gen/check_all.sh` で再現でき、GitHub の CI でも push のたびに流す） | axe 134 ページ・キーボード 67・320px 63（説明用の図 4 つは対象外）・再発防止 5・シナリオ 42 項目、すべて合格。大量データは下の 4 章（2026-11-13） |
+| W1 | Web（headless Chrome） | 部品の自動検査（axe、WCAG 2.2 A・AA の規則）・キーボード・320px・再発防止（自分で id を作る部品すべてを 2 つ置く、SortableList の Esc を含む）・利用シナリオ 3 つ・大量データ | 済 | 2026-11-18・Chrome（`gen/web_test.js`。clone から `bash gen/check_all.sh` で再現でき、GitHub の CI でも push のたびに流す） | axe 134 ページ・キーボード 67・320px 63（説明用の図 4 つは対象外）・再発防止 9（2026-11-19 に 4 つ追加。前の版の bundle.js では 3 つ不合格になることを確かめた）・シナリオ 42 項目、すべて合格。大量データは下の 4 章（2026-11-13） |
 | W2 | Web（実際のブラウザ） | 利用シナリオ 3 つを Chrome・Edge・Safari・Firefox で | 未実施 | | |
 | N1 | Windows | NVDA とナレーターで利用シナリオ 3 つ | 未実施 | | |
 | N2 | Windows | WinUI 3 のビルドと表示（`KM1.xaml`） | 未実施 | | |
 | M1 | macOS | VoiceOver で利用シナリオ、SwiftUI の表示 | 未実施 | | |
 | I1 | iOS・iPadOS | VoiceOver、Dynamic Type、Safe Area | 未実施 | | |
 | A1 | Android | TalkBack、戻るジェスチャー、Compose のビルド | 未実施 | | |
-| F1 | Flutter | `flutter analyze`、ビルド、実際の画面 | 未実施 | | |
+| F1 | Flutter（CI） | `flutter analyze`（エラー・警告で失敗）と `flutter test`（ギャラリーをスマホ 390・PC 1280 の幅、ライト・ダークで組み立て、例外とはみ出しがないか） | 済 | 2026-11-18・GitHub Actions の ubuntu-24.04・Flutter stable（`.github/workflows/check.yml`。push のたびに流す） | 情報（material.dart の非推奨）は失敗にしない。アイコンの一覧の画像比較は、承認済みの画像を入れるまで飛ばす（F2） |
+| F2 | Flutter の画像比較 | アイコンの一覧 6 枚を承認済みの画像と比べ、違えば CI を失敗にする | 未実施 | | 2026-11-19 まで CI が `--update-goldens` で毎回画像を作り直しており、違いを見逃していた。比べる形に直した。承認済みの画像を入れる手順は 6 章 |
+| F3 | Flutter（実機） | Android・iOS・Windows・macOS でのビルドと実際の画面 | 未実施 | | |
 | T1 | 書体 / Typefaces | Office（Windows・Mac）、iOS・Android・Windows の画面で、文字がゴシック体で描かれるか（明朝・セリフ体に落ちていないか）。日本語・英語・数字・記号（①・℃・〜）の混じった文で見る。手順は 5 章 | 未実施 | | 自動の検査（`fontcheck.py`・`fontcheck_render.js`）は 2026-11-14 に合格 |
 | C1 | 文書の整合 / Docs consistency | `gen/sync_counts.py --check`（部品数・対応表の食い違い）と `gen/govcheck.py`（保留・提案の期限）を一緒に流す | 済 | 2026-11-18・`gen/check_all.sh` の中で流す（CI も同じ） | 2026-11-15 に追加。変更のたびに流す |
 
@@ -94,3 +96,19 @@ headless Chrome で、選べる List と Table に 500〜5,000 行を表示し�
 3. 日本語・英語・数字・記号（①・℃・〜）の混じった文を目で見て、明朝・セリフ体に落ちていないかを確かめる。比べるための行は URL に `?controls=1` を付けると出る。
 4. Office はひな形を開いて見出し・本文の書体名を確かめる。
 5. 結果（日付・端末・OS とブラウザの版・返事）を T1 に書く。
+
+## 6. Flutter の画像比較の手順（F2） / Flutter golden procedure
+
+CI の Flutter のテストは、`verify/flutter/test/goldens/` にある承認済みの画像と比べる。画像が違えば CI は失敗し、違った画像は成果物 `flutter-golden-failures` に出る。`--update-goldens`（画像を作り直す）は通常の CI では使わない。
+*CI compares against approved images in `verify/flutter/test/goldens/`; any difference fails the build and the diffs are uploaded. `--update-goldens` is never used in the normal CI.*
+
+1. 承認済みの画像を作る・作り直す: GitHub の Actions で「goldens」ワークフローを手で動かす（Run workflow）。CI と同じ ubuntu と Flutter で作るので、手元の OS の書体の違いが入らない。
+   *Run the "goldens" workflow by hand; it renders on the same runner as CI.*
+2. 成果物 `flutter-goldens-candidate` を落として、6 枚（16・20・24px × ライト・ダーク）を目で確かめる。アイコンが欠けていないか、線の太さ・色が KM1 の決まりどおりか。
+3. よければ `verify/flutter/test/goldens/` に入れて commit する。変更の理由（アイコンを足した、など）を変更履歴に書く。
+4. 以後、アイコンや Flutter のテーマを変えて画像が変わると CI が失敗する。意図した変更なら 1〜3 をやり直す。意図しない変更なら直す。
+   *Afterwards any visual change fails CI; redo steps 1–3 only for intended changes.*
+
+承認済みの画像がまだないあいだは、CI は画像比較を飛ばして警告を出す（ほかのテストは流す）。
+*Until approved images exist, CI skips the comparison with a warning and runs the rest.*
+

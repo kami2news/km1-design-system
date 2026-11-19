@@ -684,25 +684,29 @@ function TagPicker(p){
 }
 function SortableList(p){
   var items=p.items||[],grab=React.useState(null),drag=React.useRef(null),over=React.useState(null),msg=React.useState(''),refs=React.useRef({});
+  var idRef=React.useRef(null); if(!idRef.current) idRef.current=p.id||nextId('sort');   // 2 つ置いても説明の id が重ならない / unique per instance
+  var hid=idRef.current+'-help',start=React.useRef(null);   // 持ち上げる前の並び（Esc で戻す）/ order before lifting, restored by Esc
   function lab(i){return items[i]?items[i].label:'';}
   function emit(from,to,say){if(to<0||to>=items.length||from===to)return;var n=items.slice();var x=n.splice(from,1)[0];n.splice(to,0,x);if(p.onChange)p.onChange(n);
     msg[1](say||(x.label+' を '+(to+1)+' 番目に移動しました（全 '+items.length+' 件）'));
     setTimeout(function(){var el=refs.current[x.id];if(el)el.focus();},0);}
   function key(e,i){
-    if(e.key===' '||e.key==='Enter'){e.preventDefault();if(grab[0]==null){grab[1](i);msg[1](lab(i)+' を持ち上げました。上下の矢印で動かし、Space で置きます。Esc で取り消します。');}
-      else{grab[1](null);msg[1](lab(i)+' を '+(i+1)+' 番目に置きました');}}
+    if(e.key===' '||e.key==='Enter'){e.preventDefault();if(grab[0]==null){start.current={list:items.slice(),from:i,id:items[i]&&items[i].id};grab[1](i);msg[1](lab(i)+' を持ち上げました。上下の矢印で動かし、Space で置きます。Esc で取り消します。');}
+      else{start.current=null;grab[1](null);msg[1](lab(i)+' を '+(i+1)+' 番目に置きました');}}
     else if(grab[0]!=null&&(e.key==='ArrowUp'||e.key==='ArrowDown')){e.preventDefault();var to=i+(e.key==='ArrowUp'?-1:1);if(to>=0&&to<items.length){emit(i,to);grab[1](to);}}
-    else if(e.key==='Escape'&&grab[0]!=null){e.preventDefault();grab[1](null);msg[1]('移動を終えました');}}
+    else if(e.key==='Escape'&&grab[0]!=null){e.preventDefault();var st=start.current;start.current=null;grab[1](null);
+      if(st&&i!==st.from){if(p.onChange)p.onChange(st.list);setTimeout(function(){var el=refs.current[st.id];if(el)el.focus();},0);}
+      msg[1]((st?(st.list[st.from]||{}).label:lab(i))+' の移動を取り消し、'+((st?st.from:i)+1)+' 番目に戻しました');}}
   return h('div',{className:cx('f2-sort',p.className),'data-density':p.density},
-    h('span',{id:(p.id||'sort')+'-help',className:'f2-sr'},'並べ替えるには、項目のつまみで Space を押し、上下の矢印で動かして、もう一度 Space を押します。'),
+    h('span',{id:hid,className:'f2-sr'},'並べ替えるには、項目のつまみで Space を押し、上下の矢印で動かして、もう一度 Space を押します。'),
     h('ol',{className:'f2-sort__list','aria-label':p.label},items.map(function(it,i){var g=grab[0]===i;
       return h('li',{key:it.id,className:cx('f2-sort__item',g&&'f2-sort__item--grabbed',over[0]===i&&'f2-sort__item--over'),
           onDragOver:function(e){e.preventDefault();over[1](i);},onDragLeave:function(){over[1](null);},
           onDrop:function(e){e.preventDefault();over[1](null);if(drag.current!=null)emit(drag.current,i);drag.current=null;}},
-        h('button',{type:'button',ref:function(el){refs.current[it.id]=el;},className:'f2-sort__grip',draggable:true,'aria-describedby':(p.id||'sort')+'-help',
+        h('button',{type:'button',ref:function(el){refs.current[it.id]=el;},className:'f2-sort__grip',draggable:true,'aria-describedby':hid,
           'aria-label':it.label+'（'+(i+1)+' / '+items.length+'）'+(g?' 持ち上げ中':''),'aria-pressed':g?'true':'false',
           onDragStart:function(e){drag.current=i;try{e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',it.label);}catch(x){}},
-          onKeyDown:function(e){key(e,i);},onBlur:function(){if(grab[0]===i){grab[1](null);}}},icon20('grip')),
+          onKeyDown:function(e){key(e,i);},onBlur:function(){if(grab[0]===i){start.current=null;grab[1](null);}}},icon20('grip')),
         h('span',{className:'f2-sort__label'},it.label,it.sub?h('span',{className:'f2-sort__sub'},it.sub):null),
         h('span',{className:'f2-sort__moves'},
           h('button',{type:'button',className:'f2-sort__move','aria-label':it.label+' を上へ',disabled:i===0,onClick:function(){emit(i,i-1);}},icon16('up')),

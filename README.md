@@ -9,6 +9,8 @@
 | `icons/icon-list.svg` | アイコン一覧の図（`icons/icon_sheet.py` で作る。`icons.md` §4 に掲載） |
 | `*.md` | 本編の文書（原則・画面の組み立て・プロダクトデザイン・プラットフォーム・トークン・アイコン・文書・運用・検証・変更履歴など） |
 | `tokens.json` / `tokens.css` | トークン（正本は JSON、CSS は生成物） |
+| `dist/tokens/` | W3C Design Tokens（DTCG）形式のトークン。ライトとダークで 1 ファイルずつ（`gen/tokens_dtcg.py` で作る生成物。Style Dictionary などの道具に読ませる用） |
+| `CONTRIBUTING.md` | 変更の進め方と公開（タグ・Release）の手順 |
 | `components/` | Web の部品（各部品の `README.md` と `preview.html`、`bundle.css`・`bundle.js`・`index.d.ts`） |
 | `km1_theme.dart` / `km1_widgets.dart` | Flutter のテーマと KM1 専用部品 |
 | `KM1.xaml` / `Km1Theme.kt` / `KM1Theme.swift` | WinUI 3・Jetpack Compose・SwiftUI のテーマ |
@@ -187,8 +189,8 @@ clone したままの状態から、次の手順で全部の検査を流せる�
 
 1. 必要なもの: Python 3.10 以上、Node 22、Google Chrome、poppler-utils（`pdffonts`）、librsvg（`rsvg-convert`）、日本語のゴシック体（Noto Sans CJK など）。
 2. `pip install -r requirements.txt`、`(cd gen && npm ci)`、`(cd office && npm ci)`
-3. `bash gen/check_all.sh` → トークンの生成物の差分・トークンの別名・部品の数・保留の期限・アイコン・Web の自動検査（axe・キーボード・320px・再発防止・シナリオ、`gen/web_test.js`）・寸法・Office・PDF・書体の 11 項目。1 つでも落ちれば終了コード 1。
-*Requires Python 3.10+, Node 22, Chrome, poppler-utils, librsvg and a CJK sans font; install the pinned dependencies, then run `bash gen/check_all.sh` (11 checks; non-zero exit on any failure).*
+3. `bash gen/check_all.sh` → トークンの生成物の差分・トークンの別名・部品の数・保留の期限・アイコン・Web の自動検査（axe・キーボード・320px・再発防止・シナリオ、`gen/web_test.js`）・寸法・Office・PDF・書体・色の組み合わせのコントラスト（`gen/contrast_check.py`）の 12 項目。1 つでも落ちれば終了コード 1。
+*Requires Python 3.10+, Node 22, Chrome, poppler-utils, librsvg and a CJK sans font; install the pinned dependencies, then run `bash gen/check_all.sh` (12 checks; non-zero exit on any failure).*
 
 実機・読み上げソフト（NVDA・ナレーター・VoiceOver・TalkBack）・各 OS のネイティブのビルドは、ここでは流せない。手順と記録は「検証」（`verification.md`）、Windows 用の検証セットは `verify/`。
 *Real devices, screen readers and native builds can't run here; see `verification.md` and the Windows kit in `verify/`.*

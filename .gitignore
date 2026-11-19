@@ -5,3 +5,4 @@ icons/build/
 results/
 .DS_Store
 verify/build/
+verify/flutter/test/failures/

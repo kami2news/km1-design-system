@@ -56,8 +56,8 @@ KM1 に何を入れ、何を入れないかを決める手続きと、変更・�
   *Verify with before/after pixel comparison of all previews (animations frozen) plus scenario and component checks.*
 - **版の名前:** `KM1 YYYY-MM-DD`（その日の最後の公開）。変更履歴の見出しと同じ。
   *Editions are named by date, matching changelog headings.*
-- **版のタグ:** その日の最後の公開に Git のタグ `km1-YYYY-MM-DD` を付け、PDF の表紙の版とソースのコミットを結ぶ。同じ日にもう一度公開したら、タグをその公開に付け直す。
-  *Tag the day's last publish `km1-YYYY-MM-DD` so the PDF cover's edition maps to a commit; if you publish again that day, move the tag.*
+- **版のタグとリリース:** 公開するたびに Git のタグ `km1-YYYY-MM-DD` を付け、PDF の表紙の版とソースのコミットを結ぶ。タグは付け直さない（使う側が固定した版が変わってしまうため）。同じ日にもう一度公開するときは `km1-YYYY-MM-DD.2` とする。タグごとに GitHub の Release を作り、`dist/` の配布物（PDF・ひな形・アイコンと模様の zip・DTCG のトークン）を添付し、変更履歴のその日の節を本文にする。手順は `CONTRIBUTING.md`。
+  *Tag every publish `km1-YYYY-MM-DD` (never move a tag; use `.2` for a second publish that day) and create a GitHub Release with the `dist/` files and that day's changelog. Steps in `CONTRIBUTING.md`.*
 
 ## 5. 出典の扱い / Sources
 
