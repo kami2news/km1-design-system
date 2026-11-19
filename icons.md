@@ -394,8 +394,8 @@ Web（ライトとダークを OS の設定で切り替える）:
 </a>
 ```
 
-Flutter は `designed-with-km1.png`（と `@2x`・`@3x`）を assets に入れ、`Image.asset` で高さ 24 にして出す。読み上げ用に `semanticLabel: 'Designed with KM1'` を付ける。Word・PowerPoint は PNG の 3 倍を高さ 24px（6.35 mm）で貼る。
-*Flutter: ship the PNGs as assets and show at height 24 with `semanticLabel`. Word/PowerPoint: paste the @3x PNG at 24px (6.35 mm) tall.*
+Flutter は `designed-with-km1.png`（と `@2x`・`@3x`）を assets に入れ、`Image.asset` で高さ 24 にして出す。読み上げ用に `semanticLabel: 'Designed with KM1'` を付ける。PowerPoint は `KM1_表示バッジ.pptx` からコピーして貼る（GitHub へのリンクと代替テキストが付いている。置き場所は `office.md` §4.5）。Word は PNG の 3 倍を高さ 24px（6.35 mm）で貼り、「挿入 › リンク」で GitHub の URL を付ける。
+*Flutter: ship the PNGs as assets and show at height 24 with `semanticLabel`. PowerPoint: copy from `KM1_表示バッジ.pptx` (linked, with alt text). Word: paste the @3x PNG at 24px (6.35 mm) and add the GitHub link.*
 
 KM1 は個人の標準なので、このロゴは Microsoft・Science Tokyo・Seiko Epson・デジタル庁の承認を示すものではない（`notices.md`）。
 *KM1 is a personal standard; the logo implies no endorsement by the organisations referenced (`notices.md`).*

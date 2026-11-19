@@ -24,8 +24,8 @@ KM1 は個人が管理するデザイン標準です。変更の決め方（提�
 2. `KM1_DATE=YYYY-MM-DD python3 gen/build_pdf.py dist` で PDF を作り直し、`office/` の道具でひな形を作り直す（`office.md` §5）。
 3. `bash gen/check_all.sh` が通ることを確かめて `main` に入れる。
 4. タグを付ける: `git tag -a km1-YYYY-MM-DD -m "KM1 YYYY-MM-DD" && git push origin km1-YYYY-MM-DD`。付けたタグは動かさない。同じ日の 2 回目は `km1-YYYY-MM-DD.2`。
-5. GitHub の Release をそのタグで作る: 本文は変更履歴のその日の節、添付は `dist/` の PDF 2 冊・`.potx`・`.dotx`・`KM1_icons.zip`・`KM1_グラフの模様.zip`・`dist/tokens/*.json`。
-   `gh release create km1-YYYY-MM-DD dist/*.pdf dist/*.potx dist/*.dotx dist/*.zip dist/tokens/*.json --title "KM1 YYYY-MM-DD" --notes-file <その日の節>`
+5. GitHub の Release をそのタグで作る: 本文は変更履歴のその日の節、添付は `dist/` の PDF 2 冊・`.potx`・`.dotx`・`KM1_表示バッジ.pptx`・`KM1_icons.zip`・`KM1_グラフの模様.zip`・`dist/tokens/*.json`。
+   `gh release create km1-YYYY-MM-DD dist/*.pdf dist/*.potx dist/*.dotx dist/KM1_表示バッジ.pptx dist/*.zip dist/tokens/*.json --title "KM1 YYYY-MM-DD" --notes-file <その日の節>`
    *Tag `km1-YYYY-MM-DD` (immutable), then create a GitHub Release with the changelog section and the `dist/` files.*
 
 ## 3. 対応の段階 / Support levels

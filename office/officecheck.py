@@ -323,7 +323,7 @@ def layout_checks(z,slides):
         for (bx,by,bw,bh),nm in top:
             if by+bh>BODY_BOTTOM+1: out('FAIL','OVERFLOW',f'スライド {i} の {nm} が本文の領域の下（{BODY_BOTTOM}pt）を越えて柱に重なる')
             if by<BODY_TOP-1: out('WARN','OVERFLOW',f'スライド {i} の {nm} が題名の行に入っている')
-            if min(abs(bx-g) for g in GRID_X)>1 or min(abs(bx+bw-g) for g in GRID_R)>1: out('WARN','GRID',f'スライド {i} の {nm} の左右の端が 12 列のグリッドにそろっていない（x={bx:g}, w={bw:g}）')
+            if not (nm or '').startswith('km1-badge') and (min(abs(bx-g) for g in GRID_X)>1 or min(abs(bx+bw-g) for g in GRID_R)>1): out('WARN','GRID',f'スライド {i} の {nm} の左右の端が 12 列のグリッドにそろっていない（x={bx:g}, w={bw:g}）')
         # 図・表・カードだけのスライドで、本文の領域の下半分が空いている / lower half empty on a visual slide
         figs=list(s.iter('{%s}pic'%NS['p']))+[g for g in s.iter('{%s}graphicFrame'%NS['p']) if g.find('.//c:chart',{'c':'http://schemas.openxmlformats.org/drawingml/2006/chart'}) is not None]
         if top and figs and not any(e.find('.//p:nvPr/p:ph[@type="body"]',NS) is not None for e in s.iter('{%s}sp'%NS['p'])):

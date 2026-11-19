@@ -43,6 +43,22 @@ const KM1_NOTICE_JA = 'KM1 は個人が作ったデザイン標準です。Micro
 const KM1_NOTICE_EN = "KM1 is a personal design standard. It was not created, approved or endorsed by Microsoft, Seiko Epson, Institute of Science Tokyo, Japan's Digital Agency or any other organization, and is not affiliated with them. All names and trademarks belong to their owners. KM1 is released under the MIT License. See the LICENSE in https://github.com/kami2news/km1-design-system for the full text and copyright notice.";
 
 
+// 表示バッジとしるしのボタン（icons.md §10）。GitHub の正本へのリンク付きの画像。大きさは決まった値なので 12 列のグリッドの例外（名前は km1-badge で始める）
+// Attribution badge and mark button (icons.md §10): pictures linked to the GitHub repository; fixed sizes, exempt from the grid (names start with km1-badge)
+const KM1_URL = 'https://github.com/kami2news/km1-design-system';
+const LOGO = f => path.join(__dirname, '..', 'dist', 'logo', f);
+const BADGE = {
+  en:   { file: 'designed-with-km1@3x.png', w: 144, h: 24, alt: 'Designed with KM1（KM1 デザインシステムの GitHub へのリンク）' },
+  ja:   { file: 'km1-de-sekkei@3x.png',     w: 100, h: 24, alt: 'KM1 で設計（KM1 デザインシステムの GitHub へのリンク）' },
+  mark: { file: 'km1-mark@3x.png',          w: 32,  h: 32, alt: 'KM1（KM1 デザインシステムの GitHub へのリンク）' },
+};
+function addBadge(s, kind, x, y, name) {
+  const b = BADGE[kind];
+  s.addImage({ path: LOGO(b.file), x: PT(x), y: PT(y), w: PT(b.w), h: PT(b.h), altText: b.alt, objectName: name || `km1-badge-${kind}`,
+    hyperlink: { url: KM1_URL, tooltip: 'KM1 デザインシステム（GitHub）' } });
+  return b;
+}
+
 function layouts(pres, docName) {
   const foot = [
     { text: { text: docName, options: { x: PT(G.side), y: PT(G.footTop), w: PT(spanW(8)), h: PT(G.footH), fontSize: T.caption, color: C.ink3, fontFace: FONT, margin: 0, valign: 'middle', lang: LANG } } },
@@ -333,10 +349,36 @@ async function build() {
     li('一覧を25 % で見ても題名が読める'),
     li('ファイルのプロパティに個人名が残っていない', { breakLine: false }),
   ], { placeholder: 'body' });
-  s.addNotes(KM1_NOTICE_JA + '\n' + KM1_NOTICE_EN);
+  // 最後のスライドの本文の領域の右下に表示バッジ（GitHub へのリンク）/ attribution badge, bottom-right of the body area on the last slide
+  addBadge(s, 'en', G.side + G.contentW - BADGE.en.w, G.bodyBottom - BADGE.en.h);
+  s.addNotes(KM1_NOTICE_JA + '\n' + KM1_NOTICE_EN + '\n右下の表示バッジは GitHub の KM1 へのリンク（icons.md §10）。');
 
   const f = path.join(OUT, 'KM1_スライド見本.pptx');
   await pres.writeFile({ fileName: f }); await applyTheme(f, THEME); await fixTheme(f);
   console.log('ok', f);
+
+  // 3) 表示バッジの部品 / attribution badge parts: コピーして自分のスライドに貼る（リンクも一緒に移る）
+  {
+    const pp = new pptxgen(); props(pp, 'KM1 表示バッジ（GitHub へのリンク付き）/ KM1 attribution badges'); layouts(pp, 'KM1 表示バッジ');
+    const ps = pp.addSlide({ masterName: 'KM1 題名だけ / Title only' });
+    ps.addText('コピーして貼ると、リンクも一緒に移る', { placeholder: 'title' });
+    const rows = [['en', 'Designed with KM1（英語・英語まじりのスライド）'], ['ja', 'KM1 で設計（日本語のスライド）'], ['mark', 'しるしだけのボタン（狭い場所。32 pt より小さくしない）']];
+    const rowH = 2 * LH[20] + S.xxl;                   // 説明 2 行 ＋ 間 / two caption lines + gap
+    rows.forEach(([k, label], i) => {
+      const y = G.bodyTop + i * (rowH + S.lg);
+      addBadge(ps, k, colX(0), y + (LH[20] - BADGE[k].h) / 2);   // 説明の 1 行目の高さの中央 / centred on the first caption line
+      ps.addText([{ text: label, options: { breakLine: true, bold: true, lang: LANG } }, { text: 'リンク先: ' + KM1_URL, options: { color: C.ink2, lang: LANG } }],
+        { x: PT(colX(3)), y: PT(y), w: PT(spanW(9)), h: PT(2 * LH[20]), fontSize: T.small, lineSpacing: LH[20], color: C.ink, fontFace: FONT, margin: 0, valign: 'top', isTextBox: true, objectName: `caption-${k}` });
+    });
+    ps.addNotes([
+      '使い方: 使いたいバッジをクリックしてコピー（Ctrl＋C）し、自分のスライドに貼る（Ctrl＋V）。GitHub へのリンクと代替テキストも一緒に移る。',
+      '置き場所: 最後のスライドの本文の領域の右下（右の余白 48 pt・柱の行の上 24 pt）。大きさは変えない（バッジは高さ 24 pt、しるしは 32 pt）。',
+      '暗い背景のスライドには dist/logo の designed-with-km1-dark@3x.png を使う。決まりは icons.md §10。',
+      'How to use: copy a badge and paste it into your slide; the GitHub link and alt text travel with it. Place it bottom-right of the body area on the last slide; do not resize.',
+      KM1_NOTICE_JA, KM1_NOTICE_EN ].join('\n'));
+    const pf = path.join(OUT, 'KM1_表示バッジ.pptx');
+    await pp.writeFile({ fileName: pf }); await applyTheme(pf, THEME); await fixTheme(pf);
+    console.log('ok', pf);
+  }
 }
 build().catch(e => { console.error(e); process.exit(1); });

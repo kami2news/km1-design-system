@@ -8,6 +8,8 @@
   *Added the "Designed with KM1" badge; "Designed by" and "Powered by" are not used.*
 - **道具とファイル:** `brand/km1_logo.py` が `dist/logo/` に SVG と PNG（1・2・3 倍）を書き出す。決まりは「アイコン」§10。
   *`brand/km1_logo.py` writes `dist/logo/`; rules in Icons §10.*
+- **PowerPoint の表示バッジ:** GitHub の KM1 へのリンクと代替テキストが付いた表示バッジ（英語・日本語）としるしだけのボタンを `KM1_表示バッジ.pptx` に入れた。コピーして貼るとリンクも移る。見本のスライドの最後にも置いた。置き場所は `office.md` §4.5。`officecheck.py` は名前が `km1-badge` で始まる画像をグリッドの検査から除く。
+  *`KM1_表示バッジ.pptx` holds linked badges and a mark button to copy into slides; the sample deck shows one on its last slide.*
 
 ## 2026-11-19 — 外部レビューへの対応 / Review follow-ups
 
