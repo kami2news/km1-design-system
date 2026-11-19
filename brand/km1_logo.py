@@ -23,8 +23,8 @@ def font(weight):
 
 # KM1 のトークンの値 / KM1 token values (tokens.json)
 THEMES = {
-    'light': dict(surface='FFFFFF', stroke='D1D1D1', ink='242424', ink2='424242', mark_bg='FFFFFF', mark_fg='10218B'),   # brand-700
-    'dark':  dict(surface='292929', stroke='666666', ink='FFFFFF', ink2='D6D6D6', mark_bg='FFFFFF', mark_fg='10218B'),   # ダークでも白地に紺 / white tile on dark too
+    'light': dict(surface='FFFFFF', stroke='D1D1D1', ink='242424', ink2='424242', mark_bg='FFFFFF', mark_fg='10218B', mark_line='242424'),   # brand-700、縁は ink
+    'dark':  dict(surface='292929', stroke='666666', ink='FFFFFF', ink2='D6D6D6', mark_bg='FFFFFF', mark_fg='10218B', mark_line='242424'),   # ダークでも白地に紺 / white tile on dark too
 }
 RADIUS = 0.125   # しるしの角: 32px で radius-md（4px）と同じ比 / mark corner = radius-md at 32px
 
@@ -43,17 +43,17 @@ def text_path(runs, size):
 
 def mark_svg(size, c, mono=False):
     """ロゴのしるし: 白地に青。§6 のアプリアイコン（紺地に白）の色を入れ替えたもの。白い面が明るい背景に溶けないよう、
-    縁を青で囲む（太さはしるしの 1/32。32px で 1px）。48px 未満は帯を省く。単色は縁・文字・帯を ink 1 色で、地は透明。
-    Logo mark: blue on white (the §6 app icon with colours swapped), framed by a blue border (size/32);
+    縁を黒（ink）の細い線で囲む（太さはしるしの 1/64、1px より細くしない）。48px 未満は帯を省く。単色は縁・文字・帯を ink 1 色で、地は透明。
+    Logo mark: blue on white (the §6 app icon with colours swapped), framed by a thin ink hairline (size/64, at least 1px);
     under 48px the bar is dropped. Mono draws border, letters and bar in ink on a transparent ground."""
     small = size < 48
     fg = c['ink'] if mono else c['mark_fg']
     s = artwork(size, 'FFFFFF', fg, ('text', wordmark('KM1')), small=small)
     inner = s[s.index('>') + 1:s.rindex('</svg>')]
     body = inner.split('/>', 1)[1]          # 地の四角を外して文字と帯だけ / drop the ground rect
-    sw = max(1.0, size / 32); r = size * RADIUS
+    sw = max(1.0, size / 64); r = size * RADIUS
     ground = 'none' if mono else f'#{c["mark_bg"]}'
-    frame = f'<rect x="{sw / 2:g}" y="{sw / 2:g}" width="{size - sw:g}" height="{size - sw:g}" rx="{r - sw / 2:.2f}" fill="{ground}" stroke="#{fg}" stroke-width="{sw:g}"/>'
+    frame = f'<rect x="{sw / 2:g}" y="{sw / 2:g}" width="{size - sw:g}" height="{size - sw:g}" rx="{r - sw / 2:.2f}" fill="{ground}" stroke="#{c['ink'] if mono else c['mark_line']}" stroke-width="{sw:g}"/>'
     return frame + body
 
 def doc(w, h, body):
