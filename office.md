@@ -90,6 +90,8 @@ KM1 の型の表の大きさと行送りだけを使う / only KM1 type-ramp siz
   *Titles fit on one line: 27 full-width characters at 32pt.*
 - 本文は左寄せ。中央寄せは使わない（題名も左寄せ）。
   *Left-aligned text, titles included.*
+- **英語の併記は話すスライドに載せない:** 映しながら話すスライドでは、英語はノートに書く。日本語の下に英語の行を重ねると読む量が倍になり、目が行き来するため。英語を併記するのは、配って読んでもらう資料（PDF にして配るもの）だけ。詳しいことはノートに書き、あとで資料と一緒に共有するという考え方（ウェールズ政府の指針など）と同じ。
+  *Spoken slides put English in the notes; only handout decks carry English under the Japanese.*
 - 20pt は図の説明・表・グラフ・補足・英語の併記だけに使う。カードの中の文字は本文と同じ 24pt（大きなカードに 20pt の文字を置くと中身が貧弱に見える）。
   *20pt only for captions, tables, charts, notes and English; card text is 24pt like the body.*
 - **数字のあとの空白（スライドの文字）:** 数値と単位の間は半角の空白をあける（SI の書き方。理系の標準）。単位には `pt`・`px`・`%` も含める。例: 「水深 4 m」「25 °C」「24 pt」「25 %」。助数詞（年・月・日・回・本・個・枚・か所・件・人・時間・列・行・字・項目・つ など）の前には空白を入れず、和文と数字の間にも入れない。例: 「4回」「12月」「1枚に1つ」。日本語の中に空白が多いと間延びして読みにくくなるため。単位の前の空白がない・助数詞の前に空白がある、はどちらも検査で注意。
@@ -119,7 +121,7 @@ KM1 の型の表の大きさと行送りだけを使う / only KM1 type-ramp siz
 |---|---|---|
 | 12 | 864 | グラフ・表・大きな図 |
 | 6 ＋ 6 | 420 ＋ 420 | 2 段（比べる・並べる） |
-| 8 ＋ 4 | 568 ＋ 272 | 図と説明（図が左） |
+| 7 ＋ 5 | 494 ＋ 346 | 図と説明（図が左）。説明の列は 24 pt で 1 行 13 字ほど |
 | 4 ＋ 4 ＋ 4 | 272 × 3 | カード 3 枚 |
 | 3 × 4 | 198 × 4 | カード 4 枚・手順 |
 
@@ -145,6 +147,10 @@ KM1 の型の表の大きさと行送りだけを使う / only KM1 type-ramp siz
   - 超えたら 2 枚に分け、題名に「（2/2）」を付ける。上限は箇条書きだけでなく、見出しと文の組を並べたスライドにも効く。
   - 枚数の目安は 1 枚 45〜60 秒（10 分の発表なら 10〜12 枚）。
   *About 100 full-width characters per slide (titles, captions and English excluded); at most three text groups of two lines; six bullets of two lines; 45–60 seconds per slide.*
+- **1 行の長さと改行の位置:** 24 pt の文が折り返す列は、1 行に全角 12 字以上入る幅にする（5 列以上。4 列〔272〕は 24 pt で 11 字しか入らない）。1 行のラベルや見出しだけなら細い列でもよい。行末に 1〜2 字だけ次の行に落ちる文は、言葉を削るか言い換える（PowerPoint は日本語を文字の単位で折り返すため）。どちらも検査で注意（目安の計算で、実際の折り返しは人が見る）。
+  *Wrapping 24 pt text needs columns of 12+ full-width characters; reword lines that leave one or two characters on the last line.*
+- **中身が少なすぎるスライドは作らない:** 中身（文字・図・カード）が本文の領域の 4 割に届かないスライドは、前後のスライドとまとめるか、根拠の図を足す。下の空きを文字の拡大や間の広げで埋めない（それは前の決まりのまま）。大きな数字のスライド、表紙・区切りは除く。検査で注意。空白が多すぎるスライドがないかは、大学の発表資料のチェックリストにもある確認。
+  *Slides whose content fills under 40% of the body area are merged or given evidence; never padded. Hero-number, cover and section slides are exempt.*
 - **余白の役割を混ぜない:** 項目の間 12〜16（`space-md`〜`space-lg`）＜ まとまりの間 24（`space-xxl`）＜ 領域の間 32 以上。近いものほど間を狭くする。空の段落や空白の文字で間をあけない。
   *Item gaps < group gaps < region gaps; never space with empty paragraphs.*
 
@@ -159,15 +165,15 @@ KM1 の型の表の大きさと行送りだけを使う / only KM1 type-ramp siz
 | KM1 区切り / Section | 章の始め。背景 #F5F5F5、章の番号と題名 |
 | KM1 題名と本文 / Title and content | 箇条書き・説明（12 列） |
 | KM1 2 段 / Two columns | 比べる・並べる（6 ＋ 6 列） |
-| KM1 図と説明 / Figure and text | 左 8 列に図・グラフ、右 4 列に説明 |
+| KM1 図と説明 / Figure and text | 左 7 列に図・グラフ、右 5 列に説明 |
 | KM1 題名だけ / Title only | グラフ・表・図・数字のカード |
 
-**中身の型 / Content types:** レイアウトの中に置く中身は次の 5 つの型にする。同じ役割のスライドは同じ型にそろえる（例: 結果のスライドは全部「図と説明」）。1 つの資料の中で組み方を増やさない。
+**中身の型 / Content types:** 本文は「題名で主張し、本文で根拠を見せる」形を基本にする（assertion–evidence。Penn State の Alley らの研究で、題名を主張の文にして図で支えるスライドの方が、話題名と箇条書きのスライドより理解が深まると報告されている）。そのため型は上から優先し、「文」は図にできないときの最後の手段にする。レイアウトの中に置く中身は次の 5 つの型にする。同じ役割のスライドは同じ型にそろえる（例: 結果のスライドは全部「図と説明」）。1 つの資料の中で組み方を増やさない。
 *Five content types; slides with the same role use the same type.*
 
 | 型 / Type | 中身 | レイアウト |
 |---|---|---|
-| 図と説明 | 図・グラフ（8 列）と説明（4 列）、または横長の図と下の説明（§4.2） | 図と説明・題名だけ |
+| 図と説明 | 図・グラフ（7 列）と説明（5 列）、または横長の図と下の説明（§4.2） | 図と説明・題名だけ |
 | グラフ | PowerPoint のグラフ 1 つを全幅 | 題名だけ |
 | カード | 比べる単位を 2〜4 枚（§4.3） | 題名だけ |
 | 文 | 箇条書きか短い段落（§4.3 の量の上限） | 題名と本文・2 段 |
@@ -232,7 +238,7 @@ KM1 の型の表の大きさと行送りだけを使う / only KM1 type-ramp siz
 |---|---|
 | 両方 | 文書の題名、作成者が空か（注意）、テーマの和文・欧文の書体が游ゴシック、言語ごとの補助の書体に明朝・セリフ体・手書き風がない、テーマの色が KM1 の色 |
 | Word | 既定の言語が日本語、見出しのスタイルがある・段が飛ばない、太字だけの見出しもどき（注意）、手で打った「・」、文字の大きさが §3 の値、8pt 未満、文字の色が KM1 の色、図の代替テキスト、表の見出し行の繰り返し、セルの結合、「こちら」のようなリンクの文字、A4 |
-| PowerPoint | 16:9、全部のスライドに題名、題名の重複、図・グラフの代替テキスト、表のタイトル行（注意）とセルの結合、文字の大きさが §4.1 の値、14pt が柱の行の外にない、文字と図形の色が KM1 の色、言語の指定（注意）、アニメーション・画面切り替え（注意）。§4.2〜4.3 の割り付け: 本文の領域の下へのはみ出し（FAIL）、題名の行への食い込み・12 列のグリッドからのずれ・題名が 1 行に入らない・箇条書きが 7 項目以上・図・グラフの下の大きな空き（どれも注意）。§4.1・4.3・4.5・4.6 の中身: 1 枚の文字数が全角 100 字を超える・文字のカードで文字が高さの半分未満・紺の文字が 1 枚に 2 か所以上・助数詞の前の空白・単位の前の空白がない・図を元の半分未満に縮めている（どれも注意） |
+| PowerPoint | 16:9、全部のスライドに題名、題名の重複、図・グラフの代替テキスト、表のタイトル行（注意）とセルの結合、文字の大きさが §4.1 の値、14pt が柱の行の外にない、文字と図形の色が KM1 の色、言語の指定（注意）、アニメーション・画面切り替え（注意）。§4.2〜4.3 の割り付け: 本文の領域の下へのはみ出し（FAIL）、題名の行への食い込み・12 列のグリッドからのずれ・題名が 1 行に入らない・箇条書きが 7 項目以上・図・グラフの下の大きな空き・細い列で折り返す文・行末に 1〜2 字だけ落ちる文・中身が本文の領域の 4 割未満（どれも注意）。§4.1・4.3・4.5・4.6 の中身: 1 枚の文字数が全角 100 字を超える・文字のカードで文字が高さの半分未満・紺の文字が 1 枚に 2 か所以上・助数詞の前の空白・単位の前の空白がない・図を元の半分未満に縮めている（どれも注意） |
 
 FAIL があると終了コード 1 を返す。
 *Exits 1 on any FAIL.*
@@ -252,10 +258,13 @@ FAIL があると終了コード 1 を返す。
 - [ ] 図の中の文字が、映したときに読める大きさになっている / text inside figures is readable when projected
 - [ ] 同じ組み方が続きすぎず、形がばらばらでもない / layouts neither repeat too long nor scatter
 
+- [ ] 説明の文の改行の位置が自然で、行末に 1〜2 字だけ落ちていない / natural line breaks, no stranded characters
+- [ ] 中身が少なく下が大きく空いたスライドがない / no near-empty slides
+
 検査に通ることと見やすいことは別。`officecheck.py` が FAIL 0・注意 0 でも、上の人の確認を省かない。
 *Passing the checker is not the same as being readable; never skip the human checks.*
 
 **確かめたこと / Verified (2026-11-19)** — 文字の大きさと割り付けを改めた版のひな形と見本が `officecheck.py` で FAIL 0・注意 0、LibreOffice で PDF にして全ページを目で見た。以前（2026-11-13） — ひな形 2 つと見本 2 つが `officecheck.py` で FAIL 0、Office Open XML の形式の検査（XSD・関係・中身の種類）に合格。LibreOffice で PDF にして全ページを目で見た（游ゴシックがないので Noto Sans CJK JP で表示。文字の幅は Office と少し違う）。**まだ確かめていないこと:** Microsoft Word・PowerPoint で開くこと、Office のアクセシビリティ チェック、PowerPoint で書き出した PDF のタグ。
 *Templates and samples pass `officecheck.py` and OOXML validation, and were rendered with LibreOffice (Noto Sans CJK JP substituted for Yu Gothic). Not yet checked in Microsoft Office itself.*
 
-出典 / Sources: [Microsoft: PowerPoint のプレゼンテーションをアクセシビリティ対応にする（18pt 以上）](https://support.microsoft.com/en-us/office/make-your-powerpoint-presentations-accessible-to-people-with-disabilities-6f7772b2-2f33-4bd2-8ca7-dae3b2b3ef25)・[NYC MOPD: Accessible Slidedecks Guide（24pt 以上）](https://www.nyc.gov/site/mopd/publications/guides/accessible-slidedecks-guide.page)・[Indiana University: PowerPoint（24pt 以上）](https://accessibility.iu.edu/creating-content/documents/powerpoint/index.html)・[Microsoft: アクセシビリティ チェックのルール](https://support.microsoft.com/ja-jp/Accessibility/office-accessibility/rules-for-the-accessibility-checker)・[Microsoft: PowerPoint のプレゼンテーションをアクセシビリティ対応にする](https://support.microsoft.com/ja-jp/Accessibility/powerpoint/make-your-powerpoint-presentations-accessible-to-people-with-disabilities)・[Microsoft: 閲覧順序ウィンドウ](https://support.microsoft.com/ja-jp/powerpoint/make-slides-easier-to-read-by-using-the-reading-order-pane)・[W3C WCAG 2.2](https://www.w3.org/TR/WCAG22/)
+出典 / Sources: [Penn State: Assertion–Evidence の研究](https://writing.engr.psu.edu/research.html)・[Alley ほか: Assertion–Evidence Slides Instruction Set](https://bpb-us-e1.wpmucdn.com/sites.psu.edu/dist/7/13153/files/2008/10/Assertion-Evidence-Slides-Instruction_Set.pdf)・[東北大学: 発表資料チェックリスト](https://web.tohoku.ac.jp/yusa/wp-content/uploads/2026/03/checklist_presen_0204.docx)・[ウェールズ政府: アクセシブルな PowerPoint の作り方](https://www.gov.wales/node/30039)・[Microsoft: PowerPoint のプレゼンテーションをアクセシビリティ対応にする（18pt 以上）](https://support.microsoft.com/en-us/office/make-your-powerpoint-presentations-accessible-to-people-with-disabilities-6f7772b2-2f33-4bd2-8ca7-dae3b2b3ef25)・[NYC MOPD: Accessible Slidedecks Guide（24pt 以上）](https://www.nyc.gov/site/mopd/publications/guides/accessible-slidedecks-guide.page)・[Indiana University: PowerPoint（24pt 以上）](https://accessibility.iu.edu/creating-content/documents/powerpoint/index.html)・[Microsoft: アクセシビリティ チェックのルール](https://support.microsoft.com/ja-jp/Accessibility/office-accessibility/rules-for-the-accessibility-checker)・[Microsoft: PowerPoint のプレゼンテーションをアクセシビリティ対応にする](https://support.microsoft.com/ja-jp/Accessibility/powerpoint/make-your-powerpoint-presentations-accessible-to-people-with-disabilities)・[Microsoft: 閲覧順序ウィンドウ](https://support.microsoft.com/ja-jp/powerpoint/make-slides-easier-to-read-by-using-the-reading-order-pane)・[W3C WCAG 2.2](https://www.w3.org/TR/WCAG22/)

@@ -12,7 +12,7 @@ PALETTE={'242424','424242','616161','10218B','FFFFFF','F5F5F5','F0F0F0','ECEFFC'
 WORD_SIZES={8,8.5,9,10,11,13,20,28}          # documents.md の表と同じ / same as the PDF rules
 SLIDE_SIZES={14,20,24,32,40,68}               # KM1 の型の表（office.md §4.1）/ KM1 type ramp
 # スライドの割り付け（office.md §4.2）。単位は pt / slide grid in pt
-EMU=12700; SIDE=48; TOP=40; GUT=24; COL=50; BODY_TOP=104; BODY_BOTTOM=472; FOOT_TOP=496; CONTENT_W=864
+EMU=12700; BODY_H=368; SIDE=48; TOP=40; GUT=24; COL=50; BODY_TOP=104; BODY_BOTTOM=472; FOOT_TOP=496; CONTENT_W=864
 GRID_X={SIDE+i*(COL+GUT) for i in range(12)}; GRID_R={SIDE+i*(COL+GUT)+COL for i in range(12)}
 TITLE_EM=CONTENT_W/32                          # 32pt の題名が 1 行に入る全角の字数（27）/ full-width chars per title line
 FONT='游ゴシック'
@@ -215,6 +215,70 @@ def content_checks(z,n,i,s,boxes):
             nat=im.size[0]/dpi*72
             if b[2]<nat*0.5: out('WARN','FIGSCALE',f'スライド {i} の図 {pic.find(".//p:cNvPr",NS).get("name")} を元の {b[2]/nat:.0%} に縮めている（図の中の文字が映して 14pt 以上か確かめる。足りなければ切り出すか描き直す）')
         except Exception: pass
+LH_PT={68:92,40:52,32:40,24:32,20:28,14:20}
+def ph_geom(z,n):
+    """スライドの置き場所の位置と既定の大きさを、レイアウトから引く / placeholder geometry from the layout"""
+    rels=x(z,n.replace('slides/','slides/_rels/')+'.rels'); out_={}; name=''
+    if rels is None: return out_,name
+    t=[r.get('Target') for r in rels if r.get('Type','').endswith('/slideLayout')]
+    if not t: return out_,name
+    lay=x(z,'ppt/'+t[0].replace('../',''))
+    name=lay.find('p:cSld',NS).get('name','')
+    for e in lay.iter('{%s}sp'%NS['p']):
+        ph=e.find('.//p:nvPr/p:ph',NS); b=xfrm(e)
+        if ph is None or not b: continue
+        szs=[int(r.get('sz')) for r in e.iter('{%s}defRPr'%NS['a'],'{%s}rPr'%NS['a']) if r.get('sz')]
+        bp=e.find('.//a:bodyPr',NS)
+        out_[ph.get('idx') or ph.get('type')]=(b,(szs[0] if szs else 2400)/100,bp)
+    return out_,name
+def text_blocks(z,n,s):
+    """文字の入った図形ごとに、位置・余白・段落（文字・大きさ・字下げ・前後の間）を返す"""
+    phs,lname=ph_geom(z,n); res=[]
+    for e in s.iter('{%s}sp'%NS['p']):
+        body=e.find('p:txBody',NS)
+        if body is None or not ''.join(body.itertext()).strip(): continue
+        ph=e.find('.//p:nvPr/p:ph',NS)
+        if ph is not None and ph.get('type') in ('title','ctrTitle','sldNum','ftr','dt'): continue
+        b=xfrm(e); dsz=24; bp=body.find('a:bodyPr',NS)
+        if ph is not None:
+            g=phs.get(ph.get('idx')) or phs.get(ph.get('type'))
+            if g:
+                if not b: b=g[0]
+                dsz=g[1]; bp=bp if bp is not None and bp.get('lIns') is not None else g[2]
+        if not b: continue
+        ins=sum(int(bp.get(k,'91440'))/EMU for k in ('lIns','rIns')) if bp is not None else 14.4
+        paras=[]
+        for p in body.findall('a:p',NS):
+            t=''.join(p.itertext())
+            szs=[int(r.get('sz'))/100 for r in p.iter('{%s}rPr'%NS['a']) if r.get('sz')]
+            pp=p.find('a:pPr',NS); marl=int(pp.get('marL','0'))/EMU if pp is not None else 0
+            sp=0
+            for k in ('spcBef','spcAft'):
+                v=p.find(f'a:pPr/a:{k}/a:spcPts',NS)
+                if v is not None: sp+=int(v.get('val'))/100
+            paras.append((t,szs[0] if szs else dsz,marl,sp))
+        res.append((b,ins,paras,e.find('.//p:cNvPr',NS).get('name','')))
+    return res,lname
+def wdt(t): return sum(1 if ord(ch)>0x2E7F else (0.3 if ch==' ' else 0.55) for ch in t)
+def flow_checks(z,n,i,s,boxes):
+    """1 行の長さ・行末の 1〜2 字・中身の少なさ（office.md §4.3）/ line length, orphans, sparse slides"""
+    blocks,lname=text_blocks(z,n,s)
+    if any(k in lname for k in ('表紙','区切り')): return
+    bottom=BODY_TOP; narrow=set(); hero=False
+    for (bx,by,bw,bh),ins,paras,nm in blocks:
+        hgt=0
+        for t,sz,marl,sp in paras:
+            if sz>=68: hero=True
+            if not t.strip(): hgt+=LH_PT.get(int(sz),sz*1.35); continue
+            cpl=max(1,int((bw-ins-marl)/sz))
+            L=wdt(t); lines=-(-L//cpl); rem=L-(lines-1)*cpl
+            if 20<=sz<=24 and cpl<12 and lines>1 and nm not in narrow:   # 折り返す文だけ。1 行のラベルはよい
+                narrow.add(nm); out('WARN','NARROW',f'スライド {i} の {nm}: {sz:g} pt で 1 行に全角 {cpl} 字しか入らない列で文が折り返す（12 字以上入る幅にする）')
+            if lines>1 and rem<=2: out('WARN','ORPHAN',f'スライド {i}: 行末に {rem:.0f} 字だけ落ちる「{t[:16]}…」（言葉を削るか言い換える）')
+            hgt+=lines*LH_PT.get(int(sz),sz*1.35)+sp
+        bottom=max(bottom,by+min(bh,hgt))
+    for (bx,by,bw,bh),nm in boxes: bottom=max(bottom,by+bh)
+    if not hero and bottom-BODY_TOP<BODY_H*0.4: out('WARN','SPARSE',f'スライド {i} の中身が本文の領域の 4 割に届かない（前後のスライドとまとめるか、根拠の図を足す）')
 def layout_checks(z,slides):
     """余白・グリッド・はみ出し・題名の長さ・項目の数・空き（office.md §4.2〜4.3）/ spacing rules"""
     for i,n in enumerate(slides,1):
@@ -248,6 +312,7 @@ def layout_checks(z,slides):
             low=max(b[1]+b[3] for b,_ in top)
             if low<(BODY_TOP+BODY_BOTTOM)/2: out('WARN','EMPTY',f'スライド {i} の図・グラフの下に本文の領域の半分以上の空き（図の大きさか分け方を見直す）')
         content_checks(z,n,i,s,boxes)
+        flow_checks(z,n,i,s,top)
     # 14pt は柱の行だけ / 14pt only in the footer row
     for n in slides+[m for m in z.namelist() if re.match(r'ppt/slide(Layout|Master)s/slide(Layout|Master)\d+\.xml$',m)]:
         s=x(z,n)
