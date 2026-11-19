@@ -23,5 +23,5 @@ jobs:
         working-directory: verify/flutter
       - run: flutter test --tags golden --update-goldens
         working-directory: verify/flutter
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with: { name: flutter-goldens-candidate, path: verify/flutter/test/goldens/ }

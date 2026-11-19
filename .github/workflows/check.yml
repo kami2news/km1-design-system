@@ -61,7 +61,7 @@ jobs:
             echo "::warning title=承認済みの画像がない / no approved goldens::画像の比較を飛ばした。goldens ワークフローで作り、目で確かめてから verify/flutter/test/goldens/ に入れる（verification.md 6 章）"
             flutter test --exclude-tags golden
           fi
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: failure()
         with: { name: flutter-golden-failures, path: verify/flutter/test/failures/, if-no-files-found: ignore }
   flutter-latest:
