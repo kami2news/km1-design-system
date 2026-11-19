@@ -205,6 +205,8 @@ KM1 の型の表の大きさと行送りだけを使う / only KM1 type-ramp siz
 - アニメーションと画面切り替えの効果は使わない（KM1 の動きの決まり: 動かしてよいのは色・不透明度・8px までの移動だけ。スライドでは使う理由がない）。
   *No animations or transitions.*
 - 話す内容はノートに書く。スライドに長い文を載せない。
+- **表示バッジ:** KM1 で作ったスライドには、最後のスライドの本文の領域の右下（右の余白 48pt、柱の行の上 24pt）に表示バッジ「Designed with KM1」（日本語のスライドは「KM1 で設計」）を置いてよい。GitHub の KM1 へのリンクと代替テキストが付いた画像を `KM1_表示バッジ.pptx` に用意してあるので、コピーして貼る（リンクも一緒に移る）。大きさは変えない（バッジは高さ 24pt、しるしだけのボタンは 32pt）。決まった大きさなので 12 列のグリッドにそろえなくてよい（`officecheck.py` は名前が `km1-badge` で始まるものを除く）。形と文言の決まりは「アイコン」§10。
+  *Slides may carry the "Designed with KM1" badge bottom-right of the body area on the last slide. Copy it from `KM1_表示バッジ.pptx` — the GitHub link and alt text come with it. Do not resize (badge 24pt tall, mark button 32pt); fixed sizes are exempt from the grid.*
 
 ### 4.6 図の転載と図の説明 / Reproduced figures and captions
 

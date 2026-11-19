@@ -2,10 +2,11 @@
 
 | 場所 / Path | 内容 / Contents |
 |---|---|
-| `dist/` | 配布物: デザイン標準と部品カタログの PDF、`KM1_icons.zip`、Word・PowerPoint のひな形と見本（.dotx/.docx/.potx/.pptx）、グラフの模様の画像 `KM1_グラフの模様.zip`（`office/km1_patterns.py`）。作り直しの順: `cd gen && npm i` → `node gen/shoot_previews.js <render_previews.py の出力> components` → `python3 gen/catalog_md.py` → `node gen/token_sheets.js` → `python3 icons/icon_sheet.py` → `python3 gen/build_pdf.py dist`（寸法と件数の検査を通してから 2 冊を作る）。Office は `office/`、アイコン一式は `icons/build_all.py` |
+| `dist/` | 配布物: デザイン標準と部品カタログの PDF、`KM1_icons.zip`、Word・PowerPoint のひな形と見本（.dotx/.docx/.potx/.pptx）、GitHub へのリンク付きの表示バッジ `KM1_表示バッジ.pptx`、グラフの模様の画像 `KM1_グラフの模様.zip`（`office/km1_patterns.py`）。作り直しの順: `cd gen && npm i` → `node gen/shoot_previews.js <render_previews.py の出力> components` → `python3 gen/catalog_md.py` → `node gen/token_sheets.js` → `python3 icons/icon_sheet.py` → `python3 gen/build_pdf.py dist`（寸法と件数の検査を通してから 2 冊を作る）。Office は `office/`、アイコン一式は `icons/build_all.py` |
 | `components/README.md` | 部品カタログ（グループ別、ライトとダークの見本の画像つき。`gen/catalog_md.py` で作る） |
 | `assets/tokens/` | トークンの見本の図（色のライト・ダーク、文字、余白、角丸、影、大きさ。`gen/token_sheets.js` で作る。`tokens.md` に掲載） |
 | `verify/` | Windows 実機用の検証セット（`make_kit.py` で本体の今のファイルから組み立て、`verify.ps1` で実行） |
+| `dist/logo/` | KM1 のロゴ（しるし・横組み）と表示バッジ「Designed with KM1」「KM1 で設計」。ライト・ダーク・単色の SVG と PNG（1・2・3 倍）。`brand/km1_logo.py` で作る。決まりは「アイコン」§10 |
 | `icons/icon-list.svg` | アイコン一覧の図（`icons/icon_sheet.py` で作る。`icons.md` §4 に掲載） |
 | `*.md` | 本編の文書（原則・画面の組み立て・プロダクトデザイン・プラットフォーム・トークン・アイコン・文書・運用・検証・変更履歴など） |
 | `tokens.json` / `tokens.css` | トークン（正本は JSON、CSS は生成物） |
@@ -48,6 +49,9 @@ KM1 は Microsoft Fluent 2 の構造に、Science Tokyo と EPSON の考え方�
 
 **Word・PowerPoint:** Word の文書は KM1-DOC-002、スライドは KM1-DOC-003（`office.md`）に従う。ひな形（`KM1_文書.dotx`・`KM1_スライド.potx`）を作る道具と検査 `officecheck.py` は `office/` にある。
 *Word documents follow KM1-DOC-002 and slides KM1-DOC-003 (`office.md`); template generators and `officecheck.py` are in `office/`.*
+
+**ロゴと表示 / Logo and attribution:** KM1 のロゴは、アプリアイコンのしるしと同じ形を白地に青にしたもの（アイコンは紺地に白のまま）。KM1 に従って作ったものには、フッターや「このアプリについて」に表示バッジ「Designed with KM1」（日本語の画面では「KM1 で設計」）を付けてよい。形・色・置き場所・してはいけないことは「アイコン」§10（`icons.md`）、ファイルは `dist/logo/`。
+*The KM1 logo is the app-icon drawing in blue on white. Things built to KM1 may carry the "Designed with KM1" badge in a footer or About screen; rules in Icons §10, files in `dist/logo/`.*
 
 **補遺 / Supplements:** 部品の対応表は `coverage.md`（KM1-COV-001）、出典と帰属は `notices.md`（KM1-LIC-001）、グラフは `dataviz.md`（KM1-VIZ-001、提案）、不足領域の仕様案は `proposals.md`（KM1-PRP-001）、導入の記録は `adoption.md`（KM1-ADO-001）。
 *Component coverage: `coverage.md`; notices: `notices.md`; charts: `dataviz.md` (proposed); spec proposals: `proposals.md`; adoption log: `adoption.md`.*
