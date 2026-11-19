@@ -48,15 +48,22 @@ def mark_svg(size, c, mono=False):
     under 48px the bar is dropped. Mono draws border, letters and bar in ink on a transparent ground."""
     small = size < 48
     fg = c['ink'] if mono else c['mark_fg']
-    # ロゴは OS に切り抜かれないので、アプリアイコンの安全な円（60%）より大きく描く: 文字の幅をしるしの 72%（48px 未満は 84%）
-    # The logo is never masked, so the motif is larger than the app icon's 60% circle: wordmark 72% wide (84% under 48px)
-    d, w, h = wordmark('KM1')
-    tw = size * (0.84 if small else 0.72); k = tw / w; th = h * k
-    bw, bh = tw * 0.30, tw * 0.30 * 6 / 22          # 表紙の帯（22:6）/ the cover bar
-    gap = bh * 2.2
-    block = th + (0 if small else bh + gap)
-    x0 = (size - tw) / 2; y0 = (size - block) / 2 + (0 if small else bh + gap)
-    body = f'<path transform="translate({x0:.2f} {y0:.2f}) scale({k:.5f})" d="{d}" fill="#{fg}"/>'
+    # ロゴは OS に切り抜かれないので、アプリアイコンの安全な円（60%）より大きく描く: 文字の幅をしるしの 84%。
+    # 小さく置かれても潰れないよう、24px 未満は字形を Black（極太）に替える（字の形の中が詰まって見えないため）。
+    # The logo is never masked, so the wordmark is 84% of the mark's width; under 24px it switches to the Black weight to survive.
+    tw = size * 0.84
+    if size < 24:
+        fs = 100; d, w = text_path([('KM1', 'Black')], fs); h = 0.733 * fs; k = tw / w
+        x0 = (size - tw) / 2; base = (size + h * k) / 2
+        body = f'<path transform="translate({x0:.2f} {base:.2f}) scale({k:.5f})" d="{d}" fill="#{fg}"/>'
+        y0 = None
+    else:
+        d, w, h = wordmark('KM1'); k = tw / w; th = h * k
+        bw, bh = tw * 0.30, tw * 0.30 * 6 / 22          # 表紙の帯（22:6）/ the cover bar
+        gap = bh * 2.2
+        block = th + (0 if small else bh + gap)
+        x0 = (size - tw) / 2; y0 = (size - block) / 2 + (0 if small else bh + gap)
+        body = f'<path transform="translate({x0:.2f} {y0:.2f}) scale({k:.5f})" d="{d}" fill="#{fg}"/>'
     if not small:
         body += f'<rect x="{x0:.2f}" y="{y0 - gap - bh:.2f}" width="{bw:.2f}" height="{bh:.2f}" fill="#{fg}"/>'
     sw = max(1.0, size / 64); r = size * RADIUS
@@ -77,11 +84,11 @@ def lockup(H, c, mono=False):
     return doc(round(x + w * k, 2), H, body)
 
 def badge(lang, c, H=24):
-    """表示バッジ。高さ 24px（小さい部品の高さ）、縁 1px、角 radius-md（4px）、しるし 16px、文字 12px（caption-1）
-    Badge: 24px tall, 1px border, radius-md, 16px mark, 12px text"""
+    """表示バッジ。高さ 24px（小さい部品の高さ）、縁 1px、角 radius-md（4px）、しるし 20px（潰れない最小）、文字 12px（caption-1）
+    Badge: 24px tall, 1px border, radius-md, 20px mark (smallest that stays legible), 12px text"""
     fs = 12
     runs = [('Designed with ', 'Regular'), ('KM1', 'Bold')] if lang == 'en' else [('KM1', 'Bold'), (' で設計', 'Regular')]
-    pad, m, gap, padr = 4, 16, 6, 8
+    pad, m, gap, padr = 2, 20, 6, 8
     parts, x = [], pad + m + gap
     base = H / 2 + fs * 0.37   # 大文字の中心を高さの中央に / centre the cap height
     for s, wt in runs:

@@ -2,9 +2,9 @@
 
 ## 2026-11-19 — ロゴと表示バッジ / Logo and attribution badge
 
-- **ロゴ:** KM1 のロゴを、アプリアイコンのしるし（「KM1」と表紙の帯）と同じ形で、色を入れ替えた白地に青（黒の細い縁つき）に決めた。切り抜かれないので中身はアイコンより大きく（文字の幅 72%）。アプリアイコンは紺地に白のまま。横組み（しるし＋「KM1」）と、ライト・ダーク・単色の版を足した。
+- **ロゴ:** KM1 のロゴを、アプリアイコンのしるし（「KM1」と表紙の帯）と同じ形で、色を入れ替えた白地に青（黒の細い縁つき）に決めた。切り抜かれないので中身はアイコンより大きく（文字の幅 84%、24px 未満は極太の字形）し、小さく置いても潰れないようにした。アプリアイコンは紺地に白のまま。横組み（しるし＋「KM1」）と、ライト・ダーク・単色の版を足した。
   *The KM1 logo uses the app-icon drawing in blue on white with a thin ink border; the app icon stays white on navy. Added a horizontal lockup and light, dark and mono versions.*
-- **表示バッジ:** KM1 に従って作ったものに付ける「Designed with KM1」（日本語の画面は「KM1 で設計」）を決めた。「Designed by」（KM1 が設計したと読める）と「Powered by」（動かす仕組みを指す）は使わない。高さ 24px、縁 1px、しるし 16px、文字 12px。置き場所はフッター・「このアプリについて」・文書の最後のページ。
+- **表示バッジ:** KM1 に従って作ったものに付ける「Designed with KM1」（日本語の画面は「KM1 で設計」）を決めた。「Designed by」（KM1 が設計したと読める）と「Powered by」（動かす仕組みを指す）は使わない。高さ 24px、縁 1px、しるし 20px、文字 12px。置き場所はフッター・「このアプリについて」・文書の最後のページ。
   *Added the "Designed with KM1" badge; "Designed by" and "Powered by" are not used.*
 - **道具とファイル:** `brand/km1_logo.py` が `dist/logo/` に SVG と PNG（1・2・3 倍）を書き出す。決まりは「アイコン」§10。
   *`brand/km1_logo.py` writes `dist/logo/`; rules in Icons §10.*

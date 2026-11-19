@@ -338,9 +338,9 @@ KM1 のロゴは、§6 のしるしと同じ形（「KM1」と表紙の帯）を
 
 | 種類 / Kind | 中身 / Contents | ファイル / Files |
 |---|---|---|
-| しるし / Mark | §6 と同じ形を白地に青で。ロゴは OS に切り抜かれないので、中身はアプリアイコン（直径 60% の円）より大きく、「KM1」の幅をしるしの 72%（48px 未満は 84%）にする。縁は `ink`（#242424）の細い線で、太さはしるしの 1/64（64px 以下は 1px）。角は 32px のときの `radius-md`（4px）と同じ比（12.5%）。48px 未満は帯を省く | `km1-mark(-dark/-mono).svg` |
+| しるし / Mark | §6 と同じ形を白地に青で。ロゴは OS に切り抜かれないので、中身はアプリアイコン（直径 60% の円）より大きく、「KM1」の幅をしるしの 84% にする。小さく置かれても潰れないよう、24px 未満では字形を Black（極太）に替える。縁は `ink`（#242424）の細い線で、太さはしるしの 1/64（64px 以下は 1px）。角は 32px のときの `radius-md`（4px）と同じ比（12.5%）。48px 未満は帯を省く | `km1-mark(-dark/-mono).svg` |
 | 横組み / Logo | しるし＋間（しるしの 1/4）＋「KM1」。「KM1」の大文字の高さはしるしの 0.42。文字は `ink` | `km1-logo(-dark/-mono).svg` |
-| 表示バッジ / Badge | 高さ 24px、縁 1px（`stroke`）、角 `radius-md`、しるし 16px、文字 12px（`caption-1`）。「Designed with」は `ink-secondary`、「KM1」は太字の `ink` | `designed-with-km1(-dark).svg`、`km1-de-sekkei(-dark).svg` |
+| 表示バッジ / Badge | 高さ 24px、縁 1px（`stroke`）、角 `radius-md`、しるし 20px、文字 12px（`caption-1`）。「Designed with」は `ink-secondary`、「KM1」は太字の `ink` | `designed-with-km1(-dark).svg`、`km1-de-sekkei(-dark).svg` |
 
 文字は Noto Sans CJK JP の字形を輪郭にしてある（SIL OFL 1.1）。書体を読み込まなくても同じ形で出る。
 *Text is outlined from Noto Sans CJK JP (SIL OFL 1.1), so it renders the same without the font.*
@@ -374,7 +374,7 @@ KM1 のロゴは、§6 のしるしと同じ形（「KM1」と表紙の帯）を
 
 | 種類 / Kind | いちばん小さい大きさ / Minimum | まわりの余白 / Clear space |
 |---|---|---|
-| しるし / Mark | 16px（48px 未満は帯なしの版） | しるしの 1/4 |
+| しるし / Mark | 20px（48px 未満は帯なし、24px 未満は極太の版）。16px は SVG か 2 倍以上の画像のときだけ | しるしの 1/4 |
 | 横組み / Logo | 高さ 24px | しるしの 1/4 |
 | 表示バッジ / Badge | 高さ 24px（拡大は 32px まで） | 8px（`space-sm`） |
 
@@ -389,7 +389,7 @@ Web（ライトとダークを OS の設定で切り替える）:
 <a href="https://github.com/kami2news/km1-design-system">
   <picture>
     <source srcset="designed-with-km1-dark.svg" media="(prefers-color-scheme: dark)">
-    <img src="designed-with-km1.svg" width="142" height="24" alt="Designed with KM1">
+    <img src="designed-with-km1.svg" width="144" height="24" alt="Designed with KM1">
   </picture>
 </a>
 ```
