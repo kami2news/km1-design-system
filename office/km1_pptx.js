@@ -55,7 +55,7 @@ function layouts(pres, docName) {
       { rect: { x: PT(G.side), y: PT(152), w: PT(62), h: PT(17), fill: { color: C.brand }, line: { type: 'none' } } },  // 表紙のしるし（PDF と同じ 22 × 6mm）
       { placeholder: { options: { name: 'title', type: 'title', x: PT(G.side), y: PT(184), w: PT(spanW(10)), h: PT(2 * LH[40]), fontSize: T.largeTitle, lineSpacing: LH[40], bold: true, color: C.brand, fontFace: FONT, valign: 'top', align: 'left', margin: 0, lang: LANG }, text: '題名 / Title' } },
       { placeholder: { options: { name: 'subtitle', type: 'body', x: PT(G.side), y: PT(184 + 2 * LH[40] + S.xxl), w: PT(spanW(10)), h: PT(2 * LH[24]), fontSize: T.body, lineSpacing: LH[24], color: C.ink2, fontFace: FONT, valign: 'top', margin: 0, lang: LANG }, text: '副題 / Subtitle' } },
-      { placeholder: { options: { name: 'meta', type: 'body', x: PT(G.side), y: PT(G.bodyBottom - LH[20]), w: PT(spanW(8)), h: PT(LH[20]), fontSize: T.small, color: C.ink3, fontFace: FONT, valign: 'bottom', margin: 0, lang: LANG }, text: '版の日付・作成者 / Date, author' } },
+      { placeholder: { options: { name: 'meta', type: 'body', x: PT(G.side), y: PT(G.bodyBottom - 3 * LH[20]), w: PT(G.contentW), h: PT(3 * LH[20]), fontSize: T.small, lineSpacing: LH[20], color: C.ink3, fontFace: FONT, valign: 'bottom', margin: 0, lang: LANG }, text: '発表者・日付／文献紹介では著者・誌名・年（3 行まで）/ Presenter, date; or the cited paper (up to 3 lines)' } },   // 12 列・3 行。文献紹介の書誌も入る / 12 columns, 3 lines
     ] });
   pres.defineSlideMaster({ title: 'KM1 区切り / Section', background: { color: C.muted },
     objects: [

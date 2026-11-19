@@ -162,6 +162,12 @@ BRAND='10218B'
 def content_checks(z,n,i,s,boxes):
     """文字の量・カードの埋まり方・強調の色・助数詞の前の空白・縮めた図（office.md §4.1・4.3・4.5・4.6）"""
     a='{%s}'%NS['a']; chars=0; brand=0; texts=[]
+    # 書誌は削れないので数えない: 表紙・区切り、題名が参考文献のスライド、名前が ref で始まる枠 / bibliographic text is not counted
+    _,lname=ph_geom(z,n)
+    ttl=''.join(''.join(e.itertext()) for e in s.iter('{%s}sp'%NS['p']) if (e.find('.//p:nvPr/p:ph',NS) is not None and e.find('.//p:nvPr/p:ph',NS).get('type') in ('title','ctrTitle')))
+    if not ttl:   # 置き場所を使っていないときは、題名の行にある文字を題名とみなす / fallback: text in the title row
+        ttl=''.join(''.join(e.itertext()) for e in s.iter('{%s}sp'%NS['p']) if xfrm(e) and xfrm(e)[1]<BODY_TOP-1)
+    skip_chars=any(k in lname for k in ('表紙','区切り')) or bool(re.match(r'\s*(参考文献|引用文献|文献|出典|References?|Bibliography)', ttl))
     for e in s.iter('{%s}sp'%NS['p']):
         ph=e.find('.//p:nvPr/p:ph',NS); nm=e.find('.//p:cNvPr',NS).get('name','')
         if ph is not None and ph.get('type') in ('title','ctrTitle'): continue
@@ -172,7 +178,7 @@ def content_checks(z,n,i,s,boxes):
             t=r.findtext('a:t',default='',namespaces=NS); pr=r.find('a:rPr',NS)
             texts.append(t)
             if pr is not None and pr.find('a:solidFill/a:srgbClr',NS) is not None and pr.find('a:solidFill/a:srgbClr',NS).get('val','').upper()==BRAND and t.strip(): hit=True
-            if nm.startswith(('caption','図の説明')) or (pr is not None and (pr.get('lang') or '').startswith('en') and not any(ord(ch)>0x2E7F for ch in t)): continue   # 英語の併記は数えない / skip English-only runs
+            if skip_chars or nm.startswith(('caption','図の説明','ref')) or (pr is not None and (pr.get('lang') or '').startswith('en') and not any(ord(ch)>0x2E7F for ch in t)): continue   # 英語の併記は数えない / skip English-only runs
             chars+=sum(1 if ord(ch)>0x2E7F else 0.5 for ch in t if not ch.isspace())
         brand+=hit
     if chars>CHAR_MAX: out('WARN','CHARS',f'スライド {i} の文字が全角 {chars:.0f} 字（{CHAR_MAX} 字程度まで。削るか 2 枚に分ける）')
@@ -200,9 +206,19 @@ def content_checks(z,n,i,s,boxes):
             if szs and max(szs)>=4000: big=True
             th+=tb[3]
         if not fig and th and th<cb[3]*0.5: out('WARN','CARDFILL',f'スライド {i} のカード {e.find(".//p:cNvPr",NS).get("name")} で文字が高さの半分に届かない（カードは中身＋上下 24 の高さにする）')
-    # 図を元の大きさより小さく載せている / pictures scaled down
+    # 図の説明は 2 行まで / captions up to two lines
+    for e in s.iter('{%s}sp'%NS['p']):
+        nm=e.find('.//p:cNvPr',NS).get('name','')
+        b=xfrm(e)
+        if not nm.startswith(('caption','図の説明')) or not b: continue
+        t=''.join(e.itertext()); szs=[int(r.get('sz'))/100 for r in e.iter(a+'rPr') if r.get('sz')]; sz=szs[0] if szs else 20
+        lines=-(-wdt(t)//max(1,int(b[2]/sz)))
+        if lines>2: out('WARN','CAPTION',f'スライド {i} の図の説明が約 {lines:.0f} 行（2 行まで。入らない分はノートに書いて話す）')
+    # 転載した図（名前が fig で始まる画像）: 印刷の大きさの 2 倍以上か / reproduced figures at 2x print size or more
     rels=x(z,n.replace('slides/','slides/_rels/')+'.rels')
     for pic in s.iter('{%s}pic'%NS['p']):
+        nm=pic.find('.//p:cNvPr',NS).get('name','')
+        if not nm.lower().startswith('fig'): continue
         bl=pic.find('.//a:blip',NS); b=xfrm(pic)
         if bl is None or not b or rels is None: continue
         rid=bl.get('{%s}embed'%NS['r'])
@@ -211,10 +227,12 @@ def content_checks(z,n,i,s,boxes):
         try:
             from PIL import Image; import io
             im=Image.open(io.BytesIO(z.read('ppt/'+tgt[0].replace('../',''))))
-            dpi=(im.info.get('dpi') or (96,96))[0] or 96
-            nat=im.size[0]/dpi*72
-            if b[2]<nat*0.5: out('WARN','FIGSCALE',f'スライド {i} の図 {pic.find(".//p:cNvPr",NS).get("name")} を元の {b[2]/nat:.0%} に縮めている（図の中の文字が映して 14pt 以上か確かめる。足りなければ切り出すか描き直す）')
-        except Exception: pass
+        except Exception: continue
+        dpi=im.info.get('dpi')
+        if not dpi or round(float(dpi[0])) in (0,72,96):
+            out('WARN','FIGDPI',f'スライド {i} の図 {nm} に元の解像度（dpi）が入っていない（切り出すときの dpi を画像に入れる。印刷の大きさが分からない）'); continue
+        printed=im.size[0]/float(dpi[0])*72
+        if b[2]<printed*2-0.5: out('WARN','FIGSCALE',f'スライド {i} の図 {nm} が印刷の大きさの {b[2]/printed:.1f} 倍（2 倍以上で載せる。届かない部分は日本語のラベルで補う）')
 LH_PT={68:92,40:52,32:40,24:32,20:28,14:20}
 def ph_geom(z,n):
     """スライドの置き場所の位置と既定の大きさを、レイアウトから引く / placeholder geometry from the layout"""
