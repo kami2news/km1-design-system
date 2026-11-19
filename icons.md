@@ -338,7 +338,7 @@ KM1 のロゴは、§6 のしるしと同じ形（「KM1」と表紙の帯）を
 
 | 種類 / Kind | 中身 / Contents | ファイル / Files |
 |---|---|---|
-| しるし / Mark | §6 と同じ形を白地に青で。縁は `ink`（#242424）の細い線で、太さはしるしの 1/64（64px 以下は 1px）。角は 32px のときの `radius-md`（4px）と同じ比（12.5%）。48px 未満は帯を省く | `km1-mark(-dark/-mono).svg` |
+| しるし / Mark | §6 と同じ形を白地に青で。ロゴは OS に切り抜かれないので、中身はアプリアイコン（直径 60% の円）より大きく、「KM1」の幅をしるしの 72%（48px 未満は 84%）にする。縁は `ink`（#242424）の細い線で、太さはしるしの 1/64（64px 以下は 1px）。角は 32px のときの `radius-md`（4px）と同じ比（12.5%）。48px 未満は帯を省く | `km1-mark(-dark/-mono).svg` |
 | 横組み / Logo | しるし＋間（しるしの 1/4）＋「KM1」。「KM1」の大文字の高さはしるしの 0.42。文字は `ink` | `km1-logo(-dark/-mono).svg` |
 | 表示バッジ / Badge | 高さ 24px、縁 1px（`stroke`）、角 `radius-md`、しるし 16px、文字 12px（`caption-1`）。「Designed with」は `ink-secondary`、「KM1」は太字の `ink` | `designed-with-km1(-dark).svg`、`km1-de-sekkei(-dark).svg` |
 

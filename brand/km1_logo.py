@@ -48,9 +48,17 @@ def mark_svg(size, c, mono=False):
     under 48px the bar is dropped. Mono draws border, letters and bar in ink on a transparent ground."""
     small = size < 48
     fg = c['ink'] if mono else c['mark_fg']
-    s = artwork(size, 'FFFFFF', fg, ('text', wordmark('KM1')), small=small)
-    inner = s[s.index('>') + 1:s.rindex('</svg>')]
-    body = inner.split('/>', 1)[1]          # 地の四角を外して文字と帯だけ / drop the ground rect
+    # ロゴは OS に切り抜かれないので、アプリアイコンの安全な円（60%）より大きく描く: 文字の幅をしるしの 72%（48px 未満は 84%）
+    # The logo is never masked, so the motif is larger than the app icon's 60% circle: wordmark 72% wide (84% under 48px)
+    d, w, h = wordmark('KM1')
+    tw = size * (0.84 if small else 0.72); k = tw / w; th = h * k
+    bw, bh = tw * 0.30, tw * 0.30 * 6 / 22          # 表紙の帯（22:6）/ the cover bar
+    gap = bh * 2.2
+    block = th + (0 if small else bh + gap)
+    x0 = (size - tw) / 2; y0 = (size - block) / 2 + (0 if small else bh + gap)
+    body = f'<path transform="translate({x0:.2f} {y0:.2f}) scale({k:.5f})" d="{d}" fill="#{fg}"/>'
+    if not small:
+        body += f'<rect x="{x0:.2f}" y="{y0 - gap - bh:.2f}" width="{bw:.2f}" height="{bh:.2f}" fill="#{fg}"/>'
     sw = max(1.0, size / 64); r = size * RADIUS
     ground = 'none' if mono else f'#{c["mark_bg"]}'
     frame = f'<rect x="{sw / 2:g}" y="{sw / 2:g}" width="{size - sw:g}" height="{size - sw:g}" rx="{r - sw / 2:.2f}" fill="{ground}" stroke="#{c['ink'] if mono else c['mark_line']}" stroke-width="{sw:g}"/>'
