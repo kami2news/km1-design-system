@@ -14,6 +14,12 @@
   *New semantic-pair contrast check (72 pairs, all pass).*
 - **DTCG 形式のトークン:** `tokens.json` から W3C Design Tokens 形式のファイルをライト・ダーク 1 つずつ作る `gen/tokens_dtcg.py` を足した（`dist/tokens/`、生成物で差分を検査）。正本は `tokens.json` のまま。
   *DTCG export generated from tokens.json.*
+- **文献紹介で使ってわかったこと（§4.3・4.4・4.6）:** 転載した図の決まりを「映して 14 pt」から「印刷の大きさの 2 倍以上で載せ、届かない文字は日本語のラベルで補う」に言い換え、切り出した画像には元の dpi を入れる約束にした（前の検査は画像の dpi で判定が変わり、高い解像度で切り出すと文字が小さくても素通りしていた）。検査は名前が `fig` の画像だけを調べる。表紙の下の欄を 12 列・3 行にして、文献紹介の書誌が入るようにした。書誌（表紙・区切り・参考文献のスライド・名前が `ref` の枠）は文字数に数えない。図を 2 枚並べるときの高さ 332 と縦横の比の表（6＋6 は 1.27 以上、縦長の図は 5＋7）を足した。図の説明は 1 行が基本で、何・どこ・いつ・単位が入らないときだけ 2 行まで、残りはノートで話す。
+  *Lessons from a paper-review deck: reproduced figures at 2× print size with dpi embedded, a 12-column 3-line cover field, bibliography excluded from the character count, a two-figure size table, and captions of up to two lines.*
+- **画像比較の登録と拡張:** 承認済みの画像を登録した（アイコンの一覧 6 枚）。最初の候補では、テストで KM1Icons の書体が読み込まれず塗りのアイコンが □ になっていたのを直し、画像に画面の背景色を入れた。部品を並べたギャラリーの画像 4 枚（スマホ・PC × ライト・ダーク）も比べるようにした。
+  *Goldens approved (6 icon sheets) after fixing font loading and adding the surface colour; 4 gallery goldens added.*
+- **Flutter の版を固定:** 必須の検査と画像の作成は同じ版に固定し、最新の stable は必須でない参考のジョブで試す（stable の更新だけで必須の検査が落ちないように）。
+  *Flutter pinned for required jobs; latest stable runs as an advisory job.*
 - **公開の手順:** タグは付け直さない（同じ日の 2 回目は `.2`）、タグごとに GitHub の Release を作り `dist/` を添付する、と決め、`CONTRIBUTING.md` に手順を書いた。`CODEOWNERS` と Dependabot（npm・pip・Actions を週 1 回）を足した。
   *Immutable tags plus GitHub Releases; CONTRIBUTING, CODEOWNERS and Dependabot added.*
 

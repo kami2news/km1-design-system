@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
-        with: { channel: stable, cache: true }
+        with: { flutter-version: '3.50.0', channel: stable, cache: true }   # check.yml と同じ版 / same as check.yml
       - name: 検証アプリに KM1 のファイルを入れる / put KM1 files into the verification app
         run: |
           cp km1_theme.dart km1_widgets.dart icons/km1_icons.dart icons/km1_icons_b.dart verify/flutter/lib/

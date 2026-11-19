@@ -36,8 +36,10 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+      # 版を固定する（stable の更新だけで必須の検査が落ちないように）。上げるときはここと goldens.yml を一緒に変え、画像を作り直す
+      # Pinned so a new stable can't break the required check; bump together with goldens.yml and regenerate goldens
       - uses: subosito/flutter-action@v2
-        with: { channel: stable, cache: true }
+        with: { flutter-version: '3.50.0', channel: stable, cache: true }
       - name: 検証アプリに KM1 のファイルを入れる / put KM1 files into the verification app
         run: |
           cp km1_theme.dart km1_widgets.dart icons/km1_icons.dart icons/km1_icons_b.dart verify/flutter/lib/
@@ -62,3 +64,23 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: failure()
         with: { name: flutter-golden-failures, path: verify/flutter/test/failures/, if-no-files-found: ignore }
+  flutter-latest:
+    name: Flutter 最新の stable（参考・必須ではない）/ Flutter latest stable (advisory)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: { channel: stable, cache: true }
+      - name: 検証アプリに KM1 のファイルを入れる / put KM1 files into the verification app
+        run: |
+          cp km1_theme.dart km1_widgets.dart icons/km1_icons.dart icons/km1_icons_b.dart verify/flutter/lib/
+          mkdir -p verify/flutter/fonts && cp icons/KM1Icons.ttf verify/flutter/fonts/
+      - run: flutter pub get
+        working-directory: verify/flutter
+      - run: flutter analyze --no-fatal-infos
+        working-directory: verify/flutter
+      # 画像は固定した版で作ったものなので、最新版では比べない / goldens belong to the pinned version
+      - run: flutter test --exclude-tags golden
+        working-directory: verify/flutter

@@ -30,6 +30,21 @@ void main() {
     final tag = dark ? 'dark' : 'light';
     testWidgets('スマホ幅 390・$tag', (t) => run(t, const Size(390, 844), theme));
     testWidgets('PC 幅 1280・$tag', (t) => run(t, const Size(1280, 800), theme));
+    // 部品の見た目の回帰: ギャラリー（ボタン・チップ・進み具合・一覧・凡例・ページ送り・空の状態）を画像で比べる。
+    // テストの書体は文字を四角で描くので、文字の形ではなく位置・大きさ・色を比べることになる
+    // Visual regression for components; the test font draws glyphs as boxes, so this compares layout, size and colour
+    for (final (name, size) in [('phone', const Size(390, 844)), ('desktop', const Size(1280, 800))]) {
+      testWidgets('ギャラリーの画像 $name・$tag', tags: ['golden'], (t) async {
+        t.view.physicalSize = size;
+        t.view.devicePixelRatio = 1;
+        addTearDown(t.view.reset);
+        await t.pumpWidget(MaterialApp(debugShowCheckedModeBanner: false, theme: theme,
+            home: const RepaintBoundary(key: ValueKey('gallery'), child: Km1Gallery())));
+        await t.pump();
+        await t.pump(const Duration(milliseconds: 600));
+        await expectLater(find.byKey(const ValueKey('gallery')), matchesGoldenFile('goldens/gallery_${name}_$tag.png'));
+      });
+    }
     for (final s in [16.0, 20.0, 24.0]) {
       testWidgets('アイコンの一覧の画像 ${s.toInt()}px・$tag', tags: ['golden'], (t) async {
         t.view.physicalSize = const Size(1100, 760);

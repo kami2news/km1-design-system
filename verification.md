@@ -18,7 +18,7 @@ KM1 の検証は「自動の検査（ここで実施）」と「実機・読み�
 | I1 | iOS・iPadOS | VoiceOver、Dynamic Type、Safe Area | 未実施 | | |
 | A1 | Android | TalkBack、戻るジェスチャー、Compose のビルド | 未実施 | | |
 | F1 | Flutter（CI） | `flutter analyze`（エラー・警告で失敗）と `flutter test`（ギャラリーをスマホ 390・PC 1280 の幅、ライト・ダークで組み立て、例外とはみ出しがないか） | 済 | 2026-11-18・GitHub Actions の ubuntu-24.04・Flutter stable（`.github/workflows/check.yml`。push のたびに流す） | 情報（material.dart の非推奨）は失敗にしない。アイコンの一覧の画像比較は、承認済みの画像を入れるまで飛ばす（F2） |
-| F2 | Flutter の画像比較 | アイコンの一覧 6 枚を承認済みの画像と比べ、違えば CI を失敗にする | 済 | 2026-11-19・GitHub Actions の ubuntu-24.04・Flutter stable。goldens ワークフローで作り、6 枚を目で確認して登録（144 個の線と塗り、ライトとダーク、16・20・24px） | それまで CI が `--update-goldens` で毎回作り直しており違いを見逃していたのを、比べる形に直した。最初の候補では、テストで KM1Icons の書体が読み込まれず塗りのアイコンが □ になっていたので直した。画像には画面の背景色を入れる（透明だとダークの見え方を見誤る） |
+| F2 | Flutter の画像比較 | アイコンの一覧 6 枚（と 2026-11-19 からギャラリー 4 枚: スマホ・PC × ライト・ダーク）を承認済みの画像と比べ、違えば CI を失敗にする | 済 | 2026-11-19・GitHub Actions の ubuntu-24.04・Flutter stable。goldens ワークフローで作り、6 枚を目で確認して登録（144 個の線と塗り、ライトとダーク、16・20・24px） | それまで CI が `--update-goldens` で毎回作り直しており違いを見逃していたのを、比べる形に直した。最初の候補では、テストで KM1Icons の書体が読み込まれず塗りのアイコンが □ になっていたので直した。画像には画面の背景色を入れる（透明だとダークの見え方を見誤る） |
 | F3 | Flutter（実機） | Android・iOS・Windows・macOS でのビルドと実際の画面 | 未実施 | | |
 | T1 | 書体 / Typefaces | Office（Windows・Mac）、iOS・Android・Windows の画面で、文字がゴシック体で描かれるか（明朝・セリフ体に落ちていないか）。日本語・英語・数字・記号（①・℃・〜）の混じった文で見る。手順は 5 章 | 未実施 | | 自動の検査（`fontcheck.py`・`fontcheck_render.js`）は 2026-11-14 に合格 |
 | C1 | 文書の整合 / Docs consistency | `gen/sync_counts.py --check`（部品数・対応表の食い違い）と `gen/govcheck.py`（保留・提案の期限）を一緒に流す | 済 | 2026-11-18・`gen/check_all.sh` の中で流す（CI も同じ） | 2026-11-15 に追加。変更のたびに流す |
@@ -99,7 +99,7 @@ headless Chrome で、選べる List と Table に 500〜5,000 行を表示し�
 
 ## 6. Flutter の画像比較の手順（F2） / Flutter golden procedure
 
-CI の Flutter のテストは、`verify/flutter/test/goldens/` にある承認済みの画像と比べる。画像が違えば CI は失敗し、違った画像は成果物 `flutter-golden-failures` に出る。`--update-goldens`（画像を作り直す）は通常の CI では使わない。
+CI の Flutter のテストは、`verify/flutter/test/goldens/` にある承認済みの画像（アイコンの一覧 6 枚、部品を並べたギャラリー 4 枚）と比べる。ギャラリーはテスト用の書体で文字が四角に描かれるので、文字の形ではなく、部品の位置・大きさ・色の変化を見つけるためのもの。Flutter の版は `check.yml` と `goldens.yml` で同じものに固定し、版を上げるときは画像も作り直す（最新の stable は参考のジョブで試す）。画像が違えば CI は失敗し、違った画像は成果物 `flutter-golden-failures` に出る。`--update-goldens`（画像を作り直す）は通常の CI では使わない。
 *CI compares against approved images in `verify/flutter/test/goldens/`; any difference fails the build and the diffs are uploaded. `--update-goldens` is never used in the normal CI.*
 
 1. 承認済みの画像を作る・作り直す: GitHub の Actions で「goldens」ワークフローを手で動かす（Run workflow）。CI と同じ ubuntu と Flutter で作るので、手元の OS の書体の違いが入らない。

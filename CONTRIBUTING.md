@@ -13,6 +13,8 @@ KM1 は個人が管理するデザイン標準です。変更の決め方（提�
 4. `bash gen/check_all.sh` が通ること。CI（`.github/workflows/check.yml`）も同じものと Flutter の解析・テストを流す。
    *`bash gen/check_all.sh` must pass; CI runs the same plus Flutter analyze and tests.*
 5. Flutter の画像が変わる変更は、`verification.md` 6 章の手順で承認済みの画像を作り直して同じ pull request に入れる。
+   Flutter の版は `.github/workflows/check.yml` と `goldens.yml` で固定している。上げるときは 2 つを一緒に変え、画像を作り直す。「Flutter 最新の stable（参考）」のジョブが落ちたら、版を上げる前に直す。
+   *Flutter is pinned in both workflows; bump them together and regenerate goldens. The advisory latest-stable job warns early.*
 6. 公開リポジトリなので、個人の氏名・勤め先・メールアドレスを書かない。見本の名前は架空にする。
    *Public repository: no personal names, employers or e-mail addresses.*
 
