@@ -3,7 +3,7 @@
   "private": true,
   "description": "KM1 の Word・PowerPoint のひな形を作る道具 / tools to build KM1 Office templates",
   "devDependencies": {
-    "docx": "9.8.1",
+    "docx": "9.15.4",
     "pptxgenjs": "4.0.1"
   },
   "overrides": {
