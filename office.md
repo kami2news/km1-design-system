@@ -78,8 +78,8 @@ KM1 の型の表の大きさと行送りだけを使う / only KM1 type-ramp siz
 | 大きな数字（1 枚に 1 つ）/ Hero number | 68pt・太字、行送り 92 | display |
 | 表紙・章の区切りの題名 / Cover, section title | 40pt・太字、行送り 52、2 行まで | large-title |
 | スライドの題名 / Slide title | 32pt・太字、行送り 40、**1 行**・左寄せ | title-1 |
-| 本文・箇条書き / Body | 24pt・標準、行送り 32、項目の間 12〜16 | title-3 の大きさ・標準の太さ |
-| 補足・英語・表・グラフ・カードの説明 / Notes, English, tables, charts | 20pt・行送り 28 | subtitle-1 の大きさ |
+| 本文・箇条書き・カードの見出しと説明 / Body, card text | 24pt・標準（見出しは太字）、行送り 32、項目の間 12〜16 | title-3 の大きさ |
+| 図の説明・表・グラフ・補足・英語の併記 / Captions, tables, charts, notes, English | 20pt・行送り 28 | subtitle-1 の大きさ |
 | 柱・スライド番号 / Footer, slide number | 14pt・#616161、行送り 20 | body-1 |
 
 - **内容の文字は 20pt 以上。** 14pt は下の柱の行（柱とスライド番号）だけ。Microsoft は 18pt 以上、投影するときの多くの指針は 24pt 以上を求めるので、本文を 24pt、それ以外の内容を 20pt にした。
@@ -90,6 +90,11 @@ KM1 の型の表の大きさと行送りだけを使う / only KM1 type-ramp siz
   *Titles fit on one line: 27 full-width characters at 32pt.*
 - 本文は左寄せ。中央寄せは使わない（題名も左寄せ）。
   *Left-aligned text, titles included.*
+- 20pt は図の説明・表・グラフ・補足・英語の併記だけに使う。カードの中の文字は本文と同じ 24pt（大きなカードに 20pt の文字を置くと中身が貧弱に見える）。
+  *20pt only for captions, tables, charts, notes and English; card text is 24pt like the body.*
+- **数字のあとの空白（スライドの文字）:** 半角の空白を入れるのは、数値と単位（m・cm・km・°C・ppt・% など）の間だけ。助数詞（年・月・日・回・本・個・枚・か所・件・人・時間・列・行・字・項目・つ など）の前には入れない。例: 「4回」「12月」「1枚に1つ」、「水深 4 m」「25 °C」。文字の大きさと寸法の `pt`・`px` は KM1 の書き方どおり続けて書く（「24pt」）。日本語の中に空白が多いと間延びして読みにくくなるため。
+  *No space before Japanese counters ("4回", "12月"); a space only between a number and a unit ("4 m", "25 °C"). KM1 keeps pt and px attached ("24pt").*
+  - 注意: LibreOffice とそれを使うプレビューは、和文と英数字の間に自動で少し間をあける表示をするので、空白を入れていなくても間があいて見えることがある。ファイルの文字そのもので確かめる（`officecheck.py` が空白を調べる）。
 
 ### 4.2 余白とグリッド / Spacing and grid
 
@@ -118,19 +123,28 @@ KM1 の型の表の大きさと行送りだけを使う / only KM1 type-ramp siz
 | 4 ＋ 4 ＋ 4 | 272 × 3 | カード 3 枚 |
 | 3 × 4 | 198 × 4 | カード 4 枚・手順 |
 
-**縦の分け方 / Vertical:** 本文の領域は 1 段（368）か、上下 2 段（172 ＋ 間 24 ＋ 172）。
+**縦の分け方 / Vertical:** 本文の領域は 1 段（368）か、上下 2 段（172 ＋ 間 24 ＋ 172）。横長の図（時系列など）にだけ、もう 1 つの分け方を認める: 上から「図の高さ ＋ 図の説明 1 行（28）＋ 間 24 ＋ 残り」。図は 12 列の全幅に置き、図の高さは図の縦横の比で決め、残りに説明か箇条書きを置く。
+*Body area: one row of 368 or two rows of 172. Wide figures only may use figure height + one caption line (28) + 24 gap + the rest, at full width.*
 *The body area is one row of 368 or two rows of 172 with a 24 gap.*
 
 ### 4.3 空間の使い方 / Using the space
 
 - **はみ出さない:** 本文の領域の外（題名の行・柱の行・余白）に図や文字を置かない。柱に重なるものは検査で FAIL。
   *Nothing outside the body area; overlapping the footer is a FAIL.*
-- **図・表・カードは領域に合わせる:** グラフと図は列の幅（12・8・6 列）と段の高さ（368 か 172）いっぱいに置く。カードは段の高さに合わせ、内側の余白は 24（`container-card-padding-spacious`）、数字や見出しは上、説明は下にそろえる。表は行の高さを 368 ÷ 8 ＝ 46 か 40 にして上から詰める。図・表・カードだけのスライドで本文の領域の下半分が空いていたら、大きさか分け方を見直す（検査で注意）。
-  *Charts and figures fill their columns and row; cards match the row height with 24 padding, top/bottom aligned content; tables use 46 or 40 rows from the top.*
+- **図とグラフは領域に合わせる:** グラフと図は列の幅（12・8・6 列）と段の高さ（368 か 172）いっぱいに置く。表は行の高さを 368 ÷ 8 ＝ 46 か 40 にして上から詰める。図やグラフの下に本文の領域の半分以上の空きがあれば、大きさか分け方を見直す（検査で注意）。
+  *Charts and figures fill their columns and row; tables use 46 or 40 rows from the top.*
+- **カードは中身に合わせる:** 文字のカードの高さは「上の余白 24 ＋ 中身 ＋ 下の余白 24」（`container-card-padding-spacious`）。説明は見出しのすぐ下に間 12（`space-md`）で置き、見出しと説明を上下に離さない。横に並べたカードは一番高いものに高さをそろえ、余った高さは本文の領域の下に残す。段の高さ（368 か 172）いっぱいにするのは、図やグラフが入るカードと、大きな数字（68pt）のカードだけ。文字のカードで文字が高さの半分に届かなければ検査で注意。
+  *Text cards are content height plus 24 padding top and bottom, with the description 12 below the heading; side-by-side cards share the tallest height and leftover space stays below. Only figure and hero-number cards fill the row.*
+  - カードは区切りのために使わない。区切りは見出しと間隔で示す（「画面の組み立て」の「グループごとにカードや枠で囲まない」と同じ）。カードは並べて比べる単位にだけ使う。
+    *Cards are units to compare, not separators.*
 - **文字だけのスライドは上から詰める:** 本文は本文の領域の上にそろえる（縦の中央にしない）。下の空きは読みやすさのための余白としてそのまま残し、文字を大きくしたり間を広げたりして埋めない。
   *Text slides start at the top of the body area; leftover space stays empty.*
-- **量の上限:** 箇条書きは 1 枚に 6 項目まで（1 項目は 2 行まで）。超えたら 2 枚に分け、題名に「（2/2）」を付ける。
-  *At most six bullet items, each up to two lines; split beyond that.*
+- **量の上限:**
+  - 1 枚の文字は全角 100 字程度まで（半角は 0.5 字。題名・図の説明・英語の併記は数えない）。
+  - 説明のまとまり（見出しと文の組、カード、段落）は 3 つまで、1 つは 2 行まで。箇条書きは 6 項目まで、1 項目は 2 行まで。
+  - 超えたら 2 枚に分け、題名に「（2/2）」を付ける。上限は箇条書きだけでなく、見出しと文の組を並べたスライドにも効く。
+  - 枚数の目安は 1 枚 45〜60 秒（10 分の発表なら 10〜12 枚）。
+  *About 100 full-width characters per slide (titles, captions and English excluded); at most three text groups of two lines; six bullets of two lines; 45–60 seconds per slide.*
 - **余白の役割を混ぜない:** 項目の間 12〜16（`space-md`〜`space-lg`）＜ まとまりの間 24（`space-xxl`）＜ 領域の間 32 以上。近いものほど間を狭くする。空の段落や空白の文字で間をあけない。
   *Item gaps < group gaps < region gaps; never space with empty paragraphs.*
 
@@ -148,11 +162,24 @@ KM1 の型の表の大きさと行送りだけを使う / only KM1 type-ramp siz
 | KM1 図と説明 / Figure and text | 左 8 列に図・グラフ、右 4 列に説明 |
 | KM1 題名だけ / Title only | グラフ・表・図・数字のカード |
 
+**中身の型 / Content types:** レイアウトの中に置く中身は次の 5 つの型にする。同じ役割のスライドは同じ型にそろえる（例: 結果のスライドは全部「図と説明」）。1 つの資料の中で組み方を増やさない。
+*Five content types; slides with the same role use the same type.*
+
+| 型 / Type | 中身 | レイアウト |
+|---|---|---|
+| 図と説明 | 図・グラフ（8 列）と説明（4 列）、または横長の図と下の説明（§4.2） | 図と説明・題名だけ |
+| グラフ | PowerPoint のグラフ 1 つを全幅 | 題名だけ |
+| カード | 比べる単位を 2〜4 枚（§4.3） | 題名だけ |
+| 文 | 箇条書きか短い段落（§4.3 の量の上限） | 題名と本文・2 段 |
+| 大きな数字 | 68pt の数字 1 つと説明 | 題名だけ |
+
 ### 4.5 そのほか / Other rules
 
 - 題名は全部のスライドに付け、題名のプレースホルダーに入れる。同じ題名を 2 枚に使わない（続きは「（2/2）」を付ける）。題名だけを読んで話の筋がわかるようにする。
   *Every slide has a unique title in the title placeholder.*
 - 1 枚に伝えることは 1 つ。
+- **強調の色:** ブランドの紺（#10218B）で強調するのは 1 枚に 1 か所（主張・結論・大きな数字）だけ。見出しやラベル（「使う」「使わない」など）は黒（`ink` #242424）の太字にする。全部の見出しが紺だと、どこが大事か分からなくなるため。表紙の題名・章の番号は 1 か所として数える。
+  *Brand navy marks one thing per slide (claim, conclusion or hero number); headings and labels are bold ink.*
 - 文字はプレースホルダーに入れる。自分で置いたテキスト ボックスは読み上げの順が崩れやすいので、使ったら「校閲 › アクセシビリティ チェック」から開く［閲覧順序］ウィンドウで、見た目の順に直す。
   *Prefer placeholders; fix reading order when adding text boxes.*
 - グラフは PowerPoint のグラフで作り（画像にしない）、色はテーマのアクセントの順、値を書き込む。軸と値の文字は 20pt・#424242、目盛りの線は #E0E0E0。
@@ -165,13 +192,26 @@ KM1 の型の表の大きさと行送りだけを使う / only KM1 type-ramp siz
     *Use the KM1 pattern images as a tiled picture fill at 100% scale.*
   - 寸法は 1pt ＝ 1px で、繰り返し 12pt（`space-md`）、横線・縦線・斜線の太さ 4pt（`space-xs`）、格子・斜め格子の線 2pt、点の直径 6pt、市松の 1 マス 12pt。前景は系列の色、背景は白、枠線は #616161 の 0.75pt。画面の模様（間隔 8px）より大きいのは、スライドを離れて見るため。
     *Repeat 12pt, stripes 4pt, grid lines 2pt, dots 6pt, checker squares 12pt; foreground = series color, background white, outline #616161 0.75pt.*
-  - 画像はテーマのアクセント 6 色 × 8 模様の 48 枚。見本の `km1_pptx.js` はこの画像を書き込み、見本の 8 枚目に一覧がある。
+  - 画像はテーマのアクセント 6 色 × 8 模様の 48 枚。見本の `km1_pptx.js` はこの画像を書き込み、見本の 9 枚目に一覧がある。
 - 表は「タイトル行」をオンにし、見出しの行は #F0F0F0 と太字、罫線は #D1D1D1。セルを結合しない。
 - カードの角丸は 8pt（`radius-xl`）、塗りは #F5F5F5 か #ECEFFC。影や帯・縁の色の線は付けない（KM1 は大きな面の塗りを避ける）。
   *Cards use 8pt corners and flat tints; no shadows, stripes or edge bars.*
 - アニメーションと画面切り替えの効果は使わない（KM1 の動きの決まり: 動かしてよいのは色・不透明度・8px までの移動だけ。スライドでは使う理由がない）。
   *No animations or transitions.*
 - 話す内容はノートに書く。スライドに長い文を載せない。
+
+### 4.6 図の転載と図の説明 / Reproduced figures and captions
+
+- **描き直すのが基本:** 数値が分かる図（棒・線・散布図など）は、PowerPoint のグラフで描き直す（RS1 と同じ考え）。論文の図をそのまま縮めると、検査は通っても肝心の中身が見えない。
+  *Redraw figures whose values are known as native charts.*
+- **転載する大きさ:** 転載する図は、図の中の文字が映して 14pt 以上になる大きさで載せる。届かないときは、必要な部分だけを切り出すか描き直す。1 枚に載せるパネルは 2 つまでを目安にする。元の画像より半分未満に縮めていると検査で注意。
+  *Reproduced figures keep their internal text at 14pt or more on the slide; crop or redraw otherwise; about two panels per slide.*
+- **日本語の発表:** 英語の図には、要になるラベルだけでも日本語を重ねる（20pt、図の上の白い面に黒い文字）。
+  *In Japanese talks, overlay Japanese on at least the key labels.*
+- **図の説明:** 図の下に 1 行・20pt で「図番号　内容。[n] Fig. ○ を転載」と書く（例「図2　湖の水深の変化。[3] Fig. 4 を転載」）。図番号と内容の間は全角の空白。テキスト ボックスの名前を `caption` で始めると、検査の文字数から外れる。
+  *Caption: one 20pt line below the figure, "図n　content. [n] Fig. x を転載".*
+- ライセンスと「一部を切り出した」などの断り書きは、最後の参考文献のスライドにまとめてよい。
+  *Licence and cropping notes may be gathered on the references slide.*
 
 **配るとき / Handing out:** PDF にして配る。「名前を付けて保存 › PDF › オプション」で「アクセシビリティ用のドキュメント構造タグ」をオンにし、`pdfcheck.py` にかける（スライドの比率のままなので A4 の項目は注意として出る）。
 
@@ -192,7 +232,7 @@ KM1 の型の表の大きさと行送りだけを使う / only KM1 type-ramp siz
 |---|---|
 | 両方 | 文書の題名、作成者が空か（注意）、テーマの和文・欧文の書体が游ゴシック、言語ごとの補助の書体に明朝・セリフ体・手書き風がない、テーマの色が KM1 の色 |
 | Word | 既定の言語が日本語、見出しのスタイルがある・段が飛ばない、太字だけの見出しもどき（注意）、手で打った「・」、文字の大きさが §3 の値、8pt 未満、文字の色が KM1 の色、図の代替テキスト、表の見出し行の繰り返し、セルの結合、「こちら」のようなリンクの文字、A4 |
-| PowerPoint | 16:9、全部のスライドに題名、題名の重複、図・グラフの代替テキスト、表のタイトル行（注意）とセルの結合、文字の大きさが §4.1 の値、14pt が柱の行の外にない、文字と図形の色が KM1 の色、言語の指定（注意）、アニメーション・画面切り替え（注意）。§4.2〜4.3 の割り付け: 本文の領域の下へのはみ出し（FAIL）、題名の行への食い込み・12 列のグリッドからのずれ・題名が 1 行に入らない・箇条書きが 7 項目以上・図だけのスライドの下半分の空き（どれも注意） |
+| PowerPoint | 16:9、全部のスライドに題名、題名の重複、図・グラフの代替テキスト、表のタイトル行（注意）とセルの結合、文字の大きさが §4.1 の値、14pt が柱の行の外にない、文字と図形の色が KM1 の色、言語の指定（注意）、アニメーション・画面切り替え（注意）。§4.2〜4.3 の割り付け: 本文の領域の下へのはみ出し（FAIL）、題名の行への食い込み・12 列のグリッドからのずれ・題名が 1 行に入らない・箇条書きが 7 項目以上・図・グラフの下の大きな空き（どれも注意）。§4.1・4.3・4.5・4.6 の中身: 1 枚の文字数が全角 100 字を超える・文字のカードで文字が高さの半分未満・紺の文字が 1 枚に 2 か所以上・助数詞の前の空白・図を元の半分未満に縮めている（どれも注意） |
 
 FAIL があると終了コード 1 を返す。
 *Exits 1 on any FAIL.*
@@ -207,6 +247,13 @@ FAIL があると終了コード 1 を返す。
 - [ ] 白黒で印刷しても区別できる / distinguishable in grayscale
 - [ ] スライドの題名だけで話の筋がわかる / slide titles alone tell the story
 - [ ] ファイルのプロパティに個人情報が残っていない / no personal data in properties
+- [ ] スライド一覧を 25% で表示しても、題名と一番大事なものが読める / titles and the key element read at 25% zoom
+- [ ] 1 枚を 5 秒見て、言いたいことが分かる / the point is clear in five seconds
+- [ ] 図の中の文字が、映したときに読める大きさになっている / text inside figures is readable when projected
+- [ ] 同じ組み方が続きすぎず、形がばらばらでもない / layouts neither repeat too long nor scatter
+
+検査に通ることと見やすいことは別。`officecheck.py` が FAIL 0・注意 0 でも、上の人の確認を省かない。
+*Passing the checker is not the same as being readable; never skip the human checks.*
 
 **確かめたこと / Verified (2026-11-19)** — 文字の大きさと割り付けを改めた版のひな形と見本が `officecheck.py` で FAIL 0・注意 0、LibreOffice で PDF にして全ページを目で見た。以前（2026-11-13） — ひな形 2 つと見本 2 つが `officecheck.py` で FAIL 0、Office Open XML の形式の検査（XSD・関係・中身の種類）に合格。LibreOffice で PDF にして全ページを目で見た（游ゴシックがないので Noto Sans CJK JP で表示。文字の幅は Office と少し違う）。**まだ確かめていないこと:** Microsoft Word・PowerPoint で開くこと、Office のアクセシビリティ チェック、PowerPoint で書き出した PDF のタグ。
 *Templates and samples pass `officecheck.py` and OOXML validation, and were rendered with LibreOffice (Noto Sans CJK JP substituted for Yu Gothic). Not yet checked in Microsoft Office itself.*

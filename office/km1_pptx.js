@@ -199,7 +199,7 @@ async function build() {
   const pres = new pptxgen(); props(pres, 'KM1 スライドの規定 見本 / KM1 slide rules sample');
   layouts(pres, 'KM1 スライドの規定 見本');
   const t = (s, o = {}) => ({ text: s, options: Object.assign({ lang: LANG }, o) });
-  const en = (s, o = {}) => t(s, Object.assign({ fontSize: T.small, lineSpacing: LH[20], color: C.ink3, breakLine: true }, o));
+  const en = (s, o = {}) => t(s, Object.assign({ fontSize: T.small, lineSpacing: LH[20], color: C.ink3, breakLine: true, lang: 'en-US' }, o));
   const li = (s, o = {}) => t(s, Object.assign({ bullet: true, breakLine: true, paraSpaceBefore: S.lg, paraSpaceAfter: 0 }, o));
   const card = (s, x, y, w, h, fill, name) => s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: PT(x), y: PT(y), w: PT(w), h: PT(h), fill: { color: fill }, line: { type: 'none' }, rectRadius: PT(8), objectName: name });
   const box = (s, text, x, y, w, h, o) => s.addText(text, Object.assign({ x: PT(x), y: PT(y), w: PT(w), h: PT(h), margin: 0, isTextBox: true, valign: 'top', fontFace: FONT, lang: LANG }, o));
@@ -219,7 +219,7 @@ async function build() {
   s = pres.addSlide({ masterName: 'KM1 題名と本文 / Title and content', sectionTitle: '決まり / Rules' });
   s.addText('文字は 20pt 以上、本文は 24pt', { placeholder: 'title' });
   s.addText([
-    li('題名は 32pt・太字・1 行。題名だけ読めば話の筋がわかる文にする', { paraSpaceBefore: 0 }),
+    li('題名は 32pt・太字・1行。題名だけ読めば話の筋がわかる文にする', { paraSpaceBefore: 0 }),
     en('Titles: 32pt bold, one line, so the titles alone tell the story'),
     li('本文は 24pt。補足・英語・表・グラフは 20pt'),
     en('Body 24pt; notes, English, tables and charts 20pt'),
@@ -228,28 +228,28 @@ async function build() {
   ], { placeholder: 'body' });
 
   s = pres.addSlide({ masterName: 'KM1 題名だけ / Title only', sectionTitle: '決まり / Rules' });
-  s.addText('余白と 12 列のグリッド', { placeholder: 'title' });
+  s.addText('余白と 12列のグリッド', { placeholder: 'title' });
   for (let i = 0; i < G.cols; i++) card(s, colX(i), G.bodyTop, G.col, G.bodyH, C.tint, `col-${i + 1}`);
   const lh = 3 * LH[24], bh = lh + 2 * PAD, by = G.bodyTop + (G.bodyH - bh) / 2;   // 中の文字に合わせた白いカード / white card sized to its text
   card(s, colX(2), by, spanW(8), bh, 'FFFFFF', 'grid-card');
   box(s, [t('左右 48・上 40・題名 40・間 24', { breakLine: true, bold: true }), t('本文 864 × 368、列 50・溝 24', { breakLine: true }), t('下は柱 20・余白 24')],
     colX(2) + PAD, by + PAD, spanW(8) - 2 * PAD, lh, { fontSize: T.body, lineSpacing: LH[24], color: C.ink, objectName: 'grid-label' });
-  s.addNotes('薄い紺の帯が 12 列。図・表・カードの左右の端は、どれかの列の端にそろえる。');
+  s.addNotes('薄い紺の帯が 12列。図・表・カードの左右の端は、どれかの列の端にそろえる。');
 
   s = pres.addSlide({ masterName: 'KM1 2 段 / Two columns', sectionTitle: '決まり / Rules' });
   s.addText('使う形・使わない形', { placeholder: 'title' });
-  s.addText([ t('使う', { bold: true, color: C.brand, breakLine: true, paraSpaceAfter: 0 }),
+  s.addText([ t('使う', { bold: true, color: C.ink, breakLine: true, paraSpaceAfter: 0 }),
     li('題名・本文はプレースホルダーに入れる'),
     li('グラフは PowerPoint のグラフで作る'),
     li('図・表・カードは列の端にそろえる', { breakLine: false }) ], { placeholder: 'left' });
-  s.addText([ t('使わない', { bold: true, color: 'B10E1C', breakLine: true, paraSpaceAfter: 0 }),
+  s.addText([ t('使わない', { bold: true, color: C.ink, breakLine: true, paraSpaceAfter: 0 }),
     li('文字を画像にする'),
     li('色だけで区別する'),
-    li('縮めて詰め込む（2 枚に分ける）', { breakLine: false }) ], { placeholder: 'right' });
+    li('縮めて詰め込む（2枚に分ける）', { breakLine: false }) ], { placeholder: 'right' });
 
   s = pres.addSlide({ masterName: 'KM1 題名だけ / Title only', sectionTitle: '決まり / Rules' });
-  s.addText('大きな数字は 68pt で 1 つだけ', { placeholder: 'title' });
-  [['68pt', '数字 / Number', '1 枚に 1 つ'], ['32pt', '題名 / Title', '1 行で'], ['24pt', '本文 / Body', '6 項目まで']].forEach(([n, l, d], i) => {
+  s.addText('大きな数字は 68pt で 1つだけ', { placeholder: 'title' });
+  [['68pt', '数字 / Number', '1枚に 1つ'], ['32pt', '題名 / Title', '1行で'], ['24pt', '本文 / Body', '6項目まで']].forEach(([n, l, d], i) => {
     const x = colX(i * 4), w = spanW(4);
     card(s, x, G.bodyTop, w, G.bodyH, i === 0 ? C.tint : C.muted, `card-${i + 1}`);
     box(s, n, x + PAD, G.bodyTop + PAD, w - 2 * PAD, LH[i === 0 ? 68 : 40], { fontSize: i === 0 ? T.display : T.largeTitle, bold: true, color: i === 0 ? C.brand : C.ink, objectName: `num-${i + 1}` });
@@ -258,20 +258,34 @@ async function build() {
   });
   s.addNotes('カードは本文の領域の高さいっぱい（368）。数字は上、説明は下にそろえ、間を空ける。');
 
+  s = pres.addSlide({ masterName: 'KM1 題名だけ / Title only', sectionTitle: '決まり / Rules' });
+  s.addText('文字のカードは中身の高さに合わせる', { placeholder: 'title' });
+  {
+    // 高さ ＝ 上下の余白 24 ＋ 見出し 1行 ＋ 間 12 ＋ 説明 2行。並べたカードは一番高いものにそろえ、余りは下に残す（office.md §4.3）
+    const items = [['説明は見出しの下', '間は12pt だけ'], ['高さは中身まで', '余りは下に残す'], ['文字は24pt', '20ptは図と表だけ']];   // 4列の幅（272）に 24pt で 1行 9字まで
+    const ch = PAD + LH[24] + S.md + 2 * LH[24] + PAD;
+    items.forEach(([h, d], i) => {
+      const x = colX(i * 4), w = spanW(4);
+      card(s, x, G.bodyTop, w, ch, C.muted, `card-${i + 1}`);
+      box(s, [t(h, { bold: true, breakLine: true, paraSpaceAfter: S.md }), t(d, { color: C.ink2 })], x + PAD, G.bodyTop + PAD, w - 2 * PAD, ch - 2 * PAD,
+        { fontSize: T.body, lineSpacing: LH[24], color: C.ink, objectName: `card-text-${i + 1}` });
+    });
+  }
+
   pres.addSection({ title: 'グラフと表 / Charts and tables' });
   const chartOpt = { barDir: 'col', showValue: true, dataLabelPosition: 'outEnd', dataLabelColor: C.ink, dataLabelFontSize: T.small, dataLabelFontFace: '+mn-lt',
     catAxisLabelColor: C.ink2, valAxisLabelColor: C.ink2, catAxisLabelFontSize: T.small, valAxisLabelFontSize: T.small, catAxisLabelFontFace: '+mn-lt', valAxisLabelFontFace: '+mn-lt',
     valGridLine: { color: 'E0E0E0', size: 1 }, catGridLine: { style: 'none' }, showTitle: false };
   s = pres.addSlide({ masterName: 'KM1 図と説明 / Figure and text', sectionTitle: 'グラフと表 / Charts and tables' });
-  s.addText('4 月は 1 月の 2 倍近くに増えた', { placeholder: 'title' });
-  s.addChart(pres.charts.BAR, [{ name: '件数', labels: ['1 月', '2 月', '3 月', '4 月'], values: [12, 18, 15, 22] }], Object.assign({}, chartOpt, {
+  s.addText('4月は 1月の 2倍近くに増えた', { placeholder: 'title' });
+  s.addChart(pres.charts.BAR, [{ name: '件数', labels: ['1月', '2月', '3月', '4月'], values: [12, 18, 15, 22] }], Object.assign({}, chartOpt, {
     x: PT(colX(0)), y: PT(G.bodyTop), w: PT(spanW(8)), h: PT(G.bodyH), chartColors: ['10218B'], showLegend: false,
-    altText: '月ごとの件数の棒グラフ。1 月 12 件、2 月 18 件、3 月 15 件、4 月 22 件。' }));
+    altText: '月ごとの件数の棒グラフ。1月 12件、2月 18件、3月 15件、4月 22件。' }));
   s.addText([ t('値は棒の上に書き込む', { bullet: true, breakLine: true }), t('言いたいことは題名に書く', { bullet: true, breakLine: true }),
-    t('図は左の 8 列、説明は右の 4 列', { bullet: true }) ], { placeholder: 'text' });
+    t('図は左の 8列、説明は右の 4列', { bullet: true }) ], { placeholder: 'text' });
 
   s = pres.addSlide({ masterName: 'KM1 題名だけ / Title only', sectionTitle: 'グラフと表 / Charts and tables' });
-  s.addText('模様は 8 つ、系列の順にこの順で使う', { placeholder: 'title' });
+  s.addText('模様は 8つ、系列の順にこの順で使う', { placeholder: 'title' });
   [['solid', '1 塗り'], ['horizontal', '2 横線'], ['vertical', '3 縦線'], ['diagonal', '4 斜線'], ['grid', '5 格子'], ['crosshatch', '6 斜め格子'], ['dots', '7 点'], ['checker', '8 市松']].forEach(([p, l], i) => {
     const x = colX((i % 4) * 3), y = G.bodyTop + Math.floor(i / 4) * (G.rowH + G.gap), w = spanW(3), sh = G.rowH - LH[20] - S.sm;
     s.addShape(pres.shapes.RECTANGLE, { x: PT(x), y: PT(y), w: PT(w), h: PT(sh), fill: { color: C.brand }, line: { color: C.ink3, width: 0.75 }, objectName: `km1pat-${p}-${C.brand}` });
@@ -282,12 +296,12 @@ async function build() {
   s = pres.addSlide({ masterName: 'KM1 題名だけ / Title only', sectionTitle: 'グラフと表 / Charts and tables' });
   s.addText('系列は色と模様の両方で分ける', { placeholder: 'title' });
   s.addChart(pres.charts.BAR, [
-    { name: '授業', labels: ['1 月', '2 月', '3 月'], values: [18, 16, 20] },
-    { name: 'バイト', labels: ['1 月', '2 月', '3 月'], values: [12, 14, 10] },
-    { name: 'サークル', labels: ['1 月', '2 月', '3 月'], values: [6, 8, 5] }], Object.assign({}, chartOpt, {
+    { name: '授業', labels: ['1月', '2月', '3月'], values: [18, 16, 20] },
+    { name: 'バイト', labels: ['1月', '2月', '3月'], values: [12, 14, 10] },
+    { name: 'サークル', labels: ['1月', '2月', '3月'], values: [6, 8, 5] }], Object.assign({}, chartOpt, {
     x: PT(G.side), y: PT(G.bodyTop), w: PT(G.contentW), h: PT(G.bodyH), barGapWidthPct: 60,
     chartColors: ['10218B', 'BC4B09', '038387'], showLegend: true, legendPos: 'b', legendFontSize: T.small, legendColor: C.ink, legendFontFace: '+mn-lt',
-    altText: '月ごとの時間の内訳の棒グラフ。授業は 1 月 18・2 月 16・3 月 20 時間、バイトは 12・14・10 時間、サークルは 6・8・5 時間。授業は塗り、バイトは横線、サークルは縦線の模様。' }));
+    altText: '月ごとの時間の内訳の棒グラフ。授業は 1月 18・2月 16・3月 20時間、バイトは 12・14・10時間、サークルは 6・8・5時間。授業は塗り、バイトは横線、サークルは縦線の模様。' }));
   s.addNotes('系列の塗りは KM1-COL-001 の順: 塗り → 横線 → 縦線。白黒で印刷しても区別できる。');
 
   s = pres.addSlide({ masterName: 'KM1 題名だけ / Title only', sectionTitle: 'グラフと表 / Charts and tables' });
@@ -296,14 +310,14 @@ async function build() {
   const cell = (v, o) => ({ text: v, options: Object.assign({ fontSize: T.small, color: C.ink }, o || {}) });
   const rows = [
     [cell('役割', hd()), cell('大きさ', hd()), cell('使う場所', hd())],
-    [cell('大きな数字'), cell('68pt'), cell('1 枚に 1 つ')],
+    [cell('大きな数字'), cell('68pt'), cell('1枚に 1つ')],
     [cell('表紙・区切りの題名'), cell('40pt'), cell('表紙と章の区切り')],
-    [cell('スライドの題名'), cell('32pt'), cell('すべてのスライド、1 行')],
+    [cell('スライドの題名'), cell('32pt'), cell('すべてのスライド、1行')],
     [cell('本文'), cell('24pt'), cell('箇条書き・説明')],
     [cell('補足・英語・表・グラフ'), cell('20pt'), cell('内容の文字の最小')],
     [cell('柱・スライド番号'), cell('14pt'), cell('下の柱の行だけ')],
   ];
-  const rh = G.bodyH / 8;                              // 46 ＝ 本文の高さを 8 行で割る / body height in 8 rows
+  const rh = G.bodyH / 8;                              // 46 ＝ 本文の高さを 8行で割る / body height in 8 rows
   s.addTable(rows, { x: PT(G.side), y: PT(G.bodyTop), w: PT(G.contentW), colW: [PT(4 * (G.col + G.gap)), PT(2 * (G.col + G.gap)), PT(spanW(6))],   // 列の境目を列の頭にそろえる / boundaries on column starts
     border: { type: 'solid', pt: 1, color: 'D1D1D1' }, rowH: PT(rh), valign: 'middle', margin: [0, PT(S.lg), 0, PT(S.lg)], fontFace: FONT });
 
@@ -311,9 +325,10 @@ async function build() {
   s = pres.addSlide({ masterName: 'KM1 題名と本文 / Title and content', sectionTitle: 'まとめ / Summary' });
   s.addText('出す前に確かめること', { placeholder: 'title' });
   s.addText([
-    li('officecheck.py で FAIL が 0（大きさ・グリッド・はみ出し・題名の長さ）', { paraSpaceBefore: 0 }),
+    li('officecheck.py で FAIL が 0', { paraSpaceBefore: 0 }),
     li('PowerPoint の「アクセシビリティ チェック」で問題が 0'),
-    li('読み上げの順（オブジェクトの順）が見た目の順と同じ'),
+    li('読み上げの順が見た目の順と同じ'),
+    li('一覧を 25% で見ても題名が読める'),
     li('ファイルのプロパティに個人名が残っていない', { breakLine: false }),
   ], { placeholder: 'body' });
   s.addNotes(KM1_NOTICE_JA + '\n' + KM1_NOTICE_EN);

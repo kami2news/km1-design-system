@@ -10,7 +10,9 @@
   *Added the Figure-and-text layout; the sample deck now shows the grid and fills the body area.*
 - **グラフの模様:** Office の既定の模様（`dkHorz` など、8 × 8 画素の固定の柄）をやめ、Web の模様と同じ形の画像（繰り返し 12pt・線 4pt）を並べて塗るようにした。画像は `office/km1_patterns.py` で作り（アクセント 6 色 × 8 模様）、`dist/KM1_グラフの模様.zip` で配る。見本に模様の一覧のスライドを足した。グラフの棒は画像を「積み重ね」（`c:pictureOptions`）で並べる。並べる指定だけでは、Claude のプレビューと LibreOffice がグラフの中の画像を引き伸ばし、横線 1 本が棒いっぱいに広がったため。
   *Replaced Office preset patterns with tiled KM1 pattern images (12pt repeat, 4pt stripes), shipped as `KM1_グラフの模様.zip`; added a pattern overview slide.*
-- **検査:** `officecheck.py` に、14pt が柱の行の外にないか、本文の領域からのはみ出し（FAIL）、題名の行への食い込み・グリッドからのずれ・題名の長さ・箇条書きの数・図だけのスライドの下半分の空き（注意）、「自動調整」での縮小（FAIL）を足した。前の見本はこの検査で FAIL 5・注意 13 になる。
+- **見づらさを規定で防ぐ（§4.1〜4.6、別のチャットの修正案 A〜C）:** 文字のカードは中身＋上下 24 の高さにし、説明は見出しのすぐ下（段の高さいっぱいは図と大きな数字のカードだけ）。カードの文字は 24pt、20pt は図の説明・表・グラフ・補足だけ。1 枚の文字は全角 100 字程度・説明のまとまりは 3 つまで・1 枚 45〜60 秒。転載した図は中の文字が 14pt 以上になる大きさで、数値の図は描き直す。紺の強調は 1 枚に 1 か所で、見出しは黒の太字。助数詞の前に空白を入れない（「4回」「12月」）。横長の図の縦の分け方、図の説明の書き方、中身の 5 つの型、人の確認 4 項目を足した。
+  *Rules from the readability review: content-height cards, 24pt card text, ~100 characters per slide, reproduced-figure sizing, one navy emphasis per slide, no space before counters, wide-figure split, caption format, five content types, four more human checks.*
+- **検査:** `officecheck.py` に、14pt が柱の行の外にないか、本文の領域からのはみ出し（FAIL）、題名の行への食い込み・グリッドからのずれ・題名の長さ・箇条書きの数・図だけのスライドの下半分の空き（注意）、「自動調整」での縮小（FAIL）、1 枚の文字数・文字のカードの埋まり方・紺の強調の数・助数詞の前の空白・縮めた図（注意）を足した。前の見本はこの検査で FAIL 5・注意 13 になる。
   *`officecheck.py` now checks footer-only 14pt, overflow, grid alignment, title length, bullet count, empty lower half and shrink-to-fit.*
 
 ## 2026-11-18 — 正本を GitHub に移す / Source of truth moved to GitHub

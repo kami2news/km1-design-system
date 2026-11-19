@@ -155,6 +155,62 @@ def xfrm(e):
     if o is None or s is None: return None
     return [int(o.get(k))/EMU for k in ('x','y')]+[int(s.get(k))/EMU for k in ('cx','cy')]
 def em(t): return sum(1 if ord(ch)>0x2E7F else 0.55 for ch in t)
+CHAR_MAX=100                                   # 1 枚の文字の目安（全角、題名・図の説明・英語の併記は数えない）
+COUNTER=re.compile(r'\d[ \u00a0](年|月|日|回|本|個|枚|か所|件|人|時間|時|分|秒|週|列|行|段|字|項目|つ|倍|種|通り|章)')
+BRAND='10218B'
+def content_checks(z,n,i,s,boxes):
+    """文字の量・カードの埋まり方・強調の色・助数詞の前の空白・縮めた図（office.md §4.1・4.3・4.5・4.6）"""
+    a='{%s}'%NS['a']; chars=0; brand=0; texts=[]
+    for e in s.iter('{%s}sp'%NS['p']):
+        ph=e.find('.//p:nvPr/p:ph',NS); nm=e.find('.//p:cNvPr',NS).get('name','')
+        if ph is not None and ph.get('type') in ('title','ctrTitle'): continue
+        body=e.find('.//p:txBody',NS)
+        if body is None: continue
+        hit=False
+        for r in body.iter(a+'r'):
+            t=r.findtext('a:t',default='',namespaces=NS); pr=r.find('a:rPr',NS)
+            texts.append(t)
+            if pr is not None and pr.find('a:solidFill/a:srgbClr',NS) is not None and pr.find('a:solidFill/a:srgbClr',NS).get('val','').upper()==BRAND and t.strip(): hit=True
+            if nm.startswith(('caption','図の説明')) or (pr is not None and (pr.get('lang') or '').startswith('en') and not any(ord(ch)>0x2E7F for ch in t)): continue   # 英語の併記は数えない / skip English-only runs
+            chars+=sum(1 if ord(ch)>0x2E7F else 0.5 for ch in t if not ch.isspace())
+        brand+=hit
+    if chars>CHAR_MAX: out('WARN','CHARS',f'スライド {i} の文字が全角 {chars:.0f} 字（{CHAR_MAX} 字程度まで。削るか 2 枚に分ける）')
+    if brand>=2: out('WARN','EMPHASIS',f'スライド {i} で紺の文字が {brand} か所（紺の強調は 1 枚に 1 か所。見出しやラベルは黒の太字）')
+    for t in texts:
+        m=COUNTER.search(t)
+        if m: out('WARN','SPACE',f'スライド {i}: 助数詞の前に空白「{m.group(0)}」（「{m.group(0).replace(" ","").replace(chr(160),"")}」と続けて書く）'); break
+    # カード（角丸の四角）の中で文字が占める高さ / text height inside text-only cards
+    for e in s.iter('{%s}sp'%NS['p']):
+        g=e.find('.//a:prstGeom',NS)
+        if g is None or g.get('prst')!='roundRect' or e.find('.//p:txBody//a:t',NS) is not None: continue
+        cb=xfrm(e)
+        if not cb: continue
+        def inside(b): return cb[0]-1<=b[0] and cb[1]-1<=b[1] and b[0]+b[2]<=cb[0]+cb[2]+1 and b[1]+b[3]<=cb[1]+cb[3]+1
+        inner=[(b,nm) for b,nm in boxes if b is not cb and inside(b) and b!=cb]
+        fig=any(nm.startswith(('Chart','Picture','Graphic')) for b,nm in inner)
+        big=False; th=0
+        for t in s.iter('{%s}sp'%NS['p']):
+            tb=xfrm(t)
+            if not tb or tb==cb or not inside(tb) or t.find('.//p:txBody//a:t',NS) is None: continue
+            szs=[int(r.get('sz')) for r in t.iter(a+'rPr') if r.get('sz')]
+            if szs and max(szs)>=4000: big=True
+            th+=tb[3]
+        if not fig and not big and th and th<cb[3]*0.5: out('WARN','CARDFILL',f'スライド {i} のカード {e.find(".//p:cNvPr",NS).get("name")} で文字が高さの半分に届かない（カードは中身＋上下 24 の高さにする）')
+    # 図を元の大きさより小さく載せている / pictures scaled down
+    rels=x(z,n.replace('slides/','slides/_rels/')+'.rels')
+    for pic in s.iter('{%s}pic'%NS['p']):
+        bl=pic.find('.//a:blip',NS); b=xfrm(pic)
+        if bl is None or not b or rels is None: continue
+        rid=bl.get('{%s}embed'%NS['r'])
+        tgt=[r.get('Target') for r in rels if r.get('Id')==rid]
+        if not tgt: continue
+        try:
+            from PIL import Image; import io
+            im=Image.open(io.BytesIO(z.read('ppt/'+tgt[0].replace('../',''))))
+            dpi=(im.info.get('dpi') or (96,96))[0] or 96
+            nat=im.size[0]/dpi*72
+            if b[2]<nat*0.5: out('WARN','FIGSCALE',f'スライド {i} の図 {pic.find(".//p:cNvPr",NS).get("name")} を元の {b[2]/nat:.0%} に縮めている（図の中の文字が映して 14pt 以上か確かめる。足りなければ切り出すか描き直す）')
+        except Exception: pass
 def layout_checks(z,slides):
     """余白・グリッド・はみ出し・題名の長さ・項目の数・空き（office.md §4.2〜4.3）/ spacing rules"""
     for i,n in enumerate(slides,1):
@@ -183,9 +239,11 @@ def layout_checks(z,slides):
             if by<BODY_TOP-1: out('WARN','OVERFLOW',f'スライド {i} の {nm} が題名の行に入っている')
             if min(abs(bx-g) for g in GRID_X)>1 or min(abs(bx+bw-g) for g in GRID_R)>1: out('WARN','GRID',f'スライド {i} の {nm} の左右の端が 12 列のグリッドにそろっていない（x={bx:g}, w={bw:g}）')
         # 図・表・カードだけのスライドで、本文の領域の下半分が空いている / lower half empty on a visual slide
-        if top and not any(e.find('.//p:nvPr/p:ph[@type="body"]',NS) is not None for e in s.iter('{%s}sp'%NS['p'])):
+        figs=list(s.iter('{%s}pic'%NS['p']))+[g for g in s.iter('{%s}graphicFrame'%NS['p']) if g.find('.//c:chart',{'c':'http://schemas.openxmlformats.org/drawingml/2006/chart'}) is not None]
+        if top and figs and not any(e.find('.//p:nvPr/p:ph[@type="body"]',NS) is not None for e in s.iter('{%s}sp'%NS['p'])):
             low=max(b[1]+b[3] for b,_ in top)
-            if low<(BODY_TOP+BODY_BOTTOM)/2: out('WARN','EMPTY',f'スライド {i} の本文の領域の下半分が空いている（図・表・カードを本文の領域に合わせる）')
+            if low<(BODY_TOP+BODY_BOTTOM)/2: out('WARN','EMPTY',f'スライド {i} の図・グラフの下に本文の領域の半分以上の空き（図の大きさか分け方を見直す）')
+        content_checks(z,n,i,s,boxes)
     # 14pt は柱の行だけ / 14pt only in the footer row
     for n in slides+[m for m in z.namelist() if re.match(r'ppt/slide(Layout|Master)s/slide(Layout|Master)\d+\.xml$',m)]:
         s=x(z,n)
