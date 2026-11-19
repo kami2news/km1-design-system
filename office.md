@@ -161,7 +161,7 @@ KM1 の型の表の大きさと行送りだけを使う / only KM1 type-ramp siz
   *With two or more series, add patterns (KM1-COL-001) in this order, same shapes as the web.*
   - **Office の既定の模様（「塗りつぶし › パターン」の `dkHorz` など）は使わない。** 8 × 8 画素の決まった細かい柄で、映すと色がにごって見えるだけになり、大きさも変えられないため（2026-11-19 にやめた）。
     *Do not use Office's preset patterns: fixed 8 × 8-pixel tiles that read as a muddy tint when projected.*
-  - 代わりに KM1 の模様の画像（`KM1_グラフの模様.zip`、`office/km1_patterns.py` で作る）を、系列の「塗りつぶし › 塗りつぶし（図またはテクスチャ）› 挿入する › ファイルから」で選び、「画像をテクスチャとして並べる」をオンにして、拡大縮小は横・縦とも 100%、配置は左上にする。ファイル名は `km1-pattern-<番号>-<模様>-<色>.png`。
+  - 代わりに KM1 の模様の画像（`KM1_グラフの模様.zip`、`office/km1_patterns.py` で作る）を、系列の「塗りつぶし › 塗りつぶし（図またはテクスチャ）› 挿入する › ファイルから」で選ぶ。グラフの棒では画像の並べ方を「積み重ね」にする（「引き伸ばし」にしない。「画像をテクスチャとして並べる」だけだと、グラフの中では画像を引き伸ばして表示するアプリがある）。グラフ以外の図形では「画像をテクスチャとして並べる」をオンにし、拡大縮小は 100%、配置は左上にする。ファイル名は `km1-pattern-<番号>-<模様>-<色>.png`。
     *Use the KM1 pattern images as a tiled picture fill at 100% scale.*
   - 寸法は 1pt ＝ 1px で、繰り返し 12pt（`space-md`）、横線・縦線・斜線の太さ 4pt（`space-xs`）、格子・斜め格子の線 2pt、点の直径 6pt、市松の 1 マス 12pt。前景は系列の色、背景は白、枠線は #616161 の 0.75pt。画面の模様（間隔 8px）より大きいのは、スライドを離れて見るため。
     *Repeat 12pt, stripes 4pt, grid lines 2pt, dots 6pt, checker squares 12pt; foreground = series color, background white, outline #616161 0.75pt.*

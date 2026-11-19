@@ -8,7 +8,7 @@
   *Defined margins, an 864 × 368 body area, a 12-column grid and two-row split, plus fill, density and spacing-hierarchy rules.*
 - **レイアウト:** 「KM1 図と説明」（8 ＋ 4 列）を足して 6 つにした。見本はグリッドの説明のスライドを足し、カード・グラフ・表を本文の領域いっぱいに置き直した。
   *Added the Figure-and-text layout; the sample deck now shows the grid and fills the body area.*
-- **グラフの模様:** Office の既定の模様（`dkHorz` など、8 × 8 画素の固定の柄）をやめ、Web の模様と同じ形の画像（繰り返し 12pt・線 4pt）を並べて塗るようにした。画像は `office/km1_patterns.py` で作り（アクセント 6 色 × 8 模様）、`dist/KM1_グラフの模様.zip` で配る。見本に模様の一覧のスライドを足した。
+- **グラフの模様:** Office の既定の模様（`dkHorz` など、8 × 8 画素の固定の柄）をやめ、Web の模様と同じ形の画像（繰り返し 12pt・線 4pt）を並べて塗るようにした。画像は `office/km1_patterns.py` で作り（アクセント 6 色 × 8 模様）、`dist/KM1_グラフの模様.zip` で配る。見本に模様の一覧のスライドを足した。グラフの棒は画像を「積み重ね」（`c:pictureOptions`）で並べる。並べる指定だけでは、Claude のプレビューと LibreOffice がグラフの中の画像を引き伸ばし、横線 1 本が棒いっぱいに広がったため。
   *Replaced Office preset patterns with tiled KM1 pattern images (12pt repeat, 4pt stripes), shipped as `KM1_グラフの模様.zip`; added a pattern overview slide.*
 - **検査:** `officecheck.py` に、14pt が柱の行の外にないか、本文の領域からのはみ出し（FAIL）、題名の行への食い込み・グリッドからのずれ・題名の長さ・箇条書きの数・図だけのスライドの下半分の空き（注意）、「自動調整」での縮小（FAIL）を足した。前の見本はこの検査で FAIL 5・注意 13 になる。
   *`officecheck.py` now checks footer-only 14pt, overflow, grid alignment, title length, bullet count, empty lower half and shrink-to-fit.*

@@ -134,7 +134,9 @@ async function fixTheme(file) {                     // 和文の書体と言語�
       const rid = `rIdKm1Pat${i}`;
       if (!rels.includes(`Id="${rid}"`)) rels = rels.replace('</Relationships>', `<Relationship Id="${rid}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../media/${file}"/></Relationships>`);
       const fill = `<c:spPr><a:blipFill rotWithShape="0"><a:blip r:embed="${rid}"/><a:srcRect/><a:tile tx="0" ty="0" sx="100000" sy="100000" flip="none" algn="tl"/></a:blipFill><a:ln w="9525"><a:solidFill><a:srgbClr val="616161"/></a:solidFill></a:ln>`;
-      x = x.replace(ser, ser.replace(m[0], fill));
+      // 棒に画像を「積み重ね」で並べる（c:pictureOptions）。並べる指定（a:tile）だけだと、グラフの中では引き伸ばす表示アプリがある
+      // stack the picture along the bar; some viewers ignore a:tile inside charts and stretch the image
+      x = x.replace(ser, ser.replace(m[0], fill).replace('<c:invertIfNegative val="0"/>', '<c:invertIfNegative val="0"/><c:pictureOptions><c:pictureFormat val="stack"/></c:pictureOptions>'));
     });
     z.file(n, x); z.file(relN, rels);
   }
