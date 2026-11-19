@@ -109,23 +109,50 @@ async function fixTheme(file) {                     // 和文の書体と言語�
     x = x.replace(/sz="(4400|3200|2800|2400|1800)"/g, (m, v) => `sz="${MAP[v]}"`);
     z.file(n, x);
   }
-  // グラフの系列に模様を付ける（KM1-COL-001）。系列 0 は塗り、1 は横線、2 は縦線…
-  // Pattern fills for chart series (KM1-COL-001): series 0 solid, 1 horizontal, 2 vertical, ...
-  const PRST = [null, 'dkHorz', 'dkVert', 'wdDnDiag', 'smGrid', 'diagCross', 'dotGrid', 'lgCheck'];
+  // グラフの系列に模様を付ける（KM1-COL-001、office.md §4.5）。Office の既定の模様（pattFill）は細かすぎて映すと
+  // にごった色にしか見えないので、km1_patterns.py で作った画像（間隔 12pt・線 4pt）を並べて塗る。
+  // 系列 0 は塗り、1 は横線、2 は縦線、3 は斜線、4 は格子、5 は斜め格子、6 は点、7 は市松。
+  // Pattern fills for chart series: picture tiles from km1_patterns.py instead of the tiny Office presets.
+  const ORDER = ['solid', 'horizontal', 'vertical', 'diagonal', 'grid', 'crosshatch', 'dots', 'checker'];
+  const PATDIR = path.join(__dirname, 'patterns');
+  let ct = await z.file('[Content_Types].xml').async('string');
+  if (!/Extension="png"/.test(ct)) { ct = ct.replace('<Default ', '<Default Extension="png" ContentType="image/png"/><Default '); z.file('[Content_Types].xml', ct); }
   for (const n of Object.keys(z.files).filter(n => /charts\/chart\d+\.xml$/.test(n))) {
     let x = await z.file(n).async('string');
     const sers = x.match(/<c:ser>[\s\S]*?<\/c:ser>/g) || [];
     if (sers.length < 2) continue;
+    const relN = n.replace(/charts\/(chart\d+\.xml)$/, 'charts/_rels/$1.rels');
+    let rels = z.file(relN) ? await z.file(relN).async('string')
+      : '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"></Relationships>';
     sers.forEach((ser, i) => {
-      const prst = PRST[i % PRST.length]; if (!prst) return;
-      const out = ser.replace(/(<c:spPr>)<a:solidFill><a:srgbClr val="([0-9A-Fa-f]{6})"\/><\/a:solidFill>/,
-        (m, a, v) => `${a}<a:pattFill prst="${prst}"><a:fgClr><a:srgbClr val="${v}"/></a:fgClr><a:bgClr><a:srgbClr val="FFFFFF"/></a:bgClr></a:pattFill>`);
-      x = x.replace(ser, out.replace(/(<\/a:pattFill>)(<a:ln)/, '$1$2').replace(/<c:spPr><a:pattFill([\s\S]*?)<\/a:pattFill>(?!<a:ln)/, (m) => m + `<a:ln w="9525"><a:solidFill><a:srgbClr val="616161"/></a:solidFill></a:ln>`));
+      const p = ORDER[i % ORDER.length]; if (p === 'solid') return;
+      const m = ser.match(/<c:spPr><a:solidFill><a:srgbClr val="([0-9A-Fa-f]{6})"\/><\/a:solidFill>/); if (!m) return;
+      const col = m[1].toUpperCase(), file = `km1-pattern-${ORDER.indexOf(p) + 1}-${p}-${col}.png`;
+      const src = path.join(PATDIR, file);
+      if (!fs.existsSync(src)) throw new Error(`模様の画像がない / missing tile ${file}（python3 km1_patterns.py patterns）`);
+      z.file(`ppt/media/${file}`, fs.readFileSync(src));
+      const rid = `rIdKm1Pat${i}`;
+      if (!rels.includes(`Id="${rid}"`)) rels = rels.replace('</Relationships>', `<Relationship Id="${rid}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../media/${file}"/></Relationships>`);
+      const fill = `<c:spPr><a:blipFill rotWithShape="0"><a:blip r:embed="${rid}"/><a:srcRect/><a:tile tx="0" ty="0" sx="100000" sy="100000" flip="none" algn="tl"/></a:blipFill><a:ln w="9525"><a:solidFill><a:srgbClr val="616161"/></a:solidFill></a:ln>`;
+      x = x.replace(ser, ser.replace(m[0], fill));
     });
-    z.file(n, x);
+    z.file(n, x); z.file(relN, rels);
   }
   for (const n of Object.keys(z.files).filter(n => /charts\/chart\d+\.xml$/.test(n))) {   // 軸の線を KM1 の色に / axis lines in a KM1 color
     z.file(n, (await z.file(n).async('string')).replace(/val="888888"/g, 'val="616161"'));
+  }
+  // 見本の模様の図形（名前が km1pat-<模様>-<色>）を画像の並べ塗りにする / tile-fill shapes named km1pat-*
+  for (const n of Object.keys(z.files).filter(n => /slides\/slide\d+\.xml$/.test(n))) {
+    let x = await z.file(n).async('string'); if (!x.includes('name="km1pat-')) continue;
+    const relN = n.replace(/slides\/(slide\d+\.xml)$/, 'slides/_rels/$1.rels'); let rels = await z.file(relN).async('string'); let k = 0;
+    x = x.replace(/(<p:sp>(?:(?!<\/p:sp>)[\s\S])*?name="km1pat-([a-z]+)-([0-9A-F]{6})"[\s\S]*?)<a:solidFill><a:srgbClr val="[0-9A-Fa-f]{6}"\/><\/a:solidFill>/g, (m, head, p, col) => {
+      if (p === 'solid') return m;
+      const file = `km1-pattern-${ORDER.indexOf(p) + 1}-${p}-${col}.png`, rid = `rIdKm1Sw${k++}`;
+      z.file(`ppt/media/${file}`, fs.readFileSync(path.join(PATDIR, file)));
+      rels = rels.replace('</Relationships>', `<Relationship Id="${rid}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="../media/${file}"/></Relationships>`);
+      return `${head}<a:blipFill rotWithShape="0"><a:blip r:embed="${rid}"/><a:srcRect/><a:tile tx="0" ty="0" sx="100000" sy="100000" flip="none" algn="tl"/></a:blipFill>`;
+    });
+    z.file(n, x); z.file(relN, rels);
   }
   let p = await z.file('ppt/presentation.xml').async('string');
   z.file('ppt/presentation.xml', p.replace(/sz="1800"/g, 'sz="2400"'));
@@ -240,6 +267,15 @@ async function build() {
     altText: '月ごとの件数の棒グラフ。1 月 12 件、2 月 18 件、3 月 15 件、4 月 22 件。' }));
   s.addText([ t('値は棒の上に書き込む', { bullet: true, breakLine: true }), t('言いたいことは題名に書く', { bullet: true, breakLine: true }),
     t('図は左の 8 列、説明は右の 4 列', { bullet: true }) ], { placeholder: 'text' });
+
+  s = pres.addSlide({ masterName: 'KM1 題名だけ / Title only', sectionTitle: 'グラフと表 / Charts and tables' });
+  s.addText('模様は 8 つ、系列の順にこの順で使う', { placeholder: 'title' });
+  [['solid', '1 塗り'], ['horizontal', '2 横線'], ['vertical', '3 縦線'], ['diagonal', '4 斜線'], ['grid', '5 格子'], ['crosshatch', '6 斜め格子'], ['dots', '7 点'], ['checker', '8 市松']].forEach(([p, l], i) => {
+    const x = colX((i % 4) * 3), y = G.bodyTop + Math.floor(i / 4) * (G.rowH + G.gap), w = spanW(3), sh = G.rowH - LH[20] - S.sm;
+    s.addShape(pres.shapes.RECTANGLE, { x: PT(x), y: PT(y), w: PT(w), h: PT(sh), fill: { color: C.brand }, line: { color: C.ink3, width: 0.75 }, objectName: `km1pat-${p}-${C.brand}` });
+    box(s, l, x, y + sh + S.sm, w, LH[20], { fontSize: T.small, color: C.ink, objectName: `patlabel-${i + 1}` });
+  });
+  s.addNotes('模様の画像は office/patterns（km1_patterns.py で作る）。グラフの系列は「塗りつぶし（図またはテクスチャ）› 画像をテクスチャとして並べる」で、拡大縮小 100%。');
 
   s = pres.addSlide({ masterName: 'KM1 題名だけ / Title only', sectionTitle: 'グラフと表 / Charts and tables' });
   s.addText('系列は色と模様の両方で分ける', { placeholder: 'title' });

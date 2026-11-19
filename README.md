@@ -2,7 +2,7 @@
 
 | 場所 / Path | 内容 / Contents |
 |---|---|
-| `dist/` | 配布物: デザイン標準と部品カタログの PDF、`KM1_icons.zip`、Word・PowerPoint のひな形と見本（.dotx/.docx/.potx/.pptx）。作り直しの順: `cd gen && npm i` → `node gen/shoot_previews.js <render_previews.py の出力> components` → `python3 gen/catalog_md.py` → `node gen/token_sheets.js` → `python3 icons/icon_sheet.py` → `python3 gen/build_pdf.py dist`（寸法と件数の検査を通してから 2 冊を作る）。Office は `office/`、アイコン一式は `icons/build_all.py` |
+| `dist/` | 配布物: デザイン標準と部品カタログの PDF、`KM1_icons.zip`、Word・PowerPoint のひな形と見本（.dotx/.docx/.potx/.pptx）、グラフの模様の画像 `KM1_グラフの模様.zip`（`office/km1_patterns.py`）。作り直しの順: `cd gen && npm i` → `node gen/shoot_previews.js <render_previews.py の出力> components` → `python3 gen/catalog_md.py` → `node gen/token_sheets.js` → `python3 icons/icon_sheet.py` → `python3 gen/build_pdf.py dist`（寸法と件数の検査を通してから 2 冊を作る）。Office は `office/`、アイコン一式は `icons/build_all.py` |
 | `components/README.md` | 部品カタログ（グループ別、ライトとダークの見本の画像つき。`gen/catalog_md.py` で作る） |
 | `assets/tokens/` | トークンの見本の図（色のライト・ダーク、文字、余白、角丸、影、大きさ。`gen/token_sheets.js` で作る。`tokens.md` に掲載） |
 | `verify/` | Windows 実機用の検証セット（`make_kit.py` で本体の今のファイルから組み立て、`verify.ps1` で実行） |

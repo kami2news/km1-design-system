@@ -3,7 +3,7 @@
 KM1-DOC-002（Word）と KM1-DOC-003（PowerPoint）。KM1 で作る Word の文書と PowerPoint のスライドの決まり。色・文字の大きさ・余白は KM1 のトークンと「PDF の規定」（KM1-DOC-001）から取り、新しい値は作らない。
 *KM1-DOC-002 (Word) and KM1-DOC-003 (PowerPoint). Colors, type sizes and spacing come from KM1 tokens and the PDF rules (KM1-DOC-001); no new values.*
 
-道具は `office/` にある: ひな形と見本を作る `km1_docx.js`・`km1_pptx.js`、検査 `officecheck.py`。できあがったひな形は `KM1_文書.dotx`・`KM1_スライド.potx`、見本は `KM1_文書見本.docx`・`KM1_スライド見本.pptx`。
+道具は `office/` にある: ひな形と見本を作る `km1_docx.js`・`km1_pptx.js`、検査 `officecheck.py`、グラフの模様の画像を作る `km1_patterns.py`（出力は `office/patterns/` と `KM1_グラフの模様.zip`）。できあがったひな形は `KM1_文書.dotx`・`KM1_スライド.potx`、見本は `KM1_文書見本.docx`・`KM1_スライド見本.pptx`。
 *Tools are in `office/`: generators `km1_docx.js` and `km1_pptx.js`, checker `officecheck.py`. Outputs: the `KM1_文書.dotx` and `KM1_スライド.potx` templates and two sample files.*
 
 ## 1. どれで作るか / Which format
@@ -157,8 +157,15 @@ KM1 の型の表の大きさと行送りだけを使う / only KM1 type-ramp siz
   *Prefer placeholders; fix reading order when adding text boxes.*
 - グラフは PowerPoint のグラフで作り（画像にしない）、色はテーマのアクセントの順、値を書き込む。軸と値の文字は 20pt・#424242、目盛りの線は #E0E0E0。
   *Native charts with theme accents and data labels.*
-- グラフの系列が 2 つ以上あるときは、色に加えて模様で分ける（KM1-COL-001）。系列の「塗りつぶし › パターン」で、1 つ目は塗りつぶし、2 つ目から横線（太）`dkHorz`・縦線（太）`dkVert`・右下がり対角線（太）`wdDnDiag`・格子（小）`smGrid`・斜め格子 `diagCross`・点線: 格子 `dotGrid`・市松模様（大）`lgCheck` の順。前景色は系列の色、背景色は白、枠線は #616161 の 0.75pt。見本の `km1_pptx.js` はこの順で書き込む。
-  *With two or more series, add patterns (KM1-COL-001) in this order; foreground = series color, background = white, outline #616161.*
+- グラフの系列が 2 つ以上あるときは、色に加えて模様で分ける（KM1-COL-001）。順は 1 塗り・2 横線・3 縦線・4 斜線（右下がり）・5 格子・6 斜め格子・7 点・8 市松（Web の `.f2-pat` と同じ形）。
+  *With two or more series, add patterns (KM1-COL-001) in this order, same shapes as the web.*
+  - **Office の既定の模様（「塗りつぶし › パターン」の `dkHorz` など）は使わない。** 8 × 8 画素の決まった細かい柄で、映すと色がにごって見えるだけになり、大きさも変えられないため（2026-11-19 にやめた）。
+    *Do not use Office's preset patterns: fixed 8 × 8-pixel tiles that read as a muddy tint when projected.*
+  - 代わりに KM1 の模様の画像（`KM1_グラフの模様.zip`、`office/km1_patterns.py` で作る）を、系列の「塗りつぶし › 塗りつぶし（図またはテクスチャ）› 挿入する › ファイルから」で選び、「画像をテクスチャとして並べる」をオンにして、拡大縮小は横・縦とも 100%、配置は左上にする。ファイル名は `km1-pattern-<番号>-<模様>-<色>.png`。
+    *Use the KM1 pattern images as a tiled picture fill at 100% scale.*
+  - 寸法は 1pt ＝ 1px で、繰り返し 12pt（`space-md`）、横線・縦線・斜線の太さ 4pt（`space-xs`）、格子・斜め格子の線 2pt、点の直径 6pt、市松の 1 マス 12pt。前景は系列の色、背景は白、枠線は #616161 の 0.75pt。画面の模様（間隔 8px）より大きいのは、スライドを離れて見るため。
+    *Repeat 12pt, stripes 4pt, grid lines 2pt, dots 6pt, checker squares 12pt; foreground = series color, background white, outline #616161 0.75pt.*
+  - 画像はテーマのアクセント 6 色 × 8 模様の 48 枚。見本の `km1_pptx.js` はこの画像を書き込み、見本の 8 枚目に一覧がある。
 - 表は「タイトル行」をオンにし、見出しの行は #F0F0F0 と太字、罫線は #D1D1D1。セルを結合しない。
 - カードの角丸は 8pt（`radius-xl`）、塗りは #F5F5F5 か #ECEFFC。影や帯・縁の色の線は付けない（KM1 は大きな面の塗りを避ける）。
   *Cards use 8pt corners and flat tints; no shadows, stripes or edge bars.*
