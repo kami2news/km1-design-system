@@ -157,6 +157,7 @@ def xfrm(e):
 def em(t): return sum(1 if ord(ch)>0x2E7F else 0.55 for ch in t)
 CHAR_MAX=100                                   # 1 枚の文字の目安（全角、題名・図の説明・英語の併記は数えない）
 COUNTER=re.compile(r'\d[ \u00a0](年|月|日|回|本|個|枚|か所|件|人|時間|時|分|秒|週|列|行|段|字|項目|つ|倍|種|通り|章)')
+UNIT=re.compile(r'(?<![A-Za-z0-9.])(\d+(?:\.\d+)?)(pt|px|mm|cm|km|m|kg|mg|g|°C|K|%|ppt|ppm|Hz|kHz|MHz|hPa|Pa|mL|L|s|ms)(?![A-Za-z])')
 BRAND='10218B'
 def content_checks(z,n,i,s,boxes):
     """文字の量・カードの埋まり方・強調の色・助数詞の前の空白・縮めた図（office.md §4.1・4.3・4.5・4.6）"""
@@ -179,6 +180,9 @@ def content_checks(z,n,i,s,boxes):
     for t in texts:
         m=COUNTER.search(t)
         if m: out('WARN','SPACE',f'スライド {i}: 助数詞の前に空白「{m.group(0)}」（「{m.group(0).replace(" ","").replace(chr(160),"")}」と続けて書く）'); break
+    for t in texts:
+        m=UNIT.search(t)
+        if m: out('WARN','UNIT',f'スライド {i}: 数値と単位の間に空白がない「{m.group(0)}」（「{m.group(1)} {m.group(2)}」）'); break
     # カード（角丸の四角）の中で文字が占める高さ / text height inside text-only cards
     for e in s.iter('{%s}sp'%NS['p']):
         g=e.find('.//a:prstGeom',NS)
@@ -195,7 +199,7 @@ def content_checks(z,n,i,s,boxes):
             szs=[int(r.get('sz')) for r in t.iter(a+'rPr') if r.get('sz')]
             if szs and max(szs)>=4000: big=True
             th+=tb[3]
-        if not fig and not big and th and th<cb[3]*0.5: out('WARN','CARDFILL',f'スライド {i} のカード {e.find(".//p:cNvPr",NS).get("name")} で文字が高さの半分に届かない（カードは中身＋上下 24 の高さにする）')
+        if not fig and th and th<cb[3]*0.5: out('WARN','CARDFILL',f'スライド {i} のカード {e.find(".//p:cNvPr",NS).get("name")} で文字が高さの半分に届かない（カードは中身＋上下 24 の高さにする）')
     # 図を元の大きさより小さく載せている / pictures scaled down
     rels=x(z,n.replace('slides/','slides/_rels/')+'.rels')
     for pic in s.iter('{%s}pic'%NS['p']):
