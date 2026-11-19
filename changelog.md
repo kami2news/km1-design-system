@@ -1,5 +1,14 @@
 # 変更履歴 / Changelog
 
+## 2026-11-19 — ロゴと表示バッジ / Logo and attribution badge
+
+- **ロゴ:** KM1 のロゴを、アプリアイコンのしるし（紺の正方形に白の「KM1」と表紙の帯）そのものに決めた。横組み（しるし＋「KM1」）と、ライト・ダーク・単色の版を足した。
+  *The KM1 logo is the app-icon mark; added a horizontal lockup and light, dark and mono versions.*
+- **表示バッジ:** KM1 に従って作ったものに付ける「Designed with KM1」（日本語の画面は「KM1 で設計」）を決めた。「Designed by」（KM1 が設計したと読める）と「Powered by」（動かす仕組みを指す）は使わない。高さ 24px、縁 1px、しるし 16px、文字 12px。置き場所はフッター・「このアプリについて」・文書の最後のページ。
+  *Added the "Designed with KM1" badge; "Designed by" and "Powered by" are not used.*
+- **道具とファイル:** `brand/km1_logo.py` が `dist/logo/` に SVG と PNG（1・2・3 倍）を書き出す。決まりは「アイコン」§10。
+  *`brand/km1_logo.py` writes `dist/logo/`; rules in Icons §10.*
+
 ## 2026-11-19 — 外部レビューへの対応 / Review follow-ups
 
 - **Flutter の画像比較を本当の検査に:** CI が `flutter test --update-goldens` で毎回画像を作り直しており、違いを見逃していた。通常の CI は承認済みの画像と比べて違えば失敗にし、作り直しは手で動かす「goldens」ワークフローだけにした（成果物を目で確かめてから commit）。承認済みの画像を入れるまでは比較を飛ばして警告を出す。手順は `verification.md` 6 章。
