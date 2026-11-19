@@ -3,6 +3,7 @@
 // 画像を作り直すのは、GitHub の「goldens」ワークフローを手で動かしたときだけ（verification.md 6 章）。
 // Builds the gallery at phone and desktop widths in light and dark; icon sheets are compared against approved goldens.
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:km1_verify/km1_theme.dart';
 import 'package:km1_verify/gallery.dart';
@@ -18,6 +19,12 @@ Future<void> run(WidgetTester t, Size size, ThemeData theme) async {
 }
 
 void main() {
+  // テストでは pubspec の書体が自動では読み込まれず、字形のアイコン（塗りと Km1Icons）が四角（豆腐）になる。
+  // ここで KM1Icons を読み込む / Widget tests don't load pubspec fonts; load KM1Icons so glyph icons aren't tofu
+  setUpAll(() async {
+    final loader = FontLoader('KM1Icons')..addFont(rootBundle.load('fonts/KM1Icons.ttf'));
+    await loader.load();
+  });
   for (final dark in [false, true]) {
     final theme = dark ? Km1Theme.dark() : Km1Theme.light();
     final tag = dark ? 'dark' : 'light';
