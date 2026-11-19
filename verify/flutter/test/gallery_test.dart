@@ -38,7 +38,10 @@ void main() {
         await t.pumpWidget(MaterialApp(
           debugShowCheckedModeBanner: false,
           theme: theme,
-          home: Scaffold(body: Padding(padding: const EdgeInsets.all(12), child: RepaintBoundary(key: const ValueKey('sheet'), child: Km1IconSheet(size: s)))),
+          // 画像に画面の背景（surface）も入れる。透明のままだと白い画面で見たときにダークの見え方を見誤る
+          // paint the theme surface into the image; a transparent golden misleads when viewed on white
+          home: Scaffold(body: Padding(padding: const EdgeInsets.all(12), child: RepaintBoundary(key: const ValueKey('sheet'),
+              child: ColoredBox(color: theme.colorScheme.surface, child: Padding(padding: const EdgeInsets.all(8), child: Km1IconSheet(size: s)))))),
         ));
         await expectLater(find.byKey(const ValueKey('sheet')), matchesGoldenFile('goldens/icons_${s.toInt()}_$tag.png'));
       });
