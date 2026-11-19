@@ -10,7 +10,11 @@ NS={'w':'http://schemas.openxmlformats.org/wordprocessingml/2006/main','a':'http
 # KM1 の色（ライトテーマ）だけ / KM1 light-theme colors only
 PALETTE={'242424','424242','616161','10218B','FFFFFF','F5F5F5','F0F0F0','ECEFFC','E0E0E0','D1D1D1','0F6CBD','038387','BC4B09','5C2E91','107C10','B10E1C','EBF3FC','FDF3F4','F1FAF1','FFF9F5','000000','AUTO'}
 WORD_SIZES={8,8.5,9,10,11,13,20,28}          # documents.md の表と同じ / same as the PDF rules
-SLIDE_SIZES={12,16,20,28,40,68}               # KM1 の型の表 / KM1 type ramp
+SLIDE_SIZES={14,20,24,32,40,68}               # KM1 の型の表（office.md §4.1）/ KM1 type ramp
+# スライドの割り付け（office.md §4.2）。単位は pt / slide grid in pt
+EMU=12700; SIDE=48; TOP=40; GUT=24; COL=50; BODY_TOP=104; BODY_BOTTOM=472; FOOT_TOP=496; CONTENT_W=864
+GRID_X={SIDE+i*(COL+GUT) for i in range(12)}; GRID_R={SIDE+i*(COL+GUT)+COL for i in range(12)}
+TITLE_EM=CONTENT_W/32                          # 32pt の題名が 1 行に入る全角の字数（27）/ full-width chars per title line
 FONT='游ゴシック'
 res=[]
 def out(level,code,msg): res.append((level,code,msg))
@@ -144,7 +148,51 @@ def check_pptx(z,fname):
     for s in sorted(sizes-SLIDE_SIZES): out('FAIL','SIZE',f'{s:g}pt は KM1 のスライドの大きさにない / not a KM1 slide size')
     for v in sorted(bad): out('FAIL','COLOR',f'#{v} は KM1 の色にない / not a KM1 color')
     if nolang: out('WARN','LANG',f'言語の指定がない文字 {nolang} か所 / runs without lang')
+    layout_checks(z,slides)
     if slides: out('PASS','SLIDES',f'{len(slides)} 枚')
+def xfrm(e):
+    o=e.find('.//a:off',NS); s=e.find('.//a:ext',NS)
+    if o is None or s is None: return None
+    return [int(o.get(k))/EMU for k in ('x','y')]+[int(s.get(k))/EMU for k in ('cx','cy')]
+def em(t): return sum(1 if ord(ch)>0x2E7F else 0.55 for ch in t)
+def layout_checks(z,slides):
+    """余白・グリッド・はみ出し・題名の長さ・項目の数・空き（office.md §4.2〜4.3）/ spacing rules"""
+    for i,n in enumerate(slides,1):
+        s=x(z,n); boxes=[]
+        for a in s.iter('{%s}normAutofit'%NS['a']):
+            if a.get('fontScale') and a.get('fontScale')!='100000': out('FAIL','SHRINK',f'スライド {i} の文字が「自動調整」で縮んでいる（{int(a.get("fontScale"))/1000:g}%）。削るか 2 枚に分ける')
+        for e in list(s.iter('{%s}sp'%NS['p']))+list(s.iter('{%s}graphicFrame'%NS['p']))+list(s.iter('{%s}pic'%NS['p'])):
+            ph=e.find('.//p:nvPr/p:ph',NS)
+            if ph is not None:
+                body=e.find('.//p:txBody',NS)
+                if ph.get('type') in ('title','ctrTitle') and body is not None:
+                    tt=''.join(body.itertext()).strip()
+                    if em(tt)>TITLE_EM: out('WARN','TITLELEN',f'スライド {i} の題名が 1 行に入らない（全角 {TITLE_EM:.0f} 字まで）: {tt[:30]}')
+                elif body is not None:
+                    lv1=[p for p in body.findall('a:p',NS) if p.find('a:pPr/a:buChar',NS) is not None or (p.find('a:pPr',NS) is not None and p.find('a:pPr',NS).get('indent'))]
+                    if len(lv1)>6: out('WARN','BULLETS',f'スライド {i} の箇条書きが {len(lv1)} 項目（6 つまで。2 枚に分ける）')
+                continue
+            b=xfrm(e)
+            trs=e.findall('.//a:tbl/a:tr',NS)
+            if b and trs: b[3]=sum(int(r.get('h'))/EMU for r in trs)   # 表の高さは行の合計 / table height = sum of rows
+            if b: boxes.append((b,e.find('.//p:cNvPr',NS).get('name')))
+        def inside(a,b): return a is not b and b[0]-1<=a[0] and b[1]-1<=a[1] and a[0]+a[2]<=b[0]+b[2]+1 and a[1]+a[3]<=b[1]+b[3]+1
+        top=[(b,nm) for b,nm in boxes if not any(inside(b,o) for o,_ in boxes)]
+        for (bx,by,bw,bh),nm in top:
+            if by+bh>BODY_BOTTOM+1: out('FAIL','OVERFLOW',f'スライド {i} の {nm} が本文の領域の下（{BODY_BOTTOM}pt）を越えて柱に重なる')
+            if by<BODY_TOP-1: out('WARN','OVERFLOW',f'スライド {i} の {nm} が題名の行に入っている')
+            if min(abs(bx-g) for g in GRID_X)>1 or min(abs(bx+bw-g) for g in GRID_R)>1: out('WARN','GRID',f'スライド {i} の {nm} の左右の端が 12 列のグリッドにそろっていない（x={bx:g}, w={bw:g}）')
+        # 図・表・カードだけのスライドで、本文の領域の下半分が空いている / lower half empty on a visual slide
+        if top and not any(e.find('.//p:nvPr/p:ph[@type="body"]',NS) is not None for e in s.iter('{%s}sp'%NS['p'])):
+            low=max(b[1]+b[3] for b,_ in top)
+            if low<(BODY_TOP+BODY_BOTTOM)/2: out('WARN','EMPTY',f'スライド {i} の本文の領域の下半分が空いている（図・表・カードを本文の領域に合わせる）')
+    # 14pt は柱の行だけ / 14pt only in the footer row
+    for n in slides+[m for m in z.namelist() if re.match(r'ppt/slide(Layout|Master)s/slide(Layout|Master)\d+\.xml$',m)]:
+        s=x(z,n)
+        for e in s.iter('{%s}sp'%NS['p']):
+            if any(r.get('sz')=='1400' for r in e.iter('{%s}rPr'%NS['a'],'{%s}defRPr'%NS['a'])):
+                b=xfrm(e)
+                if b and b[1]<FOOT_TOP-1: out('FAIL','MIN',f'{n.split("/")[-1]}: 14pt は柱とスライド番号だけ。内容の文字は 20pt 以上')
 rc=0
 for f in sys.argv[1:]:
     res.clear(); z=zipfile.ZipFile(f); name=f.rsplit('/',1)[-1]

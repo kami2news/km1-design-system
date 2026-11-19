@@ -1,5 +1,16 @@
 # 変更履歴 / Changelog
 
+## 2026-11-19 — スライドの文字の大きさと割り付け / Slide type sizes and layout grid
+
+- **文字を大きく（KM1-DOC-003 §4.1）:** 投影して読む前提にし、題名 28→32pt、本文 20→24pt、補足・英語・表・グラフ 16→20pt、柱 12→14pt にした。内容の文字は 20pt 以上、14pt は柱の行だけ。どれも KM1 の型の表の値（title-1・title-3・subtitle-1・body-1）で、行送りもトークンの値。題名は 1 行（全角 27 字まで）、縮めて入れない。
+  *Slides now read at projection size: titles 32, body 24, secondary 20, footer 14pt; content never below 20pt; one-line titles; no shrink-to-fit.*
+- **空間の定義（§4.2〜4.3）:** 余白（左右 48・上 40・題名と本文の間 24・柱 20・下 24）、本文の領域 864 × 368、12 列のグリッド（列 50・溝 24）と縦の 2 段（172 ＋ 172）を決め、図・表・カードを領域に合わせる・文字だけのスライドは上から詰める・箇条書きは 6 項目まで・余白の役割の順、を決まりにした。
+  *Defined margins, an 864 × 368 body area, a 12-column grid and two-row split, plus fill, density and spacing-hierarchy rules.*
+- **レイアウト:** 「KM1 図と説明」（8 ＋ 4 列）を足して 6 つにした。見本はグリッドの説明のスライドを足し、カード・グラフ・表を本文の領域いっぱいに置き直した。
+  *Added the Figure-and-text layout; the sample deck now shows the grid and fills the body area.*
+- **検査:** `officecheck.py` に、14pt が柱の行の外にないか、本文の領域からのはみ出し（FAIL）、題名の行への食い込み・グリッドからのずれ・題名の長さ・箇条書きの数・図だけのスライドの下半分の空き（注意）、「自動調整」での縮小（FAIL）を足した。前の見本はこの検査で FAIL 5・注意 13 になる。
+  *`officecheck.py` now checks footer-only 14pt, overflow, grid alignment, title length, bullet count, empty lower half and shrink-to-fit.*
+
 ## 2026-11-18 — 正本を GitHub に移す / Source of truth moved to GitHub
 
 - **正本:** このリポジトリ（`kami2news/km1-design-system`）を正本にし、claude.ai のデザインシステムは使わない。配布物は `dist/`。

@@ -66,42 +66,96 @@ KM1-DOC-002（Word）と KM1-DOC-003（PowerPoint）。KM1 で作る Word の文
 
 ## 4. PowerPoint / KM1-DOC-003
 
-**スライド / Slide:** 16:9（33.867 × 19.05cm、960 × 540pt）。**1pt を KM1 の 1px として、トークンの値をそのまま使う**（外の余白 32pt＝`space-xxxl`、題名と本文の間 24pt＝`space-xxl`、段の間 32pt）。
-*16:9, 960 × 540pt; 1pt = 1 KM1 px, so token values apply directly (32pt outer margin, 24pt title-to-body gap).*
+**スライド / Slide:** 16:9（33.867 × 19.05cm、960 × 540pt）。**1pt を KM1 の 1px として、トークンの値をそのまま使う。** 大きさと余白は、少し離れた画面に映して読む前提で決める（2026-11-19 に引き上げ。出典はこの文書の末尾）。
+*16:9, 960 × 540pt; 1pt = 1 KM1 px. Sizes and spacing assume a projected screen read from a distance (raised 2026-11-19; sources at the end).*
 
-**文字 / Type** — KM1 の型の表の大きさだけを使う / only KM1 type-ramp sizes
+### 4.1 文字 / Type
 
-| 役割 / Role | 大きさ / Size | KM1 の型 |
+KM1 の型の表の大きさと行送りだけを使う / only KM1 type-ramp sizes and line heights
+
+| 役割 / Role | 大きさ・行送り / Size, line | KM1 の型 |
 |---|---|---|
-| 大きな数字（1 枚に 1 つ）/ Hero number | 68pt・太字 | display |
-| 表紙・章の区切りの題名 / Cover, section title | 40pt・太字 | large-title |
-| スライドの題名 / Slide title | 28pt・太字、左寄せ | title-2 |
-| 本文・箇条書き / Body | 20pt | subtitle-1 の大きさ・標準の太さ |
-| 補足・英語・表の中・グラフの文字 / Notes, English, tables, charts | 16pt | body-2 |
-| 柱・スライド番号 / Footer, slide number | 12pt・#616161 | caption-1 |
+| 大きな数字（1 枚に 1 つ）/ Hero number | 68pt・太字、行送り 92 | display |
+| 表紙・章の区切りの題名 / Cover, section title | 40pt・太字、行送り 52、2 行まで | large-title |
+| スライドの題名 / Slide title | 32pt・太字、行送り 40、**1 行**・左寄せ | title-1 |
+| 本文・箇条書き / Body | 24pt・標準、行送り 32、項目の間 12〜16 | title-3 の大きさ・標準の太さ |
+| 補足・英語・表・グラフ・カードの説明 / Notes, English, tables, charts | 20pt・行送り 28 | subtitle-1 の大きさ |
+| 柱・スライド番号 / Footer, slide number | 14pt・#616161、行送り 20 | body-1 |
 
-- 12pt より小さい文字を使わない。12pt は柱とスライド番号だけ。本文と表は 16pt 以上。
-  *Nothing below 12pt; body and tables 16pt or more.*
+- **内容の文字は 20pt 以上。** 14pt は下の柱の行（柱とスライド番号）だけ。Microsoft は 18pt 以上、投影するときの多くの指針は 24pt 以上を求めるので、本文を 24pt、それ以外の内容を 20pt にした。
+  *Content text 20pt or more; 14pt only in the footer row. Microsoft asks for 18pt or more; most projection guidelines ask for 24pt, so body is 24pt.*
+- 入りきらないときは文字を縮めない。言葉を削るか 2 枚に分ける（PowerPoint の「自動調整」で縮んだ文字は検査で FAIL になる）。
+  *Never shrink to fit; cut words or split the slide.*
+- 題名は 1 行。32pt で 1 行に入るのは全角 27 字（半角は 0.55 字に数える）まで。
+  *Titles fit on one line: 27 full-width characters at 32pt.*
 - 本文は左寄せ。中央寄せは使わない（題名も左寄せ）。
   *Left-aligned text, titles included.*
 
-**レイアウト / Layouts** — ひな形に 5 つある。スライドは必ずこのどれかから作る。
-*Five layouts in the template; every slide uses one.*
+### 4.2 余白とグリッド / Spacing and grid
+
+どの値も 4 の倍数で、KM1 の余白のトークン（`space-*`）か、その和。
+*All values are multiples of 4 built from KM1 spacing tokens.*
+
+| 場所 / Zone | 値（pt） / Value | 内訳 |
+|---|---|---|
+| 左右の余白 / Side margins | 48 | `space-xxxl` 32 ＋ `space-lg` 16 |
+| 上の余白 / Top margin | 40 | `space-xxxl` ＋ `space-sm` |
+| 題名の行 / Title row | 40（y 40〜80） | 32pt の 1 行 |
+| 題名と本文の間 / Title–body gap | 24 | `space-xxl`（`layout-section-gap`） |
+| **本文の領域 / Body area** | **x 48・y 104、864 × 368** | 図・表・カード・本文はここに入れる |
+| 本文と柱の間 / Body–footer gap | 24 | `space-xxl` |
+| 柱の行 / Footer row | 20（y 496〜516） | 14pt の 1 行 |
+| 下の余白 / Bottom margin | 24 | `space-xxl` |
+
+**12 列のグリッド / 12-column grid:** 本文の領域の幅 864 を、列 50・溝 24 の 12 列に分ける（列の左端は x ＝ 48 ＋ 74 × n）。図・表・カード・テキスト ボックスの左右の端は列の端にそろえる。よく使う分け方:
+*864pt split into 12 columns of 50 with 24 gutters; left and right edges of every object sit on column edges.*
+
+| 分け方 / Split | 幅 / Widths | 使う場面 |
+|---|---|---|
+| 12 | 864 | グラフ・表・大きな図 |
+| 6 ＋ 6 | 420 ＋ 420 | 2 段（比べる・並べる） |
+| 8 ＋ 4 | 568 ＋ 272 | 図と説明（図が左） |
+| 4 ＋ 4 ＋ 4 | 272 × 3 | カード 3 枚 |
+| 3 × 4 | 198 × 4 | カード 4 枚・手順 |
+
+**縦の分け方 / Vertical:** 本文の領域は 1 段（368）か、上下 2 段（172 ＋ 間 24 ＋ 172）。
+*The body area is one row of 368 or two rows of 172 with a 24 gap.*
+
+### 4.3 空間の使い方 / Using the space
+
+- **はみ出さない:** 本文の領域の外（題名の行・柱の行・余白）に図や文字を置かない。柱に重なるものは検査で FAIL。
+  *Nothing outside the body area; overlapping the footer is a FAIL.*
+- **図・表・カードは領域に合わせる:** グラフと図は列の幅（12・8・6 列）と段の高さ（368 か 172）いっぱいに置く。カードは段の高さに合わせ、内側の余白は 24（`container-card-padding-spacious`）、数字や見出しは上、説明は下にそろえる。表は行の高さを 368 ÷ 8 ＝ 46 か 40 にして上から詰める。図・表・カードだけのスライドで本文の領域の下半分が空いていたら、大きさか分け方を見直す（検査で注意）。
+  *Charts and figures fill their columns and row; cards match the row height with 24 padding, top/bottom aligned content; tables use 46 or 40 rows from the top.*
+- **文字だけのスライドは上から詰める:** 本文は本文の領域の上にそろえる（縦の中央にしない）。下の空きは読みやすさのための余白としてそのまま残し、文字を大きくしたり間を広げたりして埋めない。
+  *Text slides start at the top of the body area; leftover space stays empty.*
+- **量の上限:** 箇条書きは 1 枚に 6 項目まで（1 項目は 2 行まで）。超えたら 2 枚に分け、題名に「（2/2）」を付ける。
+  *At most six bullet items, each up to two lines; split beyond that.*
+- **余白の役割を混ぜない:** 項目の間 12〜16（`space-md`〜`space-lg`）＜ まとまりの間 24（`space-xxl`）＜ 領域の間 32 以上。近いものほど間を狭くする。空の段落や空白の文字で間をあけない。
+  *Item gaps < group gaps < region gaps; never space with empty paragraphs.*
+
+### 4.4 レイアウト / Layouts
+
+ひな形に 6 つある。スライドは必ずこのどれかから作る。
+*Six layouts in the template; every slide uses one.*
 
 | レイアウト / Layout | 使う場面 |
 |---|---|
 | KM1 表紙 / Title | 1 枚目。題名・副題・版の日付と作成者。左上に表紙のしるし（PDF と同じ大きさ）|
 | KM1 区切り / Section | 章の始め。背景 #F5F5F5、章の番号と題名 |
-| KM1 題名と本文 / Title and content | 箇条書き・説明 |
-| KM1 2 段 / Two columns | 比べる・並べる |
+| KM1 題名と本文 / Title and content | 箇条書き・説明（12 列） |
+| KM1 2 段 / Two columns | 比べる・並べる（6 ＋ 6 列） |
+| KM1 図と説明 / Figure and text | 左 8 列に図・グラフ、右 4 列に説明 |
 | KM1 題名だけ / Title only | グラフ・表・図・数字のカード |
+
+### 4.5 そのほか / Other rules
 
 - 題名は全部のスライドに付け、題名のプレースホルダーに入れる。同じ題名を 2 枚に使わない（続きは「（2/2）」を付ける）。題名だけを読んで話の筋がわかるようにする。
   *Every slide has a unique title in the title placeholder.*
 - 1 枚に伝えることは 1 つ。
 - 文字はプレースホルダーに入れる。自分で置いたテキスト ボックスは読み上げの順が崩れやすいので、使ったら「校閲 › アクセシビリティ チェック」から開く［閲覧順序］ウィンドウで、見た目の順に直す。
   *Prefer placeholders; fix reading order when adding text boxes.*
-- グラフは PowerPoint のグラフで作り（画像にしない）、色はテーマのアクセントの順、値を書き込む。軸と値の文字は 16pt・#424242、目盛りの線は #E0E0E0。
+- グラフは PowerPoint のグラフで作り（画像にしない）、色はテーマのアクセントの順、値を書き込む。軸と値の文字は 20pt・#424242、目盛りの線は #E0E0E0。
   *Native charts with theme accents and data labels.*
 - グラフの系列が 2 つ以上あるときは、色に加えて模様で分ける（KM1-COL-001）。系列の「塗りつぶし › パターン」で、1 つ目は塗りつぶし、2 つ目から横線（太）`dkHorz`・縦線（太）`dkVert`・右下がり対角線（太）`wdDnDiag`・格子（小）`smGrid`・斜め格子 `diagCross`・点線: 格子 `dotGrid`・市松模様（大）`lgCheck` の順。前景色は系列の色、背景色は白、枠線は #616161 の 0.75pt。見本の `km1_pptx.js` はこの順で書き込む。
   *With two or more series, add patterns (KM1-COL-001) in this order; foreground = series color, background = white, outline #616161.*
@@ -131,7 +185,7 @@ KM1-DOC-002（Word）と KM1-DOC-003（PowerPoint）。KM1 で作る Word の文
 |---|---|
 | 両方 | 文書の題名、作成者が空か（注意）、テーマの和文・欧文の書体が游ゴシック、言語ごとの補助の書体に明朝・セリフ体・手書き風がない、テーマの色が KM1 の色 |
 | Word | 既定の言語が日本語、見出しのスタイルがある・段が飛ばない、太字だけの見出しもどき（注意）、手で打った「・」、文字の大きさが §3 の値、8pt 未満、文字の色が KM1 の色、図の代替テキスト、表の見出し行の繰り返し、セルの結合、「こちら」のようなリンクの文字、A4 |
-| PowerPoint | 16:9、全部のスライドに題名、題名の重複、図・グラフの代替テキスト、表のタイトル行（注意）とセルの結合、文字の大きさが §4 の値、文字と図形の色が KM1 の色、言語の指定（注意）、アニメーション・画面切り替え（注意） |
+| PowerPoint | 16:9、全部のスライドに題名、題名の重複、図・グラフの代替テキスト、表のタイトル行（注意）とセルの結合、文字の大きさが §4.1 の値、14pt が柱の行の外にない、文字と図形の色が KM1 の色、言語の指定（注意）、アニメーション・画面切り替え（注意）。§4.2〜4.3 の割り付け: 本文の領域の下へのはみ出し（FAIL）、題名の行への食い込み・12 列のグリッドからのずれ・題名が 1 行に入らない・箇条書きが 7 項目以上・図だけのスライドの下半分の空き（どれも注意） |
 
 FAIL があると終了コード 1 を返す。
 *Exits 1 on any FAIL.*
@@ -147,7 +201,7 @@ FAIL があると終了コード 1 を返す。
 - [ ] スライドの題名だけで話の筋がわかる / slide titles alone tell the story
 - [ ] ファイルのプロパティに個人情報が残っていない / no personal data in properties
 
-**確かめたこと / Verified (2026-11-13)** — ひな形 2 つと見本 2 つが `officecheck.py` で FAIL 0、Office Open XML の形式の検査（XSD・関係・中身の種類）に合格。LibreOffice で PDF にして全ページを目で見た（游ゴシックがないので Noto Sans CJK JP で表示。文字の幅は Office と少し違う）。**まだ確かめていないこと:** Microsoft Word・PowerPoint で開くこと、Office のアクセシビリティ チェック、PowerPoint で書き出した PDF のタグ。
+**確かめたこと / Verified (2026-11-19)** — 文字の大きさと割り付けを改めた版のひな形と見本が `officecheck.py` で FAIL 0・注意 0、LibreOffice で PDF にして全ページを目で見た。以前（2026-11-13） — ひな形 2 つと見本 2 つが `officecheck.py` で FAIL 0、Office Open XML の形式の検査（XSD・関係・中身の種類）に合格。LibreOffice で PDF にして全ページを目で見た（游ゴシックがないので Noto Sans CJK JP で表示。文字の幅は Office と少し違う）。**まだ確かめていないこと:** Microsoft Word・PowerPoint で開くこと、Office のアクセシビリティ チェック、PowerPoint で書き出した PDF のタグ。
 *Templates and samples pass `officecheck.py` and OOXML validation, and were rendered with LibreOffice (Noto Sans CJK JP substituted for Yu Gothic). Not yet checked in Microsoft Office itself.*
 
-出典 / Sources: [Microsoft: アクセシビリティ チェックのルール](https://support.microsoft.com/ja-jp/Accessibility/office-accessibility/rules-for-the-accessibility-checker)・[Microsoft: PowerPoint のプレゼンテーションをアクセシビリティ対応にする](https://support.microsoft.com/ja-jp/Accessibility/powerpoint/make-your-powerpoint-presentations-accessible-to-people-with-disabilities)・[Microsoft: 閲覧順序ウィンドウ](https://support.microsoft.com/ja-jp/powerpoint/make-slides-easier-to-read-by-using-the-reading-order-pane)・[W3C WCAG 2.2](https://www.w3.org/TR/WCAG22/)
+出典 / Sources: [Microsoft: PowerPoint のプレゼンテーションをアクセシビリティ対応にする（18pt 以上）](https://support.microsoft.com/en-us/office/make-your-powerpoint-presentations-accessible-to-people-with-disabilities-6f7772b2-2f33-4bd2-8ca7-dae3b2b3ef25)・[NYC MOPD: Accessible Slidedecks Guide（24pt 以上）](https://www.nyc.gov/site/mopd/publications/guides/accessible-slidedecks-guide.page)・[Indiana University: PowerPoint（24pt 以上）](https://accessibility.iu.edu/creating-content/documents/powerpoint/index.html)・[Microsoft: アクセシビリティ チェックのルール](https://support.microsoft.com/ja-jp/Accessibility/office-accessibility/rules-for-the-accessibility-checker)・[Microsoft: PowerPoint のプレゼンテーションをアクセシビリティ対応にする](https://support.microsoft.com/ja-jp/Accessibility/powerpoint/make-your-powerpoint-presentations-accessible-to-people-with-disabilities)・[Microsoft: 閲覧順序ウィンドウ](https://support.microsoft.com/ja-jp/powerpoint/make-slides-easier-to-read-by-using-the-reading-order-pane)・[W3C WCAG 2.2](https://www.w3.org/TR/WCAG22/)

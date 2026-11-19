@@ -7,11 +7,30 @@ const fs = require('fs'), path = require('path'), JSZip = require(require.resolv
 const OUT = process.argv[2] || '.';
 const PT = v => v / 72;                       // pt → inch
 const FONT = '游ゴシック';                      // 和文・英数字とも / both scripts (office.md §2)
-const T = {                                   // KM1 の型の表から / from the KM1 type ramp
-  display: 68, largeTitle: 40, title2: 28, subtitle1: 20, body: 20, small: 16, caption: 12 };
+// 文字の大きさと行送り（KM1 の型の表の値。行送りもトークンの lineHeight）/ sizes and line heights from the KM1 type ramp
+const T = { display: 68, largeTitle: 40, title1: 32, body: 24, small: 20, caption: 14 };
+const LH = { 68: 92, 40: 52, 32: 40, 24: 32, 20: 28, 14: 20 };
 const S = { xs: 4, sm: 8, md: 12, lg: 16, xl: 20, xxl: 24, xxxl: 32 };   // spacing tokens
-const M = S.xxxl;                             // 外の余白 32pt / outer margin
+// 画面の割り付け（office.md §4.2）。1pt ＝ 1px、どれも 8 の倍数か KM1 の余白のトークン
+// Slide grid (office.md §4.2); 1pt = 1px, every value is a multiple of 8 or a KM1 spacing token
 const W = 960, H = 540;
+const G = {
+  side: 48,             // 左右の余白 / side margins = space-xxxl + space-lg
+  top: 40,              // 上の余白 / top margin = space-xxxl + space-sm
+  titleH: 40,           // 題名の行（32pt を 1 行）/ title row, one line of 32pt
+  gap: S.xxl,           // 題名と本文、本文と柱の間、列の間 24 / title-body, body-footer and column gutter
+  col: 50, cols: 12,    // 12 列。列 50 ＋ 溝 24 ＝ 74 / 12 columns of 50 with 24 gutters
+  footH: 20, bottom: 24 // 柱の行（14pt を 1 行）と下の余白 / footer row and bottom margin
+};
+G.contentW = W - 2 * G.side;                       // 864
+G.bodyTop = G.top + G.titleH + G.gap;              // 104
+G.footTop = H - G.bottom - G.footH;                // 496
+G.bodyBottom = G.footTop - G.gap;                  // 472
+G.bodyH = G.bodyBottom - G.bodyTop;                // 368
+G.rowH = (G.bodyH - G.gap) / 2;                    // 172（本文を上下 2 段にするとき / two body rows）
+const colX = i => G.side + i * (G.col + G.gap);    // i 列目の左端 / left edge of column i (0-11)
+const spanW = n => n * G.col + (n - 1) * G.gap;    // n 列ぶんの幅 / width of n columns
+const M = G.side;
 const THEME = { name: 'KM1', headFontFace: FONT, bodyFontFace: FONT, colors: {
   dk1: '242424', lt1: 'FFFFFF', dk2: '10218B', lt2: 'F5F5F5',
   accent1: '10218B', accent2: '0F6CBD', accent3: '038387', accent4: 'BC4B09', accent5: '5C2E91', accent6: '107C10',
@@ -26,37 +45,34 @@ const KM1_NOTICE_EN = "KM1 is a personal design standard. It was not created, ap
 
 function layouts(pres, docName) {
   const foot = [
-    { text: { text: docName, options: { x: PT(M), y: PT(H - M + 6), w: PT(600), h: PT(20), fontSize: T.caption, color: C.ink3, fontFace: FONT, margin: 0, lang: LANG } } },
+    { text: { text: docName, options: { x: PT(G.side), y: PT(G.footTop), w: PT(spanW(8)), h: PT(G.footH), fontSize: T.caption, color: C.ink3, fontFace: FONT, margin: 0, valign: 'middle', lang: LANG } } },
   ];
-  const num = { x: PT(W - M - 80), y: PT(H - M + 6), w: PT(80), h: PT(20), fontSize: T.caption, color: C.ink3, fontFace: FONT, align: 'right' };
+  const num = { x: PT(colX(10)), y: PT(G.footTop), w: PT(spanW(2)), h: PT(G.footH), fontSize: T.caption, color: C.ink3, fontFace: FONT, align: 'right', valign: 'middle' };
+  const body = (name, x, w, text) => ({ placeholder: { options: { name, type: 'body', x: PT(x), y: PT(G.bodyTop), w: PT(w), h: PT(G.bodyH), fontSize: T.body, lineSpacing: LH[T.body], paraSpaceAfter: S.md, color: C.ink, fontFace: FONT, valign: 'top', margin: 0, lang: LANG }, text } });
+  // 表紙: しるし・題名・副題を本文の領域の中で上から置き、版の日付は柱の行の上 / cover blocks stack inside the body area
   pres.defineSlideMaster({ title: 'KM1 表紙 / Title', background: { color: 'FFFFFF' },
     objects: [
-      { rect: { x: PT(M + 16), y: PT(120), w: PT(62), h: PT(17), fill: { color: C.brand }, line: { type: 'none' } } },  // 表紙のしるし（PDF と同じ 22 × 6mm）
-      { placeholder: { options: { name: 'title', type: 'title', x: PT(M + 16), y: PT(152), w: PT(W - 2 * M - 32), h: PT(120), fontSize: T.largeTitle, bold: true, color: C.brand, fontFace: FONT, valign: 'top', align: 'left', margin: 0, lang: LANG }, text: '題名 / Title' } },
-      { placeholder: { options: { name: 'subtitle', type: 'body', x: PT(M + 16), y: PT(288), w: PT(W - 2 * M - 32), h: PT(64), fontSize: T.subtitle1, color: C.ink2, fontFace: FONT, valign: 'top', margin: 0, lang: LANG }, text: '副題 / Subtitle' } },
-      { placeholder: { options: { name: 'meta', type: 'body', x: PT(M + 16), y: PT(H - M - 48), w: PT(600), h: PT(40), fontSize: T.small, color: C.ink3, fontFace: FONT, valign: 'bottom', margin: 0, lang: LANG }, text: '版の日付・作成者 / Date, author' } },
+      { rect: { x: PT(G.side), y: PT(152), w: PT(62), h: PT(17), fill: { color: C.brand }, line: { type: 'none' } } },  // 表紙のしるし（PDF と同じ 22 × 6mm）
+      { placeholder: { options: { name: 'title', type: 'title', x: PT(G.side), y: PT(184), w: PT(spanW(10)), h: PT(2 * LH[40]), fontSize: T.largeTitle, lineSpacing: LH[40], bold: true, color: C.brand, fontFace: FONT, valign: 'top', align: 'left', margin: 0, lang: LANG }, text: '題名 / Title' } },
+      { placeholder: { options: { name: 'subtitle', type: 'body', x: PT(G.side), y: PT(184 + 2 * LH[40] + S.xxl), w: PT(spanW(10)), h: PT(2 * LH[24]), fontSize: T.body, lineSpacing: LH[24], color: C.ink2, fontFace: FONT, valign: 'top', margin: 0, lang: LANG }, text: '副題 / Subtitle' } },
+      { placeholder: { options: { name: 'meta', type: 'body', x: PT(G.side), y: PT(G.bodyBottom - LH[20]), w: PT(spanW(8)), h: PT(LH[20]), fontSize: T.small, color: C.ink3, fontFace: FONT, valign: 'bottom', margin: 0, lang: LANG }, text: '版の日付・作成者 / Date, author' } },
     ] });
   pres.defineSlideMaster({ title: 'KM1 区切り / Section', background: { color: C.muted },
     objects: [
-      { placeholder: { options: { name: 'number', type: 'body', x: PT(M + 16), y: PT(176), w: PT(200), h: PT(40), fontSize: T.subtitle1, bold: true, color: C.brand, fontFace: FONT, margin: 0, lang: LANG }, text: '01' } },
-      { placeholder: { options: { name: 'title', type: 'title', x: PT(M + 16), y: PT(224), w: PT(W - 2 * M - 32), h: PT(120), fontSize: T.largeTitle, bold: true, color: C.ink, fontFace: FONT, valign: 'top', align: 'left', margin: 0, lang: LANG }, text: '章の題名 / Section title' } },
+      { placeholder: { options: { name: 'number', type: 'body', x: PT(G.side), y: PT(184), w: PT(spanW(4)), h: PT(LH[24]), fontSize: T.body, bold: true, color: C.brand, fontFace: FONT, margin: 0, lang: LANG }, text: '01' } },
+      { placeholder: { options: { name: 'title', type: 'title', x: PT(G.side), y: PT(184 + LH[24] + S.lg), w: PT(spanW(10)), h: PT(2 * LH[40]), fontSize: T.largeTitle, lineSpacing: LH[40], bold: true, color: C.ink, fontFace: FONT, valign: 'top', align: 'left', margin: 0, lang: LANG }, text: '章の題名 / Section title' } },
       ...foot ], slideNumber: num });
-  const titleBox = { name: 'title', type: 'title', x: PT(M), y: PT(M), w: PT(W - 2 * M), h: PT(44), fontSize: T.title2, bold: true, color: C.ink, fontFace: FONT, valign: 'top', align: 'left', margin: 0, lang: LANG };
-  const bodyTop = M + 44 + S.xxl;              // 100pt
-  const bodyH = H - bodyTop - M - S.xxl;       // 本文の下端は柱の上 24pt / ends 24pt above the footer
+  const titleBox = { name: 'title', type: 'title', x: PT(G.side), y: PT(G.top), w: PT(G.contentW), h: PT(G.titleH), fontSize: T.title1, lineSpacing: LH[32], bold: true, color: C.ink, fontFace: FONT, valign: 'top', align: 'left', margin: 0, lang: LANG };
+  const title = { placeholder: { options: titleBox, text: 'スライドの題名 / Slide title' } };
   pres.defineSlideMaster({ title: 'KM1 題名と本文 / Title and content', background: { color: 'FFFFFF' },
-    objects: [ { placeholder: { options: titleBox, text: 'スライドの題名 / Slide title' } },
-      { placeholder: { options: { name: 'body', type: 'body', x: PT(M), y: PT(bodyTop), w: PT(W - 2 * M), h: PT(bodyH), fontSize: T.body, color: C.ink, fontFace: FONT, valign: 'top', margin: 0, lang: LANG }, text: '本文 / Body' } },
-      ...foot ], slideNumber: num });
-  const colW = (W - 2 * M - S.xxxl) / 2;
+    objects: [ title, body('body', G.side, G.contentW, '本文 / Body'), ...foot ], slideNumber: num });
   pres.defineSlideMaster({ title: 'KM1 2 段 / Two columns', background: { color: 'FFFFFF' },
-    objects: [ { placeholder: { options: titleBox, text: 'スライドの題名 / Slide title' } },
-      { placeholder: { options: { name: 'left', type: 'body', x: PT(M), y: PT(bodyTop), w: PT(colW), h: PT(bodyH), fontSize: T.body, color: C.ink, fontFace: FONT, valign: 'top', margin: 0, lang: LANG }, text: '左 / Left' } },
-      { placeholder: { options: { name: 'right', type: 'body', x: PT(M + colW + S.xxxl), y: PT(bodyTop), w: PT(colW), h: PT(bodyH), fontSize: T.body, color: C.ink, fontFace: FONT, valign: 'top', margin: 0, lang: LANG }, text: '右 / Right' } },
-      ...foot ], slideNumber: num });
+    objects: [ title, body('left', colX(0), spanW(6), '左 / Left'), body('right', colX(6), spanW(6), '右 / Right'), ...foot ], slideNumber: num });
+  pres.defineSlideMaster({ title: 'KM1 図と説明 / Figure and text', background: { color: 'FFFFFF' },
+    objects: [ title, body('text', colX(8), spanW(4), '説明 / Text'), ...foot ], slideNumber: num });
   pres.defineSlideMaster({ title: 'KM1 題名だけ / Title only', background: { color: 'FFFFFF' },
-    objects: [ { placeholder: { options: titleBox, text: 'スライドの題名 / Slide title' } }, ...foot ], slideNumber: num });
-  return { bodyTop, bodyH, colW };
+    objects: [ title, ...foot ], slideNumber: num });
+  return G;
 }
 
 async function save(z, file) {                    // フォルダの項目を入れずに書く / write without folder entries
@@ -87,7 +103,7 @@ async function fixTheme(file) {                     // 和文の書体と言語�
     z.file(n, x);
   }
   // 既定の文字の大きさを KM1 の型の表に合わせる / map pptxgenjs default sizes to the KM1 ramp
-  const MAP = { 4400: 2800, 3200: 2000, 2800: 2000, 2400: 2000, 1800: 1600 };
+  const MAP = { 4400: 3200, 3200: 2400, 2800: 2000, 2400: 2000, 1800: 2000 };
   for (const n of Object.keys(z.files).filter(n => /slideMasters\/slideMaster\d+\.xml$/.test(n))) {
     let x = await z.file(n).async('string');
     x = x.replace(/sz="(4400|3200|2800|2400|1800)"/g, (m, v) => `sz="${MAP[v]}"`);
@@ -112,7 +128,7 @@ async function fixTheme(file) {                     // 和文の書体と言語�
     z.file(n, (await z.file(n).async('string')).replace(/val="888888"/g, 'val="616161"'));
   }
   let p = await z.file('ppt/presentation.xml').async('string');
-  z.file('ppt/presentation.xml', p.replace(/sz="1800"/g, 'sz="2000"'));
+  z.file('ppt/presentation.xml', p.replace(/sz="1800"/g, 'sz="2400"'));
   // 表の 1 行目を見出しの行にする（読み上げで見出しとして扱われる）/ mark the first table row as header
   for (const n of Object.keys(z.files).filter(n => /slides\/slide\d+\.xml$/.test(n))) {
     let x = await z.file(n).async('string');
@@ -152,99 +168,115 @@ async function build() {
   }
   // 2) 見本 / sample deck
   const pres = new pptxgen(); props(pres, 'KM1 スライドの規定 見本 / KM1 slide rules sample');
-  const L = layouts(pres, 'KM1 スライドの規定 見本');
-  const sc = pres.SchemeColor;
+  layouts(pres, 'KM1 スライドの規定 見本');
   const t = (s, o = {}) => ({ text: s, options: Object.assign({ lang: LANG }, o) });
-  const en = (s) => t(s, { fontSize: T.small, color: C.ink3, breakLine: true });
+  const en = (s, o = {}) => t(s, Object.assign({ fontSize: T.small, lineSpacing: LH[20], color: C.ink3, breakLine: true }, o));
+  const li = (s, o = {}) => t(s, Object.assign({ bullet: true, breakLine: true, paraSpaceBefore: S.lg, paraSpaceAfter: 0 }, o));
+  const card = (s, x, y, w, h, fill, name) => s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: PT(x), y: PT(y), w: PT(w), h: PT(h), fill: { color: fill }, line: { type: 'none' }, rectRadius: PT(8), objectName: name });
+  const box = (s, text, x, y, w, h, o) => s.addText(text, Object.assign({ x: PT(x), y: PT(y), w: PT(w), h: PT(h), margin: 0, isTextBox: true, valign: 'top', fontFace: FONT, lang: LANG }, o));
+  const PAD = S.xxl;                                  // カードの内側（spacious）/ card padding
 
   pres.addSection({ title: '表紙 / Cover' });
   let s = pres.addSlide({ masterName: 'KM1 表紙 / Title', sectionTitle: '表紙 / Cover' });
   s.addText('KM1 スライドの規定', { placeholder: 'title' });
   s.addText('ひな形の使い方の見本 / How to use the KM1 slide template', { placeholder: 'subtitle' });
-  s.addText('2026-11-13・KM1', { placeholder: 'meta' });
+  s.addText('2026-11-19・KM1', { placeholder: 'meta' });
   s.addNotes('表紙。題名は 40pt・太字・ブランドの紺。しるしは PDF の表紙と同じ大きさ。');
 
   pres.addSection({ title: '決まり / Rules' });
   s = pres.addSlide({ masterName: 'KM1 区切り / Section', sectionTitle: '決まり / Rules' });
-  s.addText('01', { placeholder: 'number' }); s.addText('文字と色の決まり', { placeholder: 'title' });
+  s.addText('01', { placeholder: 'number' }); s.addText('文字と余白の決まり', { placeholder: 'title' });
 
   s = pres.addSlide({ masterName: 'KM1 題名と本文 / Title and content', sectionTitle: '決まり / Rules' });
-  s.addText('1 枚に伝えることは 1 つ', { placeholder: 'title' });
+  s.addText('文字は 20pt 以上、本文は 24pt', { placeholder: 'title' });
   s.addText([
-    t('題名は 28pt・太字。題名だけ読めば話の筋がわかる文にする', { bullet: true, breakLine: true }),
-    en('Titles are 28pt bold, written so the titles alone tell the story'),
-    t('本文は 20pt。補足と英語は 16pt。柱とページ番号だけ 12pt', { bullet: true, breakLine: true, paraSpaceBefore: S.lg }),
-    en('Body 20pt; notes and English 16pt; only footers use 12pt'),
-    t('大きさは KM1 の型の表の値だけ（68・40・28・20・16・12pt）', { bullet: true, breakLine: true, paraSpaceBefore: S.lg }),
-    en('Only KM1 type-ramp sizes: 68, 40, 28, 20, 16 and 12pt'),
+    li('題名は 32pt・太字・1 行。題名だけ読めば話の筋がわかる文にする', { paraSpaceBefore: 0 }),
+    en('Titles: 32pt bold, one line, so the titles alone tell the story'),
+    li('本文は 24pt。補足・英語・表・グラフは 20pt'),
+    en('Body 24pt; notes, English, tables and charts 20pt'),
+    li('柱とスライド番号だけ 14pt。内容の文字は 20pt より小さくしない'),
+    en('Only the footer and slide number are 14pt; no content below 20pt'),
   ], { placeholder: 'body' });
+
+  s = pres.addSlide({ masterName: 'KM1 題名だけ / Title only', sectionTitle: '決まり / Rules' });
+  s.addText('余白と 12 列のグリッド', { placeholder: 'title' });
+  for (let i = 0; i < G.cols; i++) card(s, colX(i), G.bodyTop, G.col, G.bodyH, C.tint, `col-${i + 1}`);
+  const lh = 3 * LH[24], bh = lh + 2 * PAD, by = G.bodyTop + (G.bodyH - bh) / 2;   // 中の文字に合わせた白いカード / white card sized to its text
+  card(s, colX(2), by, spanW(8), bh, 'FFFFFF', 'grid-card');
+  box(s, [t('左右 48・上 40・題名 40・間 24', { breakLine: true, bold: true }), t('本文 864 × 368、列 50・溝 24', { breakLine: true }), t('下は柱 20・余白 24')],
+    colX(2) + PAD, by + PAD, spanW(8) - 2 * PAD, lh, { fontSize: T.body, lineSpacing: LH[24], color: C.ink, objectName: 'grid-label' });
+  s.addNotes('薄い紺の帯が 12 列。図・表・カードの左右の端は、どれかの列の端にそろえる。');
 
   s = pres.addSlide({ masterName: 'KM1 2 段 / Two columns', sectionTitle: '決まり / Rules' });
   s.addText('使う形・使わない形', { placeholder: 'title' });
-  s.addText([ t('使う', { bold: true, color: C.brand, breakLine: true }),
-    t('題名・本文はプレースホルダーに入れる', { bullet: true, breakLine: true }),
-    t('グラフは PowerPoint のグラフで作る', { bullet: true, breakLine: true }),
-    t('図には代替テキストを付ける', { bullet: true }) ], { placeholder: 'left' });
-  s.addText([ t('使わない', { bold: true, color: 'B10E1C', breakLine: true }),
-    t('文字を画像にする', { bullet: true, breakLine: true }),
-    t('色だけで区別する', { bullet: true, breakLine: true }),
-    t('アニメーション・画面切り替えの効果', { bullet: true }) ], { placeholder: 'right' });
+  s.addText([ t('使う', { bold: true, color: C.brand, breakLine: true, paraSpaceAfter: 0 }),
+    li('題名・本文はプレースホルダーに入れる'),
+    li('グラフは PowerPoint のグラフで作る'),
+    li('図・表・カードは列の端にそろえる', { breakLine: false }) ], { placeholder: 'left' });
+  s.addText([ t('使わない', { bold: true, color: 'B10E1C', breakLine: true, paraSpaceAfter: 0 }),
+    li('文字を画像にする'),
+    li('色だけで区別する'),
+    li('縮めて詰め込む（2 枚に分ける）', { breakLine: false }) ], { placeholder: 'right' });
 
   s = pres.addSlide({ masterName: 'KM1 題名だけ / Title only', sectionTitle: '決まり / Rules' });
   s.addText('大きな数字は 68pt で 1 つだけ', { placeholder: 'title' });
-  const cw = (W - 2 * M - 2 * S.xxl) / 3;
-  [['68pt', '数字 / Number'], ['28pt', '題名 / Title'], ['20pt', '本文 / Body']].forEach(([n, l], i) => {
-    const x = M + i * (cw + S.xxl);
-    s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: PT(x), y: PT(L.bodyTop), w: PT(cw), h: PT(220), fill: { color: i === 0 ? C.tint : C.muted }, line: { type: 'none' }, rectRadius: PT(8), objectName: `card-${i + 1}` });
-    s.addText(n, { x: PT(x + S.xxl), y: PT(L.bodyTop + S.xxl), w: PT(cw - 2 * S.xxl), h: PT(100), fontSize: i === 0 ? T.display : T.largeTitle, bold: true, color: i === 0 ? C.brand : C.ink, margin: 0, isTextBox: true, valign: 'top', lang: LANG, objectName: `num-${i + 1}` });
-    s.addText(l, { x: PT(x + S.xxl), y: PT(L.bodyTop + 140), w: PT(cw - 2 * S.xxl), h: PT(56), fontSize: T.body, color: C.ink2, margin: 0, isTextBox: true, valign: 'top', lang: LANG, objectName: `label-${i + 1}` });
+  [['68pt', '数字 / Number', '1 枚に 1 つ'], ['32pt', '題名 / Title', '1 行で'], ['24pt', '本文 / Body', '6 項目まで']].forEach(([n, l, d], i) => {
+    const x = colX(i * 4), w = spanW(4);
+    card(s, x, G.bodyTop, w, G.bodyH, i === 0 ? C.tint : C.muted, `card-${i + 1}`);
+    box(s, n, x + PAD, G.bodyTop + PAD, w - 2 * PAD, LH[i === 0 ? 68 : 40], { fontSize: i === 0 ? T.display : T.largeTitle, bold: true, color: i === 0 ? C.brand : C.ink, objectName: `num-${i + 1}` });
+    box(s, [t(l, { breakLine: true, bold: true }), t(d, { color: C.ink2 })], x + PAD, G.bodyBottom - PAD - 2 * LH[24], w - 2 * PAD, 2 * LH[24],
+      { fontSize: T.body, lineSpacing: LH[24], color: C.ink, valign: 'bottom', objectName: `label-${i + 1}` });
   });
+  s.addNotes('カードは本文の領域の高さいっぱい（368）。数字は上、説明は下にそろえ、間を空ける。');
 
   pres.addSection({ title: 'グラフと表 / Charts and tables' });
-  s = pres.addSlide({ masterName: 'KM1 題名だけ / Title only', sectionTitle: 'グラフと表 / Charts and tables' });
-  s.addText('グラフは値を書き込み、色だけに頼らない', { placeholder: 'title' });
-  s.addChart(pres.charts.BAR, [{ name: '件数', labels: ['1 月', '2 月', '3 月', '4 月'], values: [12, 18, 15, 22] }], {
-    x: PT(M), y: PT(L.bodyTop), w: PT(W - 2 * M), h: PT(L.bodyH), barDir: 'col',
-    chartColors: ['10218B'], showValue: true, dataLabelPosition: 'outEnd', dataLabelColor: C.ink, dataLabelFontSize: T.small, dataLabelFontFace: '+mn-lt',
+  const chartOpt = { barDir: 'col', showValue: true, dataLabelPosition: 'outEnd', dataLabelColor: C.ink, dataLabelFontSize: T.small, dataLabelFontFace: '+mn-lt',
     catAxisLabelColor: C.ink2, valAxisLabelColor: C.ink2, catAxisLabelFontSize: T.small, valAxisLabelFontSize: T.small, catAxisLabelFontFace: '+mn-lt', valAxisLabelFontFace: '+mn-lt',
-    valGridLine: { color: 'E0E0E0', size: 1 }, catGridLine: { style: 'none' }, showLegend: false,
-    showTitle: false, altText: '月ごとの件数の棒グラフ。1 月 12 件、2 月 18 件、3 月 15 件、4 月 22 件。' });
+    valGridLine: { color: 'E0E0E0', size: 1 }, catGridLine: { style: 'none' }, showTitle: false };
+  s = pres.addSlide({ masterName: 'KM1 図と説明 / Figure and text', sectionTitle: 'グラフと表 / Charts and tables' });
+  s.addText('4 月は 1 月の 2 倍近くに増えた', { placeholder: 'title' });
+  s.addChart(pres.charts.BAR, [{ name: '件数', labels: ['1 月', '2 月', '3 月', '4 月'], values: [12, 18, 15, 22] }], Object.assign({}, chartOpt, {
+    x: PT(colX(0)), y: PT(G.bodyTop), w: PT(spanW(8)), h: PT(G.bodyH), chartColors: ['10218B'], showLegend: false,
+    altText: '月ごとの件数の棒グラフ。1 月 12 件、2 月 18 件、3 月 15 件、4 月 22 件。' }));
+  s.addText([ t('値は棒の上に書き込む', { bullet: true, breakLine: true }), t('言いたいことは題名に書く', { bullet: true, breakLine: true }),
+    t('図は左の 8 列、説明は右の 4 列', { bullet: true }) ], { placeholder: 'text' });
 
   s = pres.addSlide({ masterName: 'KM1 題名だけ / Title only', sectionTitle: 'グラフと表 / Charts and tables' });
   s.addText('系列は色と模様の両方で分ける', { placeholder: 'title' });
   s.addChart(pres.charts.BAR, [
     { name: '授業', labels: ['1 月', '2 月', '3 月'], values: [18, 16, 20] },
     { name: 'バイト', labels: ['1 月', '2 月', '3 月'], values: [12, 14, 10] },
-    { name: 'サークル', labels: ['1 月', '2 月', '3 月'], values: [6, 8, 5] }], {
-    x: PT(M), y: PT(L.bodyTop), w: PT(W - 2 * M), h: PT(L.bodyH), barDir: 'col', barGapWidthPct: 60,
-    chartColors: ['10218B', 'BC4B09', '038387'], showValue: true, dataLabelPosition: 'outEnd', dataLabelColor: C.ink, dataLabelFontSize: T.small, dataLabelFontFace: '+mn-lt',
-    catAxisLabelColor: C.ink2, valAxisLabelColor: C.ink2, catAxisLabelFontSize: T.small, valAxisLabelFontSize: T.small, catAxisLabelFontFace: '+mn-lt', valAxisLabelFontFace: '+mn-lt',
-    valGridLine: { color: 'E0E0E0', size: 1 }, catGridLine: { style: 'none' }, showLegend: true, legendPos: 'b', legendFontSize: T.small, legendColor: C.ink, legendFontFace: '+mn-lt',
-    showTitle: false, altText: '月ごとの時間の内訳の棒グラフ。授業は 1 月 18・2 月 16・3 月 20 時間、バイトは 12・14・10 時間、サークルは 6・8・5 時間。授業は塗り、バイトは横線、サークルは縦線の模様。' });
+    { name: 'サークル', labels: ['1 月', '2 月', '3 月'], values: [6, 8, 5] }], Object.assign({}, chartOpt, {
+    x: PT(G.side), y: PT(G.bodyTop), w: PT(G.contentW), h: PT(G.bodyH), barGapWidthPct: 60,
+    chartColors: ['10218B', 'BC4B09', '038387'], showLegend: true, legendPos: 'b', legendFontSize: T.small, legendColor: C.ink, legendFontFace: '+mn-lt',
+    altText: '月ごとの時間の内訳の棒グラフ。授業は 1 月 18・2 月 16・3 月 20 時間、バイトは 12・14・10 時間、サークルは 6・8・5 時間。授業は塗り、バイトは横線、サークルは縦線の模様。' }));
   s.addNotes('系列の塗りは KM1-COL-001 の順: 塗り → 横線 → 縦線。白黒で印刷しても区別できる。');
 
   s = pres.addSlide({ masterName: 'KM1 題名だけ / Title only', sectionTitle: 'グラフと表 / Charts and tables' });
   s.addText('表は見出しの行を付け、セルを結合しない', { placeholder: 'title' });
   const hd = o => Object.assign({ bold: true, fill: { color: 'F0F0F0' }, color: C.ink, fontSize: T.small }, o || {});
   const cell = (v, o) => ({ text: v, options: Object.assign({ fontSize: T.small, color: C.ink }, o || {}) });
-  s.addTable([
-    [cell('項目', hd()), cell('大きさ', hd()), cell('使う場所', hd())],
-    [cell('数字'), cell('68pt'), cell('1 枚に 1 つの大きな数字')],
+  const rows = [
+    [cell('役割', hd()), cell('大きさ', hd()), cell('使う場所', hd())],
+    [cell('大きな数字'), cell('68pt'), cell('1 枚に 1 つ')],
     [cell('表紙・区切りの題名'), cell('40pt'), cell('表紙と章の区切り')],
-    [cell('スライドの題名'), cell('28pt'), cell('すべてのスライド')],
-    [cell('本文'), cell('20pt'), cell('箇条書き・説明')],
-    [cell('補足・英語・表'), cell('16pt'), cell('英語の併記、表の中')],
-    [cell('柱・ページ番号'), cell('12pt'), cell('下の端だけ')],
-  ], { x: PT(M), y: PT(L.bodyTop), w: PT(W - 2 * M), colW: [PT(260), PT(160), PT(W - 2 * M - 420)], border: { type: 'solid', pt: 1, color: 'D1D1D1' }, rowH: PT(36), valign: 'middle', margin: [0, PT(S.md), 0, PT(S.md)], fontFace: FONT });
+    [cell('スライドの題名'), cell('32pt'), cell('すべてのスライド、1 行')],
+    [cell('本文'), cell('24pt'), cell('箇条書き・説明')],
+    [cell('補足・英語・表・グラフ'), cell('20pt'), cell('内容の文字の最小')],
+    [cell('柱・スライド番号'), cell('14pt'), cell('下の柱の行だけ')],
+  ];
+  const rh = G.bodyH / 8;                              // 46 ＝ 本文の高さを 8 行で割る / body height in 8 rows
+  s.addTable(rows, { x: PT(G.side), y: PT(G.bodyTop), w: PT(G.contentW), colW: [PT(4 * (G.col + G.gap)), PT(2 * (G.col + G.gap)), PT(spanW(6))],   // 列の境目を列の頭にそろえる / boundaries on column starts
+    border: { type: 'solid', pt: 1, color: 'D1D1D1' }, rowH: PT(rh), valign: 'middle', margin: [0, PT(S.lg), 0, PT(S.lg)], fontFace: FONT });
 
   pres.addSection({ title: 'まとめ / Summary' });
   s = pres.addSlide({ masterName: 'KM1 題名と本文 / Title and content', sectionTitle: 'まとめ / Summary' });
   s.addText('出す前に確かめること', { placeholder: 'title' });
   s.addText([
-    t('officecheck.py で FAIL が 0（題名・大きさ・色・代替テキスト・言語）', { bullet: true, breakLine: true }),
-    t('PowerPoint の「アクセシビリティ チェック」で問題が 0', { bullet: true, breakLine: true }),
-    t('読み上げの順（オブジェクトの順）が見た目の順と同じ', { bullet: true, breakLine: true }),
-    t('ファイルのプロパティに個人名が残っていない', { bullet: true }),
+    li('officecheck.py で FAIL が 0（大きさ・グリッド・はみ出し・題名の長さ）', { paraSpaceBefore: 0 }),
+    li('PowerPoint の「アクセシビリティ チェック」で問題が 0'),
+    li('読み上げの順（オブジェクトの順）が見た目の順と同じ'),
+    li('ファイルのプロパティに個人名が残っていない', { breakLine: false }),
   ], { placeholder: 'body' });
   s.addNotes(KM1_NOTICE_JA + '\n' + KM1_NOTICE_EN);
 
