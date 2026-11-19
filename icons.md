@@ -327,8 +327,8 @@ KM1 を使うアプリ（スケジュール確認、イベント向け POS、作
 
 ## 10. ロゴと表示 / Logo and attribution
 
-KM1 のロゴは、§6 のしるし（紺の正方形に白の「KM1」と表紙の帯）をそのまま使う。新しい絵は足さない。KM1 で作ったものに付ける表示（バッジ）もここで決める。道具は `brand/km1_logo.py`、できあがりは `dist/logo/`（SVG と PNG の 1・2・3 倍）。
-*The KM1 logo is the §6 mark itself; no new drawing. This section also defines the attribution badge for things made with KM1. Tool: `brand/km1_logo.py`; output: `dist/logo/` (SVG and PNG @1x/2x/3x).*
+KM1 のロゴは、§6 のしるしと同じ形（「KM1」と表紙の帯）を、色を入れ替えて**白地に青**にしたもの。白い面が明るい背景に溶けないよう、青の縁で囲む。形は足さない。アプリアイコン（§6）は紺地に白のまま。KM1 で作ったものに付ける表示（バッジ）もここで決める。道具は `brand/km1_logo.py`、できあがりは `dist/logo/`（SVG と PNG の 1・2・3 倍）。
+*The KM1 logo is the §6 mark with colours swapped — blue on white, framed by a blue border; the app icon (§6) stays white on navy. This section also defines the attribution badge for things made with KM1. Tool: `brand/km1_logo.py`; output: `dist/logo/` (SVG and PNG @1x/2x/3x).*
 
 ![KM1 のロゴ（横組み）— しるしと「KM1」/ KM1 logo, horizontal](dist/logo/km1-logo.svg)
 
@@ -338,7 +338,7 @@ KM1 のロゴは、§6 のしるし（紺の正方形に白の「KM1」と表紙
 
 | 種類 / Kind | 中身 / Contents | ファイル / Files |
 |---|---|---|
-| しるし / Mark | §6 と同じ絵。角は 32px のときの `radius-md`（4px）と同じ比（12.5%）。48px 未満は帯を省く | `km1-mark(-dark/-mono).svg` |
+| しるし / Mark | §6 と同じ形を白地に青で。縁は青で太さはしるしの 1/32（32px で 1px）。角は 32px のときの `radius-md`（4px）と同じ比（12.5%）。48px 未満は帯を省く | `km1-mark(-dark/-mono).svg` |
 | 横組み / Logo | しるし＋間（しるしの 1/4）＋「KM1」。「KM1」の大文字の高さはしるしの 0.42。文字は `ink` | `km1-logo(-dark/-mono).svg` |
 | 表示バッジ / Badge | 高さ 24px、縁 1px（`stroke`）、角 `radius-md`、しるし 16px、文字 12px（`caption-1`）。「Designed with」は `ink-secondary`、「KM1」は太字の `ink` | `designed-with-km1(-dark).svg`、`km1-de-sekkei(-dark).svg` |
 
@@ -349,9 +349,9 @@ KM1 のロゴは、§6 のしるし（紺の正方形に白の「KM1」と表紙
 
 | 版 / Version | しるし / Mark | 文字 / Text | 使う場所 / Use on |
 |---|---|---|---|
-| ライト / light | `brand`（#10218B）に白 | `ink`（#242424） | `surface` などの明るい面 |
-| ダーク / dark | ダークの `brand`（#3A4FD1）に白 | 白 | ダークの `surface`（#292929）などの暗い面 |
-| 単色 / mono | `ink` 1 色。文字と帯は抜く（下の面が見える） | `ink` | 1 色で刷るもの、写真の上など色が決められない場所 |
+| ライト / light | 白地に `brand`（#10218B）の文字・帯・縁 | `ink`（#242424） | `surface` などの明るい面 |
+| ダーク / dark | ライトと同じ白地に紺（暗い面の上でも色を変えない） | 白 | ダークの `surface`（#292929）などの暗い面 |
+| 単色 / mono | 縁・文字・帯を `ink` 1 色。地は透明 | `ink` | 1 色で刷るもの、写真の上など色が決められない場所 |
 
 **表示の文言 / Wording:** 「**Designed with KM1**」（日本語の画面では「**KM1 で設計**」）にする。KM1 はデザインの標準なので「with（KM1 を使って設計した）」。「Designed by」は KM1 がその製品を設計したと読めるので使わない。「Powered by」は動かす仕組み（サーバー・エンジン）を指す言い方で、KM1 にはそれがないので使わない。
 *Use "Designed with KM1" ("KM1 で設計" in Japanese UI). KM1 is a design standard, so "with". Not "Designed by" (reads as KM1 designing the product) and not "Powered by" (implies a runtime; KM1 has none).*

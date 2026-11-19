@@ -50,8 +50,8 @@ KM1 は Microsoft Fluent 2 の構造に、Science Tokyo と EPSON の考え方�
 **Word・PowerPoint:** Word の文書は KM1-DOC-002、スライドは KM1-DOC-003（`office.md`）に従う。ひな形（`KM1_文書.dotx`・`KM1_スライド.potx`）を作る道具と検査 `officecheck.py` は `office/` にある。
 *Word documents follow KM1-DOC-002 and slides KM1-DOC-003 (`office.md`); template generators and `officecheck.py` are in `office/`.*
 
-**ロゴと表示 / Logo and attribution:** KM1 のロゴは §6 のしるしそのもの。KM1 に従って作ったものには、フッターや「このアプリについて」に表示バッジ「Designed with KM1」（日本語の画面では「KM1 で設計」）を付けてよい。形・色・置き場所・してはいけないことは「アイコン」§10（`icons.md`）、ファイルは `dist/logo/`。
-*The KM1 logo is the app-icon mark. Things built to KM1 may carry the "Designed with KM1" badge in a footer or About screen; rules in Icons §10, files in `dist/logo/`.*
+**ロゴと表示 / Logo and attribution:** KM1 のロゴは、アプリアイコンのしるしと同じ形を白地に青にしたもの（アイコンは紺地に白のまま）。KM1 に従って作ったものには、フッターや「このアプリについて」に表示バッジ「Designed with KM1」（日本語の画面では「KM1 で設計」）を付けてよい。形・色・置き場所・してはいけないことは「アイコン」§10（`icons.md`）、ファイルは `dist/logo/`。
+*The KM1 logo is the app-icon drawing in blue on white. Things built to KM1 may carry the "Designed with KM1" badge in a footer or About screen; rules in Icons §10, files in `dist/logo/`.*
 
 **補遺 / Supplements:** 部品の対応表は `coverage.md`（KM1-COV-001）、出典と帰属は `notices.md`（KM1-LIC-001）、グラフは `dataviz.md`（KM1-VIZ-001、提案）、不足領域の仕様案は `proposals.md`（KM1-PRP-001）、導入の記録は `adoption.md`（KM1-ADO-001）。
 *Component coverage: `coverage.md`; notices: `notices.md`; charts: `dataviz.md` (proposed); spec proposals: `proposals.md`; adoption log: `adoption.md`.*

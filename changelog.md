@@ -2,8 +2,8 @@
 
 ## 2026-11-19 — ロゴと表示バッジ / Logo and attribution badge
 
-- **ロゴ:** KM1 のロゴを、アプリアイコンのしるし（紺の正方形に白の「KM1」と表紙の帯）そのものに決めた。横組み（しるし＋「KM1」）と、ライト・ダーク・単色の版を足した。
-  *The KM1 logo is the app-icon mark; added a horizontal lockup and light, dark and mono versions.*
+- **ロゴ:** KM1 のロゴを、アプリアイコンのしるし（「KM1」と表紙の帯）と同じ形で、色を入れ替えた白地に青（青の縁つき）に決めた。アプリアイコンは紺地に白のまま。横組み（しるし＋「KM1」）と、ライト・ダーク・単色の版を足した。
+  *The KM1 logo uses the app-icon drawing in blue on white with a blue border; the app icon stays white on navy. Added a horizontal lockup and light, dark and mono versions.*
 - **表示バッジ:** KM1 に従って作ったものに付ける「Designed with KM1」（日本語の画面は「KM1 で設計」）を決めた。「Designed by」（KM1 が設計したと読める）と「Powered by」（動かす仕組みを指す）は使わない。高さ 24px、縁 1px、しるし 16px、文字 12px。置き場所はフッター・「このアプリについて」・文書の最後のページ。
   *Added the "Designed with KM1" badge; "Designed by" and "Powered by" are not used.*
 - **道具とファイル:** `brand/km1_logo.py` が `dist/logo/` に SVG と PNG（1・2・3 倍）を書き出す。決まりは「アイコン」§10。

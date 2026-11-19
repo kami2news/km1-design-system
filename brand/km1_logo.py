@@ -12,7 +12,7 @@ from fontTools.ttLib import TTCollection
 from fontTools.pens.svgPathPen import SVGPathPen
 from fontTools.pens.transformPen import TransformPen
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'icons'))
-from km1_appicon import artwork, wordmark   # しるしはアプリアイコンと同じ絵 / the mark is the app icon artwork
+from km1_appicon import artwork, wordmark   # 形はアプリアイコンと同じ（色は白地に青）/ same drawing as the app icon, blue on white
 
 NOTO = '/usr/share/fonts/opentype/noto/NotoSansCJK-{}.ttc'
 _fonts = {}
@@ -23,8 +23,8 @@ def font(weight):
 
 # KM1 のトークンの値 / KM1 token values (tokens.json)
 THEMES = {
-    'light': dict(surface='FFFFFF', stroke='D1D1D1', ink='242424', ink2='424242', brand='10218B', on='FFFFFF'),   # brand-700
-    'dark':  dict(surface='292929', stroke='666666', ink='FFFFFF', ink2='D6D6D6', brand='3A4FD1', on='FFFFFF'),   # brand-500
+    'light': dict(surface='FFFFFF', stroke='D1D1D1', ink='242424', ink2='424242', mark_bg='FFFFFF', mark_fg='10218B'),   # brand-700
+    'dark':  dict(surface='292929', stroke='666666', ink='FFFFFF', ink2='D6D6D6', mark_bg='FFFFFF', mark_fg='10218B'),   # ダークでも白地に紺 / white tile on dark too
 }
 RADIUS = 0.125   # しるしの角: 32px で radius-md（4px）と同じ比 / mark corner = radius-md at 32px
 
@@ -42,18 +42,19 @@ def text_path(runs, size):
     return ' '.join(pen_d), x
 
 def mark_svg(size, c, mono=False):
-    """しるし。48px 未満は帯を省く（§6）。単色は文字と帯を抜く / the mark; mono knocks the letters out"""
+    """ロゴのしるし: 白地に青。§6 のアプリアイコン（紺地に白）の色を入れ替えたもの。白い面が明るい背景に溶けないよう、
+    縁を青で囲む（太さはしるしの 1/32。32px で 1px）。48px 未満は帯を省く。単色は縁・文字・帯を ink 1 色で、地は透明。
+    Logo mark: blue on white (the §6 app icon with colours swapped), framed by a blue border (size/32);
+    under 48px the bar is dropped. Mono draws border, letters and bar in ink on a transparent ground."""
     small = size < 48
-    s = artwork(size, c['brand'], c['on'], ('text', wordmark('KM1')), small=small)
+    fg = c['ink'] if mono else c['mark_fg']
+    s = artwork(size, 'FFFFFF', fg, ('text', wordmark('KM1')), small=small)
     inner = s[s.index('>') + 1:s.rindex('</svg>')]
-    r = size * RADIUS
-    if mono:   # 正方形から文字と帯を抜いた 1 つの形 / one shape: square minus letters and bar
-        import re
-        body = inner.split('/>', 1)[1]
-        body = re.sub(r'fill="#[0-9A-Fa-f]{6}"', 'fill="#000"', body)
-        return (f'<mask id="k"><rect width="{size}" height="{size}" rx="{r:.2f}" fill="#fff"/>{body}</mask>'
-                f'<rect width="{size}" height="{size}" rx="{r:.2f}" fill="#{c["ink"]}" mask="url(#k)"/>')
-    return inner.replace(f'<rect width="{size}" height="{size}"', f'<rect width="{size}" height="{size}" rx="{r:.2f}"', 1)
+    body = inner.split('/>', 1)[1]          # 地の四角を外して文字と帯だけ / drop the ground rect
+    sw = max(1.0, size / 32); r = size * RADIUS
+    ground = 'none' if mono else f'#{c["mark_bg"]}'
+    frame = f'<rect x="{sw / 2:g}" y="{sw / 2:g}" width="{size - sw:g}" height="{size - sw:g}" rx="{r - sw / 2:.2f}" fill="{ground}" stroke="#{fg}" stroke-width="{sw:g}"/>'
+    return frame + body
 
 def doc(w, h, body):
     return f'<svg xmlns="http://www.w3.org/2000/svg" width="{w:g}" height="{h:g}" viewBox="0 0 {w:g} {h:g}">{body}</svg>'
