@@ -1,5 +1,14 @@
 # 変更履歴 / Changelog
 
+## 2026-11-25 — 評価 3 回目: ボタンの種類・理由の行・同じ値の重なり / Review 3
+
+- **ボタン:** 6 種類を `primary`・`secondary`・`subtle`・`danger` の 4 種類にした。古い `outline`・`transparent` は近いものに読み替える。「キャンセル」は枠のボタン。ボタンの見本を、本物の場面（保存の組・ツールバー・削除・大きさ）で並べ直した。Flutter の `TextButton` は紺の文字をやめて `subtle` と同じにした（D28）。
+  *Buttons merged into four kinds; Cancel is outlined; Flutter TextButton matches subtle.*
+- **理由の行:** 残っていた 41 部品の README に「理由 / Why」を書き、全 67 部品そろった。行がない部品は `reasoncheck.py` が FAIL にする（D29）。
+  *All 67 components now carry a Why line; missing ones fail the check.*
+- **同じ値を 2 回出さない:** 授業の編集画面で、名前の下の要約（「月 2 限・W9-324」）が「登録内容」と重なっていたので消した。削除の確認は `danger` にし、本文に消す授業の名前を出す（D26・D30）。`reasoncheck.py` は削除を `primary` にした見本も FAIL にする。
+  *Removed the duplicated summary on the edit screen; deletion uses danger and names what goes.*
+
 ## 2026-11-24 — 評価 2 回目: 合図の重ねすぎ・消す操作・入力例・数字の書き方 / Review 2
 
 - **ナビ:** 選択中の合図が 4 つ（面・線・太字・塗りのアイコン）重なっていたので、線をやめて 3 つにした（下のナビの上の線、縦のナビの左の線）（D25）。

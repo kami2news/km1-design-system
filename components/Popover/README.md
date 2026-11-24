@@ -13,3 +13,6 @@
 
 ## 利用側が渡すもの / You provide
 `title`、`trigger`（`{label, icon?, iconOnly?, appearance?}`）、中身、必要なら `open` + `onOpenChange`・`align`。
+
+**理由 / Why:** ボタンの近くで小さな作業をする。押した場所のすぐそばに出るので、何の続きか分かる。
+*Small tasks near a button: opens right beside it, so it is clear what it continues.*

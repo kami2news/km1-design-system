@@ -5,7 +5,7 @@ var h=React.createElement,F=window.Fluent2;
 function App(){var s=React.useState(true),o=s[0],set=s[1];
  return h(React.Fragment,null,h(F.Button,{onClick:function(){set(true);}},'削除'),
   h(F.Dialog,{open:o,title:'「環境化学 第 8 回」を削除しますか？',onClose:function(){set(false);},
-   actions:h(React.Fragment,null,h(F.Button,{appearance:'transparent',onClick:function(){set(false);}},'キャンセル'),h(F.Button,{appearance:'danger',onClick:function(){set(false);}},'削除する'))},
+   actions:h(React.Fragment,null,h(F.Button,{onClick:function(){set(false);}},'キャンセル'),h(F.Button,{appearance:'danger',onClick:function(){set(false);}},'削除する'))},
    '11 月 14 日（金）10:45 の予定です。削除すると元に戻せません。'));}
 ReactDOM.createRoot(document.getElementById('r')).render(h(App));
 </script>

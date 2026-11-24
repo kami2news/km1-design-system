@@ -28,3 +28,6 @@
 - 関係のない欄を幅を埋めるために並べる。 *Pair unrelated fields just to fill the width.*
 - 3 列以上にする。 *Use three or more columns.*
 - 左列を下まで読んでから右列、という縦の流れにする（読む順が崩れる）。 *Flow down the left column then the right; it breaks reading order.*
+
+**理由 / Why:** 短い欄の多いフォームが縦に長くなりすぎる。関係の強い欄だけ広い画面で 2 列。基本は 1 列で読む順を崩さない。
+*Forms of many short fields grow too tall: only closely related fields share two columns on wide screens; one column keeps reading order.*

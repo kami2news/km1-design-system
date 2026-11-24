@@ -56,3 +56,6 @@ Flutter: `Km1ContextualActionBar`（`count`・`total`・`actions`（`Km1BulkActi
 
 件数の表示と `role="status"`、選択行の表示、チェックの名前、選択の追加、すべて選択、解除で操作が消える、解除後のフォーカス（8 項目、320〜1366px・ダークで合格）。`Table` の一括操作は同じ部品で描くようにしたあと、axe の回帰検査で確認。
 *8 checks pass; Table's bulk bar re-tested via axe regression after the refactor.*
+
+**理由 / Why:** 選んだものだけに効く操作を出したい。選んでいる間だけ出て、件数で何に効くか分かる。
+*Actions that apply only to the selection: shown only while selecting, with a count saying what they affect.*

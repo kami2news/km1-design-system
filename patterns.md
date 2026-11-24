@@ -37,6 +37,11 @@
 - 1 つの文は短く（目安 40 字まで）、1 つの文で 1 つのことを言う。専門の言葉は、使う人の言葉に置き換える。
   *Short sentences (about 40 characters), one idea each; replace jargon with the user's words.*
 
+**同じことを 2 回出さない / Say it once**
+
+- 1 つの画面で同じ値を 2 回並べない。見出しの下に要約を置き、その下の表にも同じ値があるなら、要約を消す（D30）。
+  *Never show the same value twice on one screen; drop the summary when the table below repeats it.*
+
 **いつも同じ場所 / Same thing, same place**
 
 - 主ボタン・戻る・閉じる・検索は、どの画面でも同じ位置に置く（PC は主ボタンを右、スマホは「フォーム › ボタン」）。同じ操作に違う言葉を使わない。

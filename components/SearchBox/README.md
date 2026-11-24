@@ -13,3 +13,6 @@
 
 ## 利用側が渡すもの / You provide
 `label`、必要なら `placeholder`・`value` + `onChange`・`onSearch`・`hint`・`hideLabel`。
+
+**理由 / Why:** 画面の中から探したい。いつも同じ場所に置き、消すボタンと Esc で戻せる。
+*Find things on the screen: always in the same place, with a clear button and Esc to return.*

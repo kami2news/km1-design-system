@@ -15,3 +15,6 @@
 
 ## 利用側が渡すもの / You provide
 `label`、`items`（`{value, label, icon, iconSelected?, href?}`）、`value`、`onChange`、必要なら `orientation`。
+
+**理由 / Why:** 画面を切り替える。いつも同じ場所。狭い画面は下のタブ、広い画面は横のサイドバー。
+*Switch screens: always in the same place; bottom tabs on narrow screens, a sidebar on wide ones.*

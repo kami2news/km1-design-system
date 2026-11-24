@@ -27,3 +27,6 @@
 - 出た欄へ自動でフォーカスを移す。 *Move focus to the new field automatically.*
 - フォームの別の場所（ずっと下など）に出す。 *Reveal fields somewhere else in the form.*
 - 隠した欄の値を送る、または黙って消す。 *Submit hidden values, or silently wipe them.*
+
+**理由 / Why:** 答えによって必要な欄が変わる。必要になった欄を、その答えのすぐ下に出す。関係が位置で分かる。
+*Needed fields depend on an answer: the new field appears right under that answer, so position shows the link.*

@@ -78,3 +78,6 @@ Flutter: `Km1ListItem`（`title`・`description`・`meta`・`leading`・`trailin
 
 行数、見出しが h3 で件数つき、まとまりの名前、主操作と補助操作が入れ子でない、ピンの `aria-pressed`、`scroll-padding-top`、固定見出し（7 項目、320・360・1366px・ダーク 1024px で合格）。axe 違反 0。
 *7 scripted checks pass at 320/360/1366px and dark at 1024px; axe: 0 violations.*
+
+**理由 / Why:** 同じ種類のものから 1 つ選ぶ。縦 1 列で、ざっと上から読める。比べるなら Table に回す。
+*Pick one of many similar things: one column read top to bottom; comparisons go to Table.*

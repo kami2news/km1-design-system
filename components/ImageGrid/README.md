@@ -47,3 +47,6 @@ Flutter: `Km1ImageGrid`（`items`（`Km1ImageItem`）・`onOpen`・`selectable`�
 
 枚数、代替テキスト、遅延読み込み、読み込み失敗の表示、チェックが入れ子でない、選択の表示、選択がバーに反映、列数、横スクロールなし（9 項目、320〜1366px・ダークで合格）。
 *9 checks pass at 320–1366px and dark.*
+
+**理由 / Why:** 写真のように見た目で見分ける。格子で絵を大きく並べる。文字で比べるものには使わない。
+*Things told apart by look, like photos: large images in a grid; not for things compared by text.*

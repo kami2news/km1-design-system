@@ -15,3 +15,6 @@
 
 ## 利用側が渡すもの / You provide
 `open`、文言、`onClose`、必要なら `status`（`info`・`success`・`warning`・`danger`）・`action`（`{label, onClick}`）・`duration`。
+
+**理由 / Why:** 操作の結果を、作業を止めずに知らせる。画面の下に一時的に出し、元に戻すを添えられる。
+*Report a result without stopping work: appears briefly at the bottom and can offer Undo.*

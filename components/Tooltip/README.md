@@ -13,3 +13,6 @@
 
 ## 利用側が渡すもの / You provide
 `content`（補足の文言）、中の部品 1 つ、必要なら `position`（`top`・`bottom`）・`align`（`center`・`start`・`end`。画面の端に近いときは端にそろえる）・`delay`。
+
+**理由 / Why:** 短い補足を必要なときだけ見せる。マウスとフォーカスの両方で出る。大事な情報はここに入れない。
+*Short help only when needed: shows on hover and focus; never holds essential information.*

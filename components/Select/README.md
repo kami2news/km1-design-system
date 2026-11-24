@@ -12,3 +12,6 @@
   *On touch devices text is 16px to avoid iPhone Safari auto-zoom.*
 - 補足（`hint`）はラベルと選択欄の間、エラー（`error`）は選択欄の下に左寄せで置く。展開したリストは OS 標準のまま使う。
   *`hint` sits between the label and the select; `error` below, left-aligned. The opened list stays the OS default.*
+
+**理由 / Why:** 6 件以上から 1 つ選ぶ。ブラウザ標準を使い、キーボードと読み上げの操作をそのまま生かす。
+*Pick one of six or more: the native control keeps keyboard and screen-reader behaviour.*

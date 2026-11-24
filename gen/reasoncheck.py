@@ -2,8 +2,9 @@
 
 - FAIL: 浮いていない部品に外側の影（box-shadow）を付けている。浮く部品は ALLOW に理由つきで並べる
 - FAIL: 見本（preview.html）の文言が、本物の内容ではなく部品自身や見本であることを説明している
+- FAIL: 見本で削除のボタンを primary にしている（D26）
 - FAIL: 見本の文言で、入力例をプレースホルダに入れている（D27）。数字と単位・助数詞の間があいていない（D27。ファイル名は除く）
-- WARN: 部品の README に「**理由 / Why:**」の行がない（順に書き足す。件数だけ出す。-v で一覧）
+- FAIL: 部品の README に「**理由 / Why:**」の行がない（全部品に書いた。-v で一覧）
 使い方 / Usage: python3 gen/reasoncheck.py [-v]
 """
 import glob, os, re, sys
@@ -46,6 +47,8 @@ for f in sorted(glob.glob(os.path.join(ROOT, 'components', '*', 'preview.html'))
     t = re.sub(r'<!--.*?-->', '', open(f, encoding='utf-8').read(), flags=re.S)
     for m in re.finditer(r"placeholder\s*[:=]\s*['\"]例", t):
         out('FAIL', 'EXAMPLE', f'{name}: 入力例をプレースホルダに入れている。hint に「例：」で書く / example in placeholder')
+    for m in re.finditer(r"appearance\s*:\s*'primary'[^)]{0,80}?'[^']*削除[^']*'", t):
+        out('FAIL', 'DANGER', f'{name}: 削除を primary にしている。取り消せない操作は danger（D26）/ delete as primary')
     for m in DIG.finditer(t):
         lit = m.group(0)
         if re.search(r'\.(?:csv|pdf|png|jpe?g|xlsx|docx)', lit): continue   # ファイル名はそのまま / file names
@@ -56,7 +59,7 @@ miss = []
 for f in sorted(glob.glob(os.path.join(ROOT, 'components', '*', 'README.md'))):
     if '**理由 / Why:**' not in open(f, encoding='utf-8').read(): miss.append(f.split(os.sep)[-2])
 total = len(glob.glob(os.path.join(ROOT, 'components', '*', 'README.md')))
-if miss: out('WARN', 'WHY', f'「理由 / Why」の行がない部品 {len(miss)} / {total}' + (': ' + '、'.join(miss) if V else '（-v で一覧）'))
+if miss: out('FAIL', 'WHY', f'「理由 / Why」の行がない部品 {len(miss)} / {total}' + (': ' + '、'.join(miss) if V else '（-v で一覧）'))
 else: out('PASS', 'WHY', f'全 {total} 部品に理由の行がある')
 
 for lv, code, msg in res:

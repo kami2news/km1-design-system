@@ -39,3 +39,6 @@ const [tries, setTries] = useState(0);
 - 一覧だけ出して、欄の横にエラーを出さない。 *Show the summary without the inline errors.*
 - 打っている途中に一覧を出す。 *Show the summary while the user is typing.*
 - エラーのあとで入力を消す。 *Clear the user's input after an error.*
+
+**理由 / Why:** 送信で誤りがどこにあるか分からない。上に件数と一覧、各行から欄へ飛べる。読み上げでも順に回れる。
+*After submit, where are the errors? Count and list at the top, each linking to its field; screen readers can step through.*

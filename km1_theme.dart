@@ -681,7 +681,7 @@ abstract final class Km1Theme {
           padding: const WidgetStatePropertyAll(EdgeInsets.symmetric(horizontal: Km1Space.md)),
           shape: WidgetStatePropertyAll(shape),
           textStyle: const WidgetStatePropertyAll(Km1Text.body1Strong),
-          foregroundColor: WidgetStateProperty.resolveWith((s) => s.contains(WidgetState.disabled) ? c.inkDisabled : c.brandInk),
+          foregroundColor: WidgetStateProperty.resolveWith((s) => s.contains(WidgetState.disabled) ? c.inkDisabled : c.ink),
           backgroundColor: WidgetStateProperty.resolveWith((s) {
             if (s.contains(WidgetState.pressed)) return c.surfacePressed;
             if (s.contains(WidgetState.hovered)) return c.surfaceHover;

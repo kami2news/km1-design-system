@@ -15,3 +15,6 @@
 
 ## 利用側が渡すもの / You provide
 `label`、`options`（`{value, label}`）、`value`（選んだ value の配列）、`onChange`、必要なら `placeholder`・`hint`・`error`・`required`・`max`。
+
+**理由 / Why:** 候補から複数を選ぶ。選んだものがタグで並び、何を選んだか一目で分かる。
+*Pick several from suggestions: choices line up as tags, so what you picked is visible at a glance.*

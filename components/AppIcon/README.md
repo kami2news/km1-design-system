@@ -14,3 +14,6 @@ KM1 のアプリアイコンとファビコン（KM1-ICO-001 §6）。紺（`bra
   *No transparency for iOS and stores; small favicons are pre-rounded with a larger motif.*
 - ほかのアプリは同じ道具で色と絵柄だけ変える（例: ティールに `timetable`）。Flutter は書き出された `flutter_launcher_icons.yaml` を使う。
   *Other apps reuse the tool with their own color and motif; Flutter uses the generated `flutter_launcher_icons.yaml`.*
+
+**理由 / Why:** KM1 の道具をホーム画面で見分ける。紺の正方形に白の KM1。OS に切り抜かれても中身が残る大きさ。
+*Tell KM1 tools apart on the home screen: white KM1 on a navy square, sized to survive OS masks.*

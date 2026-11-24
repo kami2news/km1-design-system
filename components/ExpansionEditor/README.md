@@ -66,3 +66,6 @@ Flutter: `Km1ExpansionEditor`（`title`・`summary`・`child`・`onSave`（`Futu
 
 - 続けて置いた ExpansionEditor は縁がつながり、1 つのまとまりになる（間に余白を入れない）。項目名の列は 10em にそろえ、直せない項目（`readOnly`）も値の位置が同じになる。
   *Consecutive editors join into one group; the title column is fixed at 10em so read-only rows align too.*
+
+**理由 / Why:** 一覧の 1 項目だけ直したい。その場で開いて直す。画面を移らないので、どれを直しているか見失わない。
+*Fix one item in a list: edit in place without changing screens, so you never lose which item.*

@@ -15,9 +15,9 @@ html{font-family:var(--font-sans)}
 .f2-btn--primary{background:var(--brand);border-color:var(--brand-stroke);color:var(--on-brand)}
 .f2-btn--primary:hover{background:var(--brand-hover)}
 .f2-btn--primary:active{background:var(--brand-pressed)}
-.f2-btn--outline{background:transparent}
+
 .f2-btn--subtle{background:transparent;border-color:transparent}
-.f2-btn--transparent{background:transparent;border-color:transparent;color:var(--brand-ink)}
+
 .f2-btn--sm{min-height:var(--control-height-sm);padding:0 var(--space-sm-nudge);font-size:12px;line-height:16px;border-radius:var(--radius-md)}
 .f2-btn--lg{min-height:var(--control-height-lg);padding:0 var(--space-xl);font-size:16px;line-height:24px}
 .f2-btn.f2-btn--disabled,.f2-btn.f2-btn--disabled:hover,.f2-btn.f2-btn--disabled:active{cursor:not-allowed;background:var(--surface-muted);border-color:var(--stroke-subtle);color:var(--ink-disabled)}

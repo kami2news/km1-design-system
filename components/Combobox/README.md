@@ -13,3 +13,6 @@
 
 ## 利用側が渡すもの / You provide
 `label`、`options`（`{value, label, disabled?}`）、`value`、`onChange`、必要なら `placeholder`・`hint`・`error`・`required`・`emptyText`。
+
+**理由 / Why:** 選択肢が多くて探すのが大変。打って絞り込める。全部を目で追わなくてよい。
+*Too many options to scan: type to narrow, no need to read them all.*

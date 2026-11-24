@@ -13,3 +13,6 @@
 
 ## 利用側が渡すもの / You provide
 `label`、`onChange`（選ばれた `File` の配列）、必要なら `accept`・`multiple`・`hint`・`error`・`required`・`files`。
+
+**理由 / Why:** ファイルを渡す。選ぶ・ドラッグの両方を受ける。手の使い方によらず渡せる。
+*Hand over a file: accepts both choosing and dragging, whatever the input method.*

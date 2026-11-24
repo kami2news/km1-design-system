@@ -13,3 +13,6 @@
 
 ## 利用側が渡すもの / You provide
 `page`（1 始まり）、`count`（総ページ数）、`onChange`、必要なら `label`。
+
+**理由 / Why:** 長い一覧を区切る。500 行を超えない決まりと組で使う。何ページ中のどこかが分かる。
+*Split long lists: paired with the 500-row limit; shows where you are among the pages.*

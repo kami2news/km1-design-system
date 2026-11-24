@@ -6,6 +6,7 @@ function cx(){return Array.prototype.filter.call(arguments,Boolean).join(' ');}
 function nextId(p){uid+=1;return 'f2-'+p+'-'+uid;}
 function Button(p){
   var a=p.appearance||'secondary',s=p.size||'medium',dis=!!p.disabled;
+  a={outline:'secondary',transparent:'subtle'}[a]||a;  // 4 種類にまとめた（D28）。古い名前は近いものに読み替える / merged into four kinds; old names map to the nearest
   return h('button',{type:p.type||'button',form:p.form,'aria-disabled':dis?'true':undefined,'aria-label':p['aria-label'],'aria-describedby':p['aria-describedby'],
     onClick:function(e){if(dis){e.preventDefault();return;}if(p.onClick)p.onClick(e);},
     className:cx('f2-btn','f2-btn--'+a,s==='small'&&'f2-btn--sm',s==='large'&&'f2-btn--lg',dis&&'f2-btn--disabled',p.className)},p.icon,p.children);

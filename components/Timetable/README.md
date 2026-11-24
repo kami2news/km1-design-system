@@ -19,3 +19,6 @@
 `caption`、`periods`、`items`、必要なら `days`・`today`・`onSelect`・`hideCaption`。
 - 分類は色に加えて模様でも区別できる: 項目に `pattern`（`CategoryPattern`）を渡すと題名の前に分類のしるしが出る。凡例は `CategoryLegend` で添える（KM1-COL-001）。
   *Pass `pattern` to show a category mark before the title; add a `CategoryLegend` (KM1-COL-001).*
+
+**理由 / Why:** 毎週同じ枠の予定（授業・シフト）を見る。曜日 × 時限の格子。毎週同じ場所にあるので探さない。
+*Weekly fixed slots (classes, shifts): a weekday × period grid; the same place every week, no searching.*

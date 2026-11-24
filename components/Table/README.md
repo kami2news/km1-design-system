@@ -30,3 +30,6 @@
 
 ## 利用側が渡すもの / You provide
 `caption`、`columns`（`{key, label, align?, sortable?, render?, text?}`）、`rows`（`id` があると安定する）、必要なら `sort`・`onSort`・`striped`・`empty`、行選択には `selectable`・`selected`・`onSelectionChange`・`bulkActions`（`{label, onClick(ids), icon?, danger?}`）、密度に `density`。
+
+**理由 / Why:** 行と列で見比べる。列をそろえ、数は右ぞろえで桁を比べられる。
+*Compare by rows and columns: aligned columns, numbers right-aligned to compare digits.*

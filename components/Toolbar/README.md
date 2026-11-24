@@ -17,3 +17,6 @@
 
 ## 利用側が渡すもの / You provide
 `label`、`items`（`{label, icon?, onClick?, iconOnly?, pressed?, disabled?, priority?}` か `{separator: true}`）。
+
+**理由 / Why:** よく使う操作をすぐ押したい。操作の対象（一覧・編集画面）の真上に、いつも同じ並びで置く。
+*Frequent actions within reach: directly above what they act on, always in the same order.*

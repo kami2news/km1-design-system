@@ -19,3 +19,6 @@
   *Don't: show state by border color alone.*
 - 日付と時刻は `type="date"`・`type="time"`・`type="datetime-local"` で、端末の標準の選択画面を使う（スマホで速く、読み上げにも対応している）。月の表から選ばせたいときや予定の印を見せたいときは `Calendar` を使う。
   *Dates and times use `type="date"`, `type="time"` or `type="datetime-local"` with the device's native picker (fast on phones, screen-reader ready). Use `Calendar` when people should pick from a month grid or see event marks.*
+
+**理由 / Why:** 1 行の文字を入れる。ラベルを常に出す。プレースホルダは入力すると消えて、何の欄か分からなくなるため。
+*One line of text: the label stays visible, because a placeholder vanishes on typing and the field loses its name.*

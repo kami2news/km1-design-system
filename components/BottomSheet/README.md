@@ -58,3 +58,6 @@ Flutter: `showKm1BottomSheet(context:, title:, builder:, actions:)`。スマホ�
 
 モーダルで開く、名前、フォーカスが中へ、広げるボタン（狭い画面）、全画面、Esc で閉じる、開いたボタンへフォーカスが戻る、持続型は section、たためる（320・360px で 9 項目、1024・1366px で 8 項目合格）。
 *All checks pass at 320/360px (9) and 1024/1366px (8).*
+
+**理由 / Why:** 狭い画面で、今の画面を保ったまま選ばせたい。下から出して親指で届く。今の画面が上に見えたまま。
+*On narrow screens, choose without leaving the current screen: rises from the bottom within thumb reach, the screen stays visible above.*

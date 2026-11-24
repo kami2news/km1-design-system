@@ -63,3 +63,6 @@ Flutter: `Km1StepFlow`（`steps`（`Km1Step`）・`active`・`completed`・`erro
 
 `aria-current` が 1 つ、状態の読み上げ、順番どおり型で未着手は押せない、任意の表示、誤りで進まずエラー表示、次の工程の見出しへフォーカス、完了した工程へ戻れる、幅での縦横（8 項目、320〜1366px・ダークで合格）。
 *8 checks pass at 320–1366px and dark.*
+
+**理由 / Why:** 工程が多い入力で、今どこか分からなくなる。工程の一覧と今の位置、戻る・次へをいつも同じ場所に。
+*Long multi-step input loses your place: a step list, the current position, and back/next always in the same spot.*

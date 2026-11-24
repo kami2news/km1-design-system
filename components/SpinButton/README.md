@@ -13,3 +13,6 @@
 
 ## 利用側が渡すもの / You provide
 `label`、`value` + `onChange`、必要なら `min`・`max`・`step`・`unit`・`hint`・`error`。
+
+**理由 / Why:** 数を正確に入れる。手入力と ±1 の両方ができる。数を間違えにくい。
+*Enter an exact number: typing and ±1 steps, so numbers are hard to get wrong.*

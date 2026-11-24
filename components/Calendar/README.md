@@ -15,3 +15,6 @@
 
 ## 利用側が渡すもの / You provide
 `value`、`onChange`、必要なら `marks`（`{'2026-11-14': 2}`）・`min`・`max`・`weekStart`・`label`・`today`。
+
+**理由 / Why:** 日付を 1 つ選ぶ。月の並びで、曜日と予定のある日が見える。
+*Pick one date: the month grid shows weekdays and which days have events.*
