@@ -227,12 +227,12 @@
       "$description": "本文・見出しの標準文字色。surface と surface-subtle の上。 / Default text for body and headings on surface and surface-subtle."
     },
     "ink-secondary": {
-      "$value": "{color.gray-84}",
-      "$description": "補助文字、ラベル。surface 上。 / Secondary text and labels on surface."
+      "$value": "{color.gray-68}",
+      "$description": "補助文字・ラベル・キャプション・プレースホルダ。surface 上で 4.5:1 以上。文字の濃さは ink とこれの 2 段だけにする（段が近いと主と従の区別がつかないため。ink との比はライト 2.6 倍）。 / Secondary text, labels, captions, placeholders; 4.5:1 or more on surface. Text uses only two weights of ink (this and ink) so primary and secondary stay distinct."
     },
     "ink-tertiary": {
       "$value": "{color.gray-68}",
-      "$description": "キャプション、プレースホルダ。surface 上（4.5:1 以上）。 / Captions and placeholders on surface (4.5:1 or more)."
+      "$description": "ink-secondary と同じ値（互換のため残す）。新しく使わない。 / Same value as ink-secondary, kept for compatibility; do not use in new work."
     },
     "ink-disabled": {
       "$value": "{color.gray-36}",
@@ -1026,13 +1026,13 @@
           "unit": "px"
         },
         "fontWeight": 600,
-        "lineHeight": 1.3529,
+        "lineHeight": 1.2353,
         "letterSpacing": {
           "value": 0,
           "unit": "px"
         }
       },
-      "$description": "ヒーロー数値・LP の大見出し。 / Hero numbers, landing-page headline."
+      "$description": "ヒーロー数値・LP の大見出し。1 画面に 1 つまで。 / Hero numbers, landing-page headline; at most one per screen."
     },
     "large-title": {
       "$value": {
@@ -1050,23 +1050,7 @@
       },
       "$description": "ページ冒頭の最大見出し。 / Largest page heading."
     },
-    "title-1": {
-      "$value": {
-        "fontFamily": "{fontFamily.sans}",
-        "fontSize": {
-          "value": 32,
-          "unit": "px"
-        },
-        "fontWeight": 600,
-        "lineHeight": 1.25,
-        "letterSpacing": {
-          "value": 0,
-          "unit": "px"
-        }
-      },
-      "$description": "ページタイトル。 / Page title."
-    },
-    "title-2": {
+    "title": {
       "$value": {
         "fontFamily": "{fontFamily.sans}",
         "fontSize": {
@@ -1080,23 +1064,7 @@
           "unit": "px"
         }
       },
-      "$description": "セクション大見出し。 / Large section heading."
-    },
-    "title-3": {
-      "$value": {
-        "fontFamily": "{fontFamily.sans}",
-        "fontSize": {
-          "value": 24,
-          "unit": "px"
-        },
-        "fontWeight": 600,
-        "lineHeight": 1.3333,
-        "letterSpacing": {
-          "value": 0,
-          "unit": "px"
-        }
-      },
-      "$description": "セクション見出し。 / Section heading."
+      "$description": "ページタイトル・セクションの大見出し。見出しの段はこれと subtitle-1・subtitle-2 の 3 段だけにする（段の差を 1.25 倍以上に保ち、大きさだけで上下が分かるようにするため）。 / Page title and major section heading. Headings use only three steps (title, subtitle-1, subtitle-2) so each step is at least 1.25x the next and the order reads from size alone."
     },
     "subtitle-1": {
       "$value": {
@@ -1112,7 +1080,7 @@
           "unit": "px"
         }
       },
-      "$description": "カード・ダイアログのタイトル。 / Card and dialog title."
+      "$description": "カード・ダイアログのタイトル、画面内の見出し。 / Card and dialog titles, in-screen headings."
     },
     "subtitle-2": {
       "$value": {
@@ -1122,7 +1090,7 @@
           "unit": "px"
         },
         "fontWeight": 600,
-        "lineHeight": 1.375,
+        "lineHeight": 1.5,
         "letterSpacing": {
           "value": 0,
           "unit": "px"
@@ -1138,13 +1106,13 @@
           "unit": "px"
         },
         "fontWeight": 400,
-        "lineHeight": 1.375,
+        "lineHeight": 1.625,
         "letterSpacing": {
           "value": 0,
           "unit": "px"
         }
       },
-      "$description": "長文・読み物の本文。 / Long-form body text."
+      "$description": "長文・読み物の本文（行の高さ 1.63 倍）。 / Long-form body text (line height 1.63x)."
     },
     "body-1": {
       "$value": {
@@ -1160,7 +1128,23 @@
           "unit": "px"
         }
       },
-      "$description": "UI の標準本文（既定）。 / Default UI body text."
+      "$description": "1 行で終わる UI の文字（項目名・リストの行・入力値）。2 行以上になりうる文章には body-1-para を使う。 / One-line UI text (labels, list rows, field values). Use body-1-para for text that can wrap."
+    },
+    "body-1-para": {
+      "$value": {
+        "fontFamily": "{fontFamily.sans}",
+        "fontSize": {
+          "value": 14,
+          "unit": "px"
+        },
+        "fontWeight": 400,
+        "lineHeight": 1.7143,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      "$description": "2 行以上になりうる説明文（お知らせ・ダイアログの本文・空の状態・カードの説明）。行の高さ 1.71 倍。行が詰まると次の行を追いにくくなるため、1.5 倍以上にする（WCAG 1.4.12・デジタル庁 DADS）。 / Text that can wrap (alerts, dialog body, empty states, card descriptions); line height 1.71x. Tight lines make it hard to find the next line, so keep 1.5x or more (WCAG 1.4.12, DADS)."
     },
     "body-1-strong": {
       "$value": {
@@ -1186,29 +1170,13 @@
           "unit": "px"
         },
         "fontWeight": 400,
-        "lineHeight": 1.3333,
+        "lineHeight": 1.5,
         "letterSpacing": {
           "value": 0,
           "unit": "px"
         }
       },
-      "$description": "補足・メタ情報。 / Notes and metadata."
-    },
-    "caption-2": {
-      "$value": {
-        "fontFamily": "{fontFamily.sans}",
-        "fontSize": {
-          "value": 10,
-          "unit": "px"
-        },
-        "fontWeight": 400,
-        "lineHeight": 1.4,
-        "letterSpacing": {
-          "value": 0,
-          "unit": "px"
-        }
-      },
-      "$description": "最小の注記（10px）。単位や出典など、読めなくても判断に困らない補足だけに使う。予定・時刻・金額・エラーなど判断に使う情報は caption-1（12px）以上にする。 / Smallest note (10px), only for supplements whose loss does not affect decisions (units, credits). Information used to decide (times, amounts, errors) uses caption-1 (12px) or larger."
+      "$description": "補足・メタ情報・入力欄の説明。いちばん小さい文字。これより小さい文字は作らない（漢字は 12 px 未満で字形がつぶれるため）。 / Notes, metadata and field help; the smallest text. Nothing smaller (kanji lose their shape below 12 px)."
     }
   }
 }

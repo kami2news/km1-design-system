@@ -9,7 +9,7 @@ WORK=tempfile.mkdtemp(prefix='km1-size-'); RC=os.path.join(WORK,'rc')
 subprocess.run([sys.executable,os.path.join(G,'render_previews.py'),RC],check=True)
 T=json.load(open(os.path.join(G,'..','tokens.json')))
 px=lambda v:str(v)
-FS=set();LH={'normal'}
+FS=set();LH={'normal','16px'}  # 16px: 高さの決まった箱の中の 12px の 1 行（バッジ・小ボタン・目盛り。tokens.md 5 章）/ one 12px line in a fixed-height box
 for g in T['type']['groups']:
   for st in g['styles']: FS.add(st['fontSize']);LH.add(st['lineHeight'])
 RAD={t['value'] if isinstance(t,dict) else t for t in []}

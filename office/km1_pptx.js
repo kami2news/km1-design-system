@@ -35,7 +35,7 @@ const THEME = { name: 'KM1', headFontFace: FONT, bodyFontFace: FONT, colors: {
   dk1: '242424', lt1: 'FFFFFF', dk2: '10218B', lt2: 'F5F5F5',
   accent1: '10218B', accent2: '0F6CBD', accent3: '038387', accent4: 'BC4B09', accent5: '5C2E91', accent6: '107C10',
   hlink: '10218B', folHlink: '5C2E91' } };
-const C = { ink: '242424', ink2: '424242', ink3: '616161', brand: '10218B', line: 'E0E0E0', tint: 'ECEFFC', muted: 'F5F5F5' };
+const C = { ink: '242424', ink2: '616161', ink3: '616161', brand: '10218B', line: 'E0E0E0', tint: 'ECEFFC', muted: 'F5F5F5' };
 const LANG = 'ja-JP';
 // KM1 の表記（notices 2.1・2.6）。ひな形は本文に入れず、ノートかファイルの説明に入れる（使う人の文書に写らないように）
 // KM1 notices 2.1 and 2.6; templates carry them in notes or file properties, never in the body

@@ -44,7 +44,7 @@ public enum Km1Color {
     public static let surfaceHover = km1Dynamic(0xF5F5F5, 0x383838)
     public static let surfacePressed = km1Dynamic(0xE0E0E0, 0x1F1F1F)
     public static let ink = km1Dynamic(0x242424, 0xFFFFFF)
-    public static let inkSecondary = km1Dynamic(0x424242, 0xD6D6D6)
+    public static let inkSecondary = km1Dynamic(0x616161, 0xADADAD)
     public static let inkTertiary = km1Dynamic(0x616161, 0xADADAD)
     public static let inkDisabled = km1Dynamic(0xBDBDBD, 0x5C5C5C)
     public static let stroke = km1Dynamic(0xD1D1D1, 0x666666)
@@ -142,16 +142,14 @@ public enum Km1Text {
     public static var familyName = "Noto Sans JP"
     public static var display: Font { .custom(familyName, size: 68, relativeTo: .largeTitle).weight(.semibold) }
     public static var largeTitle: Font { .custom(familyName, size: 40, relativeTo: .largeTitle).weight(.semibold) }
-    public static var title1: Font { .custom(familyName, size: 32, relativeTo: .title).weight(.semibold) }
-    public static var title2: Font { .custom(familyName, size: 28, relativeTo: .title2).weight(.semibold) }
-    public static var title3: Font { .custom(familyName, size: 24, relativeTo: .title3).weight(.semibold) }
+    public static var title: Font { .custom(familyName, size: 28, relativeTo: .title).weight(.semibold) }
     public static var subtitle1: Font { .custom(familyName, size: 20, relativeTo: .headline).weight(.semibold) }
     public static var subtitle2: Font { .custom(familyName, size: 16, relativeTo: .subheadline).weight(.semibold) }
     public static var body2: Font { .custom(familyName, size: 16, relativeTo: .body).weight(.regular) }
     public static var body1: Font { .custom(familyName, size: 14, relativeTo: .body).weight(.regular) }
+    public static var body1Para: Font { .custom(familyName, size: 14, relativeTo: .body).weight(.regular) }
     public static var body1Strong: Font { .custom(familyName, size: 14, relativeTo: .body).weight(.semibold) }
     public static var caption1: Font { .custom(familyName, size: 12, relativeTo: .caption).weight(.regular) }
-    public static var caption2: Font { .custom(familyName, size: 10, relativeTo: .caption2).weight(.regular) }
 }
 
 /// 主ボタンの見た目。高さ 44pt、brand の塗り、brand-stroke の縁取り（ほかの環境とそろえる）

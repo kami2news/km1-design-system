@@ -90,7 +90,7 @@ class Km1EmptyState extends StatelessWidget {
               ),
               if (body != null) ...[
                 const SizedBox(height: Km1Space.xs),
-                Text(body!, style: Km1Text.body1.copyWith(color: c.ink)),
+                Text(body!, style: Km1Text.body1Para.copyWith(color: c.ink)),
               ],
               if (action != null) ...[
                 const SizedBox(height: Km1Space.md),
@@ -901,7 +901,7 @@ class _Km1CalendarState extends State<Km1Calendar> {
             SizedBox(
               width: t,
               height: 32,
-              child: Center(child: Text(_km1Weekdays[(i + widget.weekStart) % 7], style: Km1Text.caption1.copyWith(color: c.inkSecondary))),
+              child: Center(child: Text(_km1Weekdays[(i + widget.weekStart) % 7], style: Km1Text.caption1.copyWith(height: 16 / 12, color: c.inkSecondary))),
             ),
         ]),
       ),
@@ -1067,7 +1067,7 @@ class Km1Timetable extends StatelessWidget {
             if (s.pattern != null) ...[Km1CategoryMark(color: s.color, pattern: s.pattern!), const SizedBox(width: Km1Space.xs)],
             Flexible(child: Text(s.title, style: Km1Text.body1Strong.copyWith(color: c.ink))),
           ]),
-          if (s.sub != null) Text(s.sub!, style: Km1Text.caption1.copyWith(color: c.inkSecondary)),
+          if (s.sub != null) Text(s.sub!, style: Km1Text.caption1.copyWith(color: c.ink)),
         ]),
       );
       final label = '${days[s.day]}曜 ${periods[s.period].label} ${s.title}${s.sub == null ? '' : '、${s.sub}'}';
@@ -1182,7 +1182,7 @@ class Km1FileList extends StatelessWidget {
         TextSpan(text: label),
         if (required) TextSpan(text: ' ※必須', style: TextStyle(color: c.dangerInk)),
       ]), style: Km1Text.body1Strong.copyWith(color: c.ink)),
-      if (hint != null) Text(hint!, style: Km1Text.caption1.copyWith(color: c.inkTertiary)),
+      if (hint != null) Text(hint!, style: Km1Text.caption1.copyWith(color: c.inkSecondary)),
       const SizedBox(height: Km1Space.xs),
       Container(
         padding: const EdgeInsets.all(Km1Space.lg),
@@ -1370,15 +1370,15 @@ class Km1TimeGrid extends StatelessWidget {
       child: compact || e.deadline || e.allDay
           ? Row(children: [
               if (e.deadline) ...[Icon(Km1Icons.flag16Filled, size: Km1Size.iconSm, color: c.warningInk), const SizedBox(width: Km1Space.xs)],
-              Expanded(child: Text(e.title, maxLines: 1, overflow: TextOverflow.ellipsis, style: Km1Text.caption1.copyWith(color: c.ink, fontWeight: FontWeight.w600))),
+              Expanded(child: Text(e.title, maxLines: 1, overflow: TextOverflow.ellipsis, style: Km1Text.caption1.copyWith(height: 16 / 12, color: c.ink, fontWeight: FontWeight.w600))),
             ])
           : Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Row(children: [
                 if (e.pattern != null) ...[Km1CategoryMark(color: e.color, pattern: e.pattern!), const SizedBox(width: Km1Space.xs)],
-                Expanded(child: Text(e.title, maxLines: 1, overflow: TextOverflow.ellipsis, style: Km1Text.caption1.copyWith(color: c.ink, fontWeight: FontWeight.w600))),
+                Expanded(child: Text(e.title, maxLines: 1, overflow: TextOverflow.ellipsis, style: Km1Text.caption1.copyWith(height: 16 / 12, color: c.ink, fontWeight: FontWeight.w600))),
               ]),
-              Text('${_km1Hm(e.start ?? 0)}〜${_km1Hm(e.end ?? 0)}', maxLines: 1, overflow: TextOverflow.clip, style: Km1Text.caption1.copyWith(color: c.inkSecondary)),
-              if (e.sub != null) Text(e.sub!, maxLines: 1, overflow: TextOverflow.ellipsis, style: Km1Text.caption1.copyWith(color: c.inkSecondary)),
+              Text('${_km1Hm(e.start ?? 0)}〜${_km1Hm(e.end ?? 0)}', maxLines: 1, overflow: TextOverflow.clip, style: Km1Text.caption1.copyWith(height: 16 / 12, color: c.ink)),
+              if (e.sub != null) Text(e.sub!, maxLines: 1, overflow: TextOverflow.ellipsis, style: Km1Text.caption1.copyWith(height: 16 / 12, color: c.ink)),
             ]),
     );
     final label = _semantic(e);
@@ -1528,7 +1528,7 @@ class Km1TimeGrid extends StatelessWidget {
                       Positioned(
                         top: (hr - startHour) * hh + (hr == startHour ? 0 : -8),
                         right: Km1Space.xs,
-                        child: Text('$hr:00', style: Km1Text.caption1.copyWith(color: c.inkSecondary)),
+                        child: Text('$hr:00', style: Km1Text.caption1.copyWith(height: 16 / 12, color: c.inkSecondary)),
                       ),
                   ]),
                 ),
@@ -1696,7 +1696,7 @@ class _Km1TagPickerState extends State<Km1TagPicker> {
     final t = context.km1Target;
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, mainAxisSize: MainAxisSize.min, children: [
       Text(widget.label, style: Km1Text.body1Strong.copyWith(color: c.ink)),
-      if (widget.hint != null) Text(widget.hint!, style: Km1Text.caption1.copyWith(color: c.inkTertiary)),
+      if (widget.hint != null) Text(widget.hint!, style: Km1Text.caption1.copyWith(color: c.inkSecondary)),
       const SizedBox(height: Km1Space.xs),
       if (widget.value.isNotEmpty)
         Padding(
@@ -1913,7 +1913,7 @@ class Km1FormGroup extends StatelessWidget {
         Semantics(header: true, child: Text(title, style: Km1Text.subtitle2.copyWith(color: c.ink))),
         if (description != null) ...[
           const SizedBox(height: Km1Space.xs),
-          Text(description!, style: Km1Text.body1.copyWith(color: c.inkSecondary)),
+          Text(description!, style: Km1Text.body1Para.copyWith(color: c.inkSecondary)),
         ],
         const SizedBox(height: Km1Space.md),
         ...body,
@@ -2101,7 +2101,7 @@ class _Km1ErrorSummaryState extends State<Km1ErrorSummary> {
                     padding: const EdgeInsets.symmetric(horizontal: Km1Space.xs),
                     alignment: AlignmentDirectional.centerStart,
                   ),
-                  child: Text('${e.label}：${e.message}', style: Km1Text.body1.copyWith(decoration: TextDecoration.underline, color: c.brandInk)),
+                  child: Text('${e.label}：${e.message}', style: Km1Text.body1Para.copyWith(decoration: TextDecoration.underline, color: c.brandInk)),
                 ),
               ),
           ]),
@@ -2179,7 +2179,7 @@ class Km1ListItem extends StatelessWidget {
               Expanded(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisSize: MainAxisSize.min, children: [
                   Text(title, style: Km1Text.body1.copyWith(color: c.ink)),
-                  if (description != null) const SizedBox(height: Km1Space.xs),
+                  if (description != null) const SizedBox(height: Km1Space.xxs),
                   if (description != null) Text(description!, style: Km1Text.caption1.copyWith(color: c.inkSecondary)),
                 ]),
               ),
@@ -2402,12 +2402,12 @@ class _Km1ExpansionEditorState extends State<Km1ExpansionEditor> {
                     child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       Icon(Km1Icons.statusError16, size: Km1Size.iconSm, color: c.dangerInk),
                       const SizedBox(width: Km1Space.xs),
-                      Expanded(child: Text(_error!, style: Km1Text.body1.copyWith(color: c.ink))),
+                      Expanded(child: Text(_error!, style: Km1Text.body1Para.copyWith(color: c.ink))),
                     ]),
                   ),
                 ),
               ],
-              if (_note != null) ...[const SizedBox(height: Km1Space.sm), Semantics(liveRegion: true, child: Text(_note!, style: Km1Text.body1.copyWith(color: c.warningInk)))],
+              if (_note != null) ...[const SizedBox(height: Km1Space.sm), Semantics(liveRegion: true, child: Text(_note!, style: Km1Text.body1Para.copyWith(color: c.warningInk)))],
               const SizedBox(height: Km1Space.lg),
               Km1FormActions(children: [
                 OutlinedButton(
@@ -2515,7 +2515,7 @@ class _Km1StepFlowState extends State<Km1StepFlow> {
             ? Icon(Km1Icons.statusError16, size: Km1Size.iconSm, color: c.dangerInk)
             : state == 'done'
                 ? Km1BIcon(Km1BIconName.check, size: Km1Size.iconSm, color: c.brandInk)
-                : Text('${i + 1}', style: Km1Text.caption1.copyWith(color: isCur ? c.onBrand : c.inkSecondary, fontWeight: FontWeight.w600)),
+                : Text('${i + 1}', style: Km1Text.caption1.copyWith(height: 16 / 12, color: isCur ? c.onBrand : c.inkSecondary, fontWeight: FontWeight.w600)),
       );
     }
 

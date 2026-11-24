@@ -96,7 +96,7 @@ class Km1Colors extends ThemeExtension<Km1Colors> {
     surfaceHover: Color(0xFFF5F5F5),
     surfacePressed: Color(0xFFE0E0E0),
     ink: Color(0xFF242424),
-    inkSecondary: Color(0xFF424242),
+    inkSecondary: Color(0xFF616161),
     inkTertiary: Color(0xFF616161),
     inkDisabled: Color(0xFFBDBDBD),
     stroke: Color(0xFFD1D1D1),
@@ -132,7 +132,7 @@ class Km1Colors extends ThemeExtension<Km1Colors> {
     surfaceHover: Color(0xFF383838),
     surfacePressed: Color(0xFF1F1F1F),
     ink: Color(0xFFFFFFFF),
-    inkSecondary: Color(0xFFD6D6D6),
+    inkSecondary: Color(0xFFADADAD),
     inkTertiary: Color(0xFFADADAD),
     inkDisabled: Color(0xFF5C5C5C),
     stroke: Color(0xFF666666),
@@ -371,7 +371,7 @@ abstract final class Km1Text {
     fontFamily: fontFamily,
     fontFamilyFallback: fontFamilyFallback,
     fontSize: 68.0,
-    height: 92.0/68.0,
+    height: 84.0/68.0,
     fontWeight: FontWeight.w600,
   );
   static const TextStyle largeTitle = TextStyle(
@@ -381,25 +381,11 @@ abstract final class Km1Text {
     height: 52.0/40.0,
     fontWeight: FontWeight.w600,
   );
-  static const TextStyle title1 = TextStyle(
-    fontFamily: fontFamily,
-    fontFamilyFallback: fontFamilyFallback,
-    fontSize: 32.0,
-    height: 40.0/32.0,
-    fontWeight: FontWeight.w600,
-  );
-  static const TextStyle title2 = TextStyle(
+  static const TextStyle title = TextStyle(
     fontFamily: fontFamily,
     fontFamilyFallback: fontFamilyFallback,
     fontSize: 28.0,
     height: 36.0/28.0,
-    fontWeight: FontWeight.w600,
-  );
-  static const TextStyle title3 = TextStyle(
-    fontFamily: fontFamily,
-    fontFamilyFallback: fontFamilyFallback,
-    fontSize: 24.0,
-    height: 32.0/24.0,
     fontWeight: FontWeight.w600,
   );
   static const TextStyle subtitle1 = TextStyle(
@@ -413,14 +399,14 @@ abstract final class Km1Text {
     fontFamily: fontFamily,
     fontFamilyFallback: fontFamilyFallback,
     fontSize: 16.0,
-    height: 22.0/16.0,
+    height: 24.0/16.0,
     fontWeight: FontWeight.w600,
   );
   static const TextStyle body2 = TextStyle(
     fontFamily: fontFamily,
     fontFamilyFallback: fontFamilyFallback,
     fontSize: 16.0,
-    height: 22.0/16.0,
+    height: 26.0/16.0,
     fontWeight: FontWeight.w400,
   );
   static const TextStyle body1 = TextStyle(
@@ -428,6 +414,13 @@ abstract final class Km1Text {
     fontFamilyFallback: fontFamilyFallback,
     fontSize: 14.0,
     height: 20.0/14.0,
+    fontWeight: FontWeight.w400,
+  );
+  static const TextStyle body1Para = TextStyle(
+    fontFamily: fontFamily,
+    fontFamilyFallback: fontFamilyFallback,
+    fontSize: 14.0,
+    height: 24.0/14.0,
     fontWeight: FontWeight.w400,
   );
   static const TextStyle body1Strong = TextStyle(
@@ -441,14 +434,7 @@ abstract final class Km1Text {
     fontFamily: fontFamily,
     fontFamilyFallback: fontFamilyFallback,
     fontSize: 12.0,
-    height: 16.0/12.0,
-    fontWeight: FontWeight.w400,
-  );
-  static const TextStyle caption2 = TextStyle(
-    fontFamily: fontFamily,
-    fontFamilyFallback: fontFamilyFallback,
-    fontSize: 10.0,
-    height: 14.0/10.0,
+    height: 18.0/12.0,
     fontWeight: FontWeight.w400,
   );
 }
@@ -628,9 +614,9 @@ abstract final class Km1Theme {
       textTheme: TextTheme(
         displayLarge: Km1Text.display.copyWith(color: c.ink),
         headlineLarge: Km1Text.largeTitle.copyWith(color: c.ink),
-        headlineMedium: Km1Text.title1.copyWith(color: c.ink),
-        headlineSmall: Km1Text.title2.copyWith(color: c.ink),
-        titleLarge: Km1Text.title3.copyWith(color: c.ink),
+        headlineMedium: Km1Text.title.copyWith(color: c.ink),
+        headlineSmall: Km1Text.title.copyWith(color: c.ink),
+        titleLarge: Km1Text.subtitle1.copyWith(color: c.ink),
         titleMedium: Km1Text.subtitle1.copyWith(color: c.ink),
         titleSmall: Km1Text.subtitle2.copyWith(color: c.ink),
         // 入力中の文字は bodyLarge。スマホ 16px、PC 14px。 / Field text: 16px on touch, 14px on PC.
@@ -639,7 +625,7 @@ abstract final class Km1Theme {
         bodySmall: Km1Text.caption1.copyWith(color: c.inkSecondary),
         labelLarge: Km1Text.body1Strong.copyWith(color: c.ink),
         labelMedium: Km1Text.caption1.copyWith(color: c.inkSecondary),
-        labelSmall: Km1Text.caption2.copyWith(color: c.inkSecondary),
+        labelSmall: Km1Text.caption1.copyWith(color: c.inkSecondary),
       ),
       extensions: [c],
       dividerTheme: DividerThemeData(color: c.strokeSubtle, thickness: 1, space: 1),
@@ -809,8 +795,8 @@ abstract final class Km1Theme {
           borderRadius: BorderRadius.circular(Km1Radius.xl),
           side: BorderSide(color: c.stroke),
         ),
-        titleTextStyle: Km1Text.title3.copyWith(color: c.ink),
-        contentTextStyle: Km1Text.body1.copyWith(color: c.ink),
+        titleTextStyle: Km1Text.subtitle1.copyWith(color: c.ink),
+        contentTextStyle: Km1Text.body1Para.copyWith(color: c.ink),
         actionsPadding: const EdgeInsets.all(Km1Space.xxl),
       ),
       snackBarTheme: SnackBarThemeData(

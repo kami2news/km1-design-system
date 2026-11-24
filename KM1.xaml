@@ -33,7 +33,7 @@
       <SolidColorBrush x:Key="KM1SurfaceHoverBrush" Color="#FFF5F5F5" />
       <SolidColorBrush x:Key="KM1SurfacePressedBrush" Color="#FFE0E0E0" />
       <SolidColorBrush x:Key="KM1InkBrush" Color="#FF242424" />
-      <SolidColorBrush x:Key="KM1InkSecondaryBrush" Color="#FF424242" />
+      <SolidColorBrush x:Key="KM1InkSecondaryBrush" Color="#FF616161" />
       <SolidColorBrush x:Key="KM1InkTertiaryBrush" Color="#FF616161" />
       <SolidColorBrush x:Key="KM1InkDisabledBrush" Color="#FFBDBDBD" />
       <SolidColorBrush x:Key="KM1StrokeBrush" Color="#FFD1D1D1" />
@@ -78,7 +78,7 @@
       <SolidColorBrush x:Key="KM1SurfaceHoverBrush" Color="#FF383838" />
       <SolidColorBrush x:Key="KM1SurfacePressedBrush" Color="#FF1F1F1F" />
       <SolidColorBrush x:Key="KM1InkBrush" Color="#FFFFFFFF" />
-      <SolidColorBrush x:Key="KM1InkSecondaryBrush" Color="#FFD6D6D6" />
+      <SolidColorBrush x:Key="KM1InkSecondaryBrush" Color="#FFADADAD" />
       <SolidColorBrush x:Key="KM1InkTertiaryBrush" Color="#FFADADAD" />
       <SolidColorBrush x:Key="KM1InkDisabledBrush" Color="#FF5C5C5C" />
       <SolidColorBrush x:Key="KM1StrokeBrush" Color="#FF666666" />

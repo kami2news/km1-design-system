@@ -243,9 +243,9 @@ abstract final class Km1Theme {
       textTheme: TextTheme(
         displayLarge: Km1Text.display.copyWith(color: c.ink),
         headlineLarge: Km1Text.largeTitle.copyWith(color: c.ink),
-        headlineMedium: Km1Text.title1.copyWith(color: c.ink),
-        headlineSmall: Km1Text.title2.copyWith(color: c.ink),
-        titleLarge: Km1Text.title3.copyWith(color: c.ink),
+        headlineMedium: Km1Text.title.copyWith(color: c.ink),
+        headlineSmall: Km1Text.title.copyWith(color: c.ink),
+        titleLarge: Km1Text.subtitle1.copyWith(color: c.ink),
         titleMedium: Km1Text.subtitle1.copyWith(color: c.ink),
         titleSmall: Km1Text.subtitle2.copyWith(color: c.ink),
         // 入力中の文字は bodyLarge。スマホ 16px、PC 14px。 / Field text: 16px on touch, 14px on PC.
@@ -254,7 +254,7 @@ abstract final class Km1Theme {
         bodySmall: Km1Text.caption1.copyWith(color: c.inkSecondary),
         labelLarge: Km1Text.body1Strong.copyWith(color: c.ink),
         labelMedium: Km1Text.caption1.copyWith(color: c.inkSecondary),
-        labelSmall: Km1Text.caption2.copyWith(color: c.inkSecondary),
+        labelSmall: Km1Text.caption1.copyWith(color: c.inkSecondary),
       ),
       extensions: [c],
       dividerTheme: DividerThemeData(color: c.strokeSubtle, thickness: 1, space: 1),
@@ -424,8 +424,8 @@ abstract final class Km1Theme {
           borderRadius: BorderRadius.circular(Km1Radius.xl),
           side: BorderSide(color: c.stroke),
         ),
-        titleTextStyle: Km1Text.title3.copyWith(color: c.ink),
-        contentTextStyle: Km1Text.body1.copyWith(color: c.ink),
+        titleTextStyle: Km1Text.subtitle1.copyWith(color: c.ink),
+        contentTextStyle: Km1Text.body1Para.copyWith(color: c.ink),
         actionsPadding: const EdgeInsets.all(Km1Space.xxl),
       ),
       snackBarTheme: SnackBarThemeData(

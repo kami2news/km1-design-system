@@ -49,6 +49,21 @@
 - エラーは、何が起きたかと、どうすれば直るかを書く。読み込み中は、出てくる中身の形を先に見せる（`Skeleton`）。10 秒以上かかるなら工程と時間の見込みを出す（「待ち時間」）。
   *Errors say what happened and how to fix it; loading previews the shape of the content; 10s or more shows steps and time.*
 
+**文字の強弱 / Type contrast**
+
+- 大きさの段は 7 つ（12・14・16・20・28・40・68 px）。見出しは `title`（28）→ `subtitle-1`（20）→ `subtitle-2`（16）の 3 段だけで、となりの段とは 1.25 倍以上はなす。段が近いと、大きさで上下が分からない。
+  *Seven sizes (12, 14, 16, 20, 28, 40, 68 px). Headings use three steps, each at least 1.25x the next; close steps hide the order.*
+- 文字の濃さは `ink`（#242424）と `ink-secondary`（#616161）の 2 段だけ。主は `ink`、補足・単位・日付は `ink-secondary`。3 段目は作らない。
+  *Two text weights only: `ink` for the main text, `ink-secondary` for notes, units and dates. No third weight.*
+- 分類色の淡い面（予定のかたまりなど）の上では、補足も `ink` にする。面が色づくと `ink-secondary` は 4.5:1 に届かない。上下は太さと大きさで分ける。
+  *On category tints, secondary text also uses `ink`; separate levels by weight and size.*
+- 2 行以上になりうる文の行の高さは 1.5 倍以上（`body-1-para` 14/24・`body-2` 16/26・`caption-1` 12/18）。1 行で終わる UI の文字（ボタン・項目名・リストの行）は `body-1` 14/20 のまま。
+  *Text that can wrap gets 1.5x line height or more; one-line UI text stays at 14/20.*
+- 折り返す説明文は 1 行 40 字（`max-inline-size: 40em`）まで。広い画面でも行を伸ばさない。部品の説明文には `bundle.css` で入っている。自分で書く文には `f2-prose` を付ける。
+  *Wrapping text stops at 40em (about 40 Japanese characters); built into parts, add `f2-prose` to your own text.*
+- 紺（`brand`）は黒に近いので、紺の文字色だけで「選ばれている」「強調」を示さない。淡い紺の面（`brand-tint`）・紺の線・太字のどれかと組み合わせる。
+  *Navy is close to black: never mark selection or emphasis with navy text alone; add `brand-tint`, a navy line or bold.*
+
 **和文の改行 / Japanese line breaks**
 
 - Web は文節で改行する（`word-break: auto-phrase`、行頭と行末の禁則は `line-break: strict`）。見出しは `text-wrap: balance` で行の長さをそろえ、本文は `text-wrap: pretty` で最後の行に 1〜2 字だけ残さない。KM1 の部品には `bundle.css` で入っている。対応していないブラウザでは文字の単位で折り返すので、行末に 1〜2 字だけ落ちる文は言葉を直す。Flutter には文節の改行がないので、同じく言葉で直す。

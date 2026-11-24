@@ -11,7 +11,7 @@ const F = { ascii: FONT, eastAsia: FONT, hAnsi: FONT, cs: FONT };
 const MM = v => Math.round(v * 56.6929);                 // mm → twip
 const PT = v => v * 2;                                   // pt → half-points
 const LINE = r => Math.round(240 * r);                   // 行送りの倍率 / line-height multiple
-const C = { ink: '242424', ink2: '424242', ink3: '616161', brand: '10218B', head: 'F0F0F0', rule: 'D1D1D1' };
+const C = { ink: '242424', ink2: '616161', ink3: '616161', brand: '10218B', head: 'F0F0F0', rule: 'D1D1D1' };
 const LANG = { value: 'ja-JP', eastAsia: 'ja-JP' };
 
 // KM1 の表記（notices 2.1・2.6）。ひな形は本文に入れず、ノートかファイルの説明に入れる（使う人の文書に写らないように）

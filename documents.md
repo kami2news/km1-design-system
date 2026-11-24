@@ -30,12 +30,12 @@ Word と PowerPoint のファイルそのものの決まりは「Word と PowerP
 | 役割 / Role | 大きさ・太さ / Size, weight | 行送り / Leading | 色（トークン）/ Color (token) |
 |---|---|---|---|
 | 本文 / Body | 10pt・標準 | 1.7 | `ink` #242424（15.5:1） |
-| 英語の併記 / English line | 9pt・標準 | 1.55 | `ink-tertiary` #616161（6.2:1） |
+| 英語の併記 / English line | 9pt・標準 | 1.55 | `ink-secondary` #616161（6.2:1） |
 | 大見出し H1（章）/ Chapter | 20pt・太字、下に 2pt の線 | 1.3 | `brand-ink` #10218B（13.0:1） |
 | 中見出し H2 / Section | 13pt・太字 | 1.4 | `ink` |
 | 小見出し H3・H4 | 11pt・10pt・太字 | 1.7 | `ink` |
 | 表 / Tables | 9pt | 1.55 | `ink`、見出しセルの背景 #f0f0f0（13.6:1） |
-| 柱・ページ番号・図の説明 / Running heads, page numbers, captions | 8〜8.5pt | — | `ink-tertiary`・`ink-secondary` |
+| 柱・ページ番号・図の説明 / Running heads, page numbers, captions | 8〜8.5pt | — | `ink-secondary` |
 
 - 書体は KM1 の `Noto Sans JP`（なければ Noto Sans CJK JP）。英数字も同じ書体で揃え、等幅は `code` だけ。フォントは必ず埋め込む（PDF/UA-1、Matterhorn 31-009）。
   *Use KM1's `Noto Sans JP` (or Noto Sans CJK JP) for both scripts; monospace only for code. Always embed fonts (PDF/UA-1, Matterhorn 31-009).*

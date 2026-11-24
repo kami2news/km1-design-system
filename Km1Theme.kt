@@ -78,7 +78,7 @@ val Km1LightColors = Km1Colors(
     surfaceHover = Color(0xFFF5F5F5),
     surfacePressed = Color(0xFFE0E0E0),
     ink = Color(0xFF242424),
-    inkSecondary = Color(0xFF424242),
+    inkSecondary = Color(0xFF616161),
     inkTertiary = Color(0xFF616161),
     inkDisabled = Color(0xFFBDBDBD),
     stroke = Color(0xFFD1D1D1),
@@ -114,7 +114,7 @@ val Km1DarkColors = Km1Colors(
     surfaceHover = Color(0xFF383838),
     surfacePressed = Color(0xFF1F1F1F),
     ink = Color(0xFFFFFFFF),
-    inkSecondary = Color(0xFFD6D6D6),
+    inkSecondary = Color(0xFFADADAD),
     inkTertiary = Color(0xFFADADAD),
     inkDisabled = Color(0xFF5C5C5C),
     stroke = Color(0xFF666666),
@@ -210,18 +210,16 @@ object Km1Radius {
 
 /** 文字スタイル（端末の書体。日本語は Noto Sans CJK）/ Text styles on the system font */
 object Km1Text {
-    val display = TextStyle(fontSize = 68.sp, lineHeight = 92.sp, fontWeight = FontWeight.W600)
+    val display = TextStyle(fontSize = 68.sp, lineHeight = 84.sp, fontWeight = FontWeight.W600)
     val largeTitle = TextStyle(fontSize = 40.sp, lineHeight = 52.sp, fontWeight = FontWeight.W600)
-    val title1 = TextStyle(fontSize = 32.sp, lineHeight = 40.sp, fontWeight = FontWeight.W600)
-    val title2 = TextStyle(fontSize = 28.sp, lineHeight = 36.sp, fontWeight = FontWeight.W600)
-    val title3 = TextStyle(fontSize = 24.sp, lineHeight = 32.sp, fontWeight = FontWeight.W600)
+    val title = TextStyle(fontSize = 28.sp, lineHeight = 36.sp, fontWeight = FontWeight.W600)
     val subtitle1 = TextStyle(fontSize = 20.sp, lineHeight = 28.sp, fontWeight = FontWeight.W600)
-    val subtitle2 = TextStyle(fontSize = 16.sp, lineHeight = 22.sp, fontWeight = FontWeight.W600)
-    val body2 = TextStyle(fontSize = 16.sp, lineHeight = 22.sp, fontWeight = FontWeight.W400)
+    val subtitle2 = TextStyle(fontSize = 16.sp, lineHeight = 24.sp, fontWeight = FontWeight.W600)
+    val body2 = TextStyle(fontSize = 16.sp, lineHeight = 26.sp, fontWeight = FontWeight.W400)
     val body1 = TextStyle(fontSize = 14.sp, lineHeight = 20.sp, fontWeight = FontWeight.W400)
+    val body1Para = TextStyle(fontSize = 14.sp, lineHeight = 24.sp, fontWeight = FontWeight.W400)
     val body1Strong = TextStyle(fontSize = 14.sp, lineHeight = 20.sp, fontWeight = FontWeight.W600)
-    val caption1 = TextStyle(fontSize = 12.sp, lineHeight = 16.sp, fontWeight = FontWeight.W400)
-    val caption2 = TextStyle(fontSize = 10.sp, lineHeight = 14.sp, fontWeight = FontWeight.W400)
+    val caption1 = TextStyle(fontSize = 12.sp, lineHeight = 18.sp, fontWeight = FontWeight.W400)
 }
 
 private val LocalKm1Colors = staticCompositionLocalOf { Km1LightColors }
@@ -243,7 +241,7 @@ private val Km1LightScheme = lightColorScheme(
     surface = Color(0xFFFFFFFF),
     onSurface = Color(0xFF242424),
     surfaceVariant = Color(0xFFF5F5F5),
-    onSurfaceVariant = Color(0xFF424242),
+    onSurfaceVariant = Color(0xFF616161),
     outline = Color(0xFF616161),
     outlineVariant = Color(0xFFD1D1D1),
 )
@@ -260,7 +258,7 @@ private val Km1DarkScheme = darkColorScheme(
     surface = Color(0xFF292929),
     onSurface = Color(0xFFFFFFFF),
     surfaceVariant = Color(0xFF141414),
-    onSurfaceVariant = Color(0xFFD6D6D6),
+    onSurfaceVariant = Color(0xFFADADAD),
     outline = Color(0xFFD6D6D6),
     outlineVariant = Color(0xFF666666),
 )
@@ -268,9 +266,9 @@ private val Km1DarkScheme = darkColorScheme(
 private val Km1Typography = Typography(
     displayLarge = Km1Text.display,
     headlineLarge = Km1Text.largeTitle,
-    headlineMedium = Km1Text.title1,
-    headlineSmall = Km1Text.title2,
-    titleLarge = Km1Text.title3,
+    headlineMedium = Km1Text.title,
+    headlineSmall = Km1Text.title,
+    titleLarge = Km1Text.subtitle1,
     titleMedium = Km1Text.subtitle1,
     titleSmall = Km1Text.subtitle2,
     bodyLarge = Km1Text.body2,
@@ -278,7 +276,7 @@ private val Km1Typography = Typography(
     bodySmall = Km1Text.caption1,
     labelLarge = Km1Text.body1Strong,
     labelMedium = Km1Text.caption1,
-    labelSmall = Km1Text.caption2,
+    labelSmall = Km1Text.caption1,
 )
 
 private val Km1Shapes = Shapes(

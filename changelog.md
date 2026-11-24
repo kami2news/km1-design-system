@@ -1,5 +1,19 @@
 # 変更履歴 / Changelog
 
+## 2026-11-24 — 文字の強弱（普遍的な UI の評価から）/ Type contrast, from a general UI review
+
+- **文字の大きさ:** 型の表を 12 段から 10 段に減らし、大きさは 7 つ（12・14・16・20・28・40・68 px）にした。見出しは `title`（28）・`subtitle-1`（20）・`subtitle-2`（16）の 3 段。`title-1`・`title-2`・`title-3`・`caption-2`（10 px）はなくした。Flutter・Compose・SwiftUI の割り当ても合わせた（D22）。
+  *Type ramp cut to seven sizes and three heading steps; removed title-1/2/3 and the 10 px caption-2.*
+- **行の高さ:** 2 行以上になりうる文を 1.5 倍以上にした。`body-1-para`（14/24）を新しく作り、お知らせ・ダイアログ・空の状態・アコーディオン・ドロワー・フォームの説明など 13 か所に使った。`body-2` は 16/26、`caption-1` は 12/18、`subtitle-2` は 16/24、`display` は 68/84。1 行で終わる UI は 14/20 のまま（D23）。
+  *Wrapping text now has 1.5x line height or more via the new `body-1-para` (14/24).*
+- **1 行の長さ:** 折り返す説明文は 40em まで。自分で書く文には `f2-prose`（D23）。
+  *Wrapping text stops at 40em; `f2-prose` for your own text.*
+- **文字の濃さ:** `ink-secondary` を #424242 → #616161（ダーク #D6D6D6 → #ADADAD）にし、濃さは `ink` との 2 段だけにした。`ink-tertiary` は同じ値の別名。Office（Word・PowerPoint）の補足の灰色も #616161 にした（D24）。
+  *`ink-secondary` is now #616161; two text weights only.*
+- **紺:** 紺の文字色だけで選択を示さない決まりを足し、下のナビの選択中にも淡い紺の面を敷いた（D24）。
+  *Never mark selection with navy text alone; bottom nav now gets the brand tint.*
+- **見本:** 見本の 13 px と 32 px を型の表の大きさに直した。
+
 ## 2026-11-24 — KM1 の軸と、理由のない形の見直し / KM1's axes, and removing forms without a reason
 
 - **原則:** KM1 が大切にすることを決めた。前提はアクセシビリティ（誰でも使える）、軸は「見やすい」「わかりやすい」「理由を言える」、優先はアクセシビリティ → 見やすい → わかりやすい → 個性。KM1 を土台（Fluent 2 などに従い個性を抑える）と味付け（KM1 の個性を寸法や値で書く）の 2 層に分けた（「デザイン原則」、D15）。
