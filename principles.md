@@ -1,7 +1,7 @@
 # デザイン原則 / Design principles
 
-KM1 は、自分が作る道具をどれも同じ質でそろえるための標準である。道具の多くは予定・記録・報告のように、確かめて、記録して、伝えるためのものだ。読み違えると、遅刻や提出忘れ、会計の誤り、結果の誤解につながる。だから KM1 がいちばん大切にするのは、どんな人でも、正しく読めて、迷わずに使えることである。
-*KM1 keeps every tool its author builds at the same quality. Most of them exist to check, record and report, where a misreading has a real cost. So KM1 values one thing above all: anyone can read it correctly and use it without hesitation.*
+KM1 は、自分が作る道具の見た目と使い勝手をそろえるための標準である。適当に作ると、ひと目で AI が作ったと分かるデザインになり、使う人の嫌悪感につながる。だから KM1 は、使いやすさ（ユーザビリティ）を上げることを目的にする。無駄とムラは誰の得にもならないので省き、広く使ってもらうために、色の見え方・視力・使う場面の違いにも合わせる。
+*KM1 keeps the look and usability of its author's tools consistent. Careless design reads at a glance as AI-made and puts people off, so KM1 exists to raise usability: waste and inconsistency help no one and go, and to reach more people it fits differences in colour vision, eyesight and situation.*
 
 ## KM1 の軸 / KM1's axes
 
@@ -22,8 +22,8 @@ KM1 は、自分が作る道具をどれも同じ質でそろえるための標�
 
 ### 3. 理由を言える / Every form has a reason
 
-部品も画面も、なぜこの形なのかを一文で言えるものだけを置く。既定値のまま置いた影、決まった型の当てはめ、自分の役割を説明する文言のように、理由を言えない形は置かない。これは見た目の軸ではなく、1 と 2 を守れているかを人の目で確かめる検査である（「運用」の「理由の確認」）。
-*Keep only forms whose reason fits in one sentence. Defaults left as they are, templates applied by habit and copy that describes itself have no reason and go. This is a human review of axes 1 and 2 (Governance, "Reason review").*
+部品も画面も、なぜこの形なのかを一文で言えるものだけを置く。既定値のまま置いた影、決まった型の当てはめ、自分の役割を説明する文言のように、理由を言えない形は置かない。無駄（要らない形）とムラ（同じものが場所によって違うこと）も、理由を言えない形として省く。これは見た目の軸ではなく、1 と 2 を守れているかを人の目で確かめる検査である（「運用」の「理由の確認」）。
+*Keep only forms whose reason fits in one sentence. Defaults left as they are, templates applied by habit, copy that describes itself, waste and inconsistency have no reason and go. This is a human review of axes 1 and 2 (Governance, "Reason review").*
 
 ### 優先の順番 / Order of priority
 
