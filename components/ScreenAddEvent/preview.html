@@ -1,21 +1,42 @@
 <!-- @dsCard group="画面の例 / Screen patterns" height=560 -->
 <div id="r" style="padding:16px;max-width:720px"></div>
+<style>
+/* 主役は「予定がどの日のどの時刻に並んだか」。追加した行は位置と「追加しました」の言葉で示す */
+.ae{display:flex;flex-direction:column;gap:var(--space-xxl);font-family:var(--font-sans);color:var(--ink)}
+.ae h2,.ae h3,.ae p,.ae ul{margin:0}.ae ul{padding:0;list-style:none}
+.ae__head{display:flex;align-items:center;justify-content:space-between;gap:var(--space-md)}
+.ae__title{font:600 20px/28px var(--font-sans)}
+.ae__day{font:600 14px/20px var(--font-sans);color:var(--ink-secondary);margin-bottom:var(--space-sm)!important}
+.ae__rows li{display:grid;grid-template-columns:64px 1fr auto;column-gap:var(--space-md);align-items:baseline;padding:var(--space-sm) 0;border-top:1px solid var(--stroke-subtle)}
+.ae__rows li:last-child{border-bottom:1px solid var(--stroke-subtle)}
+.ae__t{font:400 14px/20px var(--font-sans-en);font-variant-numeric:tabular-nums;text-align:right}
+.ae__n{font:400 14px/20px var(--font-sans)}
+.ae__new{font:600 12px/16px var(--font-sans);color:var(--success-ink)}
+.ae__rows li.is-new .ae__n{font-weight:600}
+</style>
 <script>
 var h=React.createElement,F=window.Fluent2;
 var REQ=function(m){return function(v){return (v==null||String(v).trim()==='')?m:null;};};
+var DAYS={'2026-11-14':'11 月 14 日（金）','2026-11-15':'11 月 15 日（土）'};
+function dayLabel(d){return DAYS[d]||d.slice(5).replace('-','/');}
 function Screen(){
-  var items=React.useState([{id:1,title:'環境化学 第8回',when:'11/14 10:45'},{id:2,title:'アルバイト',when:'11/14 17:00'}]);
-  var open=React.useState(false),toast=React.useState(null),tries=React.useState(0),busy=React.useState(false),opener=React.useRef(null);
+  var items=React.useState([{id:1,title:'環境化学 第8回',date:'2026-11-14',start:'10:45'},{id:2,title:'アルバイト',date:'2026-11-14',start:'17:00'},{id:3,title:'気象学 小テスト',date:'2026-11-15',start:'9:00'}]);
+  var open=React.useState(false),toast=React.useState(null),tries=React.useState(0),busy=React.useState(false),fresh=React.useState(null),opener=React.useRef(null);
   var f=F.useForm({initial:{title:'',date:'2026-11-15',start:'',memo:''},labels:{title:'タイトル',date:'日付',start:'開始'},
     validate:{title:REQ('タイトルを入力してください。'),date:REQ('日付を入力してください。'),start:REQ('開始時刻を入力してください。例: 10:00')}});
   function close(){open[1](false);setTimeout(function(){if(opener.current)opener.current.focus();},0);}
-  var save=f.handleSubmit(function(d){busy[1](true);setTimeout(function(){busy[1](false);
-    items[1](function(o){return o.concat([{id:Date.now(),title:d.title,when:d.date.slice(5).replace('-','/')+' '+d.start}]);});
+  var save=f.handleSubmit(function(d){busy[1](true);setTimeout(function(){busy[1](false);var id=Date.now();
+    items[1](function(o){return o.concat([{id:id,title:d.title,date:d.date,start:d.start}]);});fresh[1](id);
     toast[1]('「'+d.title+'」を追加しました');close();},400);});
-  return h('div',{style:{display:'flex',flexDirection:'column',gap:'var(--space-lg)'}},
-    h('div',{style:{display:'flex',alignItems:'center',justifyContent:'space-between'}},h('h2',{style:{margin:0,font:'600 20px/28px var(--font-sans)'}},'予定'),
+  var sorted=items[0].slice().sort(function(a,b){return (a.date+a.start.padStart(5,'0')).localeCompare(b.date+b.start.padStart(5,'0'));});
+  var days=[];sorted.forEach(function(it){var g=days[days.length-1];if(!g||g.date!==it.date){g={date:it.date,list:[]};days.push(g);}g.list.push(it);});
+  return h('div',{className:'ae'},
+    h('div',{className:'ae__head'},h('h2',{className:'ae__title'},'予定'),
       h('span',{ref:opener,style:{display:'contents'}},h(F.Button,{appearance:'primary',onClick:function(){open[1](true);}},'予定を追加'))),
-    h(F.List,{label:'予定'},items[0].map(function(it){return h(F.ListItem,{key:it.id,title:it.title,meta:it.when,onClick:function(){}});})),
+    days.map(function(g){return h('section',{key:g.date,'aria-label':dayLabel(g.date)},
+      h('h3',{className:'ae__day'},dayLabel(g.date)),
+      h('ul',{className:'ae__rows'},g.list.map(function(it){var n=it.id===fresh[0];
+        return h('li',{key:it.id,className:n?'is-new':null},h('time',{className:'ae__t'},it.start),h('span',{className:'ae__n'},it.title),n?h('span',{className:'ae__new'},'追加しました'):h('span',null));})));}),
     h(F.Drawer,{open:open[0],onClose:close,title:'予定を追加',
       actions:h(React.Fragment,null,h(F.Button,{onClick:close},'キャンセル'),h(F.Button,{appearance:'primary',type:'submit',form:'add-form'},busy[0]?'追加中…':'追加する'))},
       h('form',{id:'add-form',className:'f2-form f2-form--contained',noValidate:true,onSubmit:function(e){tries[1](tries[0]+1);save(e);}},

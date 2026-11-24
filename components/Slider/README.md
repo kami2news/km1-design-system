@@ -1,6 +1,9 @@
 範囲の中から、だいたいの値を選ぶつまみ。音量、通知の何分前、表示の密度など。
 *A thumb for picking an approximate value in a range: volume, reminder lead time, density.*
 
+**理由 / Why:** 音量や表示の大きさ、通知の何分前のように、正確な数より範囲の中のどのあたりかが大事な値は、つまみの位置で量が一目で分かる。正確な数が要るときは SpinButton を使う。
+*For values where position in a range matters more than the exact number (volume, display size, minutes before a reminder), the thumb shows the amount at a glance; use SpinButton for exact numbers.*
+
 ## 使い方 / Usage
 - 正確な数を入れてほしいときは `SpinButton` を使う。スライダーは「だいたい」で良い値だけ。
   *Use `SpinButton` for exact numbers; sliders are for approximate values.*

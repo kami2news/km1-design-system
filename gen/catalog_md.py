@@ -6,7 +6,7 @@ Groups previews by their @dsCard group and shows light and dark screenshots side
 import os, re, glob, sys
 G = os.path.dirname(os.path.abspath(__file__)); ROOT = os.path.dirname(G); C = os.path.join(ROOT, 'components')
 ORDER = ['表紙 / Cover', 'Actions', 'Forms', 'Lists and selection', 'Data', 'Date and time', 'Navigation', 'Containers', 'Surfaces',
-         'Overlays', 'Feedback', 'Status', 'Icons', '密度 / Density', '画面の例 / Screen patterns', 'M1 比較 / M1 comparison']
+         'Overlays', 'Feedback', 'Status', 'Icons', '画面の例 / Screen patterns', '記録と早見図 / Records and guides']
 JA = {'Actions': '操作', 'Forms': '入力', 'Lists and selection': '一覧と選択', 'Data': 'データ', 'Date and time': '日付と時間',
       'Navigation': 'ナビゲーション', 'Containers': '入れ物', 'Surfaces': '面', 'Overlays': '重ねて出すもの', 'Feedback': '知らせ',
       'Status': '状態', 'Icons': 'アイコン'}

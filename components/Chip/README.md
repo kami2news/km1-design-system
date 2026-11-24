@@ -1,5 +1,8 @@
-押して切り替える小さな絞り込みボタン。一覧のフィルターや、複数選べる分類に使う。
-*A small toggle for filtering lists or picking several categories.*
+押して切り替える小さな絞り込みボタン。一覧のフィルターや、複数選べる分類に使う。角は `radius-md`（4px）。
+*A small toggle for filtering lists or picking several categories, with `radius-md` (4px) corners.*
+
+**理由 / Why:** 押せるものは角丸、押せない印は丸、と形で分ける（D19）。Chip はボタンと同じ角丸にし、丸い Badge と見間違えないようにする。
+*Pressable things have rounded corners and non-pressable marks are round (D19); Chip shares the button's corners so it is never mistaken for a round Badge.*
 
 ## 使い方 / Usage
 - 選択中は、チェックのアイコン・枠の色・文字の太さの 3 つで示す（色だけにしない）。読み上げには `aria-pressed` で伝わる。

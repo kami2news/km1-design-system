@@ -1,6 +1,9 @@
 KM1 B 案（調整版）の導入前と導入後の比較（KM1-ICO-001 §8）。試験導入した 6 種（検索・予定・フォルダ・削除・警告・通知）で見比べる。いまは全アイコンの通常表示が B 案。通常の `Icon` の呼び出し（`h(Icon,{name:'calendar'})`）でそのまま出る。
 *Before/after comparison for the KM1 B (adjusted) icons, now the standard; compared on six: search, calendar, folder, delete, warning and notification, drawn by KM1 with strokes and a soft tint. They render through the normal `Icon` call.*
 
+**理由 / Why:** 部品ではなく判断の記録。アイコンの B 案を選んだときの導入前と導入後の比べで、見直すときの根拠になるので保管する。部品の数には数えない（D21）。
+*A record of the before/after comparison behind icon style B, kept as evidence; not counted as a part (D21).*
+
 利用側が渡すもの: いつもの `Icon` と同じ（`name`・`size`・`filled`・`label`）。導入前の形と比べるときだけ `variant:'fluent'`。アプリ全体で元に戻すときは `setIconStyle('fluent')`。
 *Same props as `Icon`; `variant:'fluent'` shows the previous shape; `setIconStyle('fluent')` reverts app-wide.*
 

@@ -35,6 +35,9 @@ KM1 に何を入れ、何を入れないかを決める手続きと、変更・�
 | D16 | Card の影をやめ、`stroke` の縁だけにする | 採用 | 2026-11-24 | カードは浮いていない。影は浮く部品（7 章の一覧）だけ。Flutter はもともと縁だけ | 部品 › Card |
 | D17 | Alert の色の縁と色の文字をやめ、色は面だけにする | 採用 | 2026-11-24 | 状態はアイコンと言葉の 2 つで伝わる。同じことを 4 回言わない | 部品 › Alert |
 | D18 | EmptyState を左寄せにし、アイコンを既定で外す | 採用 | 2026-11-24 | 中身が入るはずの場所で、同じ左の線から読ませる。真ん中の大きなアイコンは何も伝えない | 部品 › EmptyState |
+| D19 | 形で押せるかを分ける: 押せるもの（ボタン・Chip）は角丸 `radius-md`、押せない印（Badge）と人（Avatar）は丸 | 採用 | 2026-11-24 | Badge と Chip が同じ丸で見分けにくかった。形で押せるかが分かれば、色や説明に頼らずに済む | 部品 › Chip・Badge・Avatar |
+| D20 | 部品は、いま使う画面がなくても保管する（理由が言えれば外さない） | 採用 | 2026-11-24 | 部品が少ないと、必要になったときに作業が詰まる。使う画面がないことは、外す理由にしない | 運用 |
+| D21 | 判断の記録と早見図（M1 との比較 7 個・IconTrial・Density・SelectionGuide）は消さずに保管し、部品の一覧とは別の「記録と早見図 / Records and guides」の群にまとめる。部品の数には数えない | 採用 | 2026-11-24 | 部品ではないものが部品に混ざると、部品の数と使い分けが分かりにくくなる。判断の根拠なので消さない | 運用 |
 | D14 | KM1 本体のライセンス | 採用 | 2026-11-18 | MIT License。著作権表示は `LICENSE` に書き、名前はそこにだけ出す。PDF と Office には個人名を書かず、ライセンスの一文（notices 2.6）だけ載せる | 第三者表記 |
 
 ## 3. 判断を変える手続き / Changing a decision
@@ -98,7 +101,7 @@ KM1 に何を入れ、何を入れないかを決める手続きと、変更・�
    *Write a one-sentence "Why" line in the part's README; if you can't, the form goes.*
 2. **問いに答える:** 次の問いに全部「はい」と答えられること。
    *Answer yes to every question:*
-   - これを消したら、誰かが困るか。 / *Would anyone miss it?*
+   - これを消したら、誰かが困るか（部品は、いま使う画面がなくても、いつか困るなら残す。D20）。 / *Would anyone miss it, now or later? (D20)*
    - 既定値を、理由なくそのまま使っていないか。 / *No default kept without a reason?*
    - 同じことを 3 つ以上の手段で言っていないか（状態はアイコンと言葉の 2 つ、色は 1 か所）。 / *No message said three ways or more?*
    - 見本の文言は本物の内容か。 / *Is the sample copy real content?*

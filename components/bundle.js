@@ -867,7 +867,7 @@ function ExpansionEditor(p){
     Promise.resolve(r).then(function(ok){setBusy(false);if(ok===false)return;setOpen(false,true);setLive(p.savedMessage||(textOf(p.title)+'を保存しました'));back();},
       function(x){setBusy(false);setErr((x&&x.message)||String(x||'保存できませんでした。もう一度お試しください。'));});}
   function cancel(){if(p.onCancel)p.onCancel();setOpen(false,true);back();}
-  var head=p.readOnly?h('div',{className:'f2-xe__btn f2-xe__btn--static'},h('span',{className:'f2-xe__title'},p.title),h('span',{className:'f2-xe__summary'},p.summary),
+  var head=p.readOnly?h('div',{className:'f2-xe__btn f2-xe__btn--static'},h('span',{className:'f2-xe__title'},p.title),h('span',{className:'f2-xe__summary'},p.summary),h('span',{className:'f2-xe__act','aria-hidden':'true'}),
       p.readOnlyReason?h('span',{className:'f2-xe__ro'},p.readOnlyReason):null)
     :h('button',{ref:btn,type:'button',id:bid,className:'f2-xe__btn','aria-expanded':open?'true':'false','aria-controls':pid,onClick:function(){setOpen(!open);}},
       h('span',{className:'f2-xe__title'},p.title),h('span',{className:'f2-xe__summary'},p.summary||'未設定'),

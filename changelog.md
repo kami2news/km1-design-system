@@ -18,6 +18,20 @@
   *Phrase-based Japanese line breaking in all parts.*
 - **画面の例:** スケジュール確認アプリの「今日」の画面（ScreenToday）を足した。次の予定を主役にし、まとまりを余白で分けた例。
   *Added the ScreenToday screen pattern.*
+- **押せるかを形で分ける:** Chip の角を丸から `radius-md`（4px）に変えた。押せるものは角丸、押せない印（Badge）と人（Avatar）は丸（D19）。Web と Flutter。
+  *Chip now has `radius-md` corners: pressable things are rounded rectangles, non-pressable marks and people are round.*
+- **待ちの部品の使い分け:** 「待ち時間」の表に Skeleton を入れた。形が分かる 1〜10 秒は Skeleton、形がない 1〜10 秒は Spinner、10 秒以上は Progress。
+  *Waiting: Skeleton for known layouts, Spinner for shapeless short waits, Progress for 10s or more.*
+- **部品は保管する:** 使う画面がまだない部品も、理由が言えれば外さない（D20）。Breadcrumb と Slider に理由の行を書いた。
+  *Parts are kept even before a screen needs them (D20).*
+- **記録と早見図:** M1 との比較 7 個・IconTrial・Density・SelectionGuide を部品の群から外し、「記録と早見図」の群にまとめた。消さずに保管し、部品の数には数えない（D21）。
+  *Records and guides now form their own group, kept but not counted as parts (D21).*
+- **画面の例の作り直し:** ScreenAddEvent（主役は日ごとの予定の並びと足した行）、ScreenListEdit（主役は選んだ授業の名前と要点、直せる項目は 1 つのまとまり）、ScreenOffline（主役は未送信の予定と件数）を、開いた人が最初に知りたいことから作り直した。利用シナリオの検査はそのまま通る。
+  *Rebuilt three screen patterns from what the reader needs first.*
+- **ExpansionEditor:** 続けて置くと縁がつながって 1 つのまとまりになり、項目名の列を 10em にそろえた。直せない項目も値の位置がそろう。
+  *Consecutive ExpansionEditors join into one group with aligned values.*
+  Flutter（`Km1ExpansionEditor`）は項目名の列を 140 にそろえた。縁をつなげて 1 つのまとまりにするのは、まだ Web だけ（Flutter は間が `space-sm` あく）。
+  *Flutter aligns the title column (140); joining borders is Web-only for now.*
 - **見本の文言:** Card の「クリックできるカード／全体が操作対象です」を本物の内容に替えた。
   *Replaced self-describing sample copy.*
 - **判断の期限:** 確認日を過ぎた D6 と D9 を、6 章の「決まらないときの既定」どおりに閉じた（D6 は D12 に統合、D9 は今の値を続ける）。

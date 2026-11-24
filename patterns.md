@@ -307,13 +307,14 @@ KM1-M1-001 で追加。M1 の Permissions を下敷きにした。
 
 ## 待ち時間 / Waiting
 
-待ち時間の長さで、見せるものを変える。区切りは Jakob Nielsen の応答時間の 3 つの目安（0.1・1・10 秒）。
+待ち時間の長さと、出てくる中身の形が分かるかで、見せるものを変える。待ちの部品は 3 つで、この表のほかの場面には使わない。区切りは Jakob Nielsen の応答時間の 3 つの目安（0.1・1・10 秒）。
 *What to show depends on the wait; the thresholds are Jakob Nielsen's three response-time limits (0.1, 1 and 10 seconds).*
 
 | 見込み / Expected | 見せるもの / Show | 部品 / Component |
 |---|---|---|
 | 1 秒未満 / under 1s | 何も出さない（結果がそのまま出る） / nothing | — |
-| 1〜10 秒 / 1–10s | 何を待っているか / what is being waited for | `Spinner`（「保存中」など） |
+| 1〜10 秒・出てくる中身の形が分かる / 1–10s, layout known | 中身のおおよその形 / the shape of the content | `Skeleton` |
+| 1〜10 秒・形が分からない（保存・送信など）/ 1–10s, no layout | 何を待っているか / what is being waited for | `Spinner`（「保存中」など） |
 | **10 秒以上 / 10s or more** | **工程と時間の見込みを必ず出す** / **steps and a time estimate, always** | `Progress`（`steps`・`remaining`・`elapsed`） |
 
 10 秒以上かかる処理の決まり / Rules for 10 seconds or more:

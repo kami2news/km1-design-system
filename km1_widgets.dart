@@ -395,7 +395,7 @@ class Km1FilterChip extends StatelessWidget {
       child: ExcludeSemantics(
         child: InkWell(
           onTap: () => onSelected(!selected),
-          borderRadius: BorderRadius.circular(Km1Radius.circular),
+          borderRadius: BorderRadius.circular(Km1Radius.md),
           child: ConstrainedBox(
             constraints: BoxConstraints(minHeight: hit),
             child: Center(
@@ -407,7 +407,7 @@ class Km1FilterChip extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: selected ? c.brandTint : c.surface,
                   border: Border.all(color: selected ? c.brandStroke : c.strokeStrong),
-                  borderRadius: BorderRadius.circular(Km1Radius.circular),
+                  borderRadius: BorderRadius.circular(Km1Radius.md),
                 ),
                 child: Row(mainAxisSize: MainAxisSize.min, children: [
                   if (selected) ...[
@@ -2357,8 +2357,10 @@ class _Km1ExpansionEditorState extends State<Km1ExpansionEditor> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: Km1Space.lg, vertical: Km1Space.smNudge),
         child: Row(children: [
-          Expanded(child: Text(widget.title, style: Km1Text.body1Strong.copyWith(color: c.ink))),
-          Expanded(flex: 2, child: Text(ro ? '${widget.summary}\n${widget.readOnlyReason}' : widget.summary, style: Km1Text.body1.copyWith(color: c.inkSecondary))),
+          // 項目名の列は Web と同じ 10em（14px × 10 = 140）にそろえる / title column fixed like the web's 10em
+          SizedBox(width: 140, child: Text(widget.title, style: Km1Text.body1Strong.copyWith(color: c.ink))),
+          const SizedBox(width: Km1Space.md),
+          Expanded(child: Text(ro ? '${widget.summary}\n${widget.readOnlyReason}' : widget.summary, style: Km1Text.body1.copyWith(color: c.inkSecondary))),
           if (!ro)
             ExcludeSemantics(
               child: _open
