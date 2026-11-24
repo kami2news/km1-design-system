@@ -6,6 +6,8 @@
 
 - 補足（`hint`）はラベルと入力欄の間、エラー（`error`）は入力欄の下に左寄せで置く（デジタル庁デザインシステム）。
   *`hint` sits between the label and the field; `error` sits below the field, left-aligned (Digital Agency DS).*
+- 入力例はプレースホルダに入れず、`hint` に「例：」として書く。プレースホルダは入力を始めると消え、薄い文字は入力済みの値と見分けにくい（D27）。
+  *Put examples in `hint` ("例：…"), not in the placeholder: it disappears on typing and its pale text looks like a filled value.*
 
 - タッチ操作の端末では文字を 16px にする（iPhone の Safari で、フォーカスしても画面が拡大されないようにするため）。
   *On touch devices text is 16px so iPhone Safari does not zoom on focus.*

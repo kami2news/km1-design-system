@@ -16,10 +16,10 @@ function Col(p){var sl=React.useState([2]),it=React.useState([{id:'a',label:'レ
   return h('section',{className:'dn__col','aria-labelledby':'dn-'+p.d},
     h('h2',{id:'dn-'+p.d,className:'dn__h'},p.title,h('code',null,'density="'+p.d+'"')),
     h('p',{className:'dn__note'},NOTE[p.d]),
-    h(F.Card,{title:'今日の予定',density:p.d,headingLevel:3},h('p',{style:{margin:0}},'10:45 環境化学 第8回（W9-324）')),
+    h(F.Card,{title:'今日の予定',density:p.d,headingLevel:3},h('p',{style:{margin:0}},'10:45 環境化学 第 8 回（W9-324）')),
     h(F.Table,{density:p.d,caption:'締め切りの近い課題（'+p.title+'）',rows:D,selectable:true,selected:sl[0],onSelectionChange:sl[1],bulkActions:[{label:'完了にする',onClick:function(){}}],
       columns:[{key:'name',label:'授業'},{key:'day',label:'時限'},{key:'left',label:'残り',align:'end',render:function(r){return r.left+' 日';}}]}),
-    h(F.Table,{density:p.d,caption:'提出済みの課題（表示専用。'+p.title+'）',rows:[{id:'r1',name:'地球化学 第7回',when:'11/06'},{id:'r2',name:'気象学 演習',when:'11/05',link:true},{id:'r3',name:'統計演習 第5回',when:'11/01'}],
+    h(F.Table,{density:p.d,caption:'提出済みの課題（表示専用。'+p.title+'）',rows:[{id:'r1',name:'地球化学 第 7 回',when:'11/06'},{id:'r2',name:'気象学 演習',when:'11/05',link:true},{id:'r3',name:'統計演習 第 5 回',when:'11/01'}],
       columns:[{key:'name',label:'課題',render:function(r){return r.link?h('a',{className:'f2-link',href:'#'},r.name):r.name;}},{key:'when',label:'提出日',align:'end'}]}),
     h(F.SortableList,{density:p.d,id:'sl-'+p.d,label:'今日やる順（'+p.title+'）',items:it[0],onChange:it[1]}));}
 ReactDOM.createRoot(document.getElementById('r')).render(h('div',{className:'dn'},

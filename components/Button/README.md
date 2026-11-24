@@ -4,8 +4,8 @@
 利用側が渡すもの: `children`（動詞のラベル）。アイコンのみの場合は `aria-label` が必須。
 *Consumer provides: `children` (a verb label). Icon-only buttons require `aria-label`.*
 
-- `primary`: 主要操作。`secondary`（既定）: 通常の操作。`outline`: 背景が不均一な面の上。`subtle`: ツールバー内。`transparent`: リンク的な操作。
-  *`primary`: main action. `secondary` (default): ordinary action. `outline`: on uneven backgrounds. `subtle`: in toolbars. `transparent`: link-like action.*
+- `primary`: 主要操作。`secondary`（既定）: 通常の操作。`outline`: 背景が不均一な面の上。`subtle`: ツールバー内。`transparent`: リンク的な操作。`danger`: 取り消せない操作の確認（赤の文字、形は `secondary`）。
+  *`primary`: main action. `secondary` (default): ordinary action. `outline`: on uneven backgrounds. `subtle`: in toolbars. `transparent`: link-like action. `danger`: confirming an irreversible action (red text, secondary shape).*
 - サイズは `small` / `medium`（標準）/ `large`。高さは PC で 24 / 32 / 40px、スマホで 44 / 44 / 48px に自動で切り替わる。
   *Sizes: `small`, `medium` (default), `large`: 24 / 32 / 40px on PC, 44 / 44 / 48px on touch, switched automatically.*
 - 使い分け（デジタル庁デザインシステム）: `primary` は 1 画面に原則 1 つ。`outline` は同じ場面で同時に 3 つまで（4 つ以上なら流れを見直す）。「キャンセル」は 1 画面に 1 つの文字だけのボタン（`transparent`）。重要度の差は色だけで示さず、塗りと枠線などの形で示す。

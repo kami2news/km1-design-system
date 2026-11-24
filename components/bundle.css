@@ -188,7 +188,7 @@ html{font-family:var(--font-sans)}
 .f2-nav__item:hover{background:var(--surface-hover);color:var(--ink)}
 .f2-nav__item:active{background:var(--surface-pressed)}
 .f2-nav__item:focus-visible{outline:2px solid var(--focus-ring);outline-offset:-2px}
-.f2-nav__item--selected{color:var(--brand-ink);font-weight:600;border-top-color:var(--brand-stroke)}
+.f2-nav__item--selected{color:var(--brand-ink);font-weight:600}
 .f2-nav__icon{display:inline-flex;width:24px;height:24px}
 .f2-nav__label{max-width:100%;overflow-wrap:anywhere;text-align:center}
 .f2-nav--vertical .f2-nav__label{text-align:left}
@@ -198,13 +198,13 @@ html{font-family:var(--font-sans)}
 .f2-nav--vertical .f2-nav__list{flex-direction:column;gap:var(--space-xxs)}
 .f2-nav--vertical .f2-nav__li{flex:none}
 .f2-nav--vertical .f2-nav__item{flex-direction:row;justify-content:flex-start;gap:var(--space-md);min-height:var(--control-height);padding:0 var(--space-md);border-top:0;border-left:2px solid transparent;border-radius:var(--radius-md);font-size:14px;line-height:20px}
-.f2-nav--vertical .f2-nav__item--selected{background:var(--brand-tint);border-left-color:var(--brand-stroke)}
+.f2-nav--vertical .f2-nav__item--selected{background:var(--brand-tint)}
 @media (min-width:1024px){
 .f2-nav--auto{width:220px;border-top:0;border-right:1px solid var(--stroke);padding:var(--space-sm)}
 .f2-nav--auto .f2-nav__list{flex-direction:column;gap:var(--space-xxs)}
 .f2-nav--auto .f2-nav__li{flex:none}
 .f2-nav--auto .f2-nav__item{flex-direction:row;justify-content:flex-start;gap:var(--space-md);min-height:var(--control-height);padding:0 var(--space-md);border-top:0;border-left:2px solid transparent;border-radius:var(--radius-md);font-size:14px;line-height:20px}
-.f2-nav--auto .f2-nav__item--selected{background:var(--brand-tint);border-left-color:var(--brand-stroke)}
+.f2-nav--auto .f2-nav__item--selected{background:var(--brand-tint)}
 }
 @media (prefers-reduced-motion:reduce){.f2-chip,.f2-nav__item,.f2-progress__bar{transition:none}.f2-toast,.f2-menu__list{animation:none}.f2-progress__track--ind .f2-progress__bar{animation:none;width:100%;opacity:.5}.f2-spinner__ring{animation-duration:4s}}
 @media (forced-colors:active){.f2-chip--selected,.f2-nav__item--selected{border-color:Highlight}.f2-progress__bar{background:Highlight}}
@@ -691,7 +691,7 @@ svg.f2-icon.f2-icon--b{color:var(--icon-ink);flex:none}
 :where(.f2-alert__text,.f2-acc__panel,.f2-drawer__body,.f2-fgroup__desc,.f2-stepflow__desc,.f2-errsum__list,.f2-xe__note,.f2-card__body,.f2-prose){max-inline-size:40em}
 /* 折り返しうるカードの説明は body-1-para（14/24）/ Card text that can wrap uses body-1-para */
 :where(.f2-card__body){line-height:24px}
-/* 紺は黒に近く、紺の文字色だけでは選ばれていると分からない。下のナビも淡い紺の面を敷く（D22）/ Navy is close to black, so the bottom nav also gets the brand tint when selected */
+/* 紺は黒に近く、紺の文字色だけでは選ばれていると分からない。下のナビは淡い紺の面・太字・塗りのアイコンの 3 つで示し、上の線はやめる（合図を重ねすぎない。D24・D25）/ Bottom nav: tint, bold and filled icon; no top bar */
 .f2-nav__item--selected{background:var(--brand-tint)}
 @media (forced-colors:active){.f2-nav__item--selected{background:Canvas}}
 /* 分類色の淡い面の上の補足は ink にする。面が色づくと ink-secondary は 4.5:1 に届かない（ダークで 3.4:1）。上下は太さと大きさで分ける（D24）/ On category tints, secondary text uses ink */

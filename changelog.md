@@ -1,5 +1,16 @@
 # 変更履歴 / Changelog
 
+## 2026-11-24 — 評価 2 回目: 合図の重ねすぎ・消す操作・入力例・数字の書き方 / Review 2
+
+- **ナビ:** 選択中の合図が 4 つ（面・線・太字・塗りのアイコン）重なっていたので、線をやめて 3 つにした（下のナビの上の線、縦のナビの左の線）（D25）。
+  *Nav: dropped the top and left bars; three cues are enough.*
+- **ダイアログ:** 見本の削除の確認を、見出しに対象の名前（「『環境化学 第 8 回』を削除しますか？」）、本文に日時、実行は `danger`、キャンセルは `transparent` にした。`Button` の説明に `danger` を足した（D26）。
+  *Delete confirmation names the object and uses `danger`, not `primary`.*
+- **入力例:** プレースホルダの「例: …」をやめ、`hint` に「例：…」で書くようにした（D27）。
+  *Examples move from placeholders to hints.*
+- **数字の書き方:** 見本 22 個の文言で、数字と単位・助数詞の間を半角あけた（「第 8 回」「1 限」「3 件」）。ファイル名はそのまま（D27）。
+  *Half-width space between numbers and counters across 22 previews; file names untouched.*
+
 ## 2026-11-24 — 文字の強弱（普遍的な UI の評価から）/ Type contrast, from a general UI review
 
 - **文字の大きさ:** 型の表を 12 段から 10 段に減らし、大きさは 7 つ（12・14・16・20・28・40・68 px）にした。見出しは `title`（28）・`subtitle-1`（20）・`subtitle-2`（16）の 3 段。`title-1`・`title-2`・`title-3`・`caption-2`（10 px）はなくした。Flutter・Compose・SwiftUI の割り当ても合わせた（D22）。

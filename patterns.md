@@ -169,7 +169,7 @@ Fluent 2 の size class をそのまま使う。値は `breakpoint-*`（Flutter 
   *Two buttons at most: primary right, cancel left (Digital Agency placement); below 480px they stack with the primary on top (built into `Dialog`).*
 - 見ることが主な一覧（予定表など）では、項目を押したらいきなり編集画面を開かず、小さなプレビューカードを出す（上辺に分類色の 4px の帯、右上に編集・削除・閉じる）。直すことが主な一覧（タスクの整理、在庫の修正など）では、押したらそのまま編集してよい。
   *In lists people mainly read (schedules), pressing an item opens a small preview card first (4px category bar; edit, delete, close at top right). In lists people mainly edit (task triage, stock fixes), it may open the editor directly.*
-- 削除などの取り消せない操作は、確認ダイアログで対象の名前を見出しに入れる（「『ゼミ』を削除しますか」）。
+- 削除などの取り消せない操作は、確認ダイアログで対象の名前を見出しに入れる（「『ゼミ』を削除しますか」）。実行するボタンは `danger` にし、`primary` にしない（`Dialog`）。
   *Irreversible actions confirm with the target's name in the title.*
 
 ## フォーム / Forms

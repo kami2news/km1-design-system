@@ -20,10 +20,10 @@ var REQ=function(m){return function(v){return (v==null||String(v).trim()==='')?m
 var DAYS={'2026-11-14':'11 月 14 日（金）','2026-11-15':'11 月 15 日（土）'};
 function dayLabel(d){return DAYS[d]||d.slice(5).replace('-','/');}
 function Screen(){
-  var items=React.useState([{id:1,title:'環境化学 第8回',date:'2026-11-14',start:'10:45'},{id:2,title:'アルバイト',date:'2026-11-14',start:'17:00'},{id:3,title:'気象学 小テスト',date:'2026-11-15',start:'9:00'}]);
+  var items=React.useState([{id:1,title:'環境化学 第 8 回',date:'2026-11-14',start:'10:45'},{id:2,title:'アルバイト',date:'2026-11-14',start:'17:00'},{id:3,title:'気象学 小テスト',date:'2026-11-15',start:'9:00'}]);
   var open=React.useState(false),toast=React.useState(null),tries=React.useState(0),busy=React.useState(false),fresh=React.useState(null),opener=React.useRef(null);
   var f=F.useForm({initial:{title:'',date:'2026-11-15',start:'',memo:''},labels:{title:'タイトル',date:'日付',start:'開始'},
-    validate:{title:REQ('タイトルを入力してください。'),date:REQ('日付を入力してください。'),start:REQ('開始時刻を入力してください。例: 10:00')}});
+    validate:{title:REQ('タイトルを入力してください。'),date:REQ('日付を入力してください。'),start:REQ('開始時刻を入力してください。例：10:00')}});
   function close(){open[1](false);setTimeout(function(){if(opener.current)opener.current.focus();},0);}
   var save=f.handleSubmit(function(d){busy[1](true);setTimeout(function(){busy[1](false);var id=Date.now();
     items[1](function(o){return o.concat([{id:id,title:d.title,date:d.date,start:d.start}]);});fresh[1](id);

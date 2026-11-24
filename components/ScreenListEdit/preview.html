@@ -25,7 +25,7 @@ function Screen(){
         h('p',{className:'le__sum'},item.day+'・'+item.room),
         h('h3',{className:'le__label'},'登録内容'),
         h('div',null,h(F.ExpansionEditor,{title:'教室',summary:item.room,open:op[0],onOpenChange:op[1],dirty:draft[0]!==item.room,
-          onSave:function(){if(!draft[0].trim())return Promise.reject(new Error('教室を入力してください。例: W9-324'));data[1](data[0].map(function(x){return x.id===item.id?Object.assign({},x,{room:draft[0]}):x;}));return true;},
+          onSave:function(){if(!draft[0].trim())return Promise.reject(new Error('教室を入力してください。例：W9-324'));data[1](data[0].map(function(x){return x.id===item.id?Object.assign({},x,{room:draft[0]}):x;}));return true;},
           onCancel:function(){draft[1](item.room);}},h(F.Input,{label:'教室',value:draft[0],onChange:function(e){draft[1](e.target.value);}})),
         h(F.ExpansionEditor,{title:'時限',summary:item.day,readOnly:true,readOnlyReason:'時間割は大学の登録情報から読み込みます。'}))):h(React.Fragment,null,h('h2',{id:'le-d',className:'le__h',style:{position:'absolute',left:'-9999px'}},'授業の詳細'),h(F.EmptyState,{title:'授業を選んでください'},'左の一覧から選ぶと、教室と時限が出ます。'))),
     h(F.Dialog,{open:dlg[0],onClose:function(){dlg[1](false);},title:s.count+' 件の授業を削除しますか？',

@@ -2,6 +2,7 @@
 
 - FAIL: 浮いていない部品に外側の影（box-shadow）を付けている。浮く部品は ALLOW に理由つきで並べる
 - FAIL: 見本（preview.html）の文言が、本物の内容ではなく部品自身や見本であることを説明している
+- FAIL: 見本の文言で、入力例をプレースホルダに入れている（D27）。数字と単位・助数詞の間があいていない（D27。ファイル名は除く）
 - WARN: 部品の README に「**理由 / Why:**」の行がない（順に書き足す。件数だけ出す。-v で一覧）
 使い方 / Usage: python3 gen/reasoncheck.py [-v]
 """
@@ -36,6 +37,19 @@ for f in sorted(glob.glob(os.path.join(ROOT, 'components', '*', 'preview.html'))
     t = re.sub(r'<!--.*?-->', '', open(f, encoding='utf-8').read(), flags=re.S)
     for m in SELF.finditer(t):
         out('FAIL', 'COPY', f'{name} の見本の文言「{m.group(0)}」。本物の内容で書く（部品や見本を説明しない）/ self-describing preview copy')
+
+# 入力例と数字の書き方（D27）/ examples in placeholders, digits next to Japanese
+J = '[\u3040-\u30fa\u30fc-\u30ff\u4e00-\u9fff]'      # ・（U+30FB）は区切りなので除く / the middle dot is a separator
+DIG = re.compile(rf"'[^'\n]*?(?:{J}\d|\d{J})[^'\n]*?'")
+for f in sorted(glob.glob(os.path.join(ROOT, 'components', '*', 'preview.html'))):
+    name = f.split(os.sep)[-2]
+    t = re.sub(r'<!--.*?-->', '', open(f, encoding='utf-8').read(), flags=re.S)
+    for m in re.finditer(r"placeholder\s*[:=]\s*['\"]例", t):
+        out('FAIL', 'EXAMPLE', f'{name}: 入力例をプレースホルダに入れている。hint に「例：」で書く / example in placeholder')
+    for m in DIG.finditer(t):
+        lit = m.group(0)
+        if re.search(r'\.(?:csv|pdf|png|jpe?g|xlsx|docx)', lit): continue   # ファイル名はそのまま / file names
+        out('FAIL', 'DIGIT', f'{name}: 数字と日本語の間に半角の空きがない {lit[:40]} / no space between number and counter')
 
 # 理由の行 / the Why line
 miss = []

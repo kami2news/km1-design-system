@@ -3,7 +3,7 @@
 <script>
 var h=React.createElement,I=window.Fluent2.Input;
 ReactDOM.createRoot(document.getElementById('r')).render(h(React.Fragment,null,
- h(I,{label:'名前',required:true,placeholder:'例: 山田 花子',hint:'表示名として使われます。'}),
+ h(I,{label:'名前',required:true,hint:'表示名として使われます。例：山田 花子'}),
  h(I,{label:'メールアドレス',defaultValue:'abc',error:'メールアドレスの形式で入力してください。'}),
  h(I,{label:'部署',defaultValue:'情報システム部',disabled:true}),
  h('div',{style:{display:'grid',gridTemplateColumns:'1fr 1fr',gap:12}},h(I,{label:'日付',type:'date',defaultValue:'2026-11-14'}),h(I,{label:'開始',type:'time',defaultValue:'10:00'}))));

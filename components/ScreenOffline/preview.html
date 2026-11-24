@@ -11,7 +11,7 @@
 <script>
 var h=React.createElement,F=window.Fluent2;
 function Screen(){
-  var on=React.useState(navigator.onLine!==false),queue=React.useState([]),items=React.useState(['環境化学 第8回','アルバイト']),toast=React.useState(null),text=React.useState(''),stamp='11/13 10:20';
+  var on=React.useState(navigator.onLine!==false),queue=React.useState([]),items=React.useState(['環境化学 第 8 回','アルバイト']),toast=React.useState(null),text=React.useState(''),stamp='11/13 10:20';
   React.useEffect(function(){function up(){on[1](true);} function down(){on[1](false);}
     window.addEventListener('online',up);window.addEventListener('offline',down);return function(){window.removeEventListener('online',up);window.removeEventListener('offline',down);};},[]);
   React.useEffect(function(){if(on[0]&&queue[0].length){var n=queue[0].length;var t=setTimeout(function(){items[1](function(o){return o.concat(queue[0]);});queue[1]([]);toast[1](n+' 件を送信しました');},300);return function(){clearTimeout(t);};}},[on[0],queue[0].length]);
