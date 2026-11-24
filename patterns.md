@@ -3,6 +3,57 @@
 部品より大きい単位の決まり。スケジュール確認アプリ（Flutter）で実際に使っている組み立てを、KM1 のトークンに合わせて一般化した。出典のあるもの（Fluent 2 のブレークポイント・動き・重なり順、デジタル庁のボタン配置）以外は、KM1 独自のアレンジである。
 *Rules above the component level, generalized from the layouts actually used in the schedule-check Flutter app and aligned to KM1 tokens. Apart from sourced items (Fluent 2 breakpoints, motion and layers; Digital Agency button placement) these are KM1's own arrangements.*
 
+## わかりやすさ / Understandability
+
+「デザイン原則」の軸 2「わかりやすい」を、画面の決まりにしたもの。画面は部品を並べて作るのではなく、その画面を開いた人が最初に知りたいことから上に向かって決める。
+*Axis 2 of the principles, as screen rules. Build a screen from what its reader needs first, not by lining up parts.*
+
+**作る順番 / Order of work**
+
+1. その画面を開いた人が最初に知りたいことを 1 つ決める。それが主役になる。
+2. 次にすることを 1 つ決める。それが主ボタンになる（1 画面に 1 つ）。
+3. 残りの情報をまとまりに分け、主役から遠い順に下げていく。
+4. 足りない部品があれば作る。部品から先に作らない。
+*Pick the one thing the reader needs first (the focal point), then the one next step (the primary button), then group the rest by distance from the focal point. Build missing parts last.*
+
+**主役 / Focal point**
+
+- 主役は、画面の中でいちばん大きく、いちばん濃く出す。ほかのまとまりは同じ重さに並べない。全部が同じ大きさのカードの並びは、どれが大事か分からない。
+  *The focal point is the largest and darkest thing on screen; do not give every group the same weight.*
+- 数字・時刻が主役のときは、数字を大きく太くし、単位は小さく `ink-secondary` にして半角あける。
+  *When a number or time is the focus, set it large and bold; the unit smaller in `ink-secondary`, after a space.*
+
+**余白でまとまりを見せる / Group with space**
+
+- まとまりの中は `space-xs`〜`space-md`、まとまりの間は `space-xxl` 以上あける。中より間を必ず広くする。
+  *Inside a group `space-xs` to `space-md`; between groups `space-xxl` or more. Between is always wider than inside.*
+- まとまりは、まず余白と見出しで示す。縁や面で囲むのは、余白だけでは境目が分からないときだけにする（となりに別の内容が並ぶ、押せる範囲を示すなど）。
+  *Group with space and headings first; add borders or surfaces only when space alone cannot show the edge.*
+
+**言葉 / Words**
+
+- 画面の言葉は「内容の原則」に従い、本物の物と操作の名前で書く。見本や試作でも、部品や見本そのものを説明する文（「クリックできるカード」）は書かない。
+  *Use real names of things and actions, even in samples; never copy that describes the part itself.*
+- 1 つの文は短く（目安 40 字まで）、1 つの文で 1 つのことを言う。専門の言葉は、使う人の言葉に置き換える。
+  *Short sentences (about 40 characters), one idea each; replace jargon with the user's words.*
+
+**いつも同じ場所 / Same thing, same place**
+
+- 主ボタン・戻る・閉じる・検索は、どの画面でも同じ位置に置く（PC は主ボタンを右、スマホは「フォーム › ボタン」）。同じ操作に違う言葉を使わない。
+  *Primary, back, close and search sit in the same place on every screen; one action, one word.*
+
+**空・読み込み中・エラー / Empty, loading and error**
+
+- 空の状態は、中身が入るはずの場所に左寄せで出し、何が無いかと、本物の次の一歩を書く（`EmptyState`）。真ん中に大きなアイコンを置く型は使わない。
+  *Empty states sit left-aligned where the content would be, with what is missing and the real next step; no centred big-icon template.*
+- エラーは、何が起きたかと、どうすれば直るかを書く。読み込み中は、出てくる中身の形を先に見せる（`Skeleton`）。10 秒以上かかるなら工程と時間の見込みを出す（「待ち時間」）。
+  *Errors say what happened and how to fix it; loading previews the shape of the content; 10s or more shows steps and time.*
+
+**和文の改行 / Japanese line breaks**
+
+- Web は文節で改行する（`word-break: auto-phrase`、行頭と行末の禁則は `line-break: strict`）。見出しは `text-wrap: balance` で行の長さをそろえ、本文は `text-wrap: pretty` で最後の行に 1〜2 字だけ残さない。KM1 の部品には `bundle.css` で入っている。対応していないブラウザでは文字の単位で折り返すので、行末に 1〜2 字だけ落ちる文は言葉を直す。Flutter には文節の改行がないので、同じく言葉で直す。
+  *Web breaks Japanese at phrase boundaries (`word-break: auto-phrase`, `line-break: strict`), headings use `text-wrap: balance`, body `text-wrap: pretty`; built into `bundle.css`. Where unsupported (and in Flutter), fix stranded characters by rewording.*
+
 ## 画面幅 / Breakpoints
 
 Fluent 2 の size class をそのまま使う。値は `breakpoint-*`（Flutter は `Km1Breakpoint`）。

@@ -21,6 +21,7 @@ step "トークンの別名 / token roles" python3 gen/tokens_check.py
 step "色の組み合わせのコントラスト / contrast pairs" python3 gen/contrast_check.py
 step "部品の数と文書 / counts" python3 gen/sync_counts.py --check
 step "保留と提案の期限 / governance dates" python3 gen/govcheck.py
+step "理由の確認（機械の部分）/ reason review" python3 gen/reasoncheck.py
 step "アイコン / icons" python3 icons/iconcheck.py icons/km1-icons.json icons/KM1Icons.ttf
 # 2. Web の見本 / web previews
 step "見本の描画 / render previews" python3 gen/render_previews.py "$WORK/rc"

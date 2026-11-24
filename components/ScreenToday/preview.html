@@ -1,0 +1,49 @@
+<!-- @dsCard group="画面の例 / Screen patterns" height=520 -->
+<div id="r" style="padding:16px;max-width:720px"></div>
+<style>
+/* 「今日」の画面（patterns.md「わかりやすさ」の順で作った例）。主役は次の予定、主ボタンは 1 つ、まとまりの間は space-xxl */
+.td{display:flex;flex-direction:column;gap:var(--space-xxl);font-family:var(--font-sans);color:var(--ink)}
+.td h2,.td h3,.td p,.td ul{margin:0}.td ul{padding:0;list-style:none}
+.td__head{display:flex;align-items:center;justify-content:space-between;gap:var(--space-md)}
+.td__title{font:600 20px/28px var(--font-sans)}
+.td__now{font:400 14px/20px var(--font-sans);color:var(--ink-secondary)}
+.td__label{font:600 14px/20px var(--font-sans);color:var(--ink-secondary);margin-bottom:var(--space-sm)!important}
+.td__next{display:grid;grid-template-columns:auto 1fr;column-gap:var(--space-xl);align-items:baseline}
+.td__time{font:600 32px/40px var(--font-sans-en);font-variant-numeric:tabular-nums}
+.td__what{font:600 20px/28px var(--font-sans)}
+.td__sub{grid-column:2;font:400 14px/20px var(--font-sans);color:var(--ink-secondary)}
+.td__rows li{display:grid;grid-template-columns:64px 1fr auto;column-gap:var(--space-md);align-items:baseline;padding:var(--space-sm) 0;border-top:1px solid var(--stroke-subtle)}
+.td__rows li:last-child{border-bottom:1px solid var(--stroke-subtle)}
+.td__t{font:400 14px/20px var(--font-sans-en);font-variant-numeric:tabular-nums;text-align:right}
+.td__n{font:400 14px/20px var(--font-sans)}
+.td__m{font:400 14px/20px var(--font-sans);color:var(--ink-secondary);font-variant-numeric:tabular-nums;white-space:nowrap}
+.td__soon{color:var(--danger-ink);font-weight:600}
+</style>
+<script>
+var h=React.createElement,F=window.Fluent2;
+var later=[['13:00','統計演習','W2-101'],['17:30','アルバイト','〜21:30']];
+var dues=[['11/25','統計演習 レポート 3','17:00 まで','あと 1 日',true],['11/27','地球化学 小テスト','終日','あと 3 日',false]];
+function Row(t,n,m,cls){return h('li',{key:t+n,className:cls},h('time',{className:'td__t'},t),h('span',{className:'td__n'},n),h('span',{className:'td__m'},m));}
+function Today(){
+  return h('div',{className:'td'},
+    h('div',{className:'td__head'},
+      h('div',null,h('h2',{className:'td__title'},'今日'),h('p',{className:'td__now'},'11 月 24 日（火）10:20 現在')),
+      h(F.Button,{appearance:'primary'},'予定を追加')),
+    h('section',{'aria-labelledby':'td-next'},
+      h('h3',{id:'td-next',className:'td__label'},'次の予定'),
+      h('div',{className:'td__next'},
+        h('time',{className:'td__time',dateTime:'2026-11-24T11:00'},'11:00'),
+        h('p',{className:'td__what'},'気象学'),
+        h('p',{className:'td__sub'},'W5-201・あと 40 分'))),
+    h('section',{'aria-labelledby':'td-later'},
+      h('h3',{id:'td-later',className:'td__label'},'このあと'),
+      h('ul',{className:'td__rows'},
+        later.map(function(r){return Row(r[0],r[1],r[2]);}))),
+    h('section',{'aria-labelledby':'td-due'},
+      h('h3',{id:'td-due',className:'td__label'},'締め切り'),
+      h('ul',{className:'td__rows'},dues.map(function(d){
+        return h('li',{key:d[1]},h('time',{className:'td__t'},d[0]),h('span',{className:'td__n'},d[1],h('span',{className:'td__m'},'　'+d[2])),
+          h('span',{className:'td__m'+(d[4]?' td__soon':'')},d[3]));}))));
+}
+ReactDOM.createRoot(document.getElementById('r')).render(h(Today));
+</script>

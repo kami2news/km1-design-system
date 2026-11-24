@@ -776,7 +776,7 @@
           }
         }
       ],
-      "$description": "静止カード。 / Resting card."
+      "$description": "小さく浮くもの（スライダーのつまみ、写真の上のチェック）。カードには使わない。 / Small raised marks (slider thumb, check on a photo); not for cards."
     },
     "shadow-4": {
       "$value": [

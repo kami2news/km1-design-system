@@ -1,7 +1,7 @@
 # KM1 部品カタログ / Component catalog
 
-見本 67 件を 16 のグループに分けて載せる。各部品の説明は部品フォルダの `README.md`、動く見本は `preview.html`。画像は `gen/shoot_previews.js` で撮ったもの（左がライト、右がダーク）。PDF 版は `dist/KM1_部品カタログ.pdf`。
-*67 previews in 16 groups. Each folder has a README and a live `preview.html`; light on the left, dark on the right. PDF: `dist/KM1_部品カタログ.pdf`.*
+見本 68 件を 16 のグループに分けて載せる。各部品の説明は部品フォルダの `README.md`、動く見本は `preview.html`。画像は `gen/shoot_previews.js` で撮ったもの（左がライト、右がダーク）。PDF 版は `dist/KM1_部品カタログ.pdf`。
+*68 previews in 16 groups. Each folder has a README and a live `preview.html`; light on the left, dark on the right. PDF: `dist/KM1_部品カタログ.pdf`.*
 
 ## 目次 / Contents
 
@@ -19,7 +19,7 @@
 - **状態 / Status**: [Alert](#alert)・[Badge](#badge)
 - **アイコン / Icons**: [AppIcon](#appicon)・[Icon](#icon)・[IconTrial](#icontrial)
 - **密度 / Density**: [Density](#density)
-- **画面の例 / Screen patterns**: [ScreenAddEvent](#screenaddevent)・[ScreenListEdit](#screenlistedit)・[ScreenOffline](#screenoffline)
+- **画面の例 / Screen patterns**: [ScreenAddEvent](#screenaddevent)・[ScreenListEdit](#screenlistedit)・[ScreenOffline](#screenoffline)・[ScreenToday](#screentoday)
 - **M1 比較 / M1 comparison**: [CompareBottomSheet](#comparebottomsheet)・[CompareExpansion](#compareexpansion)・[CompareFAB](#comparefab)・[CompareGrid](#comparegrid)・[CompareList](#comparelist)・[CompareSelection](#compareselection)・[CompareStepper](#comparestepper)・[SelectionGuide](#selectionguide)
 
 ## 表紙 / Cover
@@ -290,7 +290,7 @@
 
 ### Card
 
-関連する情報をまとめる面。`surface` 上に `shadow-2`、`radius-lg`、内側は `container-card-padding-regular`（= `space-lg`）。 → [Card/](Card/)
+関連する情報をまとめる面。`surface` 上に `stroke` の 1px の縁、`radius-lg`、内側は `container-card-padding-regular`（= `space-lg`）。影は付けない。 → [Card/](Card/)
 
 <table><tr><td valign="top"><img src="Card/preview.png" alt="Card の見本（ライト）/ Card preview, light" width="420"></td><td valign="top"><img src="Card/preview-dark.png" alt="Card の見本（ダーク）/ Card preview, dark" width="420"></td></tr></table>
 
@@ -326,7 +326,7 @@
 
 ### EmptyState
 
-まだ何も無い場所に出す案内。何が入る場所かと、最初の一歩を伝える。 → [EmptyState/](EmptyState/)
+まだ何も無い場所に出す案内。何が入る場所かと、最初の一歩を伝える。中身が入るはずの場所に、左寄せの文で置く。 → [EmptyState/](EmptyState/)
 
 <table><tr><td valign="top"><img src="EmptyState/preview.png" alt="EmptyState の見本（ライト）/ EmptyState preview, light" width="420"></td><td valign="top"><img src="EmptyState/preview-dark.png" alt="EmptyState の見本（ダーク）/ EmptyState preview, dark" width="420"></td></tr></table>
 
@@ -419,6 +419,12 @@ Card・Table・SortableList の 3 つの密度（compact・regular・spacious）
 通信が切れたときの画面の例: 警告（Alert）、時点の表示、未送信の件数、つながったら自動で送ってお知らせ（Toast）。 → [ScreenOffline/](ScreenOffline/)
 
 <table><tr><td valign="top"><img src="ScreenOffline/preview.png" alt="ScreenOffline の見本（ライト）/ ScreenOffline preview, light" width="420"></td><td valign="top"><img src="ScreenOffline/preview-dark.png" alt="ScreenOffline の見本（ダーク）/ ScreenOffline preview, dark" width="420"></td></tr></table>
+
+### ScreenToday
+
+スケジュール確認アプリの「今日」の画面の例。「画面の組み立て › わかりやすさ」の順番で、部品からではなく、開いた人が最初に知りたいことから作った。 → [ScreenToday/](ScreenToday/)
+
+<table><tr><td valign="top"><img src="ScreenToday/preview.png" alt="ScreenToday の見本（ライト）/ ScreenToday preview, light" width="420"></td><td valign="top"><img src="ScreenToday/preview-dark.png" alt="ScreenToday の見本（ダーク）/ ScreenToday preview, dark" width="420"></td></tr></table>
 
 
 ## M1 比較 / M1 comparison

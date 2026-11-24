@@ -47,45 +47,53 @@ class Km1EmptyState extends StatelessWidget {
     required this.title,
     this.body,
     this.icon,
-    this.bIcon = Km1BIconName.calendar,
+    this.bIcon,
     this.action,
   });
 
   /// 何が無いかを事実で書く（「今日の予定はありません」）/ State what is missing
   final String title;
+
+  /// 次に何があるか・どうすれば入るかを本物の内容で（「明日は 9:00 から気象学です」）/ The real next step
   final String? body;
 
-  /// 32px の案内アイコン（KM1 で 32px を使うのはここだけ）。標準は B 案の bIcon。icon を渡すとそちらを使う
-  /// The only 32px icon in KM1. Defaults to the B-style bIcon; pass icon to override.
+  /// アイコンは既定で付けない。見出しがなく文だけでは何の場所か分かりにくいときだけ 32px を 1 つ
+  /// No icon by default; one 32px icon only when the words alone leave the place unclear.
   final IconData? icon;
-  final Km1BIconName bIcon;
+  final Km1BIconName? bIcon;
 
   /// 最初の一歩になる操作を 1 つだけ / Exactly one first-step action
   final Widget? action;
 
+  // 理由: 一覧が入るはずの位置で、一覧と同じ左の線から読ませる。真ん中に大きなアイコンを置く型は使わない
+  // Why: read from the same left edge as the list it replaces; the centred big-icon template is not used.
   @override
   Widget build(BuildContext context) {
     final c = context.km1;
-    return Center(
+    final mark = icon != null
+        ? Icon(icon, size: Km1Size.iconXl, color: c.inkSecondary)
+        : (bIcon != null ? Km1BIcon(bIcon!, size: Km1Size.iconXl) : null);
+    return Align(
+      alignment: AlignmentDirectional.topStart,
       child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 360),
+        constraints: const BoxConstraints(maxWidth: 560),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: Km1Space.lg, vertical: Km1Space.xxl),
+          padding: const EdgeInsets.symmetric(vertical: Km1Space.lg),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ExcludeSemantics(child: icon != null ? Icon(icon, size: Km1Size.iconXl, color: c.inkSecondary) : Km1BIcon(bIcon, size: Km1Size.iconXl)),
-              const SizedBox(height: Km1Space.sm),
+              if (mark != null) ...[ExcludeSemantics(child: mark), const SizedBox(height: Km1Space.sm)],
               Semantics(
                 header: true,
-                child: Text(title, textAlign: TextAlign.center, style: Km1Text.subtitle1.copyWith(color: c.ink)),
+                child: Text(title, style: Km1Text.subtitle1.copyWith(color: c.ink)),
               ),
               if (body != null) ...[
                 const SizedBox(height: Km1Space.xs),
-                Text(body!, textAlign: TextAlign.center, style: Km1Text.body1.copyWith(color: c.inkSecondary)),
+                Text(body!, style: Km1Text.body1.copyWith(color: c.ink)),
               ],
               if (action != null) ...[
-                const SizedBox(height: Km1Space.lg),
+                const SizedBox(height: Km1Space.md),
                 action!,
               ],
             ],

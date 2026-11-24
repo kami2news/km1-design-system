@@ -1,5 +1,28 @@
 # 変更履歴 / Changelog
 
+## 2026-11-24 — KM1 の軸と、理由のない形の見直し / KM1's axes, and removing forms without a reason
+
+- **原則:** KM1 が大切にすることを決めた。前提はアクセシビリティ（誰でも使える）、軸は「見やすい」「わかりやすい」「理由を言える」、優先はアクセシビリティ → 見やすい → わかりやすい → 個性。KM1 を土台（Fluent 2 などに従い個性を抑える）と味付け（KM1 の個性を寸法や値で書く）の 2 層に分けた（「デザイン原則」、D15）。
+  *Defined what KM1 values: accessibility as the premise; axes "easy to see", "easy to understand", "every form has a reason"; a priority order; and two layers, base and flavor.*
+- **わかりやすさ:** 「画面の組み立て」に「わかりやすさ」節を足した。画面は開いた人が最初に知りたいことから作る、主役は 1 つ、余白でまとまりを見せる、本物の言葉で書く、いつも同じ場所、空・読み込み中・エラーは次の一歩から、和文は文節で改行する。
+  *Added Patterns › Understandability.*
+- **理由の確認:** 「運用」7 章に、部品と画面を足す・変えるときの手続きを足した。`README.md` に「理由 / Why」の行を書き、問いに答え、AI が作る平均的な画面に多い型を疑う。機械で見られる部分は `gen/reasoncheck.py`（`check_all.sh` に追加）。理由の行は Alert・Card・EmptyState・ScreenToday から書き始め、残りは件数を WARN で出す。
+  *Added the reason review (Governance §7) and `gen/reasoncheck.py`.*
+- **Card:** 影をやめ、`stroke` の縁だけにした。押せるカードはホバーで面と縁を濃くする。Flutter はもともと縁だけ（D16）。`shadow-2` の用途は「小さく浮くもの」に変えた。
+  *Card: border only, no shadow.*
+- **Alert:** 色の縁と、種類の言葉の色をやめた。色は面だけ、状態はアイコンと言葉の 2 つで伝える（D17）。
+  *Alert: colour on the surface only; icon and word carry the state.*
+- **EmptyState:** 左寄せにし、アイコンを既定で外した。本文は本物の次の一歩を書く。Web と Flutter（`Km1EmptyState`。`bIcon` は既定なしに）をそろえた（D18）。
+  *EmptyState: start-aligned, no icon by default, real next step; Web and Flutter aligned.*
+- **和文の改行:** KM1 の部品に `word-break: auto-phrase`・`line-break: strict`、見出しに `text-wrap: balance`、本文に `text-wrap: pretty` を入れた。
+  *Phrase-based Japanese line breaking in all parts.*
+- **画面の例:** スケジュール確認アプリの「今日」の画面（ScreenToday）を足した。次の予定を主役にし、まとまりを余白で分けた例。
+  *Added the ScreenToday screen pattern.*
+- **見本の文言:** Card の「クリックできるカード／全体が操作対象です」を本物の内容に替えた。
+  *Replaced self-describing sample copy.*
+- **判断の期限:** 確認日を過ぎた D6 と D9 を、6 章の「決まらないときの既定」どおりに閉じた（D6 は D12 に統合、D9 は今の値を続ける）。
+  *Closed the overdue D6 and D9 by their stated defaults.*
+
 ## 2026-11-19 — ロゴと表示バッジ / Logo and attribution badge
 
 - **ロゴ:** KM1 のロゴを、アプリアイコンのしるし（「KM1」と表紙の帯）と同じ形で、色を入れ替えた白地に青（黒の細い縁つき）に決めた。切り抜かれないので中身はアイコンより大きく（文字の幅 84%、24px 未満は極太の字形）し、小さく置いても潰れないようにした。アプリアイコンは紺地に白のまま。横組み（しるし＋「KM1」）と、ライト・ダーク・単色の版を足した。

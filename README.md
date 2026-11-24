@@ -74,6 +74,10 @@ KM1 は Microsoft Fluent 2 の構造に、Science Tokyo と EPSON の考え方�
   *Use polite Japanese for sentences; labels, headings and buttons are nouns or dictionary-form verbs. No exclamation marks, emoji or character voices.*
 - 英字は文頭のみ大文字（sentence case）。例: 「Add new item」。
   *English uses sentence case: "Add new item".*
+- 物と操作は本物の名前と数で書く（「予定 3 件」ではなく「授業 2 コマ、バイト 1 回」が分かるなら、そう書く）。見本や試作でも、部品や見本を説明する文（「クリックできるカード」）は書かない。
+  *Name real things and real counts; even in samples, never write copy that describes the part itself.*
+- 1 つの文は短く（目安 40 字まで）、1 つのことだけを言う。
+  *Keep sentences short (about 40 characters), one idea each.*
 - エラーは「何が起きたか＋どうすればよいか」を 1 文で。
   *Errors say what happened and what to do, in one sentence.*
 - 状態は色だけで伝えず、必ず文言かアイコンを添える。
@@ -93,7 +97,7 @@ KM1 は Microsoft Fluent 2 の構造に、Science Tokyo と EPSON の考え方�
   *4px step; mostly multiples of 8. Off-grid values have fixed uses: 6/10px only inside compact controls; 12px inside controls, between small groups in a card, and as compact-density container padding; 20px for larger card padding. Base values are unchanged.*
 - **角丸 / Radius**: 標準は `radius-md`（4px）。カード・Alert・ポップオーバーは `radius-lg`、ダイアログは `radius-xl`。`radius-circular` はバッジ・アバター・スイッチだけ。
   *Default `radius-md`; cards, alerts, popovers `radius-lg`; dialogs `radius-xl`; `radius-circular` only for badges, avatars, switches.*
-- **影 / Shadow**: 面の高さを示すときだけ。静止カード `shadow-2`、ホバー `shadow-4`、メニュー `shadow-8`、ポップオーバー `shadow-16`、ダイアログ `shadow-28`。ダークでは影より `stroke` で境界を示す。
+- **影 / Shadow**: 面の高さを示すときだけ。カードは影を付けず縁で示す（動かず浮いていないため）、メニュー `shadow-8`、ポップオーバー `shadow-16`、ダイアログ `shadow-28`。ダークでは影より `stroke` で境界を示す。
   *Only to show elevation. In dark, show edges with `stroke` instead.*
 - **境界線 / Borders**: 装飾は `stroke` / `stroke-subtle`、操作できる要素は `stroke-strong`。`stroke` は Fluent 原典値で surface 上 3:1 に満たないため、操作の識別には使わない。
   *Decorative borders use `stroke` / `stroke-subtle`; interactive elements use `stroke-strong`. `stroke` is the Fluent source value and falls below 3:1, so never use it alone to identify a control.*

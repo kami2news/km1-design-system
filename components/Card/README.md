@@ -1,5 +1,8 @@
-関連する情報をまとめる面。`surface` 上に `shadow-2`、`radius-lg`、内側は `container-card-padding-regular`（= `space-lg`）。
-*A surface that groups related content: `shadow-2`, `radius-lg`, `container-card-padding-regular` (= `space-lg`) padding on `surface`.*
+関連する情報をまとめる面。`surface` 上に `stroke` の 1px の縁、`radius-lg`、内側は `container-card-padding-regular`（= `space-lg`）。影は付けない。
+*A surface that groups related content: a 1px `stroke` border, `radius-lg`, `container-card-padding-regular` (= `space-lg`) padding on `surface`. No shadow.*
+
+**理由 / Why:** カードは画面の上で動かず、浮いてもいないので、高さを示す影には意味がない。まとまりは縁 1 本で示す。押せるカードは、ホバーで面の色と縁を濃くして知らせる。
+*Cards neither move nor float, so an elevation shadow says nothing; one border marks the group. Interactive cards darken the surface and border on hover.*
 
 - 密度 / Density: `density="compact"`（内側 12px）・`"regular"`（16px、既定）・`"spacious"`（24px）。入れ物の `data-density` にも従う。中の文字の大きさとボタンの高さは変わらない。Flutter は `Padding(padding: EdgeInsets.all(Km1Density.compact.containerPadding))`（「トークン › 密度」）。
   *`density` compact (12px) / regular (16px, default) / spacious (24px); also follows a container's `data-density`. Text size and button height never change.*

@@ -1,9 +1,44 @@
 # デザイン原則 / Design principles
 
-Microsoft Fluent 2、Science Tokyo、EPSON の 3 つの考え方から、共通する部分を軸にして、食い違う部分は判断を決めた。公開されている説明から読み取った考え方であり、各社のガイドライン本体の転記ではない。
-*Drawn from three sources (Microsoft Fluent 2, Science Tokyo, EPSON): the shared parts form the axes, and the parts that differ have a decision. These are readings of public descriptions, not copies of each company's guidelines.*
+KM1 は、自分が作る道具をどれも同じ質でそろえるための標準である。道具の多くは予定・記録・報告のように、確かめて、記録して、伝えるためのものだ。読み違えると、遅刻や提出忘れ、会計の誤り、結果の誤解につながる。だから KM1 がいちばん大切にするのは、どんな人でも、正しく読めて、迷わずに使えることである。
+*KM1 keeps every tool its author builds at the same quality. Most of them exist to check, record and report, where a misreading has a real cost. So KM1 values one thing above all: anyone can read it correctly and use it without hesitation.*
+
+## KM1 の軸 / KM1's axes
+
+### 前提: 誰でも使える / Premise: usable by anyone
+
+色の見え方、視力、年齢、読み上げやキーボードだけでの操作、明るい屋外のような使う場面に関わらず使えることを、すべての前提にする。案に迷ったら「どちらがより多くの人に使えるか」を問い、そちらを選んでから磨く。デジタル庁デザインシステムの「アクセシビリティファースト」と同じ順番である。
+*Accessibility is the premise of everything. When in doubt, ask which option more people can use, choose it, then refine it (the Digital Agency's accessibility-first order).*
+
+### 1. 見やすい / Easy to see
+
+目で正しく読めること。文字の大きさと濃さ、コントラスト、数字・時刻・単位の組み方で誤読させない。数字は桁をそろえ、数値と単位の間は半角あける。
+*Read correctly at a glance: size, weight, contrast and the setting of numbers, times and units leave no room for misreading.*
+
+### 2. わかりやすい / Easy to understand
+
+頭で迷わないこと。1 画面に主役を 1 つ置き、今どうなっていて次に何をすればよいかが分かるようにする。言葉は平易で具体的にし、同じものはいつも同じ場所に置く。決まりは「画面の組み立て」の「わかりやすさ」節にある。
+*No hesitation: one focal point per screen, the current state and the next step visible, plain and specific words, and the same thing always in the same place. Rules: Patterns, "Understandability".*
+
+### 3. 理由を言える / Every form has a reason
+
+部品も画面も、なぜこの形なのかを一文で言えるものだけを置く。既定値のまま置いた影、決まった型の当てはめ、自分の役割を説明する文言のように、理由を言えない形は置かない。これは見た目の軸ではなく、1 と 2 を守れているかを人の目で確かめる検査である（「運用」の「理由の確認」）。
+*Keep only forms whose reason fits in one sentence. Defaults left as they are, templates applied by habit and copy that describes itself have no reason and go. This is a human review of axes 1 and 2 (Governance, "Reason review").*
+
+### 優先の順番 / Order of priority
+
+**アクセシビリティ → 見やすい → わかりやすい → 個性。** 個性のためにコントラストや読みやすさを下げない。
+*Accessibility, then legibility, then understandability, then personality. Never lower contrast or legibility for personality.*
+
+### 土台と味付け / Base and flavor
+
+KM1 は 2 層で作る。**土台**は Fluent 2 を中心に、デジタル庁・WCAG 2.2・W3C ARIA APG など、他で決まっている規則に従い、個性を抑える（下の 6 つの原則）。**味付け**はその上に KM1 が自分で決める層で、個性を出してよい。ただし味付けの決まりも、寸法や値で書けて検査できるものにし、上の優先の順番に従う。
+*Two layers. The base follows established rules (Fluent 2, Digital Agency, WCAG 2.2, ARIA APG) and holds personality back (the six principles below). The flavor is KM1's own layer and may show personality, written as measurable rules and subject to the order above.*
 
 ## 3 社に共通する 6 つの原則 / Six principles shared by all three
+
+土台の原則。Microsoft Fluent 2、Science Tokyo、EPSON の考え方から共通する部分を取り、食い違う部分は判断を決めた。公開されている説明から読み取った考え方で、各社のガイドライン本体の転記ではない。
+*The base layer's principles, drawn from what Fluent 2, Science Tokyo and EPSON share. Readings of public descriptions, not copies of their guidelines.*
 
 | 原則 | Microsoft Fluent 2 | Science Tokyo | EPSON |
 | --- | --- | --- | --- |
@@ -42,8 +77,8 @@ Microsoft Fluent 2、Science Tokyo、EPSON の 3 つの考え方から、共通�
 - `prefers-reduced-motion` と強制カラーモード（`forced-colors`）に対応する / *support reduced motion and forced colors*
 - 書体は `lang` で切り替える（`ja` は Noto Sans JP、`en` は Segoe UI → Hind） / *fonts switch by `lang`*
 
-**5 個性は少しだけ / A little personality.** 個性はメインカラー（`brand`、EPSON の青を参考にした紺）のアクセントだけにする。測れない「小さなディテール」は設けない。
-*Personality is the main-color accent (`brand`, a navy inspired by Epson's blue) only. No unmeasurable "small detail".*
+**5 個性は少しだけ / A little personality.** 土台での個性は、メインカラー（`brand`、EPSON の青を参考にした紺）のアクセントだけにする。KM1 らしさは、その上の味付けの層で、寸法や値で書ける決まりとして出す。測れない「小さなディテール」は設けない。
+*In the base, personality is the main-color accent only. KM1's own character lives in the flavor layer, as measurable rules. No unmeasurable "small detail".*
 
 **6 長く使える / Built to last.** 標準のコンポーネントの挙動（キーボード、フォーカス、ラベルの位置）には利用者が既に知っている形を使う。流行を追わず、改良は tokens.json と本文を更新して積み上げる。
 *Use the familiar behavior of standard components (keyboard, focus, label position). Do not chase trends; improve by updating tokens.json and this text.*
@@ -52,7 +87,7 @@ Microsoft Fluent 2、Science Tokyo、EPSON の 3 つの考え方から、共通�
 
 | 食い違い | KM1 の判断 |
 | --- | --- |
-| Fluent「プラットフォーム標準を約 8 割再利用」と、Science Tokyo・EPSON の「独自の一貫性」 | 操作の挙動は標準に従い、個性は色・書体・余白の使い方だけで出す |
+| Fluent「プラットフォーム標準を約 8 割再利用」と、Science Tokyo・EPSON の「独自の一貫性」 | 操作の挙動は標準に従う。個性は味付けの層で、寸法や値で書ける決まりとして出す |
 | 簡潔さと、説明を足すアクセシビリティ | アクセシビリティを優先し、その上で最小限に近づける |
 | 書体: Fluent の Segoe UI と、Science Tokyo の Noto Sans JP | `lang` で切り替える |
 | ブランド色: Fluent の青、Science Tokyo のネイビー、EPSON の青 | EPSON の青を参考にした紺 `#10218B`（KM1 のメインカラー） |
