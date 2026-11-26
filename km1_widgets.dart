@@ -739,10 +739,7 @@ class Km1Table<T> extends StatelessWidget {
         decoration: BoxDecoration(border: Border.all(color: c.stroke), borderRadius: BorderRadius.circular(Km1Radius.md)),
         clipBehavior: Clip.antiAlias,
         child: LayoutBuilder(builder: (context, box) {
-          // 1 日の列は 128 より狭くしない（5 字の授業名が 1 行に入る。Web と同じ。D37）/ day columns never below 96 (same as Web)
-          final need = 104 + days.length * 128.0;
-          final minW = minWidth > need ? minWidth : need;
-          final w = box.maxWidth < minW ? minW : box.maxWidth;
+          final w = box.maxWidth < minWidth ? minWidth : box.maxWidth;
           final table = SizedBox(
             width: w,
             child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -1115,7 +1112,7 @@ class Km1Timetable extends StatelessWidget {
         decoration: BoxDecoration(border: Border.all(color: c.stroke), borderRadius: BorderRadius.circular(Km1Radius.md)),
         clipBehavior: Clip.antiAlias,
         child: LayoutBuilder(builder: (context, box) {
-          // 1 日の列は 128 より狭くしない（5 字の授業名が 1 行に入る。Web と同じ。D37）/ day columns never below 96 (same as Web)
+          // 1 日の列は 128 より狭くしない（5 字の授業名が 1 行に入る。Web と同じ。D37）/ day columns never below 128 (same as Web)
           final need = 104 + days.length * 128.0;
           final minW = minWidth > need ? minWidth : need;
           final w = box.maxWidth < minW ? minW : box.maxWidth;
