@@ -65,7 +65,7 @@ KM1-PRP-001。KM1 にまだない部品・トークンの仕様案。どれも�
 
 ## P4. 動きのトークン / Motion tokens (D6 の代案)
 
-**背景:** D6 は「動きのトークンを `tokens.json` に入れる」で、保存の形式が動きの族を読まないため保留だった（2026-11-26 に D12 へ統合して閉じた）。保存の形式は、名前が `motion` の族を特別に扱わないが、ほかの名前の `{tokens:[…]}` は族として読み、単一の値（`150ms` や `cubic-bezier(…)` など）を保てる。族の名前を `duration` と `easing` にすれば、障害は解ける可能性がある。
+**背景:** D6 は「動きのトークンを `tokens.json` に入れる」で、保存の形式が動きの族を読まないため保留だった（2026-11-24 に D12 へ統合して閉じた）。保存の形式は、名前が `motion` の族を特別に扱わないが、ほかの名前の `{tokens:[…]}` は族として読み、単一の値（`150ms` や `cubic-bezier(…)` など）を保てる。族の名前を `duration` と `easing` にすれば、障害は解ける可能性がある。
 *Background: D6 was held because the storage format has no motion family. It does read other `{tokens:[…]}` families with single CSS values, so naming them `duration` and `easing` may work. To be confirmed by trying it.*
 
 **仕様案 / Spec**
