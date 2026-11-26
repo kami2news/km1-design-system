@@ -226,8 +226,8 @@ React で使うときは `tokens.css`・`components/bundle.css`・`components/bu
 *△ means color and shape follow the theme but details keep Material behavior.*
 
 ## 出典 / Sources
-- Android Developers, "Make apps more accessible": https://developer.android.com/guide/topics/ui/accessibility/apps
-- Apple, Human Interface Guidelines（44 × 44pt）: https://developer.apple.com/design/human-interface-guidelines/
-- Microsoft Learn, "Guidelines for touch targets" と "Touch interactions"（Windows）: https://learn.microsoft.com/windows/apps/design/input/guidelines-for-targeting
-- 端末ごとの作法（戻る、安全領域、iPad の分割表示など）は各社の公式資料の一般的な決まりを KM1 の言葉でまとめたもので、細部は実機で確かめていない。
-  *Per-platform conventions summarize each vendor's general guidance in KM1's words; details are not verified on devices.*
+
+「参考文献」（`references.md`）の 4 節。
+
+端末ごとの作法（戻る、安全領域、iPad の分割表示など）は各社の公式資料の一般的な決まりを KM1 の言葉でまとめたもので、細部は実機で確かめていない。
+*Per-platform conventions summarize each vendor's general guidance in KM1's words; details are not verified on devices.*

@@ -83,4 +83,4 @@ KM1 は 2 層で作る。
 | Jakob Nielsen の 10 のユーザビリティ原則 | 作ったものを点検する 10 項目（KM1 の部品に当てはめて書き直した） |
 | Android・Apple・Windows の公式の指針 | 端末ごとの操作領域（Android 48dp、iOS 44pt、Windows のタッチ 44epx）と作法（「プラットフォーム」） |
 
-出典 / Sources: [WCAG 2.2](https://www.w3.org/TR/WCAG22/)・[W3C ARIA Authoring Practices Guide](https://www.w3.org/WAI/ARIA/apg/)・各 OS の指針は「プラットフォーム」の出典。
+出典 / Sources: 「参考文献」（`references.md`）の 1〜4 節。

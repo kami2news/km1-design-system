@@ -38,6 +38,7 @@ KM1 は上から順に「何を作るか → 画面 → 部品 → 値」の 4 �
 | 適用記録 / Adoption | `adoption.md` | 製品への適用と、足りなかったものの台帳 |
 | 仕様案 / Proposals | `proposals.md` | まだ採用していない部品と値の案 |
 | 表記とライセンス / Notices | `notices.md` | KM1 と第三者の素材のライセンス、外に配るときの文言 |
+| 参考文献 / References | `references.md` | 決まりの根拠と参考にした資料の一覧（各章の出典はここを指す） |
 | 記録 / Records | `m1.md`・`changelog.md` | 過去の統合仕様と変更履歴 |
 | 変更の進め方 / Contributing | `CONTRIBUTING.md` | 変更・公開（Release）の手順 |
 

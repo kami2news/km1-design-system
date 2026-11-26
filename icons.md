@@ -403,4 +403,4 @@ Flutter は `designed-with-km1.png`（と `@2x`・`@3x`）を assets に入れ�
 KM1 は個人の標準なので、このロゴはどの企業・団体の承認も示さない（`notices.md`）。
 *KM1 is a personal standard; the logo implies no endorsement by any company or organization (`notices.md`).*
 
-出典 / Sources: [Fluent System Icons（Microsoft、MIT）](https://github.com/microsoft/fluentui-system-icons)・[Android Developers: Adaptive icons（108dp の中の 66dp は欠けない）](https://developer.android.com/develop/ui/views/launch/icon_design_adaptive)・[MDN: Define your app icons（maskable の安全な円は 80%）](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/How_to/Define_app_icons)・Noto Sans CJK（SIL OFL 1.1）
+出典 / Sources: 「参考文献」（`references.md`）の 1・4 節。

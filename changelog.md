@@ -1,5 +1,10 @@
 # 変更履歴 / Changelog
 
+## 2026-11-26 — 参考文献のまとめページ / References page
+
+- **参考文献（`references.md`）:** 各章に散らばっていた出典を 1 ページにまとめ、土台とライセンス・アクセシビリティの規格・使いやすさ・プラットフォーム・参考にしたデザインシステム・PDF・スライド・道具の 8 節に分けた。どの資料をどこに使っているかと章を書いた。各章の出典の行は、この節を指す 1 行にした。PDF の本編とサイトにも入れた。
+  *All sources gathered into `references.md` in eight sections, each with its use and chapter; chapters now point there.*
+
 ## 2026-11-26 — 文書の組み直し / Documentation restructure
 
 - **章立て:** 読む順を 4 層（何を作るか → 画面 → 部品 → 値）にそろえた。README は入口と地図だけにし、原則 → プロダクトデザイン → 画面の組み立て → 部品 → 言葉 → 基礎 → アイコン → プラットフォーム → グラフ・PDF・Office → 運用 → 記録、の順にした。PDF の本編とサイトも同じ順（部品の章は第 5 章、別冊の案内）（D39）。

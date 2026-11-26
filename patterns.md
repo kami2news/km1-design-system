@@ -247,7 +247,7 @@ KM1-PAT-001。IBM Carbon の「Forms」「Fluid styles」の考え方を参考�
 - 部品は `Km1FormGroup`・`Km1FormGrid`・`Km1ConditionalField`・`Km1ErrorSummary`・`Km1FormActions`（`km1_widgets.dart`）。
   *Widgets: `Km1FormGroup`, `Km1FormGrid`, `Km1ConditionalField`, `Km1ErrorSummary`, `Km1FormActions` (in `km1_widgets.dart`).*
 
-出典 / Sources: [Carbon Forms](https://carbondesignsystem.com/patterns/forms-pattern/)・[Carbon Fluid styles](https://carbondesignsystem.com/patterns/fluid-styles/)・[W3C WAI Forms Tutorial: Grouping](https://www.w3.org/WAI/tutorials/forms/grouping/)・[GOV.UK Error summary](https://design-system.service.gov.uk/components/error-summary/)
+出典 / Sources: 「参考文献」（`references.md`）の 2・5 節。
 
 ## 通信できないとき / Offline
 

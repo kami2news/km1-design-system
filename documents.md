@@ -150,4 +150,4 @@ Word と PowerPoint のファイルそのものの決まりは「Word と PowerP
 - 提出先が PDF/A を求めるときだけ PDF/A にする。KM1 の手順（Chrome）では PDF/A は作れないので、その場合は Word の「PDF/A 準拠」などを使い、提出先の検証に通す。
   *Use PDF/A only when a recipient requires it. KM1's Chrome route can't produce PDF/A; use Word's PDF/A option or similar and pass the recipient's validator.*
 
-出典 / Sources: [PDF Association: ISO 14289-2（PDF/UA-2）](https://pdfa.org/iso-14289-2-pdf-ua-2-the-gold-standard-for-accessibility-in-pdf-2-0-has-arrived/)・[Matterhorn Protocol 1.02](https://pdfa.org/download-area/accessibility/MatterhornProtocol_1-02.pdf)・[axes4: Matterhorn Protocol と PAC](https://support.axes4.com/hc/en-us/articles/7371943734930)・[W3C WCAG 2.2 Techniques H71](https://www.w3.org/WAI/WCAG22/Techniques/html/H71)
+出典 / Sources: 「参考文献」（`references.md`）の 2・6 節。

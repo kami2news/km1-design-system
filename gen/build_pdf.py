@@ -33,7 +33,7 @@ MAIN_FILE, CAT_FILE = 'KM1_デザイン標準.pdf', 'KM1_部品カタログ.pdf'
 CAT_CHAPTER = 5
 # 本編の章（ファイル）。None は別冊の案内の章 / main-volume chapters; None marks the pointer chapter
 MAIN = ['README', 'principles', 'product', 'patterns', None, 'content', 'tokens', 'icons', 'platforms', 'dataviz',
-        'documents', 'office', 'governance', 'verification', 'coverage', 'adoption', 'proposals', 'notices', 'm1']
+        'documents', 'office', 'governance', 'verification', 'coverage', 'adoption', 'proposals', 'notices', 'references', 'm1']
 assert MAIN.index(None) + 1 == CAT_CHAPTER
 PX_MM = 25.4 / 96                       # CSS 1px = 0.2646mm
 FIG = [0]

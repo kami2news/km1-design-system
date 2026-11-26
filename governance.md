@@ -95,8 +95,8 @@ KM1 に何を入れ、何を入れないかを決める手続きと、変更・�
 - KM1 の決まりは、それ自体の理由で立つように書く。ほかの組織の名前を、決まりの理由として書かない（D39）。外の規格は、理由を確かめられる根拠として「原則」5 章に書く。
   *Each rule stands on its own reason; other organizations are never cited as the reason (D39). External standards are listed in Principles §5.*
 
-- 出典を足すときは、参照した日付と URL を本文の出典の欄に書く。原典を見ていないものは「未確認」と書き、根拠として使わない。
-  *Record date and URL; mark unseen originals as unverified and don't rely on them.*
+- 出典を足すときは、「参考文献」（`references.md`）の当てはまる節に、URL・使っているところ・章を書き、各章の出典の行はその節を指す。参照した日付が 2026-11 でなければ書く。原典を見ていないものは「未確認」と書き、根拠として使わない。
+  *Add sources to the matching section of `references.md` (URL, use, chapter) and point the chapter there; note the access date if not November 2026. Mark unseen originals as unverified and don't rely on them.*
 
 ## 6. 保留と提案の期限 / Deadlines (KM1-GOV-002)
 

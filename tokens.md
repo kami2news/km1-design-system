@@ -166,7 +166,7 @@ Noto Sans JP と Hind は Google Fonts から読み込む（自前配信にす�
 - **保存の形式について:** Design System の形式では、色以外の値に `{space-xxl}` のような参照を書けない。そのため `value` には実際の値（24px）を書き、参照先を `ref` に残す。`gen/tokens_check.py` が、`value` と `ref` の値が同じかを確かめる（`--fix` で直す）。生成する `tokens.css`・Flutter・WinUI・Compose・SwiftUI では参照のまま出す（例 `--layout-section-gap: var(--space-xxl)`、`Km1SpaceRole.layoutSectionGap = Km1Space.xxl`）。
   *The design-system format can't store references for non-color values, so `value` holds the resolved length and `ref` the source; `tokens_check.py` verifies them, and generated files keep the reference.*
 
-参考 / Reference: [Spectrum: Design tokens](https://spectrum.adobe.com/page/design-tokens)・[Spectrum: Spacing](https://spectrum.adobe.com/page/spacing)・[Spectrum 2: Layout spacing](https://spectrum.adobe.com/foundations/layout-and-structure/spacing/layout-spacing)・[Spectrum 2: Component spacing](https://spectrum.adobe.com/foundations/layout-and-structure/spacing/component-spacing)（いずれも 2026-11-13 参照）
+出典 / Sources: 「参考文献」（`references.md`）の 5 節（Adobe Spectrum）。
 
 #### 影響の範囲 / Impact
 
