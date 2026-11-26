@@ -35,6 +35,11 @@ import androidx.compose.ui.unit.sp
 /** 意味づけの色 / Semantic colors */
 @Immutable
 data class Km1Colors(
+    val brandDarkTint: Color,
+    val blueDarkTint: Color,
+    val redDarkTint: Color,
+    val greenDarkTint: Color,
+    val orangeDarkTint: Color,
     val surface: Color,
     val surfaceSubtle: Color,
     val surfaceMuted: Color,
@@ -71,6 +76,11 @@ data class Km1Colors(
 )
 
 val Km1LightColors = Km1Colors(
+    brandDarkTint = Color(0xFF333543),
+    blueDarkTint = Color(0xFF253341),
+    redDarkTint = Color(0xFF3E2E2F),
+    greenDarkTint = Color(0xFF273627),
+    orangeDarkTint = Color(0xFF42342B),
     surface = Color(0xFFFFFFFF),
     surfaceSubtle = Color(0xFFFAFAFA),
     surfaceMuted = Color(0xFFF5F5F5),
@@ -107,6 +117,11 @@ val Km1LightColors = Km1Colors(
 )
 
 val Km1DarkColors = Km1Colors(
+    brandDarkTint = Color(0xFF333543),
+    blueDarkTint = Color(0xFF253341),
+    redDarkTint = Color(0xFF3E2E2F),
+    greenDarkTint = Color(0xFF273627),
+    orangeDarkTint = Color(0xFF42342B),
     surface = Color(0xFF292929),
     surfaceSubtle = Color(0xFF1F1F1F),
     surfaceMuted = Color(0xFF141414),
@@ -128,18 +143,18 @@ val Km1DarkColors = Km1Colors(
     brandPressed = Color(0xFF2C3FB8),
     onBrand = Color(0xFFFFFFFF),
     brandInk = Color(0xFF99A6FF),
-    brandTint = Color(0xFF0D1238),
+    brandTint = Color(0xFF333543),
     brandStroke = Color(0xFF7A8CF5),
     focusRing = Color(0xFFFFFFFF),
     infoInk = Color(0xFF479EF5),
-    infoTint = Color(0xFF082338),
+    infoTint = Color(0xFF253341),
     danger = Color(0xFFC50F1F),
     dangerInk = Color(0xFFE37D80),
-    dangerTint = Color(0xFF3B0509),
+    dangerTint = Color(0xFF3E2E2F),
     successInk = Color(0xFF54B054),
-    successTint = Color(0xFF052505),
+    successTint = Color(0xFF273627),
     warningInk = Color(0xFFFAA06B),
-    warningTint = Color(0xFF411200),
+    warningTint = Color(0xFF42342B),
 )
 
 /** 分類色（帯と淡い塗りだけ。文字には使わない）/ Category colors: bars and tints only */

@@ -26,8 +26,8 @@
 
 ## 見た目・トークン / Look and tokens
 
-`brand-tint` の背景、`brand-stroke` の枠、`radius-md`、文字は `body-1-strong`。操作の高さは `--control-height`（PC 32px・タッチ 44px）。`sticky` で一覧の上に留める。
-*`brand-tint` fill, `brand-stroke` border, `radius-md`, `body-1-strong`; controls follow `--control-height`; `sticky` pins it above the list.*
+`brand-tint` の背景（枠は付けない。面と件数の文字で足りる。D34）、`radius-md`、文字は `body-1-strong`。操作の高さは `--control-height`（PC 32px・タッチ 44px）。`sticky` で一覧の上に留める。
+*`brand-tint` fill (no border; the tint and the count are enough, D34), `radius-md`, `body-1-strong`; controls follow `--control-height`; `sticky` pins it above the list.*
 
 ## 幅 / Responsive
 

@@ -718,7 +718,7 @@ class Km1Table<T> extends StatelessWidget {
         : Container(
             margin: const EdgeInsets.only(bottom: Km1Space.xs),
             padding: const EdgeInsets.symmetric(horizontal: Km1Space.sm, vertical: Km1Space.xs),
-            decoration: BoxDecoration(color: c.brandTint, border: Border.all(color: c.brandStroke), borderRadius: BorderRadius.circular(Km1Radius.md)),
+            decoration: BoxDecoration(color: c.brandTint, borderRadius: BorderRadius.circular(Km1Radius.md)),
             child: Wrap(spacing: Km1Space.xs, runSpacing: Km1Space.xs, crossAxisAlignment: WrapCrossAlignment.center, children: [
               Semantics(liveRegion: true, child: Text('$nSel 件を選択中', style: Km1Text.body1Strong.copyWith(color: c.ink))),
               for (final a in bulkActions)
@@ -2255,7 +2255,7 @@ class Km1ContextualActionBar extends StatelessWidget {
     if (count == 0) return Semantics(liveRegion: true, child: const SizedBox.shrink());
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: Km1Space.sm, vertical: Km1Space.xs),
-      decoration: BoxDecoration(color: c.brandTint, border: Border.all(color: c.brandStroke), borderRadius: BorderRadius.circular(Km1Radius.md)),
+      decoration: BoxDecoration(color: c.brandTint, borderRadius: BorderRadius.circular(Km1Radius.md)),
       child: Wrap(spacing: Km1Space.xs, runSpacing: Km1Space.xs, crossAxisAlignment: WrapCrossAlignment.center, children: [
         Semantics(liveRegion: true, child: Text(total == null ? '$count 件を選択中' : '$count 件を選択中（全 $total 件）', style: Km1Text.body1Strong.copyWith(color: c.ink))),
         for (final a in actions)

@@ -19,6 +19,11 @@ import 'package:flutter/cupertino.dart' show CupertinoPageTransitionsBuilder;
 @immutable
 class Km1Colors extends ThemeExtension<Km1Colors> {
   const Km1Colors({
+    required this.brandDarkTint,
+    required this.blueDarkTint,
+    required this.redDarkTint,
+    required this.greenDarkTint,
+    required this.orangeDarkTint,
     required this.surface,
     required this.surfaceSubtle,
     required this.surfaceMuted,
@@ -54,6 +59,11 @@ class Km1Colors extends ThemeExtension<Km1Colors> {
     required this.warningTint,
   });
 
+  final Color brandDarkTint;
+  final Color blueDarkTint;
+  final Color redDarkTint;
+  final Color greenDarkTint;
+  final Color orangeDarkTint;
   final Color surface;
   final Color surfaceSubtle;
   final Color surfaceMuted;
@@ -89,6 +99,11 @@ class Km1Colors extends ThemeExtension<Km1Colors> {
   final Color warningTint;
 
   static const Km1Colors light = Km1Colors(
+    brandDarkTint: Color(0xFF333543),
+    blueDarkTint: Color(0xFF253341),
+    redDarkTint: Color(0xFF3E2E2F),
+    greenDarkTint: Color(0xFF273627),
+    orangeDarkTint: Color(0xFF42342B),
     surface: Color(0xFFFFFFFF),
     surfaceSubtle: Color(0xFFFAFAFA),
     surfaceMuted: Color(0xFFF5F5F5),
@@ -125,6 +140,11 @@ class Km1Colors extends ThemeExtension<Km1Colors> {
   );
 
   static const Km1Colors dark = Km1Colors(
+    brandDarkTint: Color(0xFF333543),
+    blueDarkTint: Color(0xFF253341),
+    redDarkTint: Color(0xFF3E2E2F),
+    greenDarkTint: Color(0xFF273627),
+    orangeDarkTint: Color(0xFF42342B),
     surface: Color(0xFF292929),
     surfaceSubtle: Color(0xFF1F1F1F),
     surfaceMuted: Color(0xFF141414),
@@ -146,22 +166,27 @@ class Km1Colors extends ThemeExtension<Km1Colors> {
     brandPressed: Color(0xFF2C3FB8),
     onBrand: Color(0xFFFFFFFF),
     brandInk: Color(0xFF99A6FF),
-    brandTint: Color(0xFF0D1238),
+    brandTint: Color(0xFF333543),
     brandStroke: Color(0xFF7A8CF5),
     focusRing: Color(0xFFFFFFFF),
     infoInk: Color(0xFF479EF5),
-    infoTint: Color(0xFF082338),
+    infoTint: Color(0xFF253341),
     danger: Color(0xFFC50F1F),
     dangerInk: Color(0xFFE37D80),
-    dangerTint: Color(0xFF3B0509),
+    dangerTint: Color(0xFF3E2E2F),
     successInk: Color(0xFF54B054),
-    successTint: Color(0xFF052505),
+    successTint: Color(0xFF273627),
     warningInk: Color(0xFFFAA06B),
-    warningTint: Color(0xFF411200),
+    warningTint: Color(0xFF42342B),
   );
 
   @override
   Km1Colors copyWith({
+    Color? brandDarkTint,
+    Color? blueDarkTint,
+    Color? redDarkTint,
+    Color? greenDarkTint,
+    Color? orangeDarkTint,
     Color? surface,
     Color? surfaceSubtle,
     Color? surfaceMuted,
@@ -197,6 +222,11 @@ class Km1Colors extends ThemeExtension<Km1Colors> {
     Color? warningTint,
   }) =>
       Km1Colors(
+        brandDarkTint: brandDarkTint ?? this.brandDarkTint,
+        blueDarkTint: blueDarkTint ?? this.blueDarkTint,
+        redDarkTint: redDarkTint ?? this.redDarkTint,
+        greenDarkTint: greenDarkTint ?? this.greenDarkTint,
+        orangeDarkTint: orangeDarkTint ?? this.orangeDarkTint,
         surface: surface ?? this.surface,
         surfaceSubtle: surfaceSubtle ?? this.surfaceSubtle,
         surfaceMuted: surfaceMuted ?? this.surfaceMuted,
@@ -236,6 +266,11 @@ class Km1Colors extends ThemeExtension<Km1Colors> {
   Km1Colors lerp(ThemeExtension<Km1Colors>? other, double t) {
     if (other is! Km1Colors) return this;
     return Km1Colors(
+      brandDarkTint: Color.lerp(brandDarkTint, other.brandDarkTint, t)!,
+      blueDarkTint: Color.lerp(blueDarkTint, other.blueDarkTint, t)!,
+      redDarkTint: Color.lerp(redDarkTint, other.redDarkTint, t)!,
+      greenDarkTint: Color.lerp(greenDarkTint, other.greenDarkTint, t)!,
+      orangeDarkTint: Color.lerp(orangeDarkTint, other.orangeDarkTint, t)!,
       surface: Color.lerp(surface, other.surface, t)!,
       surfaceSubtle: Color.lerp(surfaceSubtle, other.surfaceSubtle, t)!,
       surfaceMuted: Color.lerp(surfaceMuted, other.surfaceMuted, t)!,

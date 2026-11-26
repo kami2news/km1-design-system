@@ -37,6 +37,11 @@ private func km1Dynamic(_ light: UInt32, _ dark: UInt32) -> Color {
 
 /// 意味づけの色 / Semantic colors
 public enum Km1Color {
+    public static let brandDarkTint = km1Dynamic(0x333543, 0x333543)
+    public static let blueDarkTint = km1Dynamic(0x253341, 0x253341)
+    public static let redDarkTint = km1Dynamic(0x3E2E2F, 0x3E2E2F)
+    public static let greenDarkTint = km1Dynamic(0x273627, 0x273627)
+    public static let orangeDarkTint = km1Dynamic(0x42342B, 0x42342B)
     public static let surface = km1Dynamic(0xFFFFFF, 0x292929)
     public static let surfaceSubtle = km1Dynamic(0xFAFAFA, 0x1F1F1F)
     public static let surfaceMuted = km1Dynamic(0xF5F5F5, 0x141414)
@@ -58,18 +63,18 @@ public enum Km1Color {
     public static let brandPressed = km1Dynamic(0x081257, 0x2C3FB8)
     public static let onBrand = km1Dynamic(0xFFFFFF, 0xFFFFFF)
     public static let brandInk = km1Dynamic(0x10218B, 0x99A6FF)
-    public static let brandTint = km1Dynamic(0xECEFFC, 0x0D1238)
+    public static let brandTint = km1Dynamic(0xECEFFC, 0x333543)
     public static let brandStroke = km1Dynamic(0x10218B, 0x7A8CF5)
     public static let focusRing = km1Dynamic(0x000000, 0xFFFFFF)
     public static let infoInk = km1Dynamic(0x0F6CBD, 0x479EF5)
-    public static let infoTint = km1Dynamic(0xEBF3FC, 0x082338)
+    public static let infoTint = km1Dynamic(0xEBF3FC, 0x253341)
     public static let danger = km1Dynamic(0xB10E1C, 0xC50F1F)
     public static let dangerInk = km1Dynamic(0xB10E1C, 0xE37D80)
-    public static let dangerTint = km1Dynamic(0xFDF3F4, 0x3B0509)
+    public static let dangerTint = km1Dynamic(0xFDF3F4, 0x3E2E2F)
     public static let successInk = km1Dynamic(0x107C10, 0x54B054)
-    public static let successTint = km1Dynamic(0xF1FAF1, 0x052505)
+    public static let successTint = km1Dynamic(0xF1FAF1, 0x273627)
     public static let warningInk = km1Dynamic(0xBC4B09, 0xFAA06B)
-    public static let warningTint = km1Dynamic(0xFFF9F5, 0x411200)
+    public static let warningTint = km1Dynamic(0xFFF9F5, 0x42342B)
 }
 
 /// 分類色（帯と淡い塗りだけ。文字には使わない）/ Category colors: bars and tints only

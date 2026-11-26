@@ -130,6 +130,10 @@
       "$value": "#0d1238",
       "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
     },
+    "brand-dark-tint": {
+      "$value": "#333543",
+      "$description": "原色（プリミティブ）。ダークの淡い面用。暗い面（#1F1F1F）に、その色のダークの文字色を 16% だけ混ぜた色。UI には直接使わず、意味づけトークンから参照する。 / Primitive for dark tints: 16% of the hue's dark ink over #1F1F1F. Reference through semantic tokens."
+    },
     "blue-50": {
       "$value": "#ebf3fc",
       "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
@@ -145,6 +149,10 @@
     "blue-950": {
       "$value": "#082338",
       "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "blue-dark-tint": {
+      "$value": "#253341",
+      "$description": "原色（プリミティブ）。ダークの淡い面用。暗い面（#1F1F1F）に、その色のダークの文字色を 16% だけ混ぜた色。UI には直接使わず、意味づけトークンから参照する。 / Primitive for dark tints: 16% of the hue's dark ink over #1F1F1F. Reference through semantic tokens."
     },
     "red-50": {
       "$value": "#fdf3f4",
@@ -166,6 +174,10 @@
       "$value": "#3b0509",
       "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
     },
+    "red-dark-tint": {
+      "$value": "#3e2e2f",
+      "$description": "原色（プリミティブ）。ダークの淡い面用。暗い面（#1F1F1F）に、その色のダークの文字色を 16% だけ混ぜた色。UI には直接使わず、意味づけトークンから参照する。 / Primitive for dark tints: 16% of the hue's dark ink over #1F1F1F. Reference through semantic tokens."
+    },
     "green-50": {
       "$value": "#f1faf1",
       "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
@@ -182,6 +194,10 @@
       "$value": "#052505",
       "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
     },
+    "green-dark-tint": {
+      "$value": "#273627",
+      "$description": "原色（プリミティブ）。ダークの淡い面用。暗い面（#1F1F1F）に、その色のダークの文字色を 16% だけ混ぜた色。UI には直接使わず、意味づけトークンから参照する。 / Primitive for dark tints: 16% of the hue's dark ink over #1F1F1F. Reference through semantic tokens."
+    },
     "orange-50": {
       "$value": "#fff9f5",
       "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
@@ -197,6 +213,10 @@
     "orange-950": {
       "$value": "#411200",
       "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "orange-dark-tint": {
+      "$value": "#42342b",
+      "$description": "原色（プリミティブ）。ダークの淡い面用。暗い面（#1F1F1F）に、その色のダークの文字色を 16% だけ混ぜた色。UI には直接使わず、意味づけトークンから参照する。 / Primitive for dark tints: 16% of the hue's dark ink over #1F1F1F. Reference through semantic tokens."
     },
     "surface": {
       "$value": "{color.gray-100}",

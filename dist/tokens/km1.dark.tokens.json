@@ -130,6 +130,10 @@
       "$value": "#0d1238",
       "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
     },
+    "brand-dark-tint": {
+      "$value": "#333543",
+      "$description": "原色（プリミティブ）。ダークの淡い面用。暗い面（#1F1F1F）に、その色のダークの文字色を 16% だけ混ぜた色。UI には直接使わず、意味づけトークンから参照する。 / Primitive for dark tints: 16% of the hue's dark ink over #1F1F1F. Reference through semantic tokens."
+    },
     "blue-50": {
       "$value": "#ebf3fc",
       "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
@@ -145,6 +149,10 @@
     "blue-950": {
       "$value": "#082338",
       "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "blue-dark-tint": {
+      "$value": "#253341",
+      "$description": "原色（プリミティブ）。ダークの淡い面用。暗い面（#1F1F1F）に、その色のダークの文字色を 16% だけ混ぜた色。UI には直接使わず、意味づけトークンから参照する。 / Primitive for dark tints: 16% of the hue's dark ink over #1F1F1F. Reference through semantic tokens."
     },
     "red-50": {
       "$value": "#fdf3f4",
@@ -166,6 +174,10 @@
       "$value": "#3b0509",
       "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
     },
+    "red-dark-tint": {
+      "$value": "#3e2e2f",
+      "$description": "原色（プリミティブ）。ダークの淡い面用。暗い面（#1F1F1F）に、その色のダークの文字色を 16% だけ混ぜた色。UI には直接使わず、意味づけトークンから参照する。 / Primitive for dark tints: 16% of the hue's dark ink over #1F1F1F. Reference through semantic tokens."
+    },
     "green-50": {
       "$value": "#f1faf1",
       "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
@@ -182,6 +194,10 @@
       "$value": "#052505",
       "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
     },
+    "green-dark-tint": {
+      "$value": "#273627",
+      "$description": "原色（プリミティブ）。ダークの淡い面用。暗い面（#1F1F1F）に、その色のダークの文字色を 16% だけ混ぜた色。UI には直接使わず、意味づけトークンから参照する。 / Primitive for dark tints: 16% of the hue's dark ink over #1F1F1F. Reference through semantic tokens."
+    },
     "orange-50": {
       "$value": "#fff9f5",
       "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
@@ -197,6 +213,10 @@
     "orange-950": {
       "$value": "#411200",
       "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "orange-dark-tint": {
+      "$value": "#42342b",
+      "$description": "原色（プリミティブ）。ダークの淡い面用。暗い面（#1F1F1F）に、その色のダークの文字色を 16% だけ混ぜた色。UI には直接使わず、意味づけトークンから参照する。 / Primitive for dark tints: 16% of the hue's dark ink over #1F1F1F. Reference through semantic tokens."
     },
     "surface": {
       "$value": "{color.gray-16}",
@@ -283,7 +303,7 @@
       "$description": "リンク・強調テキスト・アクセント線。surface 上で 4.5:1 以上。 / Links, emphasized text, accent lines; 4.5:1 or more on surface."
     },
     "brand-tint": {
-      "$value": "{color.brand-950}",
+      "$value": "{color.brand-dark-tint}",
       "$description": "選択行・情報バナーの淡い背景。文字は ink。 / Light background for selected rows and info banners; text in ink."
     },
     "brand-stroke": {
@@ -299,7 +319,7 @@
       "$description": "情報メッセージ・補助リンクの文言とアイコン（Fluent 2 の青）。surface 上で 4.5:1 以上。文言併記。 / Info message text and icons, secondary links (Fluent 2 blue); 4.5:1 or more on surface; add a label."
     },
     "info-tint": {
-      "$value": "{color.blue-950}",
+      "$value": "{color.blue-dark-tint}",
       "$description": "情報バナーの背景。文字は ink。 / Info banner background; text in ink."
     },
     "danger": {
@@ -311,7 +331,7 @@
       "$description": "エラー文言・エラー枠。surface 上で 4.5:1 以上。 / Error text and borders; 4.5:1 or more on surface."
     },
     "danger-tint": {
-      "$value": "{color.red-950}",
+      "$value": "{color.red-dark-tint}",
       "$description": "エラーバナーの背景。文字は ink。 / Error banner background; text in ink."
     },
     "success-ink": {
@@ -319,7 +339,7 @@
       "$description": "成功文言・アイコン。surface 上で 4.5:1 以上。文言併記。 / Success text and icons; 4.5:1 or more on surface; add a label."
     },
     "success-tint": {
-      "$value": "{color.green-950}",
+      "$value": "{color.green-dark-tint}",
       "$description": "成功バナーの背景。文字は ink。 / Success banner background; text in ink."
     },
     "warning-ink": {
@@ -327,7 +347,7 @@
       "$description": "警告文言・アイコン。surface 上で 4.5:1 以上。文言併記。 / Warning text and icons; 4.5:1 or more on surface; add a label."
     },
     "warning-tint": {
-      "$value": "{color.orange-950}",
+      "$value": "{color.orange-dark-tint}",
       "$description": "警告バナーの背景。文字は ink。 / Warning banner background; text in ink."
     },
     "cat-blue": {

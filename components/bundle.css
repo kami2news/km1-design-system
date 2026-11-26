@@ -431,7 +431,9 @@ button.f2-tg__ev:focus-visible{outline:2px solid var(--focus-ring);outline-offse
 
 .f2-table-outer{display:flex;flex-direction:column;gap:var(--space-xs)}
 .f2-bulk{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-sm);min-height:0;font:600 14px/20px var(--font-sans);color:var(--ink)}
-.f2-bulk--on{min-height:var(--control-height);padding:var(--space-xs) var(--space-sm);border:1px solid var(--brand-stroke);border-radius:var(--radius-md);background:var(--brand-tint)}
+.f2-bulk--on{min-height:var(--control-height);padding:var(--space-xs) var(--space-sm);border:1px solid transparent;border-radius:var(--radius-md);background:var(--brand-tint)}
+/* 操作バーは淡い紺の面と件数の文字で示し、紺の枠は重ねない（D25・D34）。強制カラーでは枠で示す / Tint and count only; no navy border (forced colors: border) */
+@media (forced-colors:active){.f2-bulk--on{border-color:CanvasText}}
 .f2-bulk__actions{display:flex;flex-wrap:wrap;gap:var(--space-xs)}
 .f2-btn--danger{color:var(--danger-ink)}
 .f2-table__checkcell{width:44px;padding-top:0!important;padding-bottom:0!important}
