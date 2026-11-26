@@ -21,9 +21,7 @@ jobs:
           mkdir -p verify/flutter/fonts && cp icons/KM1Icons.ttf verify/flutter/fonts/
       - run: flutter pub get
         working-directory: verify/flutter
-      # 通常の CI と同じく全部のテストを流して作る。画像のテストだけを流すと、前のテストの有無でダークの画像が少し変わり、CI で落ちた（2026-11-26）
-      # Run every test, as the normal CI does; running golden tests alone produced dark images that differed slightly from CI
-      - run: flutter test --update-goldens
+      - run: flutter test --tags golden --update-goldens
         working-directory: verify/flutter
       - uses: actions/upload-artifact@v4
         with: { name: flutter-goldens-candidate, path: verify/flutter/test/goldens/ }
