@@ -25,5 +25,5 @@
     "readme": "README.md",
     "sections": []
   },
-  "lastChange": "正本を GitHub に移し、メインカラー #10218B を「EPSON の青を参考にした色」と書くようにした / Moved to GitHub; main color described as inspired by Epson blue"
+  "lastChange": "文書を組み直し、決まりの理由をそれ自体で立つように書いた / Docs restructured; every rule stands on its own reason"
 }

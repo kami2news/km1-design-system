@@ -112,3 +112,99 @@ CI の Flutter のテストは、`verify/flutter/test/goldens/` にある承認�
 承認済みの画像がまだないあいだは、CI は画像比較を飛ばして警告を出す（ほかのテストは流す）。
 *Until approved images exist, CI skips the comparison with a warning and runs the rest.*
 
+## 7. 検査を自分で流す / Running the checks
+
+clone したままの状態から、次の手順で全部の検査を流せる。GitHub の CI（`.github/workflows/check.yml`）も push のたびに同じものを流し、Flutter の解析とテストも別に流す。
+*Every check runs from a clean clone as below; CI runs the same on each push, plus Flutter analyze and tests.*
+
+1. 必要なもの: Python 3.10 以上、Node 22、Google Chrome、poppler-utils（`pdffonts`）、librsvg（`rsvg-convert`）、日本語のゴシック体（Noto Sans CJK など）。
+2. `pip install -r requirements.txt`、`(cd gen && npm ci)`、`(cd office && npm ci)`
+3. `bash gen/check_all.sh` → トークンの生成物の差分・トークンの別名・色の組み合わせのコントラスト・部品の数・保留の期限・理由の確認（`reasoncheck.py`）・アイコン・見本の描画・Web の自動検査（axe・キーボード・320px・再発防止・シナリオ）・精度の監査（PC とスマホの幅で全要素の値、`precision_audit.js`）・寸法・Office・PDF・書体の 14 項目。1 つでも落ちれば終了コードが 0 以外になる。
+*Requires Python 3.10+, Node 22, Chrome, poppler-utils, librsvg and a CJK sans font; install the pinned dependencies, then run `bash gen/check_all.sh` (14 checks; non-zero exit on any failure).*
+
+実機・読み上げソフト（NVDA・ナレーター・VoiceOver・TalkBack）・各 OS のネイティブのビルドは、ここでは流せない。手順と記録はこの章の 1〜6、Windows 用の検証セットは `verify/`。
+*Real devices, screen readers and native builds can't run here; see sections 1–6 and the Windows kit in `verify/`.*
+
+## 8. これまでの点検 / Earlier checks
+
+自動の検査（7 章）に入る前に、手で流して記録した点検。今は同じ内容を `check_all.sh` が毎回確かめている。
+*Checks run by hand before they were folded into `check_all.sh` (section 7), which now repeats them on every run.*
+
+### 8.1 利用シナリオと見直し（2026-11-13）/ Scenarios and review fixes
+
+| 点検 / Check | 方法 / Method | 結果 / Result |
+|---|---|---|
+| 利用シナリオ 3 つ / scenarios | 予定を追加する・一覧から選んで編集する・通信が切れて戻る、をスクリプトで最初から最後まで操作（360・1366px のライト、1024px のダーク） | 18 項目すべて合格 |
+| ボタンの並び / action order | Dialog・Drawer・BottomSheet を 360px と 1366px で開き、DOM の順と見た目の順を比較 | どれも一致（以前は 360px で不一致） |
+| 表の行の種類 / table rows | compact で、表示専用の行・リンクのある行・選べる行の高さを PC とタッチで測定 | 表示専用だけ 25px に詰まり、ほかは 32・44px を保つ |
+| 大量のデータ / large data | List・Table に 500〜5,000 行（「検証」の 4 章） | 2,000 行を超えると選択の反応が 200ms を超える。1 画面 500 行までの規則を追加 |
+| 部品の数 / counts | `gen/sync_counts.py --check`（`inventory.json` から数える） | 文書の記述がすべて一致 |
+| 手元で行う検証 / local checks | 手順と記録欄を「検証」にまとめた | 実機・読み上げ・各 OS のビルドは未実施 |
+
+### 8.2 書体の点検（KM1-TYP-001、2026-11-14）/ Typeface check
+
+| 点検 / Check | 方法 / Method | 結果 / Result |
+|---|---|---|
+| ソースの書体の指定 / source declarations | `gen/fontcheck.py`（CSS・JS・Dart・Kotlin・Swift・XAML・HTML） | 使わない書体 0。等幅の並びにあった Courier New（タイプライター風のセリフ体）を外した |
+| Office のテーマ / Office themes | `gen/fontcheck.py`・`office/officecheck.py` | ひな形と見本の 4 つで、言語ごとの補助の書体に残っていた Office 既定の明朝・セリフ体・手書き風（新細明體・Times New Roman・Angsana New・MV Boli など）をゴシック系に置き換え、FAIL 0 |
+| PDF の埋め込み書体 / PDF fonts | `gen/fontcheck.py`（`pdffonts`） | 2 冊ともゴシック系と等幅だけ |
+| 描かれた書体 / rendered fonts | `gen/fontcheck_render.js`（Chrome、見本 175 ページ（ライト・ダーク）、文字ごとに実際の書体） | セリフ体・明朝・手書き風 0。ただしこの環境に日本語の明朝体がないため、和文が明朝に落ちることはここでは見つけられない |
+| 道具 / tools | 検査と生成の道具を `gen/` に置いた（`KM1_PROJECT` でフォルダを指定できる） | — |
+
+### 8.3 トークンと密度（KM1-TOK-001）の点検（2026-11-13）/ Token and density check
+
+headless Chrome だけで実施。実機・読み上げソフト・各 OS のビルドは未確認。
+*Headless Chrome only; devices, screen readers and native builds not yet checked.*
+
+| 点検 / Check | 方法 / Method | 結果 / Result |
+|---|---|---|
+| トークンの解決 / resolution | `tokens_check.py` で値と参照先を照合。見本で Card の余白・表の行の余白・並べ替えの間を実測 | 14 個すべて一致。密度ごとに 12/2/2・16/4/4・24/8/8px |
+| ライト・ダーク / themes | 見本「Density」を両テーマで axe と目視 | 違反 0 |
+| 操作領域 / targets | 3 つの密度で、ボタン・チェック・つまみの大きさと選べる行の高さを PC とタッチで測定 | すべて PC 32px・タッチ 44px 以上 |
+| キーボード / keyboard | Tab で届く 42 個のフォーカスの見え方と大きさ（PC・タッチ） | 問題なし |
+| 文字の拡大 / text resize | 200% 拡大（683px 相当）、文字の間隔の上書き（WCAG 1.4.12）、両方、320px | はみ出し・切れなし（視覚的に隠した読み上げ用の文字を除く） |
+| 意図しない変化 / regression | 既定（regular）で全 65 の見本を、変更前後で画素比較（PC とタッチ） | 同じ。差が出た 5 つは動きのある部品で、アニメーションを止めると同じ |
+| 回帰の自動検査 / axe | 60 の見本 × ライト・ダーク（120 ページ） | 違反 0 |
+| 生成物 / generated | Flutter（構文と API 名）、Kotlin・Swift（構文）、XAML（xmllint） | 問題なし（ビルドは未実施） |
+
+### 8.4 フォーム（KM1-PAT-001）の点検（2026-11-13）/ Forms check
+
+headless Chrome だけで実施。実機・スクリーンリーダーは未確認。
+*Headless Chrome only; real devices and screen readers not yet checked.*
+
+| 点検 / Check | 方法 / Method | 結果 / Result |
+|---|---|---|
+| 動き方 26 項目 / behavior | 見本フォームをスクリプトで操作（離れたら確かめる、直すと消える、送信で一覧とフォーカス、リンクで欄へ、条件表示でフォーカスを奪わない、読み上げ文、隠れた欄は検証しない・送らない、値が残る、相関チェック、送信中の表示、横スクロールなし、DOM 順＝見た目の順）/ scripted | 320・360・640・1023・1024・1366px（ライト）、360・1366px（ダーク）ですべて合格 / all pass |
+| 2 列の条件 / two-column rule | 画面 500・1023・1024・1366px、入れ物 420px | 2 列になるのは 1024px 以上かつ入れ物 560px 以上のときだけ / only ≥1024px and container ≥560px |
+| 自動検査 / axe-core 4.10 | 新しい 4 部品、送信後・条件表示後の状態も含む。1366px と 360px / incl. after-submit and revealed states | 違反 0 / 0 violations |
+| 既存部品の回帰 / regression | 全 45 プレビュー × ライト・ダーク（90 ページ）を axe で再検査 / all 45 previews re-run | 違反 0、はみ出し 0 / 0 violations, no overflow |
+| フォーカス表示と押せる大きさ / focus and target | Tab で届く全要素、PC とタッチ / every tabbable, PC and touch | 問題なし / no issues |
+| 強制カラー / forced colors | CSS に `CanvasText` の規則を追加 | 表示の確認は未実施 / rendering not verified |
+
+### 8.5 アクセシビリティ点検（2026-11-12）/ Accessibility check
+
+当時の全 40 部品のプレビューを、ライトとダークの両方で点検した（2026-11-12 時点の記録、追加した部品も同じ方法で点検。追加分では、パンくずのリンクの幅、ファイル選択のフォーカス表示、予定表の締め切りの重なりと高さ、終日の行の読み上げ名、ポップオーバーの属性、タグ欄の押せる範囲を直した）。
+*All 40 component previews were checked in light and dark with the same method; additions needed fixes (breadcrumb width, file picker focus, timeline deadline overlap and height, all-day row naming, popover attribute, tag field hit area).*
+
+| 点検 / Check | 方法 / Method | 結果 / Result |
+|---|---|---|
+| WCAG 2.2 A・AA の自動検査 / automated | axe-core 4.10（WCAG 2.0〜2.2 の A・AA と推奨ルール）。メニュー・ダイアログ・ツールチップ・カレンダーは開いた状態でも実施 / incl. open states | 違反 0。判定保留 3 種は、背景色をツールが読めないもの（色は計算で合格済み）/ 0 violations |
+| リフロー 1.4.10 / reflow | 320px 幅で横にはみ出す要素を数えた / overflow at 320px | 0（表と時間割は決まりどおり枠内で横スクロール）|
+| 文字の間隔 1.4.12 / text spacing | 行間 1.5・字間 0.12em・語間 0.16em を強制 / forced spacing | 切れていた時間割のコマとナビの文字を、折り返しに直した / truncation fixed |
+| フォーカス / focus | 操作できる全要素に順にフォーカスし、届くか・2px 以上の枠が出るかを確認 / every focusable element | 全部品で届き、枠が出る / all pass |
+| 操作領域 2.5.8・2.5.5 / target size | PC は 24px 以上、タッチ表示は 44px 以上か / 24px PC, 44px touch | タッチ表示の small ボタンの幅が 37〜38px だったので、最小幅を高さと同じにした / fixed |
+| 強制カラー / forced colors | Windows のハイコントラスト相当で表示 / high-contrast emulation | カレンダーの選択日・タブ・ページ送り・ナビの選択中が見分けにくかったので、強調色で示すように直した / fixed |
+
+未確認 / Not checked: スクリーンリーダー（NVDA・VoiceOver・TalkBack）での実際の読み上げ、スマホ実機、ブラウザの 200% 拡大での実操作、Flutter 版。自動検査で見つかるのは問題の一部だけなので、読み上げの確認は人が行う必要がある。
+*Screen readers (NVDA, VoiceOver, TalkBack), real phones, real 200% browser zoom and the Flutter side. Automated tools catch only part of the problems; screen-reader behavior still needs a human check.*
+
+- 部品が使う色の組み合わせ（最初の 12 部品の 30 組と、追加した部品の 18 組、時間割の分類色の淡い塗りの上の文字 18 色分）を、ライトとダークの両方で計算し、文字 4.5:1 と枠・アイコン 3:1 を満たす（不合格 0）。分類色 `cat-*` はこの確認の対象外で、3:1 に満たない色がある（「画面の組み立て」に一覧）。この確認でダークの選択表示が 2.23:1 だったため、上の「選択時の縁」を決めた。
+  *The color pairs used by components (30 for the first 12 components, 18 for the added ones, plus text on the timetable tint for all 18 category colors) were computed in light and dark: 4.5:1 for text, 3:1 for borders and icons (0 failures; the `cat-*` category colors are outside this check and some are below 3:1, as listed in Patterns). The check found selection marks at 2.23:1 in dark, which led to the "Selected edges" rule above.*
+- Tabs の矢印キー・Home・End、Dialog の Esc、無効ボタンの Tab 到達、Alert の閉じるボタンの大きさ、Menu のキー操作（開く・移動・端で折り返し・Esc でボタンに戻る・外側クリックで閉じる）、Table の並べ替えと `aria-sort`、Toast の閉じる、Chip の `aria-pressed`、Nav の `aria-current`、Calendar のキー操作（矢印・Home・PageUp/PageDown・`min` で止まる）、Tooltip（フォーカスで出る・Esc で消える・マウスで出る）、Pagination の省略と端の動きは、ブラウザで動作を確認した。
+  *Exercised in a browser: Tabs arrow/Home/End keys, Dialog Esc, Tab reach of disabled buttons, the Alert close button, Menu keys (open, move, wrap, Esc returns focus, outside click closes), Table sorting with `aria-sort`, Toast dismissal, Chip `aria-pressed`, Nav `aria-current`, Calendar keys (arrows, Home, PageUp/PageDown, stopping at `min`), Tooltip (focus shows, Esc hides, hover shows), Pagination truncation and end behavior.*
+- ネイティブ用の `KM1.xaml`（WinUI 3）・`Km1Theme.kt`（Jetpack Compose）・`KM1Theme.swift`（SwiftUI）は、文法チェックを通した。WinUI と Compose は、使ったキー・関数・引数が公式のソース（2026-11-12 時点）に実在することも照合した。SwiftUI はソースが非公開のため照合していない。どれも**ビルドは未実施**。
+  *Native files passed syntax checks; WinUI and Compose names were matched against official sources (SwiftUI is closed source). None has been built.*
+- Flutter の `km1_theme.dart` と `km1_widgets.dart` は、(1) Dart の文法チェック（構文エラー 0）と、(2) 使っているクラス・名前付き引数・メンバー・アイコン名が Flutter の安定版（2026-11-09 時点）のソースと `fluentui_system_icons` 1.1.294 に実在するかの照合（問題 0）を通した。この照合は、わざと入れた間違い 6 件のうち 5 件を見つけ、列挙型の値の間違い 1 件は見逃した。**型の確認とコンパイル（`flutter analyze`）は、この環境では Flutter を入れられないため未実施。**
+  *Flutter files passed (1) a Dart syntax check and (2) a check that every class, named argument, member and icon name exists in Flutter stable (2026-11-09) and fluentui_system_icons 1.1.294. The check caught 5 of 6 planted mistakes (missing a wrong enum value). **Type checking and compilation were not possible here.***
+- 未確認: スクリーンリーダーでの読み上げ、実機のスマホ、Flutter での実際の見た目。
+  *Not checked: screen-reader output, real mobile devices, and how it actually looks in Flutter.*

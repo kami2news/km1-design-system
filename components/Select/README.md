@@ -6,8 +6,8 @@
 
 - 高さはスマホ 44px・PC 32px。ラベルは必ず付ける。エラーは文言で示し（`error`）、色だけにしない。
   *44px on touch, 32px on PC. Always label. Errors are shown in words (`error`), never color alone.*
-- 選択肢が 5 件以下なら `RadioGroup` を使う（すべてが見えるほうが選びやすい）。多すぎると特にスマホで使いにくいので、先に質問を絞って選択肢を減らせないか考える（デジタル庁デザインシステム）。
-  *With five or fewer options use `RadioGroup` (all visible, easier to choose). Too many options hurt on mobile, so first see whether an earlier question can narrow them (Digital Agency DS).*
+- 選択肢が 5 件以下なら `RadioGroup` を使う（すべてが見えるほうが選びやすい）。多すぎると特にスマホで使いにくいので、先に質問を絞って選択肢を減らせないか考える。
+  *With five or fewer options use `RadioGroup` (all visible, easier to choose). Too many options hurt on mobile, so first see whether an earlier question can narrow them.*
 - タッチ操作の端末では文字を 16px にする（iPhone の Safari の自動拡大を避けるため）。
   *On touch devices text is 16px to avoid iPhone Safari auto-zoom.*
 - 補足（`hint`）はラベルと選択欄の間、エラー（`error`）は選択欄の下に左寄せで置く。展開したリストは OS 標準のまま使う。

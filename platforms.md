@@ -1,13 +1,13 @@
 # プラットフォーム / Platforms
 
-KM1 は、1 つの見た目を全端末で同じに保つのではなく、**色・文字・言葉・部品の役割は共通、操作の作法は各プラットフォームに合わせる**。Fluent 2 が「各プラットフォームで馴染みのある操作を尊重する」としているのと同じ考え方。
-*KM1 keeps color, type, wording and component roles shared, and follows each platform's interaction conventions, as Fluent 2 does.*
+KM1 は、1 つの見た目を全端末で同じに保つのではなく、**色・文字・言葉・部品の役割は共通、操作の作法は各プラットフォームに合わせる**。使う人は、自分の端末でいつもしている操作をそのまま期待するため。
+*KM1 keeps color, type, wording and component roles shared, and follows each platform's interaction conventions, because people expect the moves they already know.*
 
 | 対象 / Target | 実装 / Implementation | 状態 / Status |
 |---|---|---|
 | Web（HTML） | `components/bundle.js`（React）、`components/bundle.css`、`tokens.css`（React なしの単体 HTML でも可） | 見本のある部品 50（公開 60）。自動検査・キーボード・320px・強制カラーを headless Chrome で確認済み。**安定（パイロット）**。実際のブラウザ 4 種と読み上げソフトでの確認は未実施（verification W2・N1） |
 | Flutter（Android・iOS・iPadOS・Windows・macOS・Web） | `km1_theme.dart`（テーマ）と `km1_widgets.dart`（KM1 専用の 30 部品）。ほかは Flutter 標準の部品にテーマを当てる | **パイロット**。CI で `flutter analyze` と `flutter test`（ギャラリーの組み立て）を push のたびに実施（2026-11-18 から）。実機でのビルドと表示は未実施（verification F3） |
-| Windows ネイティブ（WinUI 3） | `KM1.xaml`（ResourceDictionary）。WinUI 3 は Fluent 2 そのものなので、アクセント色・角丸・書体と KM1 の色のブラシを当てる | **実験的（experimental）**。生成済み。XML として正しいこと、上書きするキーが WinUI のソース（2026-11-12 時点）に実在すること、Windows の背景での読みやすさを確認。**ビルドは未実施** |
+| Windows ネイティブ（WinUI 3） | `KM1.xaml`（ResourceDictionary）。WinUI 3 の部品はもともと KM1 の土台と同じ形なので、アクセント色・角丸・書体と KM1 の色のブラシを当てるだけでよい | **実験的（experimental）**。生成済み。XML として正しいこと、上書きするキーが WinUI のソース（2026-11-12 時点）に実在すること、Windows の背景での読みやすさを確認。**ビルドは未実施** |
 | Android ネイティブ（Jetpack Compose） | `Km1Theme.kt`（`Km1Theme`、`Km1.colors`、`Km1PrimaryButton`） | **実験的（experimental）**。生成済み。文法と、使った関数・引数が androidx のソース（2026-11-12 時点）に実在することを確認。**ビルドは未実施** |
 | iOS・iPadOS・macOS ネイティブ（SwiftUI） | `KM1Theme.swift`（`Km1Color`、`Km1Text`、`Km1PrimaryButtonStyle`） | **実験的（experimental）**。生成済み。文法のみ確認（SwiftUI はソースが非公開で照合できない）。**ビルドは未実施** |
 
@@ -16,6 +16,60 @@ KM1 は、1 つの見た目を全端末で同じに保つのではなく、**色
 
 部品ごとの Web・Flutter・ネイティブの対応と不足は `coverage.md`（KM1-COV-001）。ネイティブはテーマだけで部品はない。
 *Per-component coverage across Web, Flutter and native, with gaps: `coverage.md`. Native ships themes only, no components.*
+
+## Web で使う / Web
+
+React で使うときは `tokens.css`・`components/bundle.css`・`components/bundle.js` を読み込み、`window.Fluent2` の部品を使う（名前の `Fluent2` と、クラスの頭の `f2-` は、土台にした時期の名残で、互換のためそのままにしている）。各部品の使い方は `components/<Name>/README.md`。
+*With React, load `tokens.css`, `bundle.css` and `bundle.js` and use the parts in `window.Fluent2` (the `Fluent2` name and `f2-` class prefix remain for compatibility). Each part's guide is `components/<Name>/README.md`.*
+
+未収録: 予定表（`TimeGrid`）の中で予定をドラッグして動かす操作、自由入力でタグを作る操作。どちらも、編集画面と選択肢の追加で代わりができる。Flutter 版は、`km1_theme.dart`（テーマ）と `km1_widgets.dart`（KM1 専用の 30 部品）。ほかは Flutter 標準の部品にテーマを当てる（対応表は「プラットフォーム」）。
+*Not included: dragging events inside `TimeGrid` and creating free-text tags; the editor and option lists cover both. Flutter uses `km1_theme.dart` plus `km1_widgets.dart` (30 KM1 widgets); see Platforms for the mapping.*
+
+### React を使わない単体の HTML / Single HTML file without React
+
+1. `tokens.css`（`tokens.json` から自動生成した CSS 変数）と `components/bundle.css`（部品のクラス）を、`<style>` に貼る。`bundle.css` の最初の `@import` 行は、オフラインで使うなら外す（書体は端末の標準書体に落ちる）。
+2. `<html lang="ja">` を付ける。ダークは `<html data-theme="dark">` で固定でき、付けなければ OS の設定に従う。
+3. 部品は `bundle.css` のクラスをそのまま使う（例: `<button class="f2-btn f2-btn--primary">保存</button>`）。クラス名と構造は、各部品の `README.md` と `bundle.js` を見る。React は要らない。
+4. 値を変えるときは `tokens.json` を直して `tokens.css` を作り直す。`tokens.css` は手で編集しない。
+5. **書体の約束（KM1-TYP-002）:** `bundle.css` の先頭にある土台の 2 行（`html{font-family:var(--font-sans)}` と、`button`・`input`・`select`・`textarea` の `font:inherit`）を消さない。`tokens.css` だけを使うときは、同じ 2 行を自分で書く。これがないと、素の文字やフォーム部品がブラウザ既定の書体（明朝など）になる。
+*1. Paste `tokens.css` (CSS variables generated from `tokens.json`) and `components/bundle.css` (component classes) into `<style>`. Drop the first `@import` line of `bundle.css` for offline use (fonts fall back to system fonts). 2. Set `<html lang="ja">`. Dark can be pinned with `data-theme="dark"`; otherwise it follows the OS. 3. Use the `bundle.css` classes directly, e.g. `<button class="f2-btn f2-btn--primary">`; see each component README and `bundle.js` for structure. No React needed. 4. To change values, edit `tokens.json` and regenerate `tokens.css`; never hand-edit it. 5. Keep the two base rules at the top of `bundle.css` (`html{font-family:var(--font-sans)}` and `font:inherit` on form controls); add them yourself if you use `tokens.css` alone, or plain text and form controls fall back to the browser's default (often serif) font.*
+
+**スマホ / Mobile:** タッチ操作の端末（`pointer: coarse`）では、入力欄と選択欄の文字を 16px にする。iPhone の Safari は、16px 未満の欄にフォーカスすると画面を拡大するため。
+*On touch devices (`pointer: coarse`) input and select text is 16px, because iPhone Safari zooms the page when a field under 16px is focused.*
+
+## Flutter で使う / Flutter
+
+`tokens.json` から生成した `km1_theme.dart` を使う（`ThemeData` と `ThemeExtension`）。ほかのデザインを再現する既存パッケージ（`fluent_ui` など）は使わない。Material は部品の土台として使うだけで、色・形・大きさはテーマで上書きする。
+*Use `km1_theme.dart`, generated from `tokens.json` (`ThemeData` + `ThemeExtension`). Packages that recreate other design systems (such as `fluent_ui`) are not used. Material is only the widget base; colour, shape and size are overridden by the theme.*
+
+`km1_theme.dart`（テーマ）と `km1_widgets.dart`（表・カレンダー・時間割・予定表など KM1 専用の 30 部品）をアプリに入れる。アイコンは `icons/km1_icons_b.dart`（通常表示の B 案）・`icons/km1_icons.dart`（字形。B 案の 1 色の形と塗りの形）・`KM1Icons.ttf` を入れ、pubspec の `fonts` に `family: KM1Icons` で登録する（`fluentui_system_icons` は不要になった）。アイコンのファイルは `km1_theme.dart` だけに頼り、`km1_widgets.dart` がなくても組み込める。
+*Icons: add `km1_icons_b.dart` (regular B style), `km1_icons.dart` (single-color B glyphs, incl. Filled) and `KM1Icons.ttf`; the icon files depend only on `km1_theme.dart`.*
+`MaterialApp(theme: Km1Theme.light(), darkTheme: Km1Theme.dark(), themeMode: ThemeMode.system)`。色は `Theme.of(context).extension<Km1Colors>()!.ink` のように意味づけトークンで取る。Flutter 3.27 以降が必要（`CardThemeData` などを使うため）。
+*Colors come from semantic tokens, e.g. `Theme.of(context).extension<Km1Colors>()!.ink`. Requires Flutter 3.27+ (uses `CardThemeData` etc.).*
+
+| KM1 トークン / Token | Flutter |
+|---|---|
+| 色（意味づけ 30 個）/ Semantic colors | `Km1Colors`（`ThemeExtension`）。`ink`→`inkSecondary` のように camelCase |
+| `brand` / `on-brand` / `danger` | `ColorScheme` の `primary` / `onPrimary` / `error` にも入れてある |
+| `space-*` | `Km1Space.md` など（double） |
+| `radius-*` | `Km1Radius.md` など（double） |
+| `shadow-*` | `Km1Shadow.shadow4`（`List<BoxShadow>`） |
+| タイプスタイル / Text styles | `Km1Text.body1`、`Km1Text.body1Strong` など。`TextTheme` にも割り当て済み |
+| 部品の高さ / Control height | `Km1Theme.light()` が端末で決める（Android 48dp、iOS・iPadOS 44pt、Windows・macOS 32px）。`Km1Theme.light(touch: true)` で Windows のタブレット姿勢なども 44px 以上にできる。詳しくは「プラットフォーム」 |
+| 入力欄の文字 / Field text | スマホは 16px、PC は 14px（`bodyLarge` と `hintStyle` をテーマが切り替える） |
+| `focus-ring` | ボタンの `side`（2px）、入力欄の `focusedBorder` |
+| `breakpoint-*` | `Km1Breakpoint.lg` など。`Km1Breakpoint.useDialog(context)`、`useSidebar(context)` |
+| 動き / Motion | `Km1Motion.faster` / `fast` / `normal`、`Km1Motion.easyEase` / `decelerate` / `accelerate` |
+| `cat-*` | `Km1Category.teal` など、`Km1Category.all`、淡い塗りは `Km1Category.tint(color, brightness)` |
+| `icon-*`・`stroke-*`・`dialog-width` | `Km1Size.iconMd` など |
+| `brand-stroke` | 選択時の縁（Checkbox / Radio / Switch / Tabs の下線） |
+
+### 注意 / Notes
+- 無効ボタンは Flutter では `onPressed: null` が標準だが、KM1 は「無効にせず理由を示す」方針（押せないボタンは理由を伝えられない）なので、なるべく有効のまま押したときに理由を出す。
+- 入力欄は、Web 版の「下辺だけ強調」を `InputDecorationTheme` だけでは再現できないので、テーマでは四辺同じ枠にしてある。同じ見た目にしたいときは、スケジュール確認アプリのように専用の入力部品を作る。
+- `Icons.*` は使わない。KM1 のアイコンは `Km1BIcon(Km1BIconName.…)` で出す（`Km1Icons.*` のフォントは Filled 用）。
+- `NoSplash` にしているので、押した状態は色の変化（`surface-pressed`）だけで示す。
+*Prefer leaving buttons enabled and explaining on press, per KM1's no-disable rule. Use `Km1BIcon(Km1BIconName.…)` (the `Km1Icons.*` font is for Filled), never `Icons.*`. Press feedback is a color change only (no ripple).*
 
 ## ネイティブで使う / Native setup
 
@@ -34,9 +88,9 @@ KM1 は、1 つの見た目を全端末で同じに保つのではなく、**色
 1. `setContent { Km1Theme { ... } }` で包む。色は `Km1.colors.ink`、文字は `Km1Text.body1`、余白は `Km1Space.md`。
 2. 動的な色（Material You の `dynamicColorScheme`）は使わない。KM1 の紺が端末の壁紙の色に置き換わってしまうため。
 3. 主ボタンは `Km1PrimaryButton`（ダークで縁取りが付く）。操作領域は Material 3 の既定の 48dp のまま。
-4. アイコンは `implementation 'com.microsoft.design:fluent-system-icons:1.1.345@aar'`（Maven Central）。Material Icons は使わない。
+4. アイコンは KM1 のアイコンの SVG（`icons/build/svg`）を Vector Asset として取り込む。Material Icons は使わない。
 5. 書体は端末の書体（日本語は Noto Sans CJK）。
-*Wrap in `Km1Theme`; no dynamic color; `Km1PrimaryButton` for primaries; keep 48dp; Fluent icons from Maven Central.*
+*Wrap in `Km1Theme`; no dynamic color; `Km1PrimaryButton` for primaries; keep 48dp; import KM1 icon SVGs as vector assets.*
 
 ### iOS・iPadOS・macOS（SwiftUI）— `KM1Theme.swift`
 1. ファイルをプロジェクトに入れる。色は `Km1Color.ink`、文字は `Km1Text.body1`、余白は `Km1Space.md`。ライト・ダークは自動で切り替わる。
@@ -59,17 +113,17 @@ KM1 は、1 つの見た目を全端末で同じに保つのではなく、**色
 各社の推奨に合わせて端末ごとに切り替える。値は Flutter では `Km1Theme.targetFor()`、Web では CSS の `--control-height` が自動で決める。
 *Switches per platform, following each vendor's guidance: `Km1Theme.targetFor()` in Flutter, `--control-height` on the web.*
 
-値はトークン `control-target-*`（`tokens.json` の `platformTarget`）から生成する。Flutter は `Km1PlatformTarget`、Compose は `Km1PlatformTarget.android`、SwiftUI は `Km1Space.hitTarget`、WinUI は `KM1ControlTarget`。用途別の余白は各 OS で `Km1SpaceRole`（WinUI は `KM1LayoutSectionGap` などの Double）。密度は余白だけを変え、この値を下回らない（「トークン」）。
+値はトークン `control-target-*`（`tokens.json` の `platformTarget`）から生成する。Flutter は `Km1PlatformTarget`、Compose は `Km1PlatformTarget.android`、SwiftUI は `Km1Space.hitTarget`、WinUI は `KM1ControlTarget`。用途別の余白は各 OS で `Km1SpaceRole`（WinUI は `KM1LayoutSectionGap` などの Double）。密度は余白だけを変え、この値を下回らない（「基礎」）。
 *Values come from `control-target-*` tokens; generated as `Km1PlatformTarget` (Flutter, Compose), `Km1Space.hitTarget` (SwiftUI), `KM1ControlTarget` (WinUI). Role spacing is `Km1SpaceRole`. Density never goes below these.*
 
 | 端末 / Platform | 標準の高さ / Default | small ボタン | 根拠 / Source |
 |---|---|---|---|
 | Android | 48dp | 48dp | Android の推奨は、操作できる要素ごとに 48 × 48dp 以上 |
 | iOS・iPadOS | 44pt | 44pt | Apple HIG の 44 × 44pt |
-| Windows・macOS（マウス中心） | 32px | 24px | Fluent Compact（32 × 32 epx）、WCAG 2.2 AA（24px） |
+| Windows・macOS（マウス中心） | 32px | 24px | マウスで押し外さない大きさ。WCAG 2.2 AA（24px）を満たす |
 | Windows（タブレット姿勢・タッチ中心） | 44px | 44px | Windows のタッチ向けの推奨 44 × 44 epx。Flutter では `Km1Theme.light(touch: true)` |
 | Web・タッチ（`pointer: coarse`） | 44px | 44px | WCAG 2.2 AAA（2.5.5） |
-| Web・マウス | 32px | 24px | Fluent Compact、WCAG 2.2 AA |
+| Web・マウス | 32px | 24px | 同上。WCAG 2.2 AA |
 
 - Web は Android の端末で見ても 44px（WCAG の値）。Android の 48dp は、Flutter で作った Android アプリにだけ使う。
   *The web stays at 44px even on Android phones; 48dp applies to Flutter apps on Android only.*

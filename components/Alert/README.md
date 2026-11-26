@@ -9,8 +9,8 @@
 
 - `danger` と `warning` は `role="alert"`、`info` と `success` は `role="status"` で読み上げられる。
   *`danger` and `warning` use `role="alert"`; `info` and `success` use `role="status"`.*
-- 閉じられるようにするときは `onClose` を渡す。×の閉じるボタン（スマホ 44px・PC 32px、読み上げは「閉じる」）が付く。「閉じる」を普通のアクションボタンで作らない。画面に固定して出す場合は必ず `onClose` を付け、閉じたことを覚えて再表示しないようにし、あとから見直せる手段も用意する（デジタル庁デザインシステム）。
-  *Pass `onClose` to make it dismissible: an × button (44px on touch, 32px on PC, announced as "閉じる"). Don't build "close" as an ordinary action button. A pinned alert must be dismissible, remember the dismissal, and offer a way to see it again (Digital Agency DS).*
+- 閉じられるようにするときは `onClose` を渡す。×の閉じるボタン（スマホ 44px・PC 32px、読み上げは「閉じる」）が付く。「閉じる」を普通のアクションボタンで作らない。画面に固定して出す場合は必ず `onClose` を付け、閉じたことを覚えて再表示しないようにし、あとから見直せる手段も用意する（閉じられないお知らせは作業の邪魔になり、閉じたら消えるだけだと読み逃しを取り戻せない）。
+  *Pass `onClose` to make it dismissible: an × button (44px on touch, 32px on PC, announced as "閉じる"). Don't build "close" as an ordinary action button. A pinned alert must be dismissible, remember the dismissal, and offer a way to see it again (an undismissable notice gets in the way; one that vanishes cannot be recovered).*
 - 背景は各 `-tint`、アイコンは各 `-ink`、文字（「情報：」などの種類の言葉も）は `ink`。縁は付けない（強制カラーモードでだけ縁が出る）。
   *Background is the `-tint` token, the icon uses the `-ink` token, all text including the kind word is `ink`. No border except in forced-colors mode.*
 - やらないこと: 文言なしのアイコンだけ、1 画面に複数の `danger` を並べること。

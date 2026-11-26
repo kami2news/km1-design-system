@@ -1,5 +1,16 @@
 # 変更履歴 / Changelog
 
+## 2026-11-26 — 文書の組み直し / Documentation restructure
+
+- **章立て:** 読む順を 4 層（何を作るか → 画面 → 部品 → 値）にそろえた。README は入口と地図だけにし、原則 → プロダクトデザイン → 画面の組み立て → 部品 → 言葉 → 基礎 → アイコン → プラットフォーム → グラフ・PDF・Office → 運用 → 記録、の順にした。PDF の本編とサイトも同じ順（部品の章は第 5 章、別冊の案内）（D39）。
+  *Reading order follows the four layers; README is now an entry page and map; PDF and site follow the same order.*
+- **移したもの:** README の「内容の原則」と「画面の組み立て」の言葉・日付の書き方を新しい章「言葉」（`content.md`）に。README の「視覚の基礎」と「画面の組み立て」の文字の強弱・和文の改行を「基礎」（`tokens.md`）に。アイコンの規則を「アイコン」に、Flutter と単体の HTML の使い方を「プラットフォーム」に、これまでの点検の記録を「検証」の 7・8 章に。
+  *Moved: writing rules to `content.md`; visual foundations and type rules to `tokens.md`; icon rules to `icons.md`; Flutter and plain-HTML usage to `platforms.md`; check history to `verification.md`.*
+- **ほかの組織の名前:** 決まりの理由として書いていた Science Tokyo・EPSON・デジタル庁の名前を外し、理由をそれ自体で書き直した（赤と緑の組を避ける → 色の見え方によっては同じ色に見えるため、など）。メインカラーは KM1 の色として書く（D13）。Fluent 2 は「原則」の土台と、アイコンのもとの絵（MIT）のライセンスとしてだけ書く。「表記とライセンス」の固定の文言、Office のひな形と PDF の奥付も、組織の名前を挙げない文にした。
+  *Removed Science Tokyo, Epson and the Digital Agency as reasons; every rule now carries its own. Fluent 2 remains only as the base layer and the icon license. Notices, Office templates and the PDF colophon no longer list organizations.*
+- **食い違いの直し:** Android と iOS のネイティブの手順が Fluent のアイコンを入れるように書いていたのを、ほかの端末と同じ KM1 のアイコンの SVG に直した。
+  *Native Android and iOS setup now import KM1 icon SVGs like every other platform.*
+
 ## 2026-11-26 — 精度の監査 / Precision audit
 
 - **測って直す:** 目で見る評価をやめ、全 136 枚の見本を PC（1280px）とスマホ（375px）で描き、約 12,000 個の要素の実際の値を KM1 の決まりと照らす `gen/precision_audit.js` を作った。見るのは 12 項目（文字の組・折り返した文の行の高さ・短い文字の押しつぶし・12px 未満・太さ・色・余白・角丸・縁・書体・1 行の長さ・左端のずれ）。最初の 77 件（測り方の誤りを除いたもの）をすべて直し、検査（`check_all.sh`）に入れた（D38）。

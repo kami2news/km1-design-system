@@ -72,8 +72,8 @@ Word と PowerPoint のファイルそのものの決まりは「Word と PowerP
    *Documents that get revised end with a changelog.*
 6. **分冊 / Volumes:** 1 冊が 150 ページを超えるとき、または性質の違う部分（読む決まりと、見て比べる見本など）が大きいときは分ける。分けた冊はどれも表紙に「全 N 冊・本編／別冊」と組のファイル名を書き、同じ版の日付にして、いつも一緒に作って一緒に配る。章の番号は冊をまたいで通し、本編には別冊に移した章の場所を残して中身の案内を書く。
    *Split when a volume exceeds 150 pages or a large part differs in nature (rules to read vs. previews to compare). Every volume states "Volume N of M" and the set's file names on its cover, shares the edition date, and is built and shared together. Chapter numbers run across volumes; the main volume keeps a pointer chapter.*
-7. **奥付 / Colophon:** 外部に共有する文書の最後に、`notices.md` §2 の文言（無関係の旨・デジタル庁の帰属と改変の断り・アイコンと書体のライセンス）を入れる。作成者の行は実名を入れず、既定の「KM1 作成者」を使う（§7 との調整は持ち主の判断）。ひな形には奥付の領域がある。
-   *Shared documents end with the `notices.md` §2 wording (non-affiliation, Digital Agency credit and adaptation note, icon and font licenses). The author line defaults to "KM1 作成者", no real name; reconciling with §7 is the owner's call. The template has a colophon section.*
+7. **奥付 / Colophon:** 外部に共有する文書の最後に、`notices.md` §2 の文言（KM1 の位置づけ・アイコンと書体のライセンス）を入れる。作成者の行は実名を入れず、既定の「KM1 作成者」を使う（§7 との調整は持ち主の判断）。ひな形には奥付の領域がある。
+   *Shared documents end with the `notices.md` §2 wording (KM1's status and the icon and font licenses). The author line defaults to "KM1 作成者", no real name; reconciling with §7 is the owner's call. The template has a colophon section.*
 
 - 表は見出し行を付け、ページをまたぐときは見出し行を繰り返す。表の中で行や列を結合しない（読み上げで対応が崩れる）。
   *Tables have a header row that repeats across pages; don't merge cells (it breaks header association when read aloud).*
@@ -150,4 +150,4 @@ Word と PowerPoint のファイルそのものの決まりは「Word と PowerP
 - 提出先が PDF/A を求めるときだけ PDF/A にする。KM1 の手順（Chrome）では PDF/A は作れないので、その場合は Word の「PDF/A 準拠」などを使い、提出先の検証に通す。
   *Use PDF/A only when a recipient requires it. KM1's Chrome route can't produce PDF/A; use Word's PDF/A option or similar and pass the recipient's validator.*
 
-出典 / Sources: [PDF Association: ISO 14289-2（PDF/UA-2）](https://pdfa.org/iso-14289-2-pdf-ua-2-the-gold-standard-for-accessibility-in-pdf-2-0-has-arrived/)・[Matterhorn Protocol 1.02](https://pdfa.org/download-area/accessibility/MatterhornProtocol_1-02.pdf)・[axes4: Matterhorn Protocol と PAC](https://support.axes4.com/hc/en-us/articles/7371943734930)・[W3C WCAG 2.2 Techniques H71](https://www.w3.org/WAI/WCAG22/Techniques/html/H71)・[デジタル庁 ウェブアクセシビリティ導入ガイドブック](https://www.digital.go.jp/resources/introduction-to-web-accessibility-guidebook)
+出典 / Sources: [PDF Association: ISO 14289-2（PDF/UA-2）](https://pdfa.org/iso-14289-2-pdf-ua-2-the-gold-standard-for-accessibility-in-pdf-2-0-has-arrived/)・[Matterhorn Protocol 1.02](https://pdfa.org/download-area/accessibility/MatterhornProtocol_1-02.pdf)・[axes4: Matterhorn Protocol と PAC](https://support.axes4.com/hc/en-us/articles/7371943734930)・[W3C WCAG 2.2 Techniques H71](https://www.w3.org/WAI/WCAG22/Techniques/html/H71)

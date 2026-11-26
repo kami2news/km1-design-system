@@ -491,7 +491,7 @@ abstract final class Km1Size {
   static const double contentWidth = 720.0;
 }
 
-/// 画面幅の区切り（Fluent 2 の size class）/ Breakpoints (Fluent 2 size classes)
+/// 画面幅の区切り / Breakpoints
 abstract final class Km1Breakpoint {
   static const double md = 480.0;
   static const double lg = 640.0;
@@ -505,7 +505,7 @@ abstract final class Km1Breakpoint {
   static bool useSidebar(BuildContext context) => MediaQuery.sizeOf(context).width >= xl;
 }
 
-/// 動き / Motion（Fluent 2 の duration・curve）
+/// 動き / Motion（duration・curve）
 abstract final class Km1Motion {
   /// hover・pressed の色の変化 / Hover and pressed color changes
   static const Duration faster = Duration(milliseconds: 100);
@@ -574,8 +574,8 @@ const double kKm1TargetCompact = Km1Space.targetCompact;
 abstract final class Km1Theme {
   /// 端末ごとの部品の高さ / Control height per platform
   /// Android 48dp（Android の推奨）、iOS・iPadOS 44pt（Apple HIG）、
-  /// Windows・macOS・Linux 32px（Fluent Compact、マウス中心）。
-  /// Android 48dp, iOS/iPadOS 44pt, desktop 32px (Fluent Compact, pointer-first).
+  /// Windows・macOS・Linux 32px（マウス中心）。
+  /// Android 48dp, iOS/iPadOS 44pt, desktop 32px (pointer-first).
   static double targetFor(TargetPlatform p) {
     switch (p) {
       case TargetPlatform.android:

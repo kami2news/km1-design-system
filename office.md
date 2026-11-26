@@ -19,7 +19,7 @@ KM1-DOC-002（Word）と KM1-DOC-003（PowerPoint）。KM1 で作る Word の文
 
 | 項目 / Item | 決まり / Rule |
 |---|---|
-| 書体 / Font | **游ゴシック**（和文も英数字も同じ書体）。Windows と macOS の両方に入っていて、Office でそのまま表示できる。KM1 の画面の第一候補の Noto Sans JP は Office にも OS にも入っていないため、Office では使わない。テーマの書体（見出し・本文とも）を游ゴシックにし、文字ごとに書体を指定しない / Yu Gothic for both scripts, set as the theme font。言語ごとの補助の書体（テーマの `<a:font script=…>`）も、Office の既定に入っている明朝・セリフ体・手書き風（新細明體・Times New Roman・Angsana New・MV Boli など）をゴシック系に置き換える（`tokens.md` 7 章）。明朝体・游明朝は使わない |
+| 書体 / Font | **游ゴシック**（和文も英数字も同じ書体）。Windows と macOS の両方に入っていて、Office でそのまま表示できる。KM1 の画面の第一候補の Noto Sans JP は Office にも OS にも入っていないため、Office では使わない。テーマの書体（見出し・本文とも）を游ゴシックにし、文字ごとに書体を指定しない / Yu Gothic for both scripts, set as the theme font。言語ごとの補助の書体（テーマの `<a:font script=…>`）も、Office の既定に入っている明朝・セリフ体・手書き風（新細明體・Times New Roman・Angsana New・MV Boli など）をゴシック系に置き換える（`tokens.md` 3.4「書体」）。明朝体・游明朝は使わない |
 | 色 / Colors | テーマの色を KM1 にする: 文字 `ink` #242424、濃い 2 `brand` #10218B、淡い 2 #F5F5F5、アクセント 1〜6 は #10218B・#0F6CBD・#038387・#BC4B09・#5C2E91・#107C10（どれも白地で 3:1 以上）、リンク #10218B。この表と `officecheck.py` の色の一覧にない色は使わない / KM1 theme colors only |
 | 文字のコントラスト / Contrast | 文字は背景と 4.5:1 以上。薄い灰色の文字は #616161（`ink-secondary`）まで / text 4.5:1 or more |
 | 色だけで伝えない / Not color alone | グラフは値を書き込み、凡例の代わりに系列の名前を線や棒の横に書く。状態は言葉かアイコンを添える（WCAG 1.4.1） |
@@ -82,8 +82,8 @@ KM1-DOC-002（Word）と KM1-DOC-003（PowerPoint）。KM1 で作る Word の文
 | 図の説明・表・グラフ・補足・英語の併記 / Captions, tables, charts, notes, English | 20pt・行送り 28 | subtitle-1 の大きさ |
 | 柱・スライド番号 / Footer, slide number | 14pt・#616161、行送り 20 | body-1 |
 
-- **内容の文字は 20pt 以上。** 14pt は下の柱の行（柱とスライド番号）だけ。Microsoft は 18pt 以上、投影するときの多くの指針は 24pt 以上を求めるので、本文を 24pt、それ以外の内容を 20pt にした。
-  *Content text 20pt or more; 14pt only in the footer row. Microsoft asks for 18pt or more; most projection guidelines ask for 24pt, so body is 24pt.*
+- **内容の文字は 20pt 以上。** 14pt は下の柱の行（柱とスライド番号）だけ。離れた席から投影で読むと 18pt では小さく、投影の多くの指針は 24pt 以上を求めるので、本文を 24pt、それ以外の内容を 20pt にした。
+  *Content text 20pt or more; 14pt only in the footer row. 18pt is small from the back of a room and most projection guidelines ask for 24pt, so body is 24pt.*
 - 入りきらないときは文字を縮めない。言葉を削るか 2 枚に分ける（PowerPoint の「自動調整」で縮んだ文字は検査で FAIL になる）。
   *Never shrink to fit; cut words or split the slide.*
 - 題名は 1 行。32pt で 1 行に入るのは全角 27 字（半角は 0.55 字に数える）まで。

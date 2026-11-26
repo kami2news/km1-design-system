@@ -113,7 +113,7 @@ o+='}\n\n'
 
 S={x['name']:x['value'] for x in t['size']['tokens']}
 o+='/// アイコン・線・幅 / Icon sizes, stroke widths, widths\nabstract final class Km1Size {\n'+''.join(f'  static const double {camel(n)} = {px(v)};\n' for n,v in S.items() if not n.startswith('breakpoint'))+'}\n\n'
-o+='/// 画面幅の区切り（Fluent 2 の size class）/ Breakpoints (Fluent 2 size classes)\nabstract final class Km1Breakpoint {\n'+''.join(f'  static const double {camel(n.replace("breakpoint-",""))} = {px(v)};\n' for n,v in S.items() if n.startswith('breakpoint'))
+o+='/// 画面幅の区切り / Breakpoints\nabstract final class Km1Breakpoint {\n'+''.join(f'  static const double {camel(n.replace("breakpoint-",""))} = {px(v)};\n' for n,v in S.items() if n.startswith('breakpoint'))
 o+="""
   /// 編集をダイアログで開く幅か / Wide enough to edit in a dialog
   static bool useDialog(BuildContext context) => MediaQuery.sizeOf(context).width >= lg;
@@ -122,7 +122,7 @@ o+="""
   static bool useSidebar(BuildContext context) => MediaQuery.sizeOf(context).width >= xl;
 }
 
-/// 動き / Motion（Fluent 2 の duration・curve）
+/// 動き / Motion（duration・curve）
 abstract final class Km1Motion {
   /// hover・pressed の色の変化 / Hover and pressed color changes
   static const Duration faster = Duration(milliseconds: 100);
@@ -168,8 +168,8 @@ const double kKm1TargetCompact = Km1Space.targetCompact;
 abstract final class Km1Theme {
   /// 端末ごとの部品の高さ / Control height per platform
   /// Android 48dp（Android の推奨）、iOS・iPadOS 44pt（Apple HIG）、
-  /// Windows・macOS・Linux 32px（Fluent Compact、マウス中心）。
-  /// Android 48dp, iOS/iPadOS 44pt, desktop 32px (Fluent Compact, pointer-first).
+  /// Windows・macOS・Linux 32px（マウス中心）。
+  /// Android 48dp, iOS/iPadOS 44pt, desktop 32px (pointer-first).
   static double targetFor(TargetPlatform p) {
     switch (p) {
       case TargetPlatform.android:

@@ -1,11 +1,11 @@
 # 画面の組み立て / Patterns
 
-部品より大きい単位の決まり。スケジュール確認アプリ（Flutter）で実際に使っている組み立てを、KM1 のトークンに合わせて一般化した。出典のあるもの（Fluent 2 のブレークポイント・動き・重なり順、デジタル庁のボタン配置）以外は、KM1 独自のアレンジである。
-*Rules above the component level, generalized from the layouts actually used in the schedule-check Flutter app and aligned to KM1 tokens. Apart from sourced items (Fluent 2 breakpoints, motion and layers; Digital Agency button placement) these are KM1's own arrangements.*
+部品より大きい単位の決まり: 画面の作り方、画面幅、移動、画面の型、フォーム、状態、待ち時間、動き。言葉の決まりは「言葉」（`content.md`）、文字・色・余白の値は「基礎」（`tokens.md`）にある。
+*Rules above the component level: how to build a screen, widths, navigation, layouts, forms, states, waiting and motion. Words are in Writing; type, colour and spacing values in Foundations.*
 
 ## わかりやすさ / Understandability
 
-「デザイン原則」の軸 2「わかりやすい」を、画面の決まりにしたもの。画面は部品を並べて作るのではなく、その画面を開いた人が最初に知りたいことから上に向かって決める。
+「原則」の軸「わかりやすい」を、画面の決まりにしたもの。画面は部品を並べて作るのではなく、その画面を開いた人が最初に知りたいことから上に向かって決める。
 *Axis 2 of the principles, as screen rules. Build a screen from what its reader needs first, not by lining up parts.*
 
 **作る順番 / Order of work**
@@ -30,13 +30,6 @@
 - まとまりは、まず余白と見出しで示す。縁や面で囲むのは、余白だけでは境目が分からないときだけにする（となりに別の内容が並ぶ、押せる範囲を示すなど）。
   *Group with space and headings first; add borders or surfaces only when space alone cannot show the edge.*
 
-**言葉 / Words**
-
-- 画面の言葉は「内容の原則」に従い、本物の物と操作の名前で書く。見本や試作でも、部品や見本そのものを説明する文（「クリックできるカード」）は書かない。
-  *Use real names of things and actions, even in samples; never copy that describes the part itself.*
-- 1 つの文は短く（目安 40 字まで）、1 つの文で 1 つのことを言う。専門の言葉は、使う人の言葉に置き換える。
-  *Short sentences (about 40 characters), one idea each; replace jargon with the user's words.*
-
 **同じことを 2 回出さない / Say it once**
 
 - 1 つの画面で同じ値を 2 回並べない。見出しの下に要約を置き、その下の表にも同じ値があるなら、要約を消す（D30）。
@@ -54,32 +47,12 @@
 - エラーは、何が起きたかと、どうすれば直るかを書く。読み込み中は、出てくる中身の形を先に見せる（`Skeleton`）。10 秒以上かかるなら工程と時間の見込みを出す（「待ち時間」）。
   *Errors say what happened and how to fix it; loading previews the shape of the content; 10s or more shows steps and time.*
 
-**文字の強弱 / Type contrast**
-
-- 大きさの段は 7 つ（12・14・16・20・28・40・68 px）。見出しは `title`（28）→ `subtitle-1`（20）→ `subtitle-2`（16）の 3 段だけで、となりの段とは 1.25 倍以上はなす。段が近いと、大きさで上下が分からない。
-  *Seven sizes (12, 14, 16, 20, 28, 40, 68 px). Headings use three steps, each at least 1.25x the next; close steps hide the order.*
-- 文字の濃さは `ink`（#242424）と `ink-secondary`（#616161）の 2 段だけ。主は `ink`、補足・単位・日付は `ink-secondary`。3 段目は作らない。
-  *Two text weights only: `ink` for the main text, `ink-secondary` for notes, units and dates. No third weight.*
-- 分類色の淡い面（予定のかたまりなど）の上では、補足も `ink` にする。面が色づくと `ink-secondary` は 4.5:1 に届かない。上下は太さと大きさで分ける。
-  *On category tints, secondary text also uses `ink`; separate levels by weight and size.*
-- 2 行以上になりうる文の行の高さは 1.5 倍以上（`body-1-para` 14/24・`body-2` 16/26・`caption-1` 12/18）。1 行で終わる UI の文字（ボタン・項目名・リストの行）は `body-1` 14/20 のまま。
-  *Text that can wrap gets 1.5x line height or more; one-line UI text stays at 14/20.*
-- 折り返す説明文は 1 行 40 字（`max-inline-size: 40em`）まで。広い画面でも行を伸ばさない。部品の説明文には `bundle.css` で入っている。自分で書く文には `f2-prose` を付ける。
-  *Wrapping text stops at 40em (about 40 Japanese characters); built into parts, add `f2-prose` to your own text.*
-- 紺（`brand`）は黒に近いので、紺の文字色だけで「選ばれている」「強調」を示さない。淡い紺の面（`brand-tint`）・紺の線・太字のどれかと組み合わせる。
-  *Navy is close to black: never mark selection or emphasis with navy text alone; add `brand-tint`, a navy line or bold.*
-
-**和文の改行 / Japanese line breaks**
-
-- Web は文節で改行する（`word-break: auto-phrase`、行頭と行末の禁則は `line-break: strict`）。見出しは `text-wrap: balance` で行の長さをそろえ、本文は `text-wrap: pretty` で最後の行に 1〜2 字だけ残さない。KM1 の部品には `bundle.css` で入っている。対応していないブラウザでは文字の単位で折り返すので、行末に 1〜2 字だけ落ちる文は言葉を直す。Flutter には文節の改行がないので、同じく言葉で直す。
-  *Web breaks Japanese at phrase boundaries (`word-break: auto-phrase`, `line-break: strict`), headings use `text-wrap: balance`, body `text-wrap: pretty`; built into `bundle.css`. Where unsupported (and in Flutter), fix stranded characters by rewording.*
-
 ## 画面幅 / Breakpoints
 
-Fluent 2 の size class をそのまま使う。値は `breakpoint-*`（Flutter は `Km1Breakpoint`）。
-*Fluent 2 size classes as-is: `breakpoint-*` (`Km1Breakpoint` in Flutter).*
+画面幅は `breakpoint-*` の段で分ける（Flutter は `Km1Breakpoint`）。段の境目は、使える列の数（1 列・2 列・サイドバー・3 ペイン）が変わるところに置く。
+*Width classes `breakpoint-*` (`Km1Breakpoint` in Flutter), split where the usable number of columns changes.*
 
-| 幅 / Width | Fluent 2 | ナビゲーション / Navigation | 編集・詳細 / Editing | 余白 / Page margin |
+| 幅 / Width | 名前 / Name | ナビゲーション / Navigation | 編集・詳細 / Editing | 余白 / Page margin |
 |---|---|---|---|---|
 | 〜639px | small・medium | 下部のタブ（5 個まで）/ bottom tabs (max 5) | 全画面のページ / full-screen page | `space-lg` 16px |
 | 640〜1023px | large | 下部のタブ、または開閉するサイドバー / bottom tabs or collapsible sidebar | ダイアログ / dialog | `space-xxl` 24px |
@@ -90,9 +63,9 @@ Fluent 2 の size class をそのまま使う。値は `breakpoint-*`（Flutter 
   *A reading or form column stops at `content-width` (720px); on wider screens keep it left-aligned and leave the rest empty.*
 - 段の間隔（ガター）は `space-lg`、ペインの区切りは `stroke-subtle` の 1px。
   *Gutters are `space-lg`; panes are separated by a 1px `stroke-subtle` line.*
-- レイアウトの余白は用途の名前で指す: 見出しつきのセクションの間と部品どうしの間は `layout-section-gap`（24px）、サイドバーと本文のような大きな領域の間は `layout-region-gap`（32px）。部品の中の余白（カードの内側・項目の間）は部品側のトークンで、混ぜない（「トークン」の 2 章）。
+- レイアウトの余白は用途の名前で指す: 見出しつきのセクションの間と部品どうしの間は `layout-section-gap`（24px）、サイドバーと本文のような大きな領域の間は `layout-region-gap`（32px）。部品の中の余白（カードの内側・項目の間）は部品側のトークンで、混ぜない（「基礎」の 2 章）。
   *Layout spacing uses role names: `layout-section-gap` (24px) between headed sections and components, `layout-region-gap` (32px) between large regions. Component-internal spacing uses component-side tokens (Tokens, chapter 2).*
-- 密度（compact・regular・spacious）は Card・Table・SortableList だけ。画面の幅で自動に切り替えず、画面の目的か利用者の設定で決める（「トークン」の 3 章）。
+- 密度（compact・regular・spacious）は Card・Table・SortableList だけ。画面の幅で自動に切り替えず、画面の目的か利用者の設定で決める（「基礎」の 3 章）。
   *Density applies only to Card, Table and SortableList, chosen by purpose or user setting, never by width alone.*
 
 ## ナビゲーション / Navigation
@@ -134,8 +107,8 @@ Fluent 2 の size class をそのまま使う。値は `breakpoint-*`（Flutter 
 
 ## 分類色 / Category colors
 
-利用者が分類（カレンダー、タグ、店舗など）に付ける色。`cat-*` の 18 色（Fluent の共有パレットから）で、ライトとダークで同じ値を使う。
-*Colors that people assign to categories (calendars, tags, shops): 18 `cat-*` colors from the Fluent shared palette, same value in light and dark.*
+利用者が分類（カレンダー、タグ、店舗など）に付ける色。`cat-*` の 18 色で、ライトとダークで同じ値を使う。
+*Colors that people assign to categories (calendars, tags, shops): 18 `cat-*` colors, same value in light and dark.*
 
 - 使い方は 2 つだけ: 幅 `stroke-accent`（4px）の帯と、淡い塗り（ライト 14%、ダーク 32%）。文字は必ず `ink`。分類色を文字色やボタンの塗りにしない。
   *Two uses only: a `stroke-accent` (4px) bar and a tinted fill (14% light, 32% dark). Text stays `ink`; never use a category color for text or button fills.*
@@ -143,8 +116,8 @@ Fluent 2 の size class をそのまま使う。値は `breakpoint-*`（Flutter 
 - Flutter: `Km1Category.teal`、`Km1Category.tint(color, brightness)`。
 - 18 色のうち、`surface` との比が 3:1 に満たないものがある（ライト: seafoam・lime・marigold。ダーク: blue・red・cranberry・grape・brown）。各トークンの説明に比を書いてある。色だけで分類を区別させず、分類名を文字で確認できる場所（凡例、詳細、プレビュー）を必ず用意する。
   *Some fall below 3:1 against `surface` (light: seafoam, lime, marigold; dark: blue, red, cranberry, grape, brown); each token's note lists its ratios. Never rely on color alone: always provide a place (legend, detail, preview) where the category name is readable.*
-- 既定で割り当てる色は、隣り合って使うもの同士で明るさが違う組にする。赤と緑の組は避け、青と橙の組を優先する（EPSON のカラーユニバーサルデザインの考え方）。
-  *Defaults that sit side by side should differ in lightness; prefer blue/orange over red/green (Epson's color-universal-design thinking).*
+- 既定で割り当てる色は、隣り合って使うもの同士で明るさが違う組にする。赤と緑の組は避け、青と橙の組を優先する（赤と緑は、色の見え方によっては同じ色に見えるため）。
+  *Defaults that sit side by side should differ in lightness; prefer blue/orange over red/green, which some colour vision sees as the same.*
 - 色以外で伝える状態は、帯の描き方で分ける: 確定 = 塗り、仮 = 斜線、空き = 白抜き、別の場所 = 点線。
   *States beyond color use the bar's drawing: confirmed = solid, tentative = hatched, free = hollow, elsewhere = dashed.*
 - **色 × 模様（KM1-COL-001）:** 分類は色だけでなく模様でも区別する。模様は 8 つ（塗り・横線・縦線・斜線・格子・斜め格子・点・市松）で、18 色と組み合わせて 144 通り。色の見分けにくい人にも、白黒の印刷やハイコントラスト表示でも区別が残る。
@@ -170,8 +143,8 @@ Fluent 2 の size class をそのまま使う。値は `breakpoint-*`（Flutter 
 
 - 幅は `dialog-width`（480px）、確認と小さな設定は `dialog-width-sm`（420px）。暗幕は黒の `opacity-scrim`（40%）。入力を伴う編集は、640px 未満では全画面のページにする。確認は狭い画面でもダイアログのまま。
   *Width `dialog-width` (480px), or `dialog-width-sm` (420px) for confirmations and small settings; scrim is black at `opacity-scrim` (40%). Editing with input becomes a full-screen page below 640px; confirmations stay dialogs.*
-- ボタンは 2 つまで。右にプライマリ、左に「キャンセル」（デジタル庁の配置）。480px 未満では縦に積み、プライマリを上にする（`Dialog` に実装済み）。
-  *Two buttons at most: primary right, cancel left (Digital Agency placement); below 480px they stack with the primary on top (built into `Dialog`).*
+- ボタンは 2 つまで。右にプライマリ、左に「キャンセル」（目は左から右へ進み、最後に次の一歩が来る）。480px 未満では縦に積み、プライマリを上にする（`Dialog` に実装済み）。
+  *Two buttons at most: primary right, cancel left (the eye ends on the next step); below 480px they stack with the primary on top (built into `Dialog`).*
 - 見ることが主な一覧（予定表など）では、項目を押したらいきなり編集画面を開かず、小さなプレビューカードを出す（上辺に分類色の 4px の帯、右上に編集・削除・閉じる）。直すことが主な一覧（タスクの整理、在庫の修正など）では、押したらそのまま編集してよい。
   *In lists people mainly read (schedules), pressing an item opens a small preview card first (4px category bar; edit, delete, close at top right). In lists people mainly edit (task triage, stock fixes), it may open the editor directly.*
 - 削除などの取り消せない操作は、確認ダイアログで対象の名前を見出しに入れる（「『ゼミ』を削除しますか」）。実行するボタンは `danger` にし、`primary` にしない（`Dialog`）。
@@ -244,14 +217,14 @@ KM1-PAT-001。IBM Carbon の「Forms」「Fluid styles」の考え方を参考�
   *One sentence saying what's wrong and how to fix it, e.g. "Set the end time after the start time (10:00)." Never just "Invalid value".*
 - エラーの見た目は今の `Input`・`Select`・`Textarea`・`RadioGroup` のまま（赤い文・`aria-invalid`・`aria-describedby` で欄に結ぶ）。
   *Error styling stays as in the existing fields: red message text tied to the field with `aria-invalid` and `aria-describedby`.*
-- 送信して誤りがあれば、フォームの上に `ErrorSummary` を出し、そこへフォーカスを移す。件数と、各欄へのリンクを並べる。リンクを押すとその欄へ移る（GOV.UK・デジタル庁）。
-  *On a failed submit, show `ErrorSummary` above the form and move focus to it. It lists the count and a link per field; each link focuses its field (GOV.UK, Digital Agency).*
+- 送信して誤りがあれば、フォームの上に `ErrorSummary` を出し、そこへフォーカスを移す。件数と、各欄へのリンクを並べる。リンクを押すとその欄へ移る（長いフォームでも、どこを直せばよいかが一度で分かる）。
+  *On a failed submit, show `ErrorSummary` above the form and move focus to it. It lists the count and a link per field; each link focuses its field, so the fixes are clear at once even on long forms.*
 - 入力した値は、エラーでも送信失敗でも消さない。
   *Never clear what the user typed, whether validation or the submit fails.*
-- 送信ボタンは押せないようにしない。押したら足りない所を教える（デジタル庁）。Carbon は短いフォームでの無効化を認めているが、理由が伝わらないため KM1 では採らない。送信中だけ `aria-disabled` と `Spinner` で二重送信を防ぐ。
-  *Don't disable the submit button; let it explain what's missing (Digital Agency). Carbon allows disabling on short forms, but KM1 doesn't because the reason isn't communicated. Only while submitting, use `aria-disabled` plus a `Spinner` to block double submits.*
-- 必須の印は今のまま、必須の欄に「※必須」を付ける（デジタル庁）。Carbon の「少ない方に印を付ける」は採らない。
-  *Required fields keep the "※必須" marker (Digital Agency). Carbon's "mark whichever is fewer" isn't adopted.*
+- 送信ボタンは押せないようにしない。押したら足りない所を教える（押せないボタンは、なぜ押せないのかを伝えられない）。Carbon は短いフォームでの無効化を認めているが、理由が伝わらないため KM1 では採らない。送信中だけ `aria-disabled` と `Spinner` で二重送信を防ぐ。
+  *Don't disable the submit button; let it explain what's missing (a disabled button cannot say why). Carbon allows disabling on short forms, but KM1 doesn't because the reason isn't communicated. Only while submitting, use `aria-disabled` plus a `Spinner` to block double submits.*
+- 必須の欄に「※必須」を文字で付ける（印の記号だけでは、読み上げや色の見え方で伝わらないことがある）。Carbon の「少ない方に印を付ける」は採らない。
+  *Required fields carry the word "※必須" (a symbol alone may not come through). Carbon's "mark whichever is fewer" isn't adopted.*
 
 ### ボタン / Buttons
 
@@ -274,7 +247,7 @@ KM1-PAT-001。IBM Carbon の「Forms」「Fluid styles」の考え方を参考�
 - 部品は `Km1FormGroup`・`Km1FormGrid`・`Km1ConditionalField`・`Km1ErrorSummary`・`Km1FormActions`（`km1_widgets.dart`）。
   *Widgets: `Km1FormGroup`, `Km1FormGrid`, `Km1ConditionalField`, `Km1ErrorSummary`, `Km1FormActions` (in `km1_widgets.dart`).*
 
-出典 / Sources: [Carbon Forms](https://carbondesignsystem.com/patterns/forms-pattern/)・[Carbon Fluid styles](https://carbondesignsystem.com/patterns/fluid-styles/)・[W3C WAI Forms Tutorial: Grouping](https://www.w3.org/WAI/tutorials/forms/grouping/)・[GOV.UK Error summary](https://design-system.service.gov.uk/components/error-summary/)・[デジタル庁デザインシステム](https://design.digital.go.jp/)
+出典 / Sources: [Carbon Forms](https://carbondesignsystem.com/patterns/forms-pattern/)・[Carbon Fluid styles](https://carbondesignsystem.com/patterns/fluid-styles/)・[W3C WAI Forms Tutorial: Grouping](https://www.w3.org/WAI/tutorials/forms/grouping/)・[GOV.UK Error summary](https://design-system.service.gov.uk/components/error-summary/)
 
 ## 通信できないとき / Offline
 
@@ -316,14 +289,6 @@ KM1-M1-001 で追加。M1 の Permissions を下敷きにした。
   *A toast with an action either stays or shows for 10 seconds or more, and can be dismissed with ×.*
 - 画面内に残す必要があるお知らせは `Alert` を使う。
   *Use `Alert` for notices that must stay on the page.*
-
-## 日付と時刻の書き方 / Dates and times
-
-- 日付は「11/12（木）」、年が要るときは「2026/11/12（木）」。曜日は丸括弧で 1 文字。
-- 時刻は 24 時間制で「9:00」。時の先頭に 0 を付けない。範囲は「9:00〜9:50」。
-- 終日は「終日」と書く。0:00 ちょうどの締め切りは、前日の終日として見せる。
-- 相対表現（「今日」「明日」）は日付と併記する: 「今日 11/12（木）」。
-*Dates as "11/12（木）" (add the year as "2026/11/12（木）" when needed); 24-hour times without a leading zero ("9:00"); ranges with "〜"; "終日" for all-day; a 0:00 deadline is shown as all-day on the previous day; relative words go with the date.*
 
 ## 待ち時間 / Waiting
 
@@ -370,10 +335,10 @@ KM1-M1-001 で追加。M1 の Permissions を下敷きにした。
   *Animate only color, shadow, opacity and travel of up to 8px. No scaling, bounce or Material ripple.*
 - 画面の出入りは「短いフェード + 下から 8px」。`prefers-reduced-motion`（Flutter は `MediaQuery.disableAnimations`）では動きを止める。
   *Screens enter with a short fade plus an 8px rise; stop under `prefers-reduced-motion` (`MediaQuery.disableAnimations` in Flutter).*
-- 値は Fluent 2 の duration・curve トークン。CSS では `components/bundle.css` に変数がある。
-  *Values are Fluent 2 duration and curve tokens; the CSS variables live in `components/bundle.css`.*
+- 値は `duration-*`・`curve-*` トークン。CSS では `components/bundle.css` に変数がある。
+  *Values are the duration and curve tokens; the CSS variables live in `components/bundle.css`.*
 
 ## 重なり順 / Layers
 
-`layer-content`（1）→ `layer-overlay`（1000、暗幕とダイアログ）→ `layer-popup`（2000、メニュー・ツールチップ）→ `layer-message`（3000、トースト）。値は Fluent 2 の zIndex トークン。これ以外の z-index を作らない。
-*Fluent 2 zIndex values; do not invent other z-index values.*
+`layer-content`（1）→ `layer-overlay`（1000、暗幕とダイアログ）→ `layer-popup`（2000、メニュー・ツールチップ）→ `layer-message`（3000、トースト）。値はこの 4 つのトークンだけ。これ以外の z-index を作らない。
+*Only these four values; do not invent other z-index values.*

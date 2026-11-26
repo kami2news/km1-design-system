@@ -29,7 +29,7 @@ const tokens = JSON.parse(fs.readFileSync(path.join(ROOT, 'tokens.json'), 'utf8'
 // 型の表の組 / allowed size/line-height pairs
 const PAIRS = new Set();
 for (const g of tokens.type.groups) for (const s of g.styles) PAIRS.add(`${parseFloat(s.fontSize)}/${parseFloat(s.lineHeight)}`);
-PAIRS.add('12/16');                 // 高さの決まった箱の中の 1 行（tokens.md 5 章）/ one line in a fixed-height box
+PAIRS.add('12/16');                 // 高さの決まった箱の中の 1 行（tokens.md 8.2「部品の寸法」）/ one line in a fixed-height box
 const SIZES = new Set([...PAIRS].map(p => +p.split('/')[0]));
 // 入力欄の文字は 16px（iOS の拡大を防ぐ）。中の値は 1 行 / inputs use 16px; single line
 const INPUT_OK = new Set(['16/20', '16/22', '16/24']);

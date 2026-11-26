@@ -27,15 +27,14 @@ inv={'web':{'cards':len(cards),'components':len(comps),'hooks':hooks,'cardNames'
 W,C,F=len(cards),len(comps),len(fl)
 _IJ=json.load(open(P+'icons/km1-icons.json'))['icons']  # リポジトリにある版を読む / read the tracked file
 IN=len(_IJ); IT=sum(1 for e in _IJ.values() if (e.get('b') or {}).get('tint'))
-rules=[('README.md',r'KM1 専用の \d+ 部品',f'KM1 専用の {F} 部品',2),
- ('README.md',r'plus `km1_widgets\.dart` \(\d+ KM1 widgets\)',f'plus `km1_widgets.dart` ({F} KM1 widgets)',1),
+rules=[('platforms.md',r'plus `km1_widgets\.dart` \(\d+ KM1 widgets\)',f'plus `km1_widgets.dart` ({F} KM1 widgets)',1),
  ('coverage.md',r'見本のある部品 \d+（公開 \d+）',f'見本のある部品 {W}（公開 {C}）',1),
  ('coverage.md',r'KM1 専用の \d+ 部品',f'KM1 専用の {F} 部品',1),
  ('coverage.md',r'Web: \d+ with previews, \d+ exported; Flutter: \d+ KM1 widgets',f'Web: {W} with previews, {C} exported; Flutter: {F} KM1 widgets',1),
- ('README.md',r'^(?:\d+ 個と|見本のある部品 \d+ 個（公開している部品は全部で \d+ 個）と)、[^\n]*?を `window\.Fluent2` に収録。',f'見本のある部品 {W} 個（公開している部品は全部で {C} 個）と、フォームの状態をまとめる `useForm`、選択の状態をまとめる `useSelection` を `window.Fluent2` に収録。',1),
+ ('README.md',r'(?:\d+ 個と|見本のある部品 \d+ 個（公開している部品は全部で \d+ 個）と)、[^\n]*?を `window\.Fluent2` に収録。',f'見本のある部品 {W} 個（公開している部品は全部で {C} 個）と、フォームの状態をまとめる `useForm`、選択の状態をまとめる `useSelection` を `window.Fluent2` に収録。',1),
  ('README.md',r'\*(?:Fifty|Forty|\d+ components)[^*]*?live in `window\.Fluent2`',f'*{W} components with previews ({C} exported in total) plus the `useForm` and `useSelection` hooks live in `window.Fluent2`',1),
  ('platforms.md',r'\| (?:見本のある部品 \d+（公開 \d+）|\d+ 部品)。自動検査',f'| 見本のある部品 {W}（公開 {C}）。自動検査',1),
- ('platforms.md',r'KM1 専用の \d+ 部品',f'KM1 専用の {F} 部品',1),
+ ('platforms.md',r'KM1 専用の \d+ 部品',f'KM1 専用の {F} 部品',3),
  # アイコンの数（km1-icons.json から）/ icon counts from km1-icons.json
  ('icons.md',r'全部のアイコンを KM1 B 案で描く（\d+ 個）',f'全部のアイコンを KM1 B 案で描く（{IN} 個）',1),
  ('icons.md',r'\*Every icon \(\d+\)',f'*Every icon ({IN})',1),
@@ -46,8 +45,7 @@ rules=[('README.md',r'KM1 専用の \d+ 部品',f'KM1 専用の {F} 部品',2),
  ('icons.md',r'（いま \d+ 個: 予定の仲間',f'（いま {IT} 個: 予定の仲間',1),
  ('components/IconTrial/README.md',r'（いま \d+ 個。一覧',f'（いま {IT} 個。一覧',1),
  ('components/IconTrial/README.md',r'\(\d+ icons; see the tint column',f'({IT} icons; see the tint column',1),
- ('README.md',r'Fluent System Icons、Microsoft、MIT。\d+ 個）',f'Fluent System Icons、Microsoft、MIT。{IN} 個）',1),
- ('README.md',r'Microsoft, MIT; \d+ icons\)',f'Microsoft, MIT; {IN} icons)',1)]
+]
 bad=[]
 if _hdr_bad: bad.append(f'km1_widgets.dart の見出しの部品一覧とファイルの中身が違う / header list differs: {_hdr_bad}')
 for f,pat,rep,n in rules:

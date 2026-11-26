@@ -260,7 +260,7 @@
     },
     "stroke": {
       "$value": "{color.gray-82}",
-      "$description": "カード・区切り・ボタンの標準枠線。Fluent 原典値のため surface 上で 3:1 に満たない（装飾的境界専用）。操作の識別には stroke-strong を使う。 / Default border for cards, dividers, buttons. Fluent source value, below 3:1 on surface: decorative only; use stroke-strong to identify controls."
+      "$description": "カード・区切り・ボタンの標準枠線。surface 上で 3:1 に満たない（装飾的境界専用）。操作の識別には stroke-strong を使う。 / Default border for cards, dividers, buttons. below 3:1 on surface: decorative only; use stroke-strong to identify controls."
     },
     "stroke-subtle": {
       "$value": "{color.gray-88}",
@@ -284,7 +284,7 @@
     },
     "brand": {
       "$value": "{color.brand-700}",
-      "$description": "メインカラー（#10218B。EPSON の青を参考にした紺）。プライマリボタンなど強調面の塗り。on-brand の文字を載せる。 / Main color (#10218B, a navy inspired by Epson's blue). Fill for primary buttons and emphasis; pair with on-brand text."
+      "$description": "メインカラー（紺の #10218B）。プライマリボタンなど強調面の塗り。on-brand の文字を載せる。 / Main color (navy #10218B). Fill for primary buttons and emphasis; pair with on-brand text."
     },
     "brand-hover": {
       "$value": "{color.brand-800}",
@@ -316,7 +316,7 @@
     },
     "info-ink": {
       "$value": "{color.blue-700}",
-      "$description": "情報メッセージ・補助リンクの文言とアイコン（Fluent 2 の青）。surface 上で 4.5:1 以上。文言併記。 / Info message text and icons, secondary links (Fluent 2 blue); 4.5:1 or more on surface; add a label."
+      "$description": "情報メッセージ・補助リンクの文言とアイコン（青）。surface 上で 4.5:1 以上。文言併記。 / Info message text and icons, secondary links (blue); 4.5:1 or more on surface; add a label."
     },
     "info-tint": {
       "$value": "{color.blue-50}",
@@ -507,7 +507,7 @@
         "value": 32,
         "unit": "px"
       },
-      "$description": "マウス操作（PC）の部品の標準の高さ。Fluent 2 の medium。WCAG 2.2 の AA（2.5.8、24px）を満たす。 / Default control height with a mouse (PC); Fluent 2 medium; meets WCAG 2.2 AA 2.5.8 (24px)."
+      "$description": "マウス操作（PC）の部品の標準の高さ。マウスで押し外さない大きさで、WCAG 2.2 の AA（2.5.8、24px）を満たす。 / Default control height with a mouse (PC), large enough not to miss; meets WCAG 2.2 AA 2.5.8 (24px)."
     },
     "space-target": {
       "$value": {
@@ -625,14 +625,14 @@
         "value": 24,
         "unit": "px"
       },
-      "$description": "PC の small ボタンの高さ（Fluent 2 の small、WCAG 2.2 AA の下限）。スマホでは使わず 44px にする。 / Small button height on PC (Fluent 2 small, the WCAG 2.2 AA floor); 44px on touch instead."
+      "$description": "PC の small ボタンの高さ（WCAG 2.2 AA の下限）。スマホでは使わず 44px にする。 / Small button height on PC (the WCAG 2.2 AA floor); 44px on touch instead."
     },
     "control-lg": {
       "$value": {
         "value": 40,
         "unit": "px"
       },
-      "$description": "PC の large ボタンの高さ（Fluent 2 の large）。 / Large button height on PC (Fluent 2 large)."
+      "$description": "PC の large ボタンの高さ。 / Large button height on PC."
     },
     "control-lg-touch": {
       "$value": {
@@ -667,28 +667,28 @@
         "value": 480,
         "unit": "px"
       },
-      "$description": "Fluent 2 medium の始まり。 / Start of Fluent 2 medium."
+      "$description": "medium の始まり（小さいタブレット）。 / Start of medium (small tablets)."
     },
     "breakpoint-lg": {
       "$value": {
         "value": 640,
         "unit": "px"
       },
-      "$description": "Fluent 2 large の始まり。これ以上で編集をダイアログにする。 / Start of large; from here editing opens in a dialog."
+      "$description": "large の始まり。これ以上で編集をダイアログにする。 / Start of large; from here editing opens in a dialog."
     },
     "breakpoint-xl": {
       "$value": {
         "value": 1024,
         "unit": "px"
       },
-      "$description": "Fluent 2 x-large の始まり。これ以上でサイドバーを常時表示する。 / Start of x-large; from here the sidebar stays visible."
+      "$description": "x-large の始まり。これ以上でサイドバーを常時表示する。 / Start of x-large; from here the sidebar stays visible."
     },
     "breakpoint-xxl": {
       "$value": {
         "value": 1366,
         "unit": "px"
       },
-      "$description": "Fluent 2 xx-large の始まり。3 ペインにしてよい幅。 / Start of xx-large; wide enough for three panes."
+      "$description": "xx-large の始まり。3 ペインにしてよい幅。 / Start of xx-large; wide enough for three panes."
     }
   },
   "spacingRole": {
@@ -1164,7 +1164,7 @@
           "unit": "px"
         }
       },
-      "$description": "2 行以上になりうる説明文（お知らせ・ダイアログの本文・空の状態・カードの説明）。行の高さ 1.71 倍。行が詰まると次の行を追いにくくなるため、1.5 倍以上にする（WCAG 1.4.12・デジタル庁 DADS）。 / Text that can wrap (alerts, dialog body, empty states, card descriptions); line height 1.71x. Tight lines make it hard to find the next line, so keep 1.5x or more (WCAG 1.4.12, DADS)."
+      "$description": "2 行以上になりうる説明文（お知らせ・ダイアログの本文・空の状態・カードの説明）。行の高さ 1.71 倍。行が詰まると次の行を追いにくくなるため、1.5 倍以上にする（WCAG 1.4.12）。 / Text that can wrap (alerts, dialog body, empty states, card descriptions); line height 1.71x. Tight lines make it hard to find the next line, so keep 1.5x or more (WCAG 1.4.12)."
     },
     "body-1-strong": {
       "$value": {

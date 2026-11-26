@@ -39,8 +39,8 @@ const C = { ink: '242424', ink2: '616161', ink3: '616161', brand: '10218B', line
 const LANG = 'ja-JP';
 // KM1 の表記（notices 2.1・2.6）。ひな形は本文に入れず、ノートかファイルの説明に入れる（使う人の文書に写らないように）
 // KM1 notices 2.1 and 2.6; templates carry them in notes or file properties, never in the body
-const KM1_NOTICE_JA = 'KM1 は個人が作ったデザイン標準です。Microsoft、セイコーエプソン、東京科学大学（Science Tokyo）、デジタル庁、そのほかの組織が作成・承認・推奨したものではなく、これらの組織とは関係がありません。名称・商標は各権利者のものです。KM1 は MIT License で公開しています。ライセンスの全文と著作権表示は https://github.com/kami2news/km1-design-system の LICENSE を参照してください。';
-const KM1_NOTICE_EN = "KM1 is a personal design standard. It was not created, approved or endorsed by Microsoft, Seiko Epson, Institute of Science Tokyo, Japan's Digital Agency or any other organization, and is not affiliated with them. All names and trademarks belong to their owners. KM1 is released under the MIT License. See the LICENSE in https://github.com/kami2news/km1-design-system for the full text and copyright notice.";
+const KM1_NOTICE_JA = 'KM1 は個人が作ったデザイン標準です。どの企業・団体が作成・承認・推奨したものでもありません。製品名と商標は、それぞれの持ち主のものです。';
+const KM1_NOTICE_EN = "KM1 is a personal design standard, not created, approved or endorsed by any company or organization. Product names and trademarks belong to their owners.";
 
 
 // 表示バッジとしるしのボタン（icons.md §10）。GitHub の正本へのリンク付きの画像。大きさは決まった値なので 12 列のグリッドの例外（名前は km1-badge で始める）
