@@ -1,5 +1,10 @@
 # 変更履歴 / Changelog
 
+## 2026-11-26 — RS1 との関係 / Relation to RS1
+
+- **役割分担を明記:** 授業・研究のレポートは RS1、それ以外の文書・スライド・画面は KM1、と `documents.md` 冒頭と `README.md` に書いた。順位は「授業・提出先の指定 ＞ RS1 ＞ KM1」。値は変えていない。
+  *Stated the split: coursework reports follow RS1, everything else KM1; precedence is course instructions > RS1 > KM1. No values changed.*
+
 ## 2026-11-19 — 外部レビューへの対応 / Review follow-ups
 
 - **Flutter の画像比較を本当の検査に:** CI が `flutter test --update-goldens` で毎回画像を作り直しており、違いを見逃していた。通常の CI は承認済みの画像と比べて違えば失敗にし、作り直しは手で動かす「goldens」ワークフローだけにした（成果物を目で確かめてから commit）。承認済みの画像を入れるまでは比較を飛ばして警告を出す。手順は `verification.md` 6 章。
