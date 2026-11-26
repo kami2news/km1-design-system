@@ -861,7 +861,12 @@ abstract final class Km1Theme {
       ),
       snackBarTheme: SnackBarThemeData(
         backgroundColor: c.surfaceSunken,
-        contentTextStyle: Km1Text.body1.copyWith(color: c.ink),
+        contentTextStyle: Km1Text.body1Para.copyWith(color: c.ink),
+        // 操作（元に戻す）は紺の文字だけにせず、枠のボタンと同じ見た目（Web と同じ。D32）
+        // The action is outlined like a secondary button, not bare navy text (same as Web)
+        actionTextColor: c.ink,
+        actionBackgroundColor: c.surface,
+        actionOverflowThreshold: 0.25,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(Km1Radius.lg),

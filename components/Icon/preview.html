@@ -3,10 +3,10 @@
 <script>
 var h=React.createElement,F=window.Fluent2;
 var cap={font:'600 14px/20px var(--font-sans)',margin:'0 0 8px'};
-var small={font:'400 12px/16px var(--font-sans)',color:'var(--ink-secondary)'};
+var small={font:'400 12px/18px var(--font-sans)',color:'var(--ink-secondary)'};
 var SCHED=['calendar','timetable','deadline','due-today','tentative','canceled','repeat-weekly','view-day','view-week','view-agenda','shift-work','room-change','submit','exam','flag','clock'];var OWN=['timetable'];var STATUS=['status-info','status-success','status-warning','status-error','density-compact','density-regular','density-spacious'];
 var ALL=Object.keys(F.ICONS);
-function Cell(n,both){return h('li',{key:n,style:{display:'flex',flexDirection:'column',alignItems:'center',gap:'4px',width:both?'88px':'72px',textAlign:'center'}},
+function Cell(n,both){return h('li',{key:n,style:{display:'flex',flexDirection:'column',alignItems:'center',gap:'4px',width:'112px',textAlign:'center'}},
   h('span',{style:{display:'flex',gap:'8px'}},h(F.Icon,{name:n}),both?h(F.Icon,{name:n,filled:true}):null),
   h('span',{style:Object.assign({},small,{overflowWrap:'anywhere'})},F.ICONS[n]));}
 var grid={display:'flex',flexWrap:'wrap',gap:'12px 8px',margin:0,padding:0,listStyle:'none'};
@@ -17,7 +17,7 @@ function App(){
   h('section',null,h('h3',{style:cap},'大きさ 16・20・24・32px / Sizes'),
    h('div',{style:{display:'flex',gap:'24px',alignItems:'flex-end'}},['deadline','status-warning','calendar'].map(function(n){return h('div',{key:n,style:{display:'flex',gap:'12px',alignItems:'flex-end'}},[16,20,24,32].map(function(s){return h(F.Icon,{key:s,name:n,size:s});}));}))),
   h('section',null,h('h3',{style:cap},'状態の色 / Status colors'),
-   h('div',{style:{display:'flex',gap:'24px'}},[['status-info','var(--info-ink)'],['status-success','var(--success-ink)'],['status-warning','var(--warning-ink)'],['status-error','var(--danger-ink)']].map(function(x){
+   h('div',{style:{display:'flex',flexWrap:'wrap',gap:'16px 24px'}},[['status-info','var(--info-ink)'],['status-success','var(--success-ink)'],['status-warning','var(--warning-ink)'],['status-error','var(--danger-ink)']].map(function(x){
      return h('span',{key:x[0],style:{display:'inline-flex',alignItems:'center',gap:'8px',color:x[1]}},h(F.Icon,{name:x[0],size:24,filled:true}),h('span',{style:{color:'var(--ink)',font:'400 14px/20px var(--font-sans)'}},F.ICONS[x[0]]));}))),
   h('section',null,h('h3',{style:cap},'そのほか（B 案）/ Others'),h('ul',{style:grid},ALL.filter(function(n){return SCHED.indexOf(n)<0&&STATUS.indexOf(n)<0;}).map(function(n){return Cell(n,false);}))));}
 ReactDOM.createRoot(document.getElementById('r')).render(h(App));

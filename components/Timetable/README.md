@@ -22,3 +22,6 @@
 
 **理由 / Why:** 毎週同じ枠の予定（授業・シフト）を見る。曜日 × 時限の格子。毎週同じ場所にあるので探さない。
 *Weekly fixed slots (classes, shifts): a weekday × period grid; the same place every week, no searching.*
+
+**狭い画面 / Narrow screens:** 1 日の列は 128px より狭くしない（5 字の授業名が 1 行に入る）。入りきらないときは表ごと横に送り、時限の列は左に留める。表は WCAG 1.4.10 の 2 次元の内容の例外なので、横に送ってよい（D37）。
+*Day columns never go below 128px; the table scrolls sideways with the period column pinned (2-D content is exempt under WCAG 1.4.10).*

@@ -1,5 +1,16 @@
 # 変更履歴 / Changelog
 
+## 2026-11-26 — 精度の監査 / Precision audit
+
+- **測って直す:** 目で見る評価をやめ、全 136 枚の見本を PC（1280px）とスマホ（375px）で描き、約 12,000 個の要素の実際の値を KM1 の決まりと照らす `gen/precision_audit.js` を作った。見るのは 12 項目（文字の組・折り返した文の行の高さ・短い文字の押しつぶし・12px 未満・太さ・色・余白・角丸・縁・書体・1 行の長さ・左端のずれ）。最初の 77 件（測り方の誤りを除いたもの）をすべて直し、検査（`check_all.sh`）に入れた（D38）。
+  *Built a precision audit over ~12,000 elements at desktop and phone widths, fixed every finding, and added it to the checks.*
+- **スマホの崩れ:** 時間割は授業名が 1 字ずつ縦に折れていたので、1 日の列を 128px 以上にして横に送り、時限の列を左に留めた。1 行の編集欄の読み取り専用の行は、理由の文が右の列を広げて学籍番号が 2 行に割れていたので、理由を値の下に置いた。トーストは狭い画面で「元に戻す」を次の行に回す。今日の画面の締め切りは「レポート 3」の「3」だけが次の行に落ちていたので、改行しない空白にし、時刻を下の行にした（D37）。Flutter の時間割も同じ幅にした。
+  *Phone fixes: timetable scrolls with 128px day columns and a pinned period column; read-only note under the value; toast action wraps; no break between a word and its number.*
+- **1px のずれ:** 写真の格子で、選んだものだけ縁が 2px になり中身が 1px ずれていた。縁は 1px のまま外に 1px の線を足す（Web と Flutter）。
+  *Selected image cards no longer shift their content by 1px.*
+- **決まりの外の値:** トーストの「元に戻す」を紺の文字から枠のボタンに（D32）、カードと進み具合の説明を 14/24 に、記録の文に 40em の上限、字下げ 28px → 24px、角丸 3px → `radius-sm`、Consolas の直書き → `--font-mono`。
+  *Off-scale values brought onto the scales.*
+
 ## 2026-11-26 — 評価 5 回目: ダーク・操作バー・見出しの段 / Review 5
 
 - **ダークの淡い面:** brand・info・danger・success・warning の tint のダーク値を、暗い面（#1F1F1F）にその色を 16% 混ぜた彩度の低い色にした（例: danger #3B0509 → #3E2E2F）。お知らせが濃い 4 色のかたまりに見えなくなり、選択中のナビの面も暗い穴に見えなくなった。原色に `*-dark-tint` を 5 つ足した（D35）。

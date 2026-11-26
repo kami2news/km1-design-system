@@ -148,7 +148,7 @@ html{font-family:var(--font-sans)}
 .f2-toast--warning .f2-toast__icon{color:var(--warning-ink)}
 .f2-toast--danger .f2-toast__icon{color:var(--danger-ink)}
 .f2-toast__text{flex:1;padding:var(--space-xs) 0}
-.f2-toast__action{flex:none;min-height:var(--control-height);padding:0 var(--space-md);border:0;border-radius:var(--radius-md);background:transparent;color:var(--brand-ink);font:600 14px/20px var(--font-sans);cursor:pointer}
+.f2-toast__action{flex:none;min-height:var(--control-height);padding:0 var(--space-md);border:1px solid var(--stroke-strong);border-radius:var(--radius-md);background:var(--surface);color:var(--ink);font:600 14px/20px var(--font-sans);cursor:pointer}/* 枠なしの紺の文字は押せると分かりにくい（D32）。secondary と同じ形 / outlined like secondary (D32) */
 .f2-toast__action:hover{background:var(--surface-hover)}
 .f2-toast__action:focus-visible{outline:2px solid var(--focus-ring);outline-offset:1px}
 .f2-toast__close{margin:0}
@@ -165,7 +165,7 @@ html{font-family:var(--font-sans)}
 .f2-menu__item--danger:hover,.f2-menu__item--danger:active{background:var(--danger-tint)}
 .f2-menu__item--disabled{color:var(--ink-disabled);cursor:not-allowed}
 .f2-menu__item--disabled:hover{background:transparent}
-.f2-table-wrap{overflow-x:auto;border:1px solid var(--stroke);border-radius:var(--radius-md)}
+.f2-table-wrap{position:relative;overflow-x:auto;border:1px solid var(--stroke);border-radius:var(--radius-md)}/* position:relative がないと、読み上げ用の隠れた文字が箱の外に出て、ページごと横に広がる / keeps visually-hidden text inside the scroll box */
 .f2-table-wrap:focus-visible{outline:2px solid var(--focus-ring);outline-offset:1px}
 .f2-table{width:100%;border-collapse:collapse;font:400 14px/20px var(--font-sans);color:var(--ink);background:var(--surface)}
 .f2-table__caption{padding:var(--space-md) var(--space-md);text-align:left;font-weight:600;caption-side:top}
@@ -560,7 +560,8 @@ button.f2-tg__ev:focus-visible{outline:2px solid var(--focus-ring);outline-offse
 .f2-xe__summary{color:var(--ink-secondary);overflow-wrap:anywhere}
 .f2-xe__act{display:inline-flex;align-items:center;gap:var(--space-xs);color:var(--brand-ink);font-weight:600}
 .f2-xe__ro{grid-column:2/-1;font-size:12px;line-height:18px;color:var(--ink-secondary)}
-@media (max-width:479px){.f2-xe__btn{grid-template-columns:1fr auto}.f2-xe__summary{grid-column:1;grid-row:2}.f2-xe__act{grid-row:1/3;grid-column:2}}
+@media (max-width:479px){.f2-xe__btn{grid-template-columns:1fr auto}
+.f2-xe__ro{grid-column:1/-1}/* 狭い画面では理由を値の下に。右の列に置くと、その列が広がって値が折り返す / on phones the note sits under the value */.f2-xe__summary{grid-column:1;grid-row:2}.f2-xe__act{grid-row:1/3;grid-column:2}}
 .f2-xe--open{border-color:var(--stroke)}
 .f2-xe__panel{padding:var(--space-sm) var(--space-lg) var(--space-lg);border-top:1px solid var(--stroke-subtle)}
 .f2-xe__form{display:flex;flex-direction:column;gap:var(--space-lg)}
@@ -625,7 +626,7 @@ button.f2-igrid__open:hover{border-color:var(--stroke)}
 .f2-igrid__title{font:400 14px/20px var(--font-sans);overflow-wrap:anywhere}
 .f2-igrid__meta{font:400 12px/18px var(--font-sans);color:var(--ink-secondary)}
 .f2-igrid__check{position:absolute;top:var(--space-xs);left:var(--space-xs);display:flex;align-items:center;justify-content:center;width:var(--control-height);height:var(--control-height);border-radius:var(--radius-md);background:var(--surface);box-shadow:var(--shadow-2);cursor:pointer}
-.f2-igrid__item--selected .f2-igrid__open{border:2px solid var(--brand)}
+.f2-igrid__item--selected .f2-igrid__open{border-color:var(--brand)}.f2-igrid__item--selected .f2-igrid__open:not(:focus-visible){outline:1px solid var(--brand);outline-offset:0}/* 2px にすると中身が 1px ずれる。縁は 1px のまま、外に 1px 足す / keep the 1px border so content never shifts */
 .f2-igrid__item--selected .f2-igrid__media{opacity:.85}
 @media (forced-colors:active){.f2-igrid__item--selected .f2-igrid__open{border-color:Highlight}}
 .f2-sheet__head .f2-alert__close{margin:0}
@@ -703,3 +704,13 @@ svg.f2-icon.f2-icon--b{color:var(--icon-ink);flex:none}
 .f2-li__primary--select{padding-left:0;gap:0}
 .f2-li__primary--select:focus-within{outline:2px solid var(--focus-ring);outline-offset:-2px}
 .f2-li__primary--select .f2-check__box:focus-visible{outline:none}
+
+/* 精度の監査（gen/precision_audit.js）から / from the precision audit */
+/* カードの中の文は折り返すので body-1-para（14/24）を受け継がせる / card text wraps, so it inherits 14/24 */
+:where(.f2-card){line-height:24px}
+/* 進み具合の説明は折り返すことがある / progress status can wrap */
+.f2-progress__value{line-height:24px}
+/* 時間割: 横に送るとき、時限の列は左に留める（D37）/ Timetable: the period column stays pinned while scrolling */
+.f2-tt tbody th:first-child,.f2-tt thead th:first-child{position:sticky;left:0;z-index:1;background:var(--surface)}
+/* トースト: 狭い画面では操作を次の行の右に回し、文を押しつぶさない（D37）/ Toast on phones: the action wraps to its own row */
+@media (max-width:479px){.f2-toast{flex-wrap:wrap;row-gap:var(--space-xs)}.f2-toast__text{flex:1 1 0;min-width:60%}.f2-toast__close{order:2}.f2-toast__action{order:3;margin-left:auto}}

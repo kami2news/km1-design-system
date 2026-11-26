@@ -17,12 +17,13 @@
 .td__t{font:400 14px/20px var(--font-sans-en);font-variant-numeric:tabular-nums;text-align:right}
 .td__n{font:400 14px/20px var(--font-sans)}
 .td__m{font:400 14px/20px var(--font-sans);color:var(--ink-secondary);font-variant-numeric:tabular-nums;white-space:nowrap}
+.td__due{margin-left:var(--space-md)}@media (max-width:479px){.td__due{display:block;margin-left:0}}
 .td__soon{color:var(--danger-ink);font-weight:600}
 </style>
 <script>
 var h=React.createElement,F=window.Fluent2;
 var later=[['13:00','統計演習','W2-101'],['17:30','アルバイト','〜21:30']];
-var dues=[['11/25','統計演習 レポート 3','17:00 まで','あと 1 日',true],['11/27','地球化学 小テスト','終日','あと 3 日',false]];
+var dues=[['11/25','統計演習 レポート\u00a03','17:00 まで','あと 1 日',true],['11/27','地球化学 小テスト','終日','あと 3 日',false]];
 function Row(t,n,m,cls){return h('li',{key:t+n,className:cls},h('time',{className:'td__t'},t),h('span',{className:'td__n'},n),h('span',{className:'td__m'},m));}
 function Today(){
   return h('div',{className:'td'},
@@ -42,7 +43,7 @@ function Today(){
     h('section',{'aria-labelledby':'td-due'},
       h('h3',{id:'td-due',className:'td__label'},'締め切り'),
       h('ul',{className:'td__rows'},dues.map(function(d){
-        return h('li',{key:d[1]},h('time',{className:'td__t'},d[0]),h('span',{className:'td__n'},d[1],h('span',{className:'td__m'},'　'+d[2])),
+        return h('li',{key:d[1]},h('time',{className:'td__t'},d[0]),h('span',{className:'td__n'},d[1],h('span',{className:'td__m td__due'},d[2])),
           h('span',{className:'td__m'+(d[4]?' td__soon':'')},d[3]));}))));
 }
 ReactDOM.createRoot(document.getElementById('r')).render(h(Today));

@@ -26,6 +26,7 @@ step "アイコン / icons" python3 icons/iconcheck.py icons/km1-icons.json icon
 # 2. Web の見本 / web previews
 step "見本の描画 / render previews" python3 gen/render_previews.py "$WORK/rc"
 step "Web の自動検査（axe・キーボード・320px・再発防止・シナリオ）/ web tests" node gen/web_test.js "$WORK/rc"
+step "精度の監査（PC とスマホの幅で全要素の値）/ precision audit" node gen/precision_audit.js "$WORK/rc"
 step "部品の寸法 / sizes" python3 gen/sizecheck.py
 # 3. Office と PDF / Office and PDF
 office() { mkdir -p "$WORK/office" && (cd office && node km1_docx.js "$WORK/office" && node km1_pptx.js "$WORK/office") >/dev/null && python3 office/officecheck.py "$WORK"/office/*; }

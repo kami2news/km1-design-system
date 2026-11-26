@@ -363,7 +363,8 @@ function Timetable(p){
   var days=p.days||['月','火','水','木','金'],periods=p.periods||[],items=p.items||[],map={};
   items.forEach(function(it){map[it.day+'-'+it.period]=it;});
   return h('div',{className:cx('f2-table-wrap','f2-tt-wrap',p.className),role:'region','aria-label':p.caption,tabIndex:0},
-    h('table',{className:'f2-tt'},
+    // 1 日の列は 128px より狭くしない（5 字の授業名が 1 行に入る幅）。狭い画面では横に送る（表は WCAG 1.4.10 の 2 次元の例外）/ day columns never below 96px; scroll sideways on phones
+    h('table',{className:'f2-tt',style:{minWidth:104+days.length*128}},
       h('caption',{className:p.hideCaption?'f2-sr':'f2-table__caption'},p.caption),
       h('thead',null,h('tr',null,h('th',{scope:'col'},h('span',{className:'f2-sr'},'時限')),days.map(function(dn,i){
         return h('th',{key:i,scope:'col',className:p.today===i?'f2-tt__today':undefined,'aria-current':p.today===i?'date':undefined},dn,p.today===i?h('span',{className:'f2-sr'},'（今日）'):null);}))),

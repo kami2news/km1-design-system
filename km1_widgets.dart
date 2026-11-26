@@ -739,7 +739,10 @@ class Km1Table<T> extends StatelessWidget {
         decoration: BoxDecoration(border: Border.all(color: c.stroke), borderRadius: BorderRadius.circular(Km1Radius.md)),
         clipBehavior: Clip.antiAlias,
         child: LayoutBuilder(builder: (context, box) {
-          final w = box.maxWidth < minWidth ? minWidth : box.maxWidth;
+          // 1 日の列は 128 より狭くしない（5 字の授業名が 1 行に入る。Web と同じ。D37）/ day columns never below 96 (same as Web)
+          final need = 104 + days.length * 128.0;
+          final minW = minWidth > need ? minWidth : need;
+          final w = box.maxWidth < minW ? minW : box.maxWidth;
           final table = SizedBox(
             width: w,
             child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -1112,7 +1115,10 @@ class Km1Timetable extends StatelessWidget {
         decoration: BoxDecoration(border: Border.all(color: c.stroke), borderRadius: BorderRadius.circular(Km1Radius.md)),
         clipBehavior: Clip.antiAlias,
         child: LayoutBuilder(builder: (context, box) {
-          final w = box.maxWidth < minWidth ? minWidth : box.maxWidth;
+          // 1 日の列は 128 より狭くしない（5 字の授業名が 1 行に入る。Web と同じ。D37）/ day columns never below 96 (same as Web)
+          final need = 104 + days.length * 128.0;
+          final minW = minWidth > need ? minWidth : need;
+          final w = box.maxWidth < minW ? minW : box.maxWidth;
           final content = SizedBox(
             width: w,
             child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -1123,7 +1129,7 @@ class Km1Timetable extends StatelessWidget {
               table,
             ]),
           );
-          return box.maxWidth < minWidth ? SingleChildScrollView(scrollDirection: Axis.horizontal, child: content) : content;
+          return box.maxWidth < minW ? SingleChildScrollView(scrollDirection: Axis.horizontal, child: content) : content;
         }),
       ),
     );
@@ -2656,8 +2662,10 @@ class Km1ImageGrid extends StatelessWidget {
         final tile = Container(
           decoration: BoxDecoration(
             color: c.surface,
-            border: Border.all(color: on ? c.brand : c.strokeSubtle, width: on ? 2 : 1),
+            // 縁は 1 のまま、選んだときは外に 1 の線を足す（中身がずれない）/ keep a 1px border; add a 1px ring outside when selected
+            border: Border.all(color: on ? c.brand : c.strokeSubtle),
             borderRadius: BorderRadius.circular(Km1Radius.md),
+            boxShadow: on ? [BoxShadow(color: c.brand, spreadRadius: 1)] : null,
           ),
           clipBehavior: Clip.antiAlias,
           child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [

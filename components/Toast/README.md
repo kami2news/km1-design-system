@@ -4,6 +4,8 @@
 ## 使い方 / Usage
 - 中身はアイコン + 1 行の文言 + 操作 1 つまで（「元に戻す」「開く」）。長い説明や複数の操作は `Alert` か `Dialog` にする。
   *Icon, one line, at most one action. Longer text or several actions belong in `Alert` or `Dialog`.*
+- 操作は枠のボタン（`secondary` と同じ見た目）。狭い画面（480px 未満）では操作を次の行の右に回し、文を押しつぶさない（D32・D37）。
+  *The action looks like a secondary button; on narrow screens it wraps to its own row.*
 - `duration`（ミリ秒）を渡したときだけ自動で消える。操作付きは 10000 以上にするか、自動で消さない。×で必ず閉じられるよう `onClose` を渡す。
   *Auto-dismisses only when `duration` (ms) is set; with an action use 10000 or more, or none. Pass `onClose` so × always works.*
 - エラーなど読み落とせない内容には使わない。画面に残る `Alert` を使う。
