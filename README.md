@@ -46,8 +46,8 @@ KM1 は Microsoft Fluent 2 の構造に、Science Tokyo と EPSON の考え方�
 **PDF・印刷物 / PDFs and print:** 画面のない文書は「PDF の規定」（`documents.md`、KM1-DOC-001）に従う。ひな形・仕上げ・検査の道具は `pdf/` にある。
 *Documents without a screen follow "PDF documents" (`documents.md`, KM1-DOC-001); template, finishing and checking tools are in `pdf/`.*
 
-**研究レポート / Research reports:** 授業・研究のレポートと論文は、姉妹の標準 RS1（`kami2news/rs1-report-standard`）に従う。KM1 は土台（書体・4px 刻み・色だけに頼らない、など）、RS1 は学術レポート専用の規定で、両者が食い違うときは RS1 が優先する（`documents.md` 冒頭）。
-*Coursework reports and theses follow the sister standard RS1. KM1 is the foundation; RS1 is the academic-report specialization and wins where they differ (see the top of `documents.md`).*
+**対象外 / Out of scope:** 授業・研究で提出するレポートと論文は KM1 では扱わない（`documents.md` 冒頭）。研究発表のスライドは KM1-DOC-003 で扱う。
+*Coursework reports and theses are out of scope (see the top of `documents.md`); research presentation slides follow KM1-DOC-003.*
 
 **Word・PowerPoint:** Word の文書は KM1-DOC-002、スライドは KM1-DOC-003（`office.md`）に従う。ひな形（`KM1_文書.dotx`・`KM1_スライド.potx`）を作る道具と検査 `officecheck.py` は `office/` にある。
 *Word documents follow KM1-DOC-002 and slides KM1-DOC-003 (`office.md`); template generators and `officecheck.py` are in `office/`.*

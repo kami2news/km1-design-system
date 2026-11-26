@@ -1,9 +1,11 @@
 # 変更履歴 / Changelog
 
-## 2026-11-26 — RS1 との関係 / Relation to RS1
+## 2026-11-26 — RS1 と完全に分ける / Separated from RS1
 
-- **役割分担を明記:** 授業・研究のレポートは RS1、それ以外の文書・スライド・画面は KM1、と `documents.md` 冒頭と `README.md` に書いた。順位は「授業・提出先の指定 ＞ RS1 ＞ KM1」。値は変えていない。
-  *Stated the split: coursework reports follow RS1, everything else KM1; precedence is course instructions > RS1 > KM1. No values changed.*
+- **対象外を明記:** 授業・研究で提出するレポート・レジュメ・論文は KM1 の対象外にし（`documents.md` 冒頭・`README.md`）、KM1 と RS1 は互いの値や部品に頼らないことにした。`office.md` の RS1 への言及 2 か所は KM1 自身の決まりとして書き直した。
+  *Coursework reports are out of scope; KM1 and RS1 no longer depend on each other. Two RS1 references in `office.md` rewritten as KM1's own rules.*
+- **研究発表の中身の順番（KM1-DOC-003 §4.7）:** RS1 にあった、文献の紹介と研究の進捗のスライドの順番を KM1 に移した。研究発表のスライドは見た目も中身の順番も KM1 で決める。
+  *Moved the slide orders for paper reviews and progress reports from RS1 into §4.7; research slides are now fully KM1.*
 
 ## 2026-11-19 — 外部レビューへの対応 / Review follow-ups
 

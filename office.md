@@ -208,7 +208,7 @@ KM1 の型の表の大きさと行送りだけを使う / only KM1 type-ramp siz
 
 ### 4.6 図の転載と図の説明 / Reproduced figures and captions
 
-- **描き直すのが基本:** 数値が分かる図（棒・線・散布図など）は、PowerPoint のグラフで描き直す（RS1 と同じ考え）。論文の図をそのまま縮めると、検査は通っても肝心の中身が見えない。
+- **描き直すのが基本:** 数値が分かる図（棒・線・散布図など）は、PowerPoint のグラフで描き直す。論文の図をそのまま縮めると、検査は通っても肝心の中身が見えない。
   *Redraw figures whose values are known as native charts.*
 - **転載する大きさ:** 論文の図の文字は印刷で 6〜7 pt なので、映して読める大きさ（14 pt 前後）にするには **印刷の大きさの 2 倍以上** で載せる。全体を 2 倍にできないときは、必要な部分だけを切り出す。それでも届かない文字（目盛りの数字・日付など）は、日本語のラベルを重ねて補う。1 枚に載せるパネルは 2 つまでを目安にする。
   *Paper figures print at 6–7 pt, so place them at 2× print size or more; crop if needed, and cover text that still falls short with Japanese labels. About two panels per slide.*
@@ -231,10 +231,42 @@ KM1 の型の表の大きさと行送りだけを使う / only KM1 type-ramp siz
 - **日本語の発表:** 英語の図には、要になるラベルだけでも日本語を重ねる（20pt、図の上の白い面に黒い文字）。
   *In Japanese talks, overlay Japanese on at least the key labels.*
 - **図の説明:** 図の下に 20 pt で「図番号　内容。[n] Fig. ○ を転載」と書く（例「図2　湖の水深の変化（1975〜2020 年、m）。[3] Fig. 4 を転載」）。図番号と内容の間は全角の空白。テキスト ボックスの名前を `caption` で始めると、検査の文字数から外れる。
-  - **1 行が基本、2 行まで。** RS1 の「何・どこ・いつ・単位」が 1 行に入らないときだけ 2 行にする（図の高さはその分 28 減る）。2 行にも入らない分（方法の細かい条件など）はノートに書いて口で話す。単位は軸の目盛りか説明のどちらかに必ず見える形で残し、ノートだけに回さない（聞き手はノートを読めないため）。3 行以上は検査で注意。
+  - **1 行が基本、2 行まで。** 「何・どこ・いつ・単位」が 1 行に入らないときだけ 2 行にする（図の高さはその分 28 減る）。2 行にも入らない分（方法の細かい条件など）はノートに書いて口で話す。単位は軸の目盛りか説明のどちらかに必ず見える形で残し、ノートだけに回さない（聞き手はノートを読めないため）。3 行以上は検査で注意。
   *Captions: one line, two at most when what/where/when/unit need it; the rest goes in the notes and is spoken. Units must stay visible on the slide.*
 - ライセンスと「一部を切り出した」などの断り書きは、最後の参考文献のスライドにまとめてよい。
   *Licence and cropping notes may be gathered on the references slide.*
+
+### 4.7 研究発表の中身の順番 / Research talks
+
+ゼミ・中間発表・文献紹介のスライドは、次の順番で組む。枚数の目安は発表時間 1 分に 1 枚（1 枚 45〜60 秒、§4.3）。配る資料（レジュメ）の書き方は KM1 の対象外。
+*Seminar, progress and paper-review talks use the orders below; about one slide per minute. Handouts are out of scope.*
+
+**文献の紹介 / Paper review**
+
+| スライド | 中身 |
+|---|---|
+| 1 枚目（表紙）| 文献の書誌情報（著者・年・題名・誌名・巻（号）・頁または論文番号・DOI）、ゼミ名・発表日・発表者 |
+| 2 枚目 | 文献の問いと結論。2〜3 行ずつ |
+| 3 枚目〜 | 要約。1 枚に図 1 つと要点 1〜3 行。図には元の図番号・出典・ライセンスを付ける（§4.6）|
+| 任意 | 発表者のコメント。要約のスライドに混ぜず、別のスライドにする |
+| 最後 | 議論したいこと 1〜3 個 |
+| 予備 | 参考文献（要約で引いた別の文献があるとき）|
+
+*Cover with full citation; question and conclusion; one figure per summary slide; own comments on separate slides; 1–3 discussion points; references as a backup slide.*
+
+**研究の進捗 / Progress report**
+
+| スライド | 中身 |
+|---|---|
+| 1 枚目（表紙）| 表題、ゼミ名・発表日・発表者 |
+| 2 枚目 | 要約 3 行（目的・いま分かったこと・次にすること）|
+| 3 枚目 | 前回からの進み |
+| 4 枚目〜 | 途中結果。1 枚に図 1 つ。暫定の値は「暫定」と書く |
+| 次 | 分かったこと・言えないこと |
+| 次 | 相談したいこと 1〜3 個 |
+| 最後 | 今後の予定（表。状態は「未着手・進行中・完了」の言葉で）|
+
+*Cover; three-line summary; progress since last time; one result figure per slide (mark provisional values); findings and limits; 1–3 questions; schedule table with status in words.*
 
 **配るとき / Handing out:** PDF にして配る。「名前を付けて保存 › PDF › オプション」で「アクセシビリティ用のドキュメント構造タグ」をオンにし、`pdfcheck.py` にかける（スライドの比率のままなので A4 の項目は注意として出る）。
 

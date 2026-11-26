@@ -9,8 +9,8 @@ KM1-DOC-001。KM1 で作る PDF（報告書・資料・手順書・この標準�
 Word と PowerPoint のファイルそのものの決まりは「Word と PowerPoint の規定」（`office.md`）。
 *Rules for Word and PowerPoint files are in `office.md`.*
 
-**RS1 との関係 / Relation to RS1:** 大学の授業・ゼミ・卒業研究で提出するレポート・レジュメ・論文は、KM1-DOC-001・002 ではなく RS1（研究レポート標準、`kami2news/rs1-report-standard`）に従う。順位は「授業・提出先の指定 ＞ RS1 ＞ KM1」。RS1 は実際の授業レポートの形に合わせるため、見出しを黒にする・余白 25mm・本文 10.5pt・PDF/A-2b・英数字だけのファイル名など、KM1 と違う値を意図して使う（差の一覧は RS1 の `README.md`「KM1 との関係」）。発表スライドは、中身の順番を RS1、見た目を KM1-DOC-003 が決める。
-*Coursework reports, seminar handouts and theses follow RS1 (`kami2news/rs1-report-standard`), not KM1-DOC-001/002. Precedence: course or recipient instructions > RS1 > KM1. RS1 deliberately differs from KM1 to match real coursework (black headings, 25mm margins, 10.5pt body, PDF/A-2b, ASCII file names; see "Relation to KM1" in RS1's README). For presentation slides, RS1 sets the content order and KM1-DOC-003 the look.*
+**対象外 / Out of scope:** 大学の授業・ゼミ・卒業研究で提出・配布するレポート・レジュメ・論文は KM1 の対象外（別の標準 RS1 で扱う）。KM1 は RS1 の値や部品に頼らず、RS1 も KM1 に頼らない。研究発表のスライドは KM1-DOC-003 で扱う。
+*Coursework reports, seminar handouts and theses are out of scope (handled by the separate RS1 standard); neither depends on the other. Research presentation slides are covered by KM1-DOC-003.*
 
 ## 1. PDF にするか / Should it be a PDF?
 
