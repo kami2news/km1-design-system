@@ -9,6 +9,9 @@ KM1-DOC-001。KM1 で作る PDF（報告書・資料・手順書・この標準�
 Word と PowerPoint のファイルそのものの決まりは「Word と PowerPoint の規定」（`office.md`）。
 *Rules for Word and PowerPoint files are in `office.md`.*
 
+**対象外 / Out of scope:** 大学の授業・ゼミ・卒業研究で提出・配布するレポート・レジュメ・論文は KM1 の対象外（別の標準 RS1 で扱う）。KM1 は RS1 の値や部品に頼らず、RS1 も KM1 に頼らない。研究発表のスライドは KM1-DOC-003 で扱う。
+*Coursework reports, seminar handouts and theses are out of scope (handled by the separate RS1 standard); neither depends on the other. Research presentation slides are covered by KM1-DOC-003.*
+
 ## 1. PDF にするか / Should it be a PDF?
 
 - PDF は「配る・残す・印刷する」ための形。画面で読むだけ、あとで直す、スマホで読むことが多いなら、Web ページか共有ドキュメントを先に考える。PDF は画面幅に合わせて折り返せないため。

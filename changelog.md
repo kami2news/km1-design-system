@@ -1,5 +1,12 @@
 # 変更履歴 / Changelog
 
+## 2026-11-26 — RS1 と完全に分ける / Separated from RS1
+
+- **対象外を明記:** 授業・研究で提出するレポート・レジュメ・論文は KM1 の対象外にし（`documents.md` 冒頭・`README.md`）、KM1 と RS1 は互いの値や部品に頼らないことにした。`office.md` の RS1 への言及 2 か所は KM1 自身の決まりとして書き直した。
+  *Coursework reports are out of scope; KM1 and RS1 no longer depend on each other. Two RS1 references in `office.md` rewritten as KM1's own rules.*
+- **研究発表の中身の順番（KM1-DOC-003 §4.7）:** RS1 にあった、文献の紹介と研究の進捗のスライドの順番を KM1 に移した。研究発表のスライドは見た目も中身の順番も KM1 で決める。
+  *Moved the slide orders for paper reviews and progress reports from RS1 into §4.7; research slides are now fully KM1.*
+
 ## 2026-11-19 — 外部レビューへの対応 / Review follow-ups
 
 - **Flutter の画像比較を本当の検査に:** CI が `flutter test --update-goldens` で毎回画像を作り直しており、違いを見逃していた。通常の CI は承認済みの画像と比べて違えば失敗にし、作り直しは手で動かす「goldens」ワークフローだけにした（成果物を目で確かめてから commit）。承認済みの画像を入れるまでは比較を飛ばして警告を出す。手順は `verification.md` 6 章。
