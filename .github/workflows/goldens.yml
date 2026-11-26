@@ -6,7 +6,7 @@ name: goldens
 on:
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 jobs:
   goldens:
     runs-on: ubuntu-24.04
@@ -27,3 +27,10 @@ jobs:
         working-directory: verify/flutter
       - uses: actions/upload-artifact@v4
         with: { name: flutter-goldens-candidate, path: verify/flutter/test/goldens/ }
+      - name: 候補をブランチに置く（一時）
+        run: |
+          git config user.name github-actions; git config user.email github-actions@users.noreply.github.com
+          git checkout -B goldens-candidate
+          git add -f verify/flutter/test/goldens/*.png
+          git commit -m "goldens candidate" || true
+          git push -f origin goldens-candidate
