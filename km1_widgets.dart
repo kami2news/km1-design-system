@@ -727,7 +727,7 @@ class Km1Table<T> extends StatelessWidget {
                   style: a.danger ? OutlinedButton.styleFrom(foregroundColor: c.dangerInk) : null,
                   child: Text(a.label),
                 ),
-              TextButton(onPressed: () => onSelectionChanged!(<Object>{}), child: const Text('選択を解除')),
+              TextButton.icon(onPressed: () => onSelectionChanged!(<Object>{}), icon: const Icon(Km1Icons.dismiss16, size: 16), label: const Text('選択を解除')),
             ]),
           );
     return Semantics(
@@ -2166,10 +2166,11 @@ class Km1ListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = context.km1;
     final primary = Semantics(
-      button: onTap != null,
-      selected: selectable ? selected : null,
+      button: !selectable && onTap != null,
+      checked: selectable ? selected : null,
       child: InkWell(
-        onTap: onTap,
+        // 選ぶモードでは行を押すと選ぶ。開く操作（onTap）は使わない（D31）/ selection mode: tapping selects, never opens
+        onTap: selectable ? (onSelectedChanged == null ? null : () => onSelectedChanged!(!selected)) : onTap,
         child: ConstrainedBox(
           constraints: BoxConstraints(minHeight: context.km1Target),
           child: Padding(
@@ -2198,10 +2199,11 @@ class Km1ListItem extends StatelessWidget {
         if (selectable)
           SizedBox(
             width: context.km1Target,
-            child: Checkbox(
-              value: selected,
-              onChanged: onSelectedChanged == null ? null : (v) => onSelectedChanged!(v ?? false),
-              semanticLabel: '$title を選択',
+            child: ExcludeSemantics(
+              child: Checkbox(
+                value: selected,
+                onChanged: onSelectedChanged == null ? null : (v) => onSelectedChanged!(v ?? false),
+              ),
             ),
           ),
         Expanded(child: primary),
@@ -2262,8 +2264,8 @@ class Km1ContextualActionBar extends StatelessWidget {
             style: a.danger ? OutlinedButton.styleFrom(foregroundColor: c.dangerInk) : null,
             child: Text(a.label),
           ),
-        if (onSelectAll != null && total != null && count < total!) TextButton(onPressed: onSelectAll, child: Text('すべて選択（$total 件）')),
-        TextButton(onPressed: onClear, child: const Text('選択を解除')),
+        if (onSelectAll != null && total != null && count < total!) TextButton.icon(onPressed: onSelectAll, icon: const Icon(Km1Icons.selectAll16, size: 16), label: Text('すべて選択（$total 件）')),
+        TextButton.icon(onPressed: onClear, icon: const Icon(Km1Icons.dismiss16, size: 16), label: const Text('選択を解除')),
       ]),
     );
   }

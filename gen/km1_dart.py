@@ -319,6 +319,31 @@ abstract final class Km1Theme {
           side: WidgetStateProperty.resolveWith((s) => s.contains(WidgetState.focused) ? focusSide : BorderSide.none),
         ),
       ),
+      // ナビの選択中は、淡い紺の面・太字・塗りのアイコン（Web と同じ。線は足さない。D25・D33）
+      // Nav selection: brand tint, bold label, filled icon (same as Web; no bar)
+      navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: c.surface,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+        height: 64,
+        indicatorColor: c.brandTint,
+        indicatorShape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(Km1Radius.md))),
+        labelTextStyle: WidgetStateProperty.resolveWith((s) => s.contains(WidgetState.selected)
+            ? Km1Text.caption1.copyWith(color: c.brandInk, fontWeight: FontWeight.w600)
+            : Km1Text.caption1.copyWith(color: c.inkSecondary)),
+        iconTheme: WidgetStateProperty.resolveWith((s) =>
+            IconThemeData(size: Km1Size.iconLg, color: s.contains(WidgetState.selected) ? c.brandInk : c.inkSecondary)),
+      ),
+      navigationRailTheme: NavigationRailThemeData(
+        backgroundColor: c.surface,
+        elevation: 0,
+        indicatorColor: c.brandTint,
+        indicatorShape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(Km1Radius.md))),
+        selectedIconTheme: IconThemeData(size: Km1Size.iconLg, color: c.brandInk),
+        unselectedIconTheme: IconThemeData(size: Km1Size.iconLg, color: c.inkSecondary),
+        selectedLabelTextStyle: Km1Text.caption1.copyWith(color: c.brandInk, fontWeight: FontWeight.w600),
+        unselectedLabelTextStyle: Km1Text.caption1.copyWith(color: c.inkSecondary),
+      ),
       iconButtonTheme: IconButtonThemeData(
         style: ButtonStyle(
           minimumSize: WidgetStatePropertyAll(minTarget),

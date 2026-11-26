@@ -816,8 +816,8 @@ function ContextualActionBar(p){
     h('span',{className:'f2-bulk__count',role:'status','aria-live':'polite'},n?n+' 件を選択中'+(p.total?'（全 '+p.total+' 件）':''):''),
     n?h('div',{className:'f2-bulk__actions'},(p.actions||[]).map(function(a,i){
         return h('button',{key:i,type:'button',className:cx('f2-btn',a.danger?'f2-btn--secondary f2-btn--danger':'f2-btn--secondary'),onClick:a.onClick},a.icon,a.label);}),
-      p.onSelectAll&&p.total&&n<p.total?h('button',{type:'button',className:'f2-btn f2-btn--subtle',onClick:p.onSelectAll},'すべて選択（'+p.total+' 件）'):null,
-      h('button',{type:'button',className:'f2-btn f2-btn--subtle',onClick:clear},'選択を解除')):null);
+      p.onSelectAll&&p.total&&n<p.total?h('button',{type:'button',className:'f2-btn f2-btn--subtle',onClick:p.onSelectAll},icon16('select-all'),'すべて選択（'+p.total+' 件）'):null,
+      h('button',{type:'button',className:'f2-btn f2-btn--subtle',onClick:clear},icon16('dismiss'),'選択を解除')):null);
 }
 /* List / ListItem / ListSection / ListSectionHeader */
 var ListCtx=React.createContext(null);
@@ -835,11 +835,16 @@ function ListItem(p){
     p.meta?h('span',{key:'m',className:'f2-li__meta'},p.meta):null];
   // 無効のときはフォーカスできるが押しても何もしない（KM1 の「無効」の規則）/ disabled: focusable but inert
   function act(e){if(p.disabled){e.preventDefault();return;}if(p.onClick)p.onClick(e);}
+  // 選ぶモード（selectable）では行全体が 1 つのチェックボックスのラベルになり、押すと選ぶ。開く操作は出さない。
+  // 「開く」と「まとめて選ぶ」を同じ行に同時に出すと、押して何が起きるか分からないため（D31）
+  // In selection mode the whole row labels one checkbox; tapping selects, never opens (D31)
+  if(selOn) return h('li',{className:cx('f2-li',isSel&&'f2-li--selected',p.className)},
+    h('label',{className:'f2-li__primary f2-li__primary--select'},
+      h('span',{className:'f2-li__check'},h('input',{type:'checkbox',className:'f2-check__box',checked:isSel,onChange:toggle})),body));
   var prim=p.href?h('a',{className:'f2-li__primary',href:p.href,onClick:act,'aria-current':p.current?'page':undefined,'aria-disabled':p.disabled?'true':undefined},body)
     :p.onClick?h('button',{type:'button',className:'f2-li__primary',onClick:act,'aria-current':p.current?'true':undefined,'aria-disabled':p.disabled?'true':undefined},body)
     :h('div',{className:'f2-li__primary f2-li__primary--static'},body);
   return h('li',{className:cx('f2-li',isSel&&'f2-li--selected',p.className)},
-    selOn?h('label',{className:'f2-li__check'},h('input',{type:'checkbox',className:'f2-check__box',checked:isSel,onChange:toggle,'aria-label':(p.selectLabel||textOf(p.title))+' を選択'})):null,
     prim,
     p.trailing?h('div',{className:'f2-li__trail'},p.trailing):null);
 }
@@ -924,7 +929,7 @@ function BottomSheet(p){
   return h('dialog',{ref:ref,className:cx('f2-sheet',full&&'f2-sheet--full',p.className),'aria-labelledby':tid,
       onCancel:function(e){e.preventDefault();if(p.onClose)p.onClose();},onClick:function(e){if(e.target===ref.current&&p.onClose)p.onClose();}},
     h('div',{className:'f2-sheet__head'},h('h2',{id:tid,className:'f2-sheet__title'},p.title),
-      p.expandable!==false?h('button',{type:'button',className:'f2-btn f2-btn--subtle f2-sheet__expand',onClick:function(){setFull(!full);}},full?'元の高さに戻す':'全画面に広げる'):null,
+      p.expandable!==false?h('button',{type:'button',className:'f2-btn f2-btn--subtle f2-sheet__expand',onClick:function(){setFull(!full);}},icon16(full?'collapse':'expand'),full?'元の高さに戻す':'全画面に広げる'):null,
       h('button',{type:'button',className:'f2-alert__close','aria-label':'閉じる',title:'閉じる',onClick:function(){if(p.onClose)p.onClose();}},icon16('dismiss'))),
     h('div',{className:'f2-sheet__body'},p.children),
     p.actions?h(ActionRow,{className:'f2-sheet__actions'},p.actions):null);

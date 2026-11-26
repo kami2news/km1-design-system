@@ -12,7 +12,6 @@
 
 | 場所 / Slot | 中身 / Content | 押し場所 / Target |
 |---|---|---|
-| 左端（選べる一覧のとき）/ start | チェックボックス（状態）/ checkbox | 別 / separate |
 | 主操作 / primary | `leading`（アイコン 20px）・`title`・`description`・`meta` | 行の大半。`onClick` で button、`href` で a / most of the row |
 | 右端 / end | `trailing`（補助操作。ピン留め・展開など）/ secondary action | 別 / separate |
 
@@ -20,6 +19,8 @@
   *Never nest the targets. Keep the trailing action consistent; avoid repeating the same action (e.g. Share) on every row.*
 - 主操作が画面の移動なら、右端に矢印アイコンを足さない（M1 Lists: Controls）。
   *If the primary action navigates, don't add an arrow icon.*
+- 「開く」と「まとめて選ぶ」を同じ行に同時に出さない。ふだんの行は押すと開く。まとめて操作するときだけ、一覧の見出しの横の「まとめて選ぶ」（`subtle` ＋アイコン）で選ぶモードに入る。選ぶモードでは `selectable` を渡し、行全体が 1 つのチェックボックスになって、押すと選ぶ（`onClick` は使わない）。「選び終える」で抜けて選択を消す（D31）。
+  *Never offer "open" and "select" on the same row at once. Rows open by default; a "まとめて選ぶ" button next to the list heading enters selection mode, where `selectable` makes the whole row one checkbox that selects on tap (`onClick` is ignored). "選び終える" leaves and clears.*
 
 ## 状態 / States
 
@@ -28,12 +29,12 @@
 
 ## キーボード・読み上げ / Keyboard and screen readers
 
-- Tab でチェック → 主操作 → 補助操作の順に進む（DOM の順）。矢印キーの移動は持たない（一覧は「ウィジェット」ではなく、普通のリンクとボタンの並び）。
-  *Tab goes checkbox → primary → trailing in DOM order; no arrow-key roving (a list of links and buttons, not a composite widget).*
+- Tab で主操作 → 補助操作の順に進む（DOM の順。選ぶモードでは行のチェックボックスだけ）。矢印キーの移動は持たない（一覧は「ウィジェット」ではなく、普通のリンクとボタンの並び）。
+  *Tab goes primary → trailing in DOM order (selection mode: the row checkbox only); no arrow-key roving (a list of links and buttons, not a composite widget).*
 - `ul role="list"` と `li`。`ListSection` は小見出しを本物の見出し（既定 `h3`、`headingLevel` で変更）にして、中の `ul` に `aria-labelledby` で名前を付ける。件数は「3 件」と見出しの中に書く。
   *`ul role="list"`; `ListSection` uses a real heading (h3 by default) and names its inner list with it; the count is in the heading.*
-- チェックの名前は「（題名） を選択」。`title` が文字でないときは `selectLabel` を渡す。
-  *Checkbox name is "<title> を選択"; pass `selectLabel` when the title isn't plain text.*
+- 選ぶモードのチェックボックスは、行全体（題名と説明）がそのままラベルになる。
+  *In selection mode the whole row (title and description) labels the checkbox.*
 
 ## 長い一覧と固定見出し / Long lists and sticky headings
 

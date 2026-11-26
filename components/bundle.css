@@ -696,3 +696,8 @@ svg.f2-icon.f2-icon--b{color:var(--icon-ink);flex:none}
 @media (forced-colors:active){.f2-nav__item--selected{background:Canvas}}
 /* 分類色の淡い面の上の補足は ink にする。面が色づくと ink-secondary は 4.5:1 に届かない（ダークで 3.4:1）。上下は太さと大きさで分ける（D24）/ On category tints, secondary text uses ink */
 .f2-tt__sub,.f2-tg__ev .f2-tg__time,.f2-tg__ev .f2-tg__sub{color:var(--ink)}
+
+/* 選ぶモードの行: 行全体がチェックボックスのラベル（D31）/ Selection-mode row: the whole row labels the checkbox */
+.f2-li__primary--select{padding-left:0;gap:0}
+.f2-li__primary--select:focus-within{outline:2px solid var(--focus-ring);outline-offset:-2px}
+.f2-li__primary--select .f2-check__box:focus-visible{outline:none}

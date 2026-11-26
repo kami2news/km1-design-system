@@ -4,8 +4,8 @@
 利用側が渡すもの: `children`（動詞のラベル）。アイコンのみの場合は `aria-label` が必須。
 *Consumer provides: `children` (a verb label). Icon-only buttons require `aria-label`.*
 
-- 種類は 4 つ。`primary`（紺の塗り）: その画面で次にすること、1 画面に 1 つ。`secondary`（既定、枠）: ふつうの操作と「キャンセル」。`subtle`（枠なし）: ツールバーや行の中など、同じ形のボタンが何度も並ぶところ。`danger`（赤の文字、枠）: 取り消せない操作。古い `outline` は `secondary`、`transparent` は `subtle` として描く（D28）。
-  *Four kinds. `primary` (navy fill): the next step, one per screen. `secondary` (default, outlined): ordinary actions and Cancel. `subtle` (no border): repeated buttons in toolbars and rows. `danger` (red text, outlined): irreversible actions. Old `outline` renders as `secondary`, `transparent` as `subtle` (D28).*
+- 種類は 4 つ。`primary`（紺の塗り）: その画面で次にすること、1 画面に 1 つ。`secondary`（既定、枠）: ふつうの操作と「キャンセル」。`subtle`（枠なし）: ツールバーや行の中など、同じ形のボタンが何度も並ぶところ。枠がないので、必ずアイコンを付ける（枠なしの太字だけでは見出しと見分けがつかない。D32）。`danger`（赤の文字、枠）: 取り消せない操作。古い `outline` は `secondary`、`transparent` は `subtle` として描く（D28）。
+  *Four kinds. `primary` (navy fill): the next step, one per screen. `secondary` (default, outlined): ordinary actions and Cancel. `subtle` (no border): repeated buttons in toolbars and rows; always with an icon, since borderless bold text looks like a heading (D32). `danger` (red text, outlined): irreversible actions. Old `outline` renders as `secondary`, `transparent` as `subtle` (D28).*
 - サイズは `small` / `medium`（標準）/ `large`。高さは PC で 24 / 32 / 40px、スマホで 44 / 44 / 48px に自動で切り替わる。
   *Sizes: `small`, `medium` (default), `large`: 24 / 32 / 40px on PC, 44 / 44 / 48px on touch, switched automatically.*
 - 使い分け: `primary` は 1 画面に原則 1 つ。枠のボタンは同じ場面で同時に 3 つまで（4 つ以上なら流れを見直す）。「キャンセル」は `secondary`。重要度の差は色だけで示さず、塗り・枠・枠なしの形で示す（デジタル庁デザインシステムの考え方）。

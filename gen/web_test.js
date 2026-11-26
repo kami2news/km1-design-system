@@ -171,6 +171,8 @@ async function s2(p, tag) {
   await (await btnByText(p, '保存', '.f2-xe')).click(); await sleep(400);
   const back = await p.evaluate(() => ({ focus: document.activeElement.classList.contains('f2-xe__btn'), sum: document.querySelector('.f2-xe__summary').textContent }));
   ok(back.focus && back.sum === 'W9-100', `S2 ${tag} 保存後に見出しへ戻る / focus back on header, value saved`, JSON.stringify(back));
+  ok(await p.evaluate(() => !document.querySelector('.f2-li__check')), `S2 ${tag} 開く操作と選ぶ操作を同時に出さない / no checkboxes until selection mode (D31)`);
+  await (await btnByText(p, 'まとめて選ぶ')).click(); await sleep(150);
   const boxes = await p.$$('.f2-li__check input'); await boxes[1].click(); await boxes[2].click(); await sleep(150);
   await (await btnByText(p, '削除', '.f2-bulk')).click(); await sleep(300);
   ok(await p.evaluate(() => { const d = document.querySelector('dialog[open]'); return !!d && /2 件の授業を削除しますか/.test(d.textContent); }), `S2 ${tag} 件数つきで確認される / confirm shows count`);

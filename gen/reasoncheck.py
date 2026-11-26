@@ -2,7 +2,7 @@
 
 - FAIL: 浮いていない部品に外側の影（box-shadow）を付けている。浮く部品は ALLOW に理由つきで並べる
 - FAIL: 見本（preview.html）の文言が、本物の内容ではなく部品自身や見本であることを説明している
-- FAIL: 見本で削除のボタンを primary にしている（D26）
+- FAIL: 見本で削除のボタンを primary にしている（D26）。枠なしのボタンにアイコンがない（D32）
 - FAIL: 見本の文言で、入力例をプレースホルダに入れている（D27）。数字と単位・助数詞の間があいていない（D27。ファイル名は除く）
 - FAIL: 部品の README に「**理由 / Why:**」の行がない（全部品に書いた。-v で一覧）
 使い方 / Usage: python3 gen/reasoncheck.py [-v]
@@ -49,6 +49,8 @@ for f in sorted(glob.glob(os.path.join(ROOT, 'components', '*', 'preview.html'))
         out('FAIL', 'EXAMPLE', f'{name}: 入力例をプレースホルダに入れている。hint に「例：」で書く / example in placeholder')
     for m in re.finditer(r"appearance\s*:\s*'primary'[^)]{0,80}?'[^']*削除[^']*'", t):
         out('FAIL', 'DANGER', f'{name}: 削除を primary にしている。取り消せない操作は danger（D26）/ delete as primary')
+    for m in re.finditer(r"Button,\{appearance\s*:\s*'subtle'(?![^}]*icon\s*:)[^}]*\}", t):
+        out('FAIL', 'SUBTLE', f'{name}: 枠なしのボタンにアイコンがない（D32）/ subtle button without an icon')
     for m in DIG.finditer(t):
         lit = m.group(0)
         if re.search(r'\.(?:csv|pdf|png|jpe?g|xlsx|docx)', lit): continue   # ファイル名はそのまま / file names

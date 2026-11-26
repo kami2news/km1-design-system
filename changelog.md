@@ -1,5 +1,14 @@
 # 変更履歴 / Changelog
 
+## 2026-11-26 — 評価 4 回目: 2 種類の「選ぶ」・枠なしボタン・Flutter のナビ / Review 4
+
+- **一覧:** 行の左のチェック（まとめて選ぶ）と行の本体（開く）が同時に出ていたのをやめた。ふだんは押すと開き、「まとめて選ぶ」で選ぶモードに入ると、行全体が 1 つのチェックボックスになる。Web の `ListItem` と Flutter の `Km1ListItem` の両方を直し、授業の編集画面と検査のシナリオも合わせた（D31）。
+  *Lists no longer offer open and select at once; a selection mode makes the whole row one checkbox.*
+- **枠なしボタン:** `subtle` には必ずアイコンを付ける。ボタンの見本、選択中の操作バー（すべて選択・選択を解除）、ボトムシートの広げる・戻すにアイコンを足した。`reasoncheck.py` はアイコンのない `subtle` を FAIL にする（D32）。
+  *Subtle buttons always carry an icon; enforced by the check.*
+- **Flutter のナビ:** `NavigationBar`・`NavigationRail` のテーマを足し、選択中を淡い紺の面・太字・塗りのアイコンにして Web とそろえた（D33）。
+  *Flutter nav themes now match Web.*
+
 ## 2026-11-25 — 評価 3 回目: ボタンの種類・理由の行・同じ値の重なり / Review 3
 
 - **ボタン:** 6 種類を `primary`・`secondary`・`subtle`・`danger` の 4 種類にした。古い `outline`・`transparent` は近いものに読み替える。「キャンセル」は枠のボタン。ボタンの見本を、本物の場面（保存の組・ツールバー・削除・大きさ）で並べ直した。Flutter の `TextButton` は紺の文字をやめて `subtle` と同じにした（D28）。
