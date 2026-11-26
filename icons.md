@@ -324,4 +324,80 @@ KM1 を使うアプリ（スケジュール確認、イベント向け POS、作
 **部品の中の直し:** Alert の「閉じる」ボタンだけ、アイコンのセットを使わずに × を直接描いていた。`dismiss` に直した。
 *The Alert close button drew its own ×; it now uses `dismiss`.*
 
+
+## 10. ロゴと表示 / Logo and attribution
+
+KM1 のロゴは、§6 のしるしと同じ形（「KM1」と表紙の帯）を、色を入れ替えて**白地に青**にしたもの。白い面が明るい背景に溶けないよう、黒（`ink`）の細い縁で囲む。形は足さない。アプリアイコン（§6）は紺地に白のまま。KM1 で作ったものに付ける表示（バッジ）もここで決める。道具は `brand/km1_logo.py`、できあがりは `dist/logo/`（SVG と PNG の 1・2・3 倍）。
+*The KM1 logo is the §6 mark with colours swapped — blue on white, framed by a thin ink hairline; the app icon (§6) stays white on navy. This section also defines the attribution badge for things made with KM1. Tool: `brand/km1_logo.py`; output: `dist/logo/` (SVG and PNG @1x/2x/3x).*
+
+![KM1 のロゴ（横組み）— しるしと「KM1」/ KM1 logo, horizontal](dist/logo/km1-logo.svg)
+
+![表示バッジ — Designed with KM1 と KM1 で設計 / Attribution badges](dist/logo/designed-with-km1@3x.png)
+
+**形 / Parts**
+
+| 種類 / Kind | 中身 / Contents | ファイル / Files |
+|---|---|---|
+| しるし / Mark | §6 と同じ形を白地に青で。ロゴは OS に切り抜かれないので、中身はアプリアイコン（直径 60% の円）より大きく、「KM1」の幅をしるしの 84% にする。小さく置かれても潰れないよう、24px 未満では字形を Black（極太）に替える。縁は `ink`（#242424）の細い線で、太さはしるしの 1/64（64px 以下は 1px）。角は 32px のときの `radius-md`（4px）と同じ比（12.5%）。48px 未満は帯を省く | `km1-mark(-dark/-mono).svg` |
+| 横組み / Logo | しるし＋間（しるしの 1/4）＋「KM1」。「KM1」の大文字の高さはしるしの 0.42。文字は `ink` | `km1-logo(-dark/-mono).svg` |
+| 表示バッジ / Badge | 高さ 24px、縁 1px（`stroke`）、角 `radius-md`、しるし 20px、文字 12px（`caption-1`）。「Designed with」は `ink-secondary`、「KM1」は太字の `ink` | `designed-with-km1(-dark).svg`、`km1-de-sekkei(-dark).svg` |
+
+文字は Noto Sans CJK JP の字形を輪郭にしてある（SIL OFL 1.1）。書体を読み込まなくても同じ形で出る。
+*Text is outlined from Noto Sans CJK JP (SIL OFL 1.1), so it renders the same without the font.*
+
+**色 / Colors**
+
+| 版 / Version | しるし / Mark | 文字 / Text | 使う場所 / Use on |
+|---|---|---|---|
+| ライト / light | 白地に `brand`（#10218B）の文字と帯、`ink` の細い縁 | `ink`（#242424） | `surface` などの明るい面 |
+| ダーク / dark | ライトと同じ（暗い面の上でも色を変えない） | 白 | ダークの `surface`（#292929）などの暗い面 |
+| 単色 / mono | 縁・文字・帯を `ink` 1 色。地は透明 | `ink` | 1 色で刷るもの、写真の上など色が決められない場所 |
+
+**表示の文言 / Wording:** 「**Designed with KM1**」（日本語の画面では「**KM1 で設計**」）にする。KM1 はデザインの標準なので「with（KM1 を使って設計した）」。「Designed by」は KM1 がその製品を設計したと読めるので使わない。「Powered by」は動かす仕組み（サーバー・エンジン）を指す言い方で、KM1 にはそれがないので使わない。
+*Use "Designed with KM1" ("KM1 で設計" in Japanese UI). KM1 is a design standard, so "with". Not "Designed by" (reads as KM1 designing the product) and not "Powered by" (implies a runtime; KM1 has none).*
+
+**付けてよいもの / When to show it**
+
+- KM1 の決まり（トークン・部品・文言）に従って作ったアプリ・ページ・文書。一部だけ（色だけなど）なら付けない。
+  *Apps, pages and documents that follow KM1's tokens, components and wording; not ones that borrow only part (e.g. colours).*
+- 付けるかどうかは任意。付けなくても KM1 のライセンス（MIT）の条件には関係しない。
+  *Optional; unrelated to KM1's MIT licence terms.*
+
+**置き場所 / Placement**
+
+- Web のページはフッター、アプリは「このアプリについて」や設定の最後、文書・スライドは最後のページ（奥付）。上の帯・最初の画面・主な操作の近くには置かない。
+  *Web: footer. Apps: About or the end of Settings. Documents and slides: the last page. Never in the top bar, the first screen or near primary actions.*
+- 製品自身のロゴより大きくしない。リンクにするときは GitHub の正本（`https://github.com/kami2news/km1-design-system`）へ。
+  *Never larger than the product's own logo; link to the GitHub repository.*
+
+**大きさと余白 / Size and clear space**
+
+| 種類 / Kind | いちばん小さい大きさ / Minimum | まわりの余白 / Clear space |
+|---|---|---|
+| しるし / Mark | 20px（48px 未満は帯なし、24px 未満は極太の版）。16px は SVG か 2 倍以上の画像のときだけ | しるしの 1/4 |
+| 横組み / Logo | 高さ 24px | しるしの 1/4 |
+| 表示バッジ / Badge | 高さ 24px（拡大は 32px まで） | 8px（`space-sm`） |
+
+**してはいけないこと / Don'ts:** 色を変える、縦横の比を変える、傾ける、影・ぼかし・グラデーションを付ける、文字を打ち直す（書体が変わる）、文言を変える、ほかのロゴとくっつける、KM1 に従っていないものに付ける。
+*Do not recolour, stretch, rotate, add shadows/blur/gradients, retype or reword it, attach it to another logo, or put it on things that do not follow KM1.*
+
+**使い方の例 / Usage**
+
+Web（ライトとダークを OS の設定で切り替える）:
+
+```html
+<a href="https://github.com/kami2news/km1-design-system">
+  <picture>
+    <source srcset="designed-with-km1-dark.svg" media="(prefers-color-scheme: dark)">
+    <img src="designed-with-km1.svg" width="144" height="24" alt="Designed with KM1">
+  </picture>
+</a>
+```
+
+Flutter は `designed-with-km1.png`（と `@2x`・`@3x`）を assets に入れ、`Image.asset` で高さ 24 にして出す。読み上げ用に `semanticLabel: 'Designed with KM1'` を付ける。PowerPoint は `KM1_表示バッジ.pptx` からコピーして貼る（GitHub へのリンクと代替テキストが付いている。置き場所は `office.md` §4.5）。Word は PNG の 3 倍を高さ 24px（6.35 mm）で貼り、「挿入 › リンク」で GitHub の URL を付ける。
+*Flutter: ship the PNGs as assets and show at height 24 with `semanticLabel`. PowerPoint: copy from `KM1_表示バッジ.pptx` (linked, with alt text). Word: paste the @3x PNG at 24px (6.35 mm) and add the GitHub link.*
+
+KM1 は個人の標準なので、このロゴは Microsoft・Science Tokyo・Seiko Epson・デジタル庁の承認を示すものではない（`notices.md`）。
+*KM1 is a personal standard; the logo implies no endorsement by the organisations referenced (`notices.md`).*
+
 出典 / Sources: [Fluent System Icons（Microsoft、MIT）](https://github.com/microsoft/fluentui-system-icons)・[Android Developers: Adaptive icons（108dp の中の 66dp は欠けない）](https://developer.android.com/develop/ui/views/launch/icon_design_adaptive)・[MDN: Define your app icons（maskable の安全な円は 80%）](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/How_to/Define_app_icons)・Noto Sans CJK（SIL OFL 1.1）

@@ -13,6 +13,16 @@
   *Coursework reports are out of scope; KM1 and RS1 no longer depend on each other. Two RS1 references in `office.md` rewritten as KM1's own rules.*
 - **研究発表の中身の順番（KM1-DOC-003 §4.7）:** RS1 にあった、文献の紹介と研究の進捗のスライドの順番を KM1 に移した。研究発表のスライドは見た目も中身の順番も KM1 で決める。
   *Moved the slide orders for paper reviews and progress reports from RS1 into §4.7; research slides are now fully KM1.*
+## 2026-11-19 — ロゴと表示バッジ / Logo and attribution badge
+
+- **ロゴ:** KM1 のロゴを、アプリアイコンのしるし（「KM1」と表紙の帯）と同じ形で、色を入れ替えた白地に青（黒の細い縁つき）に決めた。切り抜かれないので中身はアイコンより大きく（文字の幅 84%、24px 未満は極太の字形）し、小さく置いても潰れないようにした。アプリアイコンは紺地に白のまま。横組み（しるし＋「KM1」）と、ライト・ダーク・単色の版を足した。
+  *The KM1 logo uses the app-icon drawing in blue on white with a thin ink border; the app icon stays white on navy. Added a horizontal lockup and light, dark and mono versions.*
+- **表示バッジ:** KM1 に従って作ったものに付ける「Designed with KM1」（日本語の画面は「KM1 で設計」）を決めた。「Designed by」（KM1 が設計したと読める）と「Powered by」（動かす仕組みを指す）は使わない。高さ 24px、縁 1px、しるし 20px、文字 12px。置き場所はフッター・「このアプリについて」・文書の最後のページ。
+  *Added the "Designed with KM1" badge; "Designed by" and "Powered by" are not used.*
+- **道具とファイル:** `brand/km1_logo.py` が `dist/logo/` に SVG と PNG（1・2・3 倍）を書き出す。決まりは「アイコン」§10。
+  *`brand/km1_logo.py` writes `dist/logo/`; rules in Icons §10.*
+- **PowerPoint の表示バッジ:** GitHub の KM1 へのリンクと代替テキストが付いた表示バッジ（英語・日本語）としるしだけのボタンを `KM1_表示バッジ.pptx` に入れた。コピーして貼るとリンクも移る。見本のスライドの最後にも置いた。置き場所は `office.md` §4.5。`officecheck.py` は名前が `km1-badge` で始まる画像をグリッドの検査から除く。
+  *`KM1_表示バッジ.pptx` holds linked badges and a mark button to copy into slides; the sample deck shows one on its last slide.*
 
 ## 2026-11-19 — 外部レビューへの対応 / Review follow-ups
 
