@@ -602,10 +602,12 @@ function TimeGrid(p){
         h('div',{className:'f2-tg__grid',style:{height:total+'px'}},
           h('div',{className:'f2-tg__hours','aria-hidden':'true'},hours.map(function(k){return h('div',{key:k,className:'f2-tg__hour',style:{top:((k-sh)*hh)+'px'}},k+':00');})),
           days.map(function(dd,i){
-            var list=layoutDay(timed.filter(function(e){return e.day===i&&e.kind!=='deadline';}).map(function(e){var s=hm(e.start),en=e.kind==='deadline'?s+1:hm(e.end);return Object.assign(e,{_s:Math.max(s,sh*60),_e:Math.min(Math.max(en,s+1),eh*60)});}).filter(function(e){return e._e>sh*60&&e._s<eh*60;}));
+            // 締め切りは見えている高さ（24px）を時間の幅として、ほかの予定と同じ列分けに入れる。上に重ねると、下の予定が押せず読めない（D40）
+            // Deadlines take their visible 24px as a time span and join the same column split; overlaying hides and blocks the event below
+            var half=12/ppm,list=layoutDay(timed.filter(function(e){return e.day===i;}).map(function(e){var s=hm(e.start);if(e.kind==='deadline')return Object.assign(e,{_mark:s,_s:s-half,_e:s+half});var en=hm(e.end);return Object.assign(e,{_s:Math.max(s,sh*60),_e:Math.min(Math.max(en,s+1),eh*60)});}).filter(function(e){return e.kind==='deadline'?(e._mark>=sh*60&&e._mark<eh*60):(e._e>sh*60&&e._s<eh*60);}));
             return h('div',{key:i,className:'f2-tg__col',role:typeof p.onSelect==='function'?'group':'list','aria-label':dd.label+(i===nowDay?'（今日）':'')},
-              list.concat(timed.filter(function(e){return e.day===i&&e.kind==='deadline';}).map(function(e){var s0=hm(e.start);return Object.assign(e,{_s:s0,_e:s0+1,_col:0,_cols:1});}).filter(function(e){return e._s>=sh*60&&e._s<eh*60;}))
-                .sort(function(a,b){return a._s-b._s;}).map(function(e){var top=(e._s-sh*60)*ppm-(e.kind==='deadline'?12:0),ht=Math.max((e._e-e._s)*ppm,20);
+              list
+                .sort(function(a,b){return a._s-b._s;}).map(function(e){var top=e.kind==='deadline'?(e._mark-sh*60)*ppm-12:(e._s-sh*60)*ppm,ht=Math.max((e._e-e._s)*ppm,20);
                 return item(e,{top:top+'px',height:(e.kind==='deadline'?24:ht)+'px',left:'calc('+(e._col/e._cols*100)+'% + 2px)',width:'calc('+(100/e._cols)+'% - 4px)'});}),
               i===nowDay&&nowMin!=null&&nowMin>=sh*60&&nowMin<=eh*60?h('div',{className:'f2-tg__now',style:{top:((nowMin-sh*60)*ppm)+'px'},role:'img','aria-label':'現在 '+fmtHm(nowMin)}):null);})))));
 }
@@ -946,8 +948,10 @@ function ImageGrid(p){
         :h('img',{src:it.src,alt:it.alt||'',loading:'lazy',decoding:'async',onError:function(){setFailed(function(o){var x=Object.assign({},o);x[it.id]=1;return x;});}}));
       var cap=it.caption||it.meta?h('span',{className:'f2-igrid__cap'},it.caption?h('span',{className:'f2-igrid__title'},it.caption):null,it.meta?h('span',{className:'f2-igrid__meta'},it.meta):null):null;
       return h('li',{key:it.id,className:cx('f2-igrid__item',on&&'f2-igrid__item--selected')},
-        p.onOpen?h('button',{type:'button',className:'f2-igrid__open',onClick:function(){p.onOpen(it);}},media,cap):h('span',{className:'f2-igrid__open f2-igrid__open--static'},media,cap),
-        selOn?h('label',{className:'f2-igrid__check'},h('input',{type:'checkbox',className:'f2-check__box',checked:on,onChange:function(){tog(it.id);},'aria-label':textOf(name)+' を選択'})):null);}));
+        // 選ぶモード（selectable）ではタイル全体が 1 つのチェックボックスのラベルになり、押すと選ぶ。開く操作は出さない（List と同じ。D31）
+        // In selection mode the whole tile labels one checkbox; tapping selects, never opens (same as List, D31)
+        selOn?h('label',{className:'f2-igrid__open f2-igrid__open--select'},media,cap,h('span',{className:'f2-igrid__check'},h('input',{type:'checkbox',className:'f2-check__box',checked:on,onChange:function(){tog(it.id);}})))
+        :p.onOpen?h('button',{type:'button',className:'f2-igrid__open',onClick:function(){p.onOpen(it);}},media,cap):h('span',{className:'f2-igrid__open f2-igrid__open--static'},media,cap));}));
 }
 
 // ---------- 分類の模様 / Category patterns ----------

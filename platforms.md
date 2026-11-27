@@ -6,7 +6,7 @@ KM1 は、1 つの見た目を全端末で同じに保つのではなく、**色
 | 対象 / Target | 実装 / Implementation | 状態 / Status |
 |---|---|---|
 | Web（HTML） | `components/bundle.js`（React）、`components/bundle.css`、`tokens.css`（React なしの単体 HTML でも可） | 見本のある部品 50（公開 60）。自動検査・キーボード・320px・強制カラーを headless Chrome で確認済み。**安定（パイロット）**。実際のブラウザ 4 種と読み上げソフトでの確認は未実施（verification W2・N1） |
-| Flutter（Android・iOS・iPadOS・Windows・macOS・Web） | `km1_theme.dart`（テーマ）と `km1_widgets.dart`（KM1 専用の 30 部品）。ほかは Flutter 標準の部品にテーマを当てる | **パイロット**。CI で `flutter analyze` と `flutter test`（ギャラリーの組み立て）を push のたびに実施（2026-11-18 から）。実機でのビルドと表示は未実施（verification F3） |
+| Flutter（Android・iOS・iPadOS・Windows・macOS・Web） | `km1_theme.dart`（テーマ）と `km1_widgets.dart`（KM1 専用の 31 部品）。ほかは Flutter 標準の部品にテーマを当てる | **パイロット**。CI で `flutter analyze` と `flutter test`（ギャラリーの組み立て）を push のたびに実施（2026-11-18 から）。実機でのビルドと表示は未実施（verification F3） |
 | Windows ネイティブ（WinUI 3） | `KM1.xaml`（ResourceDictionary）。WinUI 3 の部品はもともと KM1 の土台と同じ形なので、アクセント色・角丸・書体と KM1 の色のブラシを当てるだけでよい | **実験的（experimental）**。生成済み。XML として正しいこと、上書きするキーが WinUI のソース（2026-11-12 時点）に実在すること、Windows の背景での読みやすさを確認。**ビルドは未実施** |
 | Android ネイティブ（Jetpack Compose） | `Km1Theme.kt`（`Km1Theme`、`Km1.colors`、`Km1PrimaryButton`） | **実験的（experimental）**。生成済み。文法と、使った関数・引数が androidx のソース（2026-11-12 時点）に実在することを確認。**ビルドは未実施** |
 | iOS・iPadOS・macOS ネイティブ（SwiftUI） | `KM1Theme.swift`（`Km1Color`、`Km1Text`、`Km1PrimaryButtonStyle`） | **実験的（experimental）**。生成済み。文法のみ確認（SwiftUI はソースが非公開で照合できない）。**ビルドは未実施** |
@@ -22,8 +22,8 @@ KM1 は、1 つの見た目を全端末で同じに保つのではなく、**色
 React で使うときは `tokens.css`・`components/bundle.css`・`components/bundle.js` を読み込み、`window.Fluent2` の部品を使う（名前の `Fluent2` と、クラスの頭の `f2-` は、土台にした時期の名残で、互換のためそのままにしている）。各部品の使い方は `components/<Name>/README.md`。
 *With React, load `tokens.css`, `bundle.css` and `bundle.js` and use the parts in `window.Fluent2` (the `Fluent2` name and `f2-` class prefix remain for compatibility). Each part's guide is `components/<Name>/README.md`.*
 
-未収録: 予定表（`TimeGrid`）の中で予定をドラッグして動かす操作、自由入力でタグを作る操作。どちらも、編集画面と選択肢の追加で代わりができる。Flutter 版は、`km1_theme.dart`（テーマ）と `km1_widgets.dart`（KM1 専用の 30 部品）。ほかは Flutter 標準の部品にテーマを当てる（対応表は「プラットフォーム」）。
-*Not included: dragging events inside `TimeGrid` and creating free-text tags; the editor and option lists cover both. Flutter uses `km1_theme.dart` plus `km1_widgets.dart` (30 KM1 widgets); see Platforms for the mapping.*
+未収録: 予定表（`TimeGrid`）の中で予定をドラッグして動かす操作、自由入力でタグを作る操作。どちらも、編集画面と選択肢の追加で代わりができる。Flutter 版は、`km1_theme.dart`（テーマ）と `km1_widgets.dart`（KM1 専用の 31 部品）。ほかは Flutter 標準の部品にテーマを当てる（対応表は「プラットフォーム」）。
+*Not included: dragging events inside `TimeGrid` and creating free-text tags; the editor and option lists cover both. Flutter uses `km1_theme.dart` plus `km1_widgets.dart` (31 KM1 widgets); see Platforms for the mapping.*
 
 ### React を使わない単体の HTML / Single HTML file without React
 
@@ -42,7 +42,7 @@ React で使うときは `tokens.css`・`components/bundle.css`・`components/bu
 `tokens.json` から生成した `km1_theme.dart` を使う（`ThemeData` と `ThemeExtension`）。ほかのデザインを再現する既存パッケージ（`fluent_ui` など）は使わない。Material は部品の土台として使うだけで、色・形・大きさはテーマで上書きする。
 *Use `km1_theme.dart`, generated from `tokens.json` (`ThemeData` + `ThemeExtension`). Packages that recreate other design systems (such as `fluent_ui`) are not used. Material is only the widget base; colour, shape and size are overridden by the theme.*
 
-`km1_theme.dart`（テーマ）と `km1_widgets.dart`（表・カレンダー・時間割・予定表など KM1 専用の 30 部品）をアプリに入れる。アイコンは `icons/km1_icons_b.dart`（通常表示の B 案）・`icons/km1_icons.dart`（字形。B 案の 1 色の形と塗りの形）・`KM1Icons.ttf` を入れ、pubspec の `fonts` に `family: KM1Icons` で登録する（`fluentui_system_icons` は不要になった）。アイコンのファイルは `km1_theme.dart` だけに頼り、`km1_widgets.dart` がなくても組み込める。
+`km1_theme.dart`（テーマ）と `km1_widgets.dart`（表・カレンダー・時間割・予定表など KM1 専用の 31 部品）をアプリに入れる。アイコンは `icons/km1_icons_b.dart`（通常表示の B 案）・`icons/km1_icons.dart`（字形。B 案の 1 色の形と塗りの形）・`KM1Icons.ttf` を入れ、pubspec の `fonts` に `family: KM1Icons` で登録する（`fluentui_system_icons` は不要になった）。アイコンのファイルは `km1_theme.dart` だけに頼り、`km1_widgets.dart` がなくても組み込める。
 *Icons: add `km1_icons_b.dart` (regular B style), `km1_icons.dart` (single-color B glyphs, incl. Filled) and `KM1Icons.ttf`; the icon files depend only on `km1_theme.dart`.*
 `MaterialApp(theme: Km1Theme.light(), darkTheme: Km1Theme.dark(), themeMode: ThemeMode.system)`。色は `Theme.of(context).extension<Km1Colors>()!.ink` のように意味づけトークンで取る。Flutter 3.27 以降が必要（`CardThemeData` などを使うため）。
 *Colors come from semantic tokens, e.g. `Theme.of(context).extension<Km1Colors>()!.ink`. Requires Flutter 3.27+ (uses `CardThemeData` etc.).*

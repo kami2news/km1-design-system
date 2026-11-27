@@ -9,7 +9,7 @@
 //   Km1Pagination, Km1Table, Km1Calendar, Km1Timetable, Km1FileList, Km1Avatar, Km1TimeGrid,
 //   Km1TagPicker, Km1SortableList,
 //   Km1Form, Km1FormGroup, Km1FormGrid, Km1FullSpan, Km1ConditionalField, Km1ErrorSummary, Km1FormActions,
-//   Km1ListItem, Km1ListSectionHeader, Km1ContextualActionBar, Km1ExpansionEditor, Km1StepFlow,
+//   Km1ListItem, Km1ListSectionHeader, Km1ContextualActionBar, Km1ExpansionEditor, Km1ExpansionEditorGroup, Km1StepFlow,
 //   showKm1BottomSheet, Km1ImageGrid, Km1CategoryMark, Km1CategoryLegend
 //
 // Km1TimeGrid は親で高さを決めて使う（SizedBox や Expanded の中）。
@@ -1404,24 +1404,31 @@ class Km1TimeGrid extends StatelessWidget {
     final total = (endHour - startHour) * hh;
 
     Widget dayColumn(int d) {
-      final timed = events.where((e) => e.day == d && !e.allDay && !e.deadline && e.start != null && e.end != null).toList()
-        ..sort((a, b) => a.start!.compareTo(b.start!) != 0 ? a.start!.compareTo(b.start!) : b.end!.compareTo(a.end!));
+      // 締め切りは見えている高さ（24）を時間の幅として、ほかの予定と同じ列分けに入れる（Web と同じ。D40）
+      // Deadlines take their visible 24px as a time span and join the same column split (same as Web)
+      final half = 12 / ppm;
+      double from(Km1TimeGridEvent e) => e.deadline ? e.start! - half : e.start!.toDouble();
+      double to(Km1TimeGridEvent e) => e.deadline ? e.start! + half : e.end!.toDouble();
+      final timed = events
+          .where((e) => e.day == d && !e.allDay && e.start != null && (e.deadline ? (e.start! >= s0 && e.start! < e0) : e.end != null))
+          .toList()
+        ..sort((a, b) => from(a).compareTo(from(b)) != 0 ? from(a).compareTo(from(b)) : to(b).compareTo(to(a)));
       // 重なる予定を横に並べる / Lay out overlapping events side by side
       final col = <Km1TimeGridEvent, int>{};
       final cols = <Km1TimeGridEvent, int>{};
       var cluster = <Km1TimeGridEvent>[];
-      var clusterEnd = -1;
+      var clusterEnd = -1.0;
       void flush() {
-        final ends = <int>[];
+        final ends = <double>[];
         for (final e in cluster) {
           var i = 0;
-          while (i < ends.length && ends[i] > e.start!) {
+          while (i < ends.length && ends[i] > from(e)) {
             i++;
           }
           if (i == ends.length) {
-            ends.add(e.end!);
+            ends.add(to(e));
           } else {
-            ends[i] = e.end!;
+            ends[i] = to(e);
           }
           col[e] = i;
         }
@@ -1432,12 +1439,11 @@ class Km1TimeGrid extends StatelessWidget {
       }
 
       for (final e in timed) {
-        if (cluster.isNotEmpty && e.start! >= clusterEnd) flush();
+        if (cluster.isNotEmpty && from(e) >= clusterEnd) flush();
         cluster.add(e);
-        if (e.end! > clusterEnd) clusterEnd = e.end!;
+        if (to(e) > clusterEnd) clusterEnd = to(e);
       }
       if (cluster.isNotEmpty) flush();
-      final deadlines = events.where((e) => e.day == d && e.deadline && e.start != null && e.start! >= s0 && e.start! < e0).toList();
       final isToday = now != null && now!.day == d;
       return Semantics(
         container: true,
@@ -1447,7 +1453,7 @@ class Km1TimeGrid extends StatelessWidget {
           return SizedBox(
             height: total,
             child: Stack(clipBehavior: Clip.none, children: [
-              for (final e in timed)
+              for (final e in timed.where((e) => !e.deadline))
                 if (e.end! > s0 && e.start! < e0)
                   Positioned(
                     top: (e.start!.clamp(s0, e0) - s0) * ppm,
@@ -1456,8 +1462,8 @@ class Km1TimeGrid extends StatelessWidget {
                     width: w / cols[e]! - 4,
                     child: _event(context, e),
                   ),
-              for (final e in deadlines)
-                Positioned(top: (e.start! - s0) * ppm - 12, height: 24, left: 2, right: 2, child: _event(context, e, compact: true)),
+              for (final e in timed.where((e) => e.deadline))
+                Positioned(top: (e.start! - s0) * ppm - 12, height: 24, left: w / cols[e]! * col[e]! + 2, width: w / cols[e]! - 4, child: _event(context, e, compact: true)),
               if (isToday && now!.minute >= s0 && now!.minute <= e0)
                 Positioned(
                   top: (now!.minute - s0) * ppm - 1,
@@ -1556,7 +1562,7 @@ class Km1TimeGrid extends StatelessWidget {
         decoration: BoxDecoration(border: Border.all(color: c.stroke), borderRadius: BorderRadius.circular(Km1Radius.md)),
         clipBehavior: Clip.antiAlias,
         child: LayoutBuilder(builder: (context, box) {
-          final minW = hoursWidth + days.length * 96.0;
+          final minW = hoursWidth + days.length * 128.0; // 1 日の列は 128 以上（Web・時間割と同じ。D37）/ 128 per day, same as Web and Timetable
           if (days.length == 1 || box.maxWidth >= minW) return grid;
           return SingleChildScrollView(scrollDirection: Axis.horizontal, child: SizedBox(width: minW, height: box.maxHeight, child: grid));
         }),
@@ -2379,9 +2385,20 @@ class _Km1ExpansionEditorState extends State<Km1ExpansionEditor> {
         ]),
       ),
     );
+    // Km1ExpansionEditorGroup の中では、となりと縁を 1 本で共有し、外側の角だけ丸める（Web と同じ）
+    // Inside Km1ExpansionEditorGroup neighbours share one border and only the outer corners are rounded (same as Web)
+    final slot = context.dependOnInheritedWidgetOfExactType<_Km1XeSlot>();
+    final first = slot == null || slot.index == 0, last = slot == null || slot.index == slot.count - 1;
+    const r = Radius.circular(Km1Radius.md);
+    final radius = BorderRadius.only(topLeft: first ? r : Radius.zero, topRight: first ? r : Radius.zero, bottomLeft: last ? r : Radius.zero, bottomRight: last ? r : Radius.zero);
+    final side = BorderSide(color: _open ? c.stroke : c.strokeSubtle);
     return Container(
-      margin: const EdgeInsets.only(bottom: Km1Space.sm),
-      decoration: BoxDecoration(color: c.surface, border: Border.all(color: _open ? c.stroke : c.strokeSubtle), borderRadius: BorderRadius.circular(Km1Radius.md)),
+      margin: EdgeInsets.only(bottom: slot == null ? Km1Space.sm : 0),
+      decoration: BoxDecoration(
+        color: c.surface,
+        border: first ? Border.fromBorderSide(side) : Border(left: side, right: side, bottom: side),
+        borderRadius: first && last ? BorderRadius.circular(Km1Radius.md) : radius,
+      ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         if (ro)
           head
@@ -2389,7 +2406,7 @@ class _Km1ExpansionEditorState extends State<Km1ExpansionEditor> {
           Semantics(
             button: true,
             expanded: _open,
-            child: InkWell(focusNode: _head, onTap: _toggle, borderRadius: BorderRadius.circular(Km1Radius.md), child: head),
+            child: InkWell(focusNode: _head, onTap: _toggle, borderRadius: radius, child: head),
           ),
         if (_open)
           Container(
@@ -2443,6 +2460,30 @@ class Km1Step {
   final String title;
   final bool optional;
   final bool editable;
+}
+
+/// 1 行の編集欄（[Km1ExpansionEditor]）をまとまりとして並べる。となりどうしは縁を 1 本で共有し、外側の角だけ丸める（Web の `.f2-xe + .f2-xe` と同じ）。
+/// Stacks [Km1ExpansionEditor]s as one group: neighbours share a border and only the outer corners are rounded (same as Web).
+class Km1ExpansionEditorGroup extends StatelessWidget {
+  const Km1ExpansionEditorGroup({super.key, required this.children});
+
+  /// 並べる編集欄 / The editors to stack
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.only(bottom: Km1Space.sm),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          for (var i = 0; i < children.length; i++) _Km1XeSlot(index: i, count: children.length, child: children[i]),
+        ]),
+      );
+}
+
+class _Km1XeSlot extends InheritedWidget {
+  const _Km1XeSlot({required this.index, required this.count, required super.child});
+  final int index, count;
+  @override
+  bool updateShouldNotify(_Km1XeSlot old) => old.index != index || old.count != count;
 }
 
 /// 順序のある複数の工程を利用者が進める。工程の一覧（完了・現在・エラー・未完了）と、今の工程の見出し・中身・戻る/次へ。
@@ -2692,7 +2733,20 @@ class Km1ImageGrid extends StatelessWidget {
           ]),
         );
         return Stack(children: [
-          Positioned.fill(child: onOpen == null ? tile : InkWell(onTap: () => onOpen!(it), borderRadius: BorderRadius.circular(Km1Radius.md), child: tile)),
+          // 選ぶモードではタイル全体を押して選ぶ。開く操作は使わない（Web と同じ。D31）/ selection mode: the whole tile selects
+          Positioned.fill(
+            child: selectable
+                ? Semantics(
+                    checked: on,
+                    label: it.caption ?? it.alt,
+                    child: InkWell(
+                      onTap: () => onSelectionChanged?.call(on ? ({...selected}..remove(it.id)) : ({...selected}..add(it.id))),
+                      borderRadius: BorderRadius.circular(Km1Radius.md),
+                      child: tile,
+                    ),
+                  )
+                : (onOpen == null ? tile : InkWell(onTap: () => onOpen!(it), borderRadius: BorderRadius.circular(Km1Radius.md), child: tile)),
+          ),
           if (selectable)
             Positioned(
               top: Km1Space.xs,
@@ -2701,9 +2755,9 @@ class Km1ImageGrid extends StatelessWidget {
                 width: context.km1Target,
                 height: context.km1Target,
                 decoration: BoxDecoration(color: c.surface, borderRadius: BorderRadius.circular(Km1Radius.md)),
-                child: Checkbox(
+                child: ExcludeSemantics(
+                  child: Checkbox(
                   value: on,
-                  semanticLabel: '${it.caption ?? it.alt} を選択',
                   onChanged: (v) {
                     final next = {...selected};
                     if (v ?? false) {
@@ -2713,6 +2767,7 @@ class Km1ImageGrid extends StatelessWidget {
                     }
                     onSelectionChanged?.call(next);
                   },
+                  ),
                 ),
               ),
             ),

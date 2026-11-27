@@ -2,7 +2,7 @@
 // Precision audit: read computed values from every rendered preview element and compare them with KM1's rules.
 //
 //   node gen/precision_audit.js /tmp/rc [--json=out.json] [--only=Name,Name] [--width=1280,375]
-//   既定は PC（1280）とスマホ（375）の 2 つの幅で測る / measures at desktop and phone widths by default
+//   既定は PC（1280）・タブレット（768）・スマホ（375）の 3 つの幅で測る / desktop, tablet and phone widths by default
 //
 // 見るもの / Checks
 //   TYPE   文字の大きさ・行の高さの組が型の表にない / size + line-height pair not in the type ramp
@@ -16,6 +16,10 @@
 //   RADIUS 角丸が角丸の段にない / corner radius not on the radius scale
 //   BORDER 縁の太さが 1・2・4px 以外 / border width other than 1, 2, 4px
 //   FONT   書体が KM1 の書体の並び（sans・mono）で始まらない / font stack not KM1's sans or mono
+//   TARGET 押せるものが 24px 四方に満たない（WCAG 2.5.8。行の中の文のリンクは除く）/ pressable target under 24px
+//   OVERLAP 押せる範囲どうしが重なる（親子は除く）/ pressable areas overlap
+//   GAP    同じまとまりの中で、並ぶものの間隔が 0.5〜3px だけ違う（そろえそこない）/ near-equal gaps within one group
+//   CLIP   文字が箱からはみ出して切れているのに「…」が出ない / text clipped without an ellipsis
 //   EDGE   1 つの領域の中で、文字の左端が 2px 未満ずれて並ぶ（そろえそこない）/ near-miss left edges (<2px apart)
 'use strict';
 const fs = require('fs'), path = require('path');
@@ -57,7 +61,7 @@ for (const m of ['light', 'dark']) for (const n of Object.keys(tok)) {
 }
 
 function inPage() {
-  const out = [];
+  const out = [], hits = [], gaps = [];
   const vis = e => { const r = e.getBoundingClientRect(); const cs = getComputedStyle(e); return r.width > 1 && r.height > 1 && !e.closest('.f2-sr') && cs.visibility !== 'hidden' && cs.display !== 'none' && +cs.opacity !== 0; };
   const label = e => (e.tagName.toLowerCase() + ([...e.classList].slice(0, 2).map(c => '.' + c).join(''))) + (e.id ? '#' + e.id : '');
   const pathOf = e => { const a = []; for (let x = e; x && x !== document.body && a.length < 3; x = x.parentElement) a.unshift(label(x)); return a.join(' > '); };
@@ -82,20 +86,63 @@ function inPage() {
       lines = tops.size;
     }
     const rect = e.getBoundingClientRect();
+    // 切れた文字: 箱より中身が広く、はみ出しを隠していて、「…」を出していない / clipped text without ellipsis
+    const clip = !!own && e.scrollWidth > e.clientWidth + 1 && /hidden|clip/.test(cs.overflowX + cs.overflow) && cs.textOverflow !== 'ellipsis';
+    const clipByParent = !!own && !clip && (() => {
+      // 文字の実際の右端と、はみ出しを隠す一番近い祖先の右端を比べる / compare the text's right edge with the nearest clipping ancestor
+      const r = document.createRange(); let right = 0;
+      for (const n of e.childNodes) if (n.nodeType === 3 && n.textContent.trim()) { r.selectNodeContents(n); for (const q of r.getClientRects()) right = Math.max(right, q.right); }
+      for (let a = e.parentElement, k = 0; a && k < 6; a = a.parentElement, k++) {
+        const ac = getComputedStyle(a);
+        if (/auto|scroll/.test(ac.overflowX)) return false;   // 横に送れる箱の中は切れていない / inside a scroll box nothing is lost
+        if (!/hidden|clip/.test(ac.overflowX + ac.overflow)) continue;
+        // 自分の「…」が効くのは自分の箱の中だけ。箱ごと祖先に切られていれば「…」は見えない / own ellipsis only works inside its own box
+        const ar = a.getBoundingClientRect(); return Math.min(right, rect.right) > ar.right - parseFloat(ac.borderRightWidth) + 1 && ac.textOverflow !== 'ellipsis';
+      }
+      return false; })();
     const rad = [cs.borderTopLeftRadius, cs.borderTopRightRadius, cs.borderBottomLeftRadius, cs.borderBottomRightRadius].map(v => v.includes('%') ? -1 : parseFloat(v) || 0);
     const bw = ['Top', 'Right', 'Bottom', 'Left'].filter(k => cs['border' + k + 'Style'] !== 'none').map(k => parseFloat(cs['border' + k + 'Width']) || 0).filter(v => v > 0);
     const ff = cs.fontFamily.split(',')[0].replace(/["']/g, '').trim().toLowerCase();
     const half = Math.min(rect.width, rect.height) / 2;
-    out.push({ rad, bw, ff, half, path: pathOf(e), text: own.slice(0, 30), field: isField, fs: parseFloat(cs.fontSize), lh: cs.lineHeight, fw: cs.fontWeight, color: cs.color,
+    out.push({ clip: clip || clipByParent, rad, bw, ff, half, path: pathOf(e), text: own.slice(0, 30), field: isField, fs: parseFloat(cs.fontSize), lh: cs.lineHeight, fw: cs.fontWeight, color: cs.color,
       lines, width, blockW: rect.width, align: cs.textAlign, heading: /^H[1-6]$/.test(e.tagName) || e.getAttribute('role') === 'heading' || /title|heading|__name|__h\b/.test(e.className) || !!e.closest('h1,h2,h3,h4,h5,h6,caption,legend'), centered: /flex|grid/.test(cs.display) && /center/.test(cs.justifyContent + cs.justifyItems), textLeft: (() => { if (!own) return null; const r = document.createRange(); for (const n of e.childNodes) if (n.nodeType === 3 && n.textContent.trim()) { r.selectNodeContents(n); const q = r.getClientRects()[0]; if (q) return Math.round(q.left * 2) / 2; } return null; })(), selfAlign: (() => { const pcs = e.parentElement ? getComputedStyle(e.parentElement) : null; return pcs && /flex|grid/.test(pcs.display) ? (cs.justifySelf + ' ' + cs.alignSelf + ' ' + cs.marginLeft) : ''; })(), left: Math.round(rect.left * 2) / 2, sp, region: (e.closest('section,article,[role=dialog],dialog,form,.f2-card,ul,ol,table') ? pathOf(e.closest('section,article,[role=dialog],dialog,form,.f2-card,ul,ol,table')) : 'body') });
   }
-  return out;
+  // 押せるもの / pressable things
+  const SEL = 'button,a[href],input:not([type=hidden]),select,textarea,[role=button],[role=tab],[role=menuitem],[role=option],[role=switch],[role=checkbox],[role=radio],summary,[tabindex]:not([tabindex="-1"])';
+  for (const e of document.querySelectorAll(SEL)) {
+    if (!vis(e) || e.closest('[aria-hidden=true]') || e.disabled) continue;
+    let r = e.getBoundingClientRect();
+    // 見た目が小さいチェック・ラジオは、ラベルごと押せればラベルの範囲で測る / small boxes are measured with their label
+    const lab = e.closest('label') || (e.id && document.querySelector(`label[for="${e.id}"]`));
+    if (lab && ['checkbox', 'radio'].includes(e.type)) r = lab.getBoundingClientRect();
+    const inline = e.tagName === 'A' && getComputedStyle(e).display === 'inline' && e.parentElement && e.parentElement.textContent.trim().length > e.textContent.trim().length + 4;
+    hits.push({ path: pathOf(e), text: (e.textContent || e.getAttribute('aria-label') || '').trim().slice(0, 20), x: r.left, y: r.top, w: r.width, h: r.height, inline, el: null });
+    hits[hits.length - 1].el = e;
+  }
+  const hitOut = hits.map((h, i) => ({ ...h, el: undefined, i, anc: hits.filter(o => o !== h && (o.el.contains(h.el) || h.el.contains(o.el) || (o.el.closest('label') && o.el.closest('label').contains(h.el)) || (h.el.closest('label') && h.el.closest('label').contains(o.el)))).map(o => hits.indexOf(o)) }));
+  // 並ぶものの間隔 / gaps between stacked or rowed siblings
+  for (const c of document.body.querySelectorAll('*')) {
+    if (c.closest('svg') || !vis(c)) continue;
+    const kids = [...c.children].filter(k => vis(k) && getComputedStyle(k).position !== 'absolute' && getComputedStyle(k).position !== 'fixed');
+    if (kids.length < 3) continue;
+    const rs = kids.map(k => k.getBoundingClientRect());
+    const col = rs.every((r, i) => i === 0 || r.top >= rs[i - 1].bottom - 0.5);
+    const row = !col && rs.every((r, i) => i === 0 || (Math.abs(r.top - rs[0].top) < 1 && r.left >= rs[i - 1].right - 0.5));
+    if (!col && !row) continue;
+    let g = rs.slice(1).map((r, i) => Math.round((col ? r.top - rs[i].bottom : r.left - rs[i].right) * 2) / 2);
+    // 見出し・ラベルと中身の間は、中身どうしとは別の関係 / heading-to-items is a different relation from item-to-item
+    const k0 = kids[0]; if (/^(LEGEND|LABEL|H[1-6])$/.test(k0.tagName) || /legend|label|title|head/.test(k0.className)) g = g.slice(1);
+    if (g.length < 2) continue;
+    const mx = Math.max(...g), mn = Math.min(...g);
+    if (mx - mn >= 0.5 && mx - mn <= 3 && mn >= 0) gaps.push({ path: pathOf(c), dir: col ? '縦' : '横', g });
+  }
+  return { out, hits: hitOut, gaps };
 }
 
 (async () => {
   const b = await puppeteer.launch({ executablePath: process.env.CHROME || '/usr/bin/google-chrome', args: ['--no-sandbox', '--allow-file-access-from-files'] });
   const p = await b.newPage();
-  const WIDTHS = (arg('width') || '1280,375').split(',').map(Number);
+  const WIDTHS = (arg('width') || '1280,768,375').split(',').map(Number);
   const files = fs.readdirSync(DIR).filter(f => /-(light|dark)\.html$/.test(f)).sort();
   const found = []; let pages = 0, elements = 0;
   for (const W of WIDTHS) { await p.setViewport({ width: W, height: 900 });
@@ -103,7 +150,21 @@ function inPage() {
     const [, name, theme] = f.match(/^(.*)-(light|dark)\.html$/);
     if (ONLY && !ONLY.includes(name)) continue;
     await p.goto('file://' + path.join(DIR, f), { waitUntil: 'load' }); await new Promise(r => setTimeout(r, 300));
-    const els = await p.evaluate(inPage); pages++; elements += els.length;
+    const res = await p.evaluate(inPage); const els = res.out; pages++; elements += els.length;
+    if (theme === 'light') {
+      const addH = (code, h, msg) => found.push({ code, name, theme, where: h.path, text: h.text, msg: msg + (W !== 1280 ? `（幅 ${W}）` : '') });
+      for (const h of res.hits) {
+        if (!h.inline && (h.w < 23.5 || h.h < 23.5)) addH('TARGET', h, `${Math.round(h.w)}×${Math.round(h.h)}px`);
+        for (const o of res.hits) {
+          if (o.i <= h.i || h.anc.includes(o.i)) continue;
+          // 入力欄の中の消すボタン（検索欄）は、欄の文字の範囲の外に置いてある / a clear button sits inside the field's padding, outside its text area
+          if (/f2-search__/.test(h.path + o.path)) continue;
+          const ix = Math.min(h.x + h.w, o.x + o.w) - Math.max(h.x, o.x), iy = Math.min(h.y + h.h, o.y + o.h) - Math.max(h.y, o.y);
+          if (ix > 1 && iy > 1) addH('OVERLAP', h, `「${o.text}」と ${Math.round(ix)}×${Math.round(iy)}px 重なる`);
+        }
+      }
+      for (const g of res.gaps) found.push({ code: 'GAP', name, theme, where: g.path, text: '', msg: `${g.dir}の間隔 ${g.g.join('・')}px` + (W !== 1280 ? `（幅 ${W}）` : '') });
+    }
     const add = (code, e, msg) => found.push({ code, name, theme, where: e.path, text: e.text, msg: msg + (W !== 1280 ? `（幅 ${W}）` : '') });
     const edges = {};
     for (const e of els) {
@@ -119,6 +180,7 @@ function inPage() {
       }
       if (!hasText) continue;
       if (theme === 'light' && !FIRST.has(e.ff)) add('FONT', e, e.ff);
+      if (theme === 'light' && e.clip) add('CLIP', e, '「…」なしで切れている');
       const lhN = e.lh === 'normal' ? null : parseFloat(e.lh), pair = `${e.fs}/${lhN}`;
       if (theme === 'light') {
         if (e.fs < 12) add('SMALL', e, `${e.fs}px`);
@@ -152,7 +214,7 @@ function inPage() {
   const by = {}; for (const x of found) (by[x.code] = by[x.code] || []).push(x);
   const uniq = arr => { const m = new Map(); for (const x of arr) { const k = `${x.name}|${x.where}|${x.msg}`; if (!m.has(k)) m.set(k, { ...x, n: 0 }); m.get(k).n++; } return [...m.values()]; };
   console.log(`見本 ${pages} 枚・要素 ${elements} 個 / ${pages} previews, ${elements} elements`);
-  for (const code of ['TYPE', 'WRAP', 'SQUEEZE', 'SMALL', 'WEIGHT', 'COLOR', 'SPACE', 'RADIUS', 'BORDER', 'FONT', 'MEASURE', 'EDGE']) {
+  for (const code of ['TYPE', 'WRAP', 'SQUEEZE', 'SMALL', 'WEIGHT', 'COLOR', 'SPACE', 'RADIUS', 'BORDER', 'FONT', 'MEASURE', 'CLIP', 'EDGE', 'TARGET', 'OVERLAP', 'GAP']) {
     const u = uniq(by[code] || []);
     console.log(`\n${code} ${u.length}`);
     for (const x of u.slice(0, +(arg('max') || 400))) console.log(`  ${x.name}${x.theme === 'dark' ? '(dark)' : ''}  ${x.msg}  ${x.where}${x.text ? '  「' + x.text + '」' : ''}${x.n > 1 ? '  ×' + x.n : ''}`);

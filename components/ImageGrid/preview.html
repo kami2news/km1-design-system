@@ -6,8 +6,11 @@ return [s('#9fb7d9','#3d5a80',120),s('#f2c7a5','#8a5a44',40),s('#b8d8be','#3f6b4
 var h=React.createElement,F=window.Fluent2;
 var ITEMS=[{id:1,src:KM1IMG[0],alt:'湖と山の写真',caption:'観測地点 A',meta:'11/03'},{id:2,src:KM1IMG[1],alt:'夕方の山の写真',caption:'観測地点 B',meta:'11/03'},{id:3,src:KM1IMG[2],alt:'森林の写真',caption:'観測地点 C',meta:'11/04'},
  {id:4,src:KM1IMG[3],alt:'山並みの写真',caption:'観測地点 D',meta:'11/05'},{id:5,src:'missing.png',alt:'雪原の写真',caption:'観測地点 E',meta:'11/06'},{id:6,src:KM1IMG[5],alt:'海岸の写真',caption:'観測地点 F',meta:'11/07'}];
-function Demo(){var s=F.useSelection([2]);
-  return h('div',{style:{display:'grid',gap:8}},h(F.ContextualActionBar,{count:s.count,onClear:s.clear,actions:[{label:'ダウンロード',onClick:function(){}}]}),
-    h(F.ImageGrid,{label:'観測写真',items:ITEMS,selectable:true,selected:s.selected,onSelectionChange:s.set,onOpen:function(){}}));}
+// 写真は押すと開く。まとめて扱うときだけ「まとめて選ぶ」で選ぶモードに入る（D31）/ tiles open; a selection mode selects
+function Demo(){var s=F.useSelection([2]),m=React.useState(true);
+  return h('div',{style:{display:'grid',gap:8}},
+    h('div',{style:{display:'flex',justifyContent:'flex-end'}},h(F.Button,{appearance:'subtle',icon:h(F.Icon,{name:m[0]?'check':'select-all'}),onClick:function(){if(m[0])s.clear();m[1](!m[0]);}},m[0]?'選び終える':'まとめて選ぶ')),
+    m[0]?h(F.ContextualActionBar,{count:s.count,onClear:s.clear,actions:[{label:'ダウンロード',onClick:function(){}}]}):null,
+    h(F.ImageGrid,{label:'観測写真',items:ITEMS,selectable:m[0],selected:s.selected,onSelectionChange:s.set,onOpen:function(){}}));}
 ReactDOM.createRoot(document.getElementById('r')).render(h(Demo));
 </script>

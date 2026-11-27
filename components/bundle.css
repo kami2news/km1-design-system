@@ -396,7 +396,7 @@ button.f2-tt__item:focus-visible{outline:2px solid var(--focus-ring);outline-off
 
 .f2-tg{border:1px solid var(--stroke);border-radius:var(--radius-md);background:var(--surface);color:var(--ink);font-family:var(--font-sans);overflow:hidden}
 .f2-tg__scroll{overflow:auto;max-height:var(--f2-tg-height,560px)}
-.f2-tg__inner{min-width:calc(56px + var(--f2-cols) * 96px)}
+.f2-tg__inner{min-width:calc(56px + var(--f2-cols) * 128px)}/* 1 日の列は時間割と同じ 128px 以上（D37）/ same 128px day minimum as Timetable */
 .f2-tg--day .f2-tg__inner{min-width:0}
 .f2-tg__head,.f2-tg__allday{display:grid;grid-template-columns:56px repeat(var(--f2-cols),1fr)}
 .f2-tg__head{position:sticky;top:0;z-index:2;background:var(--surface);border-bottom:1px solid var(--stroke-strong)}
@@ -714,3 +714,11 @@ svg.f2-icon.f2-icon--b{color:var(--icon-ink);flex:none}
 .f2-tt tbody th:first-child,.f2-tt thead th:first-child{position:sticky;left:0;z-index:1;background:var(--surface)}
 /* トースト: 狭い画面では操作を次の行の右に回し、文を押しつぶさない（D37）/ Toast on phones: the action wraps to its own row */
 @media (max-width:479px){.f2-toast{flex-wrap:wrap;row-gap:var(--space-xs)}.f2-toast__text{flex:1 1 0;min-width:60%}.f2-toast__close{order:2}.f2-toast__action{order:3;margin-left:auto}}
+/* 写真の格子の選ぶモード: タイル全体がラベル。フォーカスはタイルに出す（D31）/ ImageGrid selection mode: the tile is the label */
+.f2-igrid__open--select{cursor:pointer}
+.f2-igrid__open--select:focus-within{outline:2px solid var(--focus-ring);outline-offset:2px}
+.f2-igrid__open--select .f2-check__box:focus-visible{outline:none}
+/* 表のセルの中だけのリンクは、押せる高さを 24px にする（WCAG 2.5.8。文の中のリンクは対象外）/ a link alone in a table cell gets a 24px target */
+:is(th,td)>.f2-link:only-child{display:inline-block;min-height:24px;line-height:24px}
+/* 予定の中の行は予定の幅を超えない。超えると「…」が出る前に外の箱で切れる / rows inside an event never exceed its width, so the ellipsis shows */
+.f2-tg__ev>*{max-width:100%;min-width:0}

@@ -51,7 +51,7 @@ PC: 項目名・値・「編集」を 1 行に。479px 以下: 値を項目名�
 ```
 
 `title`、`summary`、`children`、`onSave`、`onCancel`、`dirty`、`open`・`defaultOpen`・`onOpenChange`、`readOnly`・`readOnlyReason`、`saveLabel`、`savedMessage`、`headingLevel`。
-Flutter: `Km1ExpansionEditor`（`title`・`summary`・`child`・`onSave`（`Future<bool>`）・`onCancel`・`dirty`・`readOnlyReason`）。
+Flutter: `Km1ExpansionEditor`（`title`・`summary`・`child`・`onSave`（`Future<bool>`）・`onCancel`・`dirty`・`readOnlyReason`）。並べるときは `Km1ExpansionEditorGroup(children: [...])` で囲むと、となりと縁を共有する（Web と同じ）。
 
 ## してはいけないこと / Don't
 

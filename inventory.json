@@ -122,7 +122,7 @@
     ]
   },
   "flutter": {
-    "widgets": 30,
+    "widgets": 31,
     "names": [
       "Km1EmptyState",
       "Km1Progress",
@@ -149,6 +149,7 @@
       "Km1ListSectionHeader",
       "Km1ContextualActionBar",
       "Km1ExpansionEditor",
+      "Km1ExpansionEditorGroup",
       "Km1StepFlow",
       "showKm1BottomSheet",
       "Km1ImageGrid",

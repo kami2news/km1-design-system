@@ -18,12 +18,12 @@ KM1-COV-001。どの部品が、どのプラットフォームで、どこまで
 | 対象 / Target | 実装の単位 / Unit | 部品 / Parts | 検証（`verification.md` の番号）/ Verification |
 |---|---|---|---|
 | Web | `components/bundle.js`・`bundle.css` | 見本のある部品 50（公開 60） | headless Chrome の自動検査と利用シナリオは済み（W1）。実際のブラウザは未実施（W2） |
-| Flutter | `km1_theme.dart`・`km1_widgets.dart` | KM1 専用の 30 部品と、テーマを当てた標準の部品 | 文法と API 名の照合のみ。解析・ビルド・実際の画面は未実施（F1） |
+| Flutter | `km1_theme.dart`・`km1_widgets.dart` | KM1 専用の 31 部品と、テーマを当てた標準の部品 | 文法と API 名の照合のみ。解析・ビルド・実際の画面は未実施（F1） |
 | WinUI 3 | `KM1.xaml` | 部品なし。標準のボタンやスイッチが KM1 の紺になる | 文法とキー名の照合のみ。ビルド未実施（N2） |
 | Jetpack Compose | `Km1Theme.kt` | `Km1PrimaryButton` だけ | 文法と関数名の照合のみ。ビルド未実施（A1） |
 | SwiftUI | `KM1Theme.swift` | `Km1PrimaryButtonStyle` だけ | 文法のみ。ビルド未実施（I1・M1） |
 
-*Web: 50 with previews, 60 exported; Flutter: 30 KM1 widgets. The three native targets ship tokens (color, type, spacing, hit area) and icons, not components.*
+*Web: 50 with previews, 60 exported; Flutter: 31 KM1 widgets. The three native targets ship tokens (color, type, spacing, hit area) and icons, not components.*
 
 ネイティブ 3 つ（WinUI 3・Compose・SwiftUI）の部品は、下の表の `Button` を除いてすべて「—」。色・文字・余白・操作領域のトークンとアイコンの SVG だけを渡している。
 *Apart from `Button`, every part in the table below is "—" on the three native targets: they get tokens and SVG icons only.*
@@ -116,7 +116,7 @@ KM1-COV-001。どの部品が、どのプラットフォームで、どこまで
 | `ListSection` | ◎ | ◎ `Km1ListSectionHeader` | 固定は `SliverPersistentHeader` |
 | `ListSectionHeader` | ◎ | ◎ `Km1ListSectionHeader` | |
 | `ContextualActionBar` | ◎ | ◎ `Km1ContextualActionBar` | |
-| `ExpansionEditor` | ◎ | ◎ `Km1ExpansionEditor` | |
+| `ExpansionEditor` | ◎ | ◎ `Km1ExpansionEditor`・`Km1ExpansionEditorGroup` | |
 | `StepFlow` | ◎ | ◎ `Km1StepFlow` | `Stepper` は使わない |
 | `ImageGrid` | ◎ | ◎ `Km1ImageGrid` | |
 

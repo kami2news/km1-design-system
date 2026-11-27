@@ -6,8 +6,9 @@
 .g-branch{border:1px solid var(--stroke-subtle);border-radius:var(--radius-lg);padding:8px 12px;background:var(--surface)}
 .g-q{font:600 14px/24px var(--font-sans);padding-bottom:6px;border-bottom:1px solid var(--stroke-subtle);margin-bottom:6px}
 .g-branch ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
-.g-branch li{display:grid;grid-template-columns:1fr auto auto;align-items:baseline;gap:6px;font:400 14px/24px var(--font-sans)}
-@media (max-width:479px){.g-branch li{grid-template-columns:auto 1fr;row-gap:0}.g-cond{grid-column:1/-1}.g>ul{margin-left:8px;padding-left:8px}}
+.g-branch li{display:flex;flex-wrap:wrap;align-items:baseline;column-gap:6px;font:400 14px/24px var(--font-sans)}
+.g-cond{flex:1 1 12em}/* 条件は 12em より狭くしない。入らなければ矢印と答えが次の行へ / the condition keeps 12em; arrow and answer wrap below */
+@media (max-width:479px){.g>ul{margin-left:8px;padding-left:8px}}
 .g-cond{color:var(--ink-secondary)}.g-arrow{color:var(--ink-secondary)}
 .g-ans{justify-self:start;font:600 12px/16px var(--font-mono,Consolas,monospace);color:var(--brand-ink);background:var(--brand-tint);border-radius:var(--radius-sm);padding:2px 6px;white-space:nowrap}
 .g-note{margin:12px 0 0;font:400 12px/18px var(--font-sans);color:var(--ink-secondary);max-inline-size:40em}

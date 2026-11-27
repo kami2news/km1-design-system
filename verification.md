@@ -119,7 +119,7 @@ clone したままの状態から、次の手順で全部の検査を流せる�
 
 1. 必要なもの: Python 3.10 以上、Node 22、Google Chrome、poppler-utils（`pdffonts`）、librsvg（`rsvg-convert`）、日本語のゴシック体（Noto Sans CJK など）。
 2. `pip install -r requirements.txt`、`(cd gen && npm ci)`、`(cd office && npm ci)`
-3. `bash gen/check_all.sh` → トークンの生成物の差分・トークンの別名・色の組み合わせのコントラスト・部品の数・保留の期限・理由の確認（`reasoncheck.py`）・アイコン・見本の描画・Web の自動検査（axe・キーボード・320px・再発防止・シナリオ）・精度の監査（PC とスマホの幅で全要素の値、`precision_audit.js`）・寸法・Office・PDF・書体の 14 項目。1 つでも落ちれば終了コードが 0 以外になる。
+3. `bash gen/check_all.sh` → トークンの生成物の差分・トークンの別名・色の組み合わせのコントラスト・部品の数・保留の期限・理由の確認（`reasoncheck.py`）・アイコン・見本の描画・Web の自動検査（axe・キーボード・320px・再発防止・シナリオ）・精度の監査（PC・タブレット・スマホの幅で全要素の値を 16 項目、`precision_audit.js`）・寸法・Office・PDF・書体の 14 項目。1 つでも落ちれば終了コードが 0 以外になる。
 *Requires Python 3.10+, Node 22, Chrome, poppler-utils, librsvg and a CJK sans font; install the pinned dependencies, then run `bash gen/check_all.sh` (14 checks; non-zero exit on any failure).*
 
 実機・読み上げソフト（NVDA・ナレーター・VoiceOver・TalkBack）・各 OS のネイティブのビルドは、ここでは流せない。手順と記録はこの章の 1〜6、Windows 用の検証セットは `verify/`。

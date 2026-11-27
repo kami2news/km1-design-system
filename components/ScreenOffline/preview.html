@@ -11,7 +11,9 @@
 <script>
 var h=React.createElement,F=window.Fluent2;
 function Screen(){
-  var on=React.useState(navigator.onLine!==false),queue=React.useState([]),items=React.useState(['環境化学 第 8 回','アルバイト']),toast=React.useState(null),text=React.useState(''),stamp='11/13 10:20';
+  // 見本はこの画面の主役であるオフラインの状態から始める（未送信 1 件）。つながると、本物の online の知らせで送る
+  // The example starts in the offline state it exists to show (one unsent event); a real online event sends it
+  var on=React.useState(false),queue=React.useState(['気象学 小テストの復習']),items=React.useState(['環境化学 第 8 回','アルバイト']),toast=React.useState(null),text=React.useState(''),stamp='11/13 10:20';
   React.useEffect(function(){function up(){on[1](true);} function down(){on[1](false);}
     window.addEventListener('online',up);window.addEventListener('offline',down);return function(){window.removeEventListener('online',up);window.removeEventListener('offline',down);};},[]);
   React.useEffect(function(){if(on[0]&&queue[0].length){var n=queue[0].length;var t=setTimeout(function(){items[1](function(o){return o.concat(queue[0]);});queue[1]([]);toast[1](n+' 件を送信しました');},300);return function(){clearTimeout(t);};}},[on[0],queue[0].length]);

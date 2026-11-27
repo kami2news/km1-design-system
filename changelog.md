@@ -1,5 +1,22 @@
 # 変更履歴 / Changelog
 
+## 2026-11-27 — 精度の監査を広げる・画面として見る / Wider audit and whole-screen review
+
+- **精度の監査:** 測る幅に タブレット（768px）を足して 3 つにし、項目に 押せる大きさ（24px）・押せる範囲の重なり・間隔のそろえそこない・「…」なしで切れる文字 の 4 つを足した（全 16 項目、408 枚・約 18,000 要素）。見つかったものをすべて直し、外れは 0 件（D38・D40）。
+  *The audit now runs at three widths with 16 checks; every finding was fixed.*
+- **締め切り:** 週の予定で、締め切りが重なる予定の上に全幅で描かれ、下の予定が押せず読めなかった。見えている高さ（24px）を時間の幅として列分けに入れ、横に並べる。Web と Flutter（D40）。
+  *Deadlines join the column split instead of covering events.*
+- **写真の格子:** 選ぶモードでは、タイル全体が 1 つのチェックになる（List と同じ D31）。Web と Flutter。
+  *ImageGrid selection mode: the whole tile selects.*
+- **小さな直し:** 表のセルの中だけのリンクの押せる高さを 24px に。週の予定の 1 日の列を 128px 以上に（時間割と同じ）。予定の中の題名が「…」を出す前に切れていたのを直した。早見図の条件の文が狭い幅で押しつぶされないよう、答えを次の行に回す。
+  *Table links get 24px targets; TimeGrid days 128px; event titles ellipsize; guide rows wrap.*
+- **画面として見る:** 授業の編集画面は、スマホで一覧と詳細が縦に積まれていて「画面の組み立て」の一覧・詳細の決まり（狭い画面は別の画面にして戻る）と違っていた。640px 未満では一覧から始め、行で詳細へ、「授業の一覧に戻る」で一覧の同じ行へフォーカスを返す。オフラインの画面の見本は、本物の接続に従っていたため見本ではオフラインの状態が出なかった。オフライン（未送信 1 件）から始める。検査のシナリオ S2・S3 も合わせた（D40）。
+  *ScreenListEdit splits list and detail below 640px; ScreenOffline starts offline; scenarios updated.*
+- **Flutter:** `Km1ExpansionEditorGroup` を足し、並べた 1 行の編集欄がとなりと縁を共有するようにした（Web と同じ）。
+  *Added `Km1ExpansionEditorGroup` so stacked editors share borders, as on Web.*
+- **pypdf 7（PR #15）:** pypdf 7.1.1 で PDF を作り直し、本編 169 ページ・目次 44 項目が 6.17 と同じで、PDF の検査も通ることを確かめた。
+  *Verified PDF builds and checks with pypdf 7.1.1 (PR #15).*
+
 ## 2026-11-26 — 参考文献のまとめページ / References page
 
 - **参考文献（`references.md`）:** 各章に散らばっていた出典を 1 ページにまとめ、土台とライセンス・アクセシビリティの規格・使いやすさ・プラットフォーム・参考にしたデザインシステム・PDF・スライド・道具の 8 節に分けた。どの資料をどこに使っているかと章を書いた。各章の出典の行は、この節を指す 1 行にした。PDF の本編とサイトにも入れた。
