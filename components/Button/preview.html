@@ -1,10 +1,12 @@
-<!-- @dsCard group="Actions" height=210 -->
+<!-- @dsCard group="Actions" height=250 -->
 <div id="r" style="padding:16px;display:grid;gap:12px;font-family:var(--font-sans)"></div>
 <script>
-var h=React.createElement,B=window.Fluent2.Button;
+var h=React.createElement,B=window.Fluent2.Button,I=function(n){return h(window.Fluent2.Icon,{name:n});};
 function Row(p){return h('div',{style:{display:'flex',gap:8,alignItems:'center',flexWrap:'wrap'}},p.children)}
 ReactDOM.createRoot(document.getElementById('r')).render(h(React.Fragment,null,
- h(Row,null,h(B,{appearance:'primary'},'保存'),h(B,null,'複製'),h(B,{appearance:'outline'},'出力'),h(B,{appearance:'subtle'},'編集'),h(B,{appearance:'transparent'},'キャンセル')),
- h(Row,null,h(B,{size:'small'},'追加'),h(B,{size:'small'},'戻る'),h(B,null,'標準'),h(B,{size:'large'},'次へ')),
+ h(Row,null,h(B,null,'キャンセル'),h(B,{appearance:'primary'},'予定を保存')),
+ h(Row,null,h(B,{appearance:'subtle',icon:I('sort')},'並べ替え'),h(B,{appearance:'subtle',icon:I('filter')},'絞り込み'),h(B,{appearance:'subtle',icon:I('download')},'書き出し')),
+ h(Row,null,h(B,{appearance:'danger'},'予定を削除')),
+ h(Row,null,h(B,{size:'small'},'追加'),h(B,null,'保存'),h(B,{size:'large'},'次へ')),
  h(Row,null,h(B,{disabled:true,'aria-describedby':'why'},'保存'),h('span',{id:'why',style:{fontSize:12}},'タイトルを入力すると保存できます'))));
 </script>

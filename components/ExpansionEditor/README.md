@@ -51,7 +51,7 @@ PC: 項目名・値・「編集」を 1 行に。479px 以下: 値を項目名�
 ```
 
 `title`、`summary`、`children`、`onSave`、`onCancel`、`dirty`、`open`・`defaultOpen`・`onOpenChange`、`readOnly`・`readOnlyReason`、`saveLabel`、`savedMessage`、`headingLevel`。
-Flutter: `Km1ExpansionEditor`（`title`・`summary`・`child`・`onSave`（`Future<bool>`）・`onCancel`・`dirty`・`readOnlyReason`）。
+Flutter: `Km1ExpansionEditor`（`title`・`summary`・`child`・`onSave`（`Future<bool>`）・`onCancel`・`dirty`・`readOnlyReason`）。並べるときは `Km1ExpansionEditorGroup(children: [...])` で囲むと、となりと縁を共有する（Web と同じ）。
 
 ## してはいけないこと / Don't
 
@@ -63,3 +63,9 @@ Flutter: `Km1ExpansionEditor`（`title`・`summary`・`child`・`onSave`（`Futu
 
 開閉の状態、未保存で閉じない、失敗の `role="alert"`、保存中、保存後に閉じて要約が変わる、フォーカスの復帰、読み上げ、読み取り専用、2 つ目の開閉、キャンセル（10 項目、320〜1366px・ダークで合格）。
 *10 checks pass at 320–1366px and dark.*
+
+- 続けて置いた ExpansionEditor は縁がつながり、1 つのまとまりになる（間に余白を入れない）。項目名の列は 10em にそろえ、直せない項目（`readOnly`）も値の位置が同じになる。
+  *Consecutive editors join into one group; the title column is fixed at 10em so read-only rows align too.*
+
+**理由 / Why:** 一覧の 1 項目だけ直したい。その場で開いて直す。画面を移らないので、どれを直しているか見失わない。
+*Fix one item in a list: edit in place without changing screens, so you never lose which item.*

@@ -161,7 +161,15 @@ async function s1(p, tag) {
 }
 
 async function s2(p, tag) {
-  ok(await p.evaluate(() => { const c = document.querySelector('[aria-current="true"]'); return !!c && /地球化学/.test(c.textContent); }), `S2 ${tag} 今開いている行が分かる / current row marked`);
+  const narrow = p.viewport().width < 640;
+  if (narrow) {
+    // 狭い画面: 一覧と詳細は別の画面。行を押すと詳細、「戻る」で一覧の同じ行へ / narrow: separate list and detail screens
+    ok(await p.evaluate(() => !!document.querySelector('.f2-list') && !document.querySelector('.f2-xe')), `S2 ${tag} 狭い画面は一覧から始まる / narrow starts with the list`);
+    await p.click('.le-row-a .f2-li__primary'); await sleep(200);
+    ok(await p.evaluate(() => !document.querySelector('.f2-list') && /地球化学/.test(document.querySelector('#le-d').textContent)), `S2 ${tag} 行を押すと詳細だけになる / tapping a row shows only the detail`);
+  } else {
+    ok(await p.evaluate(() => { const c = document.querySelector('[aria-current="true"]'); return !!c && /地球化学/.test(c.textContent); }), `S2 ${tag} 今開いている行が分かる / current row marked`);
+  }
   await p.click('.f2-xe__btn'); await sleep(200);
   await type(p, await byLabel(p, '教室'), '');
   await (await btnByText(p, '保存', '.f2-xe')).click(); await sleep(300);
@@ -171,6 +179,12 @@ async function s2(p, tag) {
   await (await btnByText(p, '保存', '.f2-xe')).click(); await sleep(400);
   const back = await p.evaluate(() => ({ focus: document.activeElement.classList.contains('f2-xe__btn'), sum: document.querySelector('.f2-xe__summary').textContent }));
   ok(back.focus && back.sum === 'W9-100', `S2 ${tag} 保存後に見出しへ戻る / focus back on header, value saved`, JSON.stringify(back));
+  if (narrow) {
+    await (await btnByText(p, '授業の一覧に戻る')).click(); await sleep(200);
+    ok(await p.evaluate(() => !!document.activeElement.closest('.le-row-a')), `S2 ${tag} 戻ると開いていた行にフォーカスが戻る / back returns focus to the row`);
+  }
+  ok(await p.evaluate(() => !document.querySelector('.f2-li__check')), `S2 ${tag} 開く操作と選ぶ操作を同時に出さない / no checkboxes until selection mode (D31)`);
+  await (await btnByText(p, 'まとめて選ぶ')).click(); await sleep(150);
   const boxes = await p.$$('.f2-li__check input'); await boxes[1].click(); await boxes[2].click(); await sleep(150);
   await (await btnByText(p, '削除', '.f2-bulk')).click(); await sleep(300);
   ok(await p.evaluate(() => { const d = document.querySelector('dialog[open]'); return !!d && /2 件の授業を削除しますか/.test(d.textContent); }), `S2 ${tag} 件数つきで確認される / confirm shows count`);
@@ -185,9 +199,9 @@ async function s3(p, tag) {
   await p.setOfflineMode(true); await sleep(300);
   ok(await p.evaluate(() => /インターネットに接続されていません/.test(document.body.textContent) && /時点の内容/.test(document.body.textContent)), `S3 ${tag} 警告と「〜時点の内容」が出る / warning and timestamp`);
   await type(p, await byLabel(p, '予定を追加'), 'ゼミ'); await p.keyboard.press('Enter'); await sleep(200);
-  ok(await p.evaluate(() => /未送信 1 件/.test(document.body.textContent)), `S3 ${tag} 「未送信 1 件」が出る / pending count shown`);
+  ok(await p.evaluate(() => /未送信 2 件/.test(document.body.textContent)), `S3 ${tag} 「未送信 2 件」になる（見本は 1 件から始まる）/ pending count shown`);
   await p.setOfflineMode(false); await sleep(800);
-  ok(await live(p, '1 件を送信しました'), `S3 ${tag} つながると送られ、お知らせが読まれる / sent and announced`);
+  ok(await live(p, '2 件を送信しました'), `S3 ${tag} つながると送られ、お知らせが読まれる / sent and announced`);
 }
 
 async function scenarios(p) {

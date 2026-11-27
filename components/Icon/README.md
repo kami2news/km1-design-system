@@ -14,3 +14,6 @@ KM1 のアイコン（KM1-ICO-001）。KM1 の名前で引く 1 つのセット�
   *No `label` next to text; icon-only buttons put `aria-label` and a tooltip on the button.*
 - Flutter は `Km1BIcon(Km1BIconName.deadline)`（`size`・`filled`・`inherit`・`color`）。`Icon(Km1Icons.deadline)` はフォントの字形（B 案の形、1 色で淡い面なし）なので、通常表示は `Km1BIcon` を使う。
   *Flutter: `Km1BIcon(Km1BIconName.deadline)`; `Icon(Km1Icons.deadline)` is the single-color B glyph without the tint; use `Km1BIcon` for regular display.*
+
+**理由 / Why:** 言葉の横で、意味を速く見分ける。KM1 の線と淡い面の形。必ず言葉と組み、アイコンだけで意味を伝えない。
+*Recognise meaning quickly beside words: KM1 line-and-tint shapes, always with a word, never alone.*

@@ -8,7 +8,7 @@ NS={'w':'http://schemas.openxmlformats.org/wordprocessingml/2006/main','a':'http
  'p':'http://schemas.openxmlformats.org/presentationml/2006/main','wp':'http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing',
  'dc':'http://purl.org/dc/elements/1.1/','cp':'http://schemas.openxmlformats.org/package/2006/metadata/core-properties','r':'http://schemas.openxmlformats.org/officeDocument/2006/relationships'}
 # KM1 の色（ライトテーマ）だけ / KM1 light-theme colors only
-PALETTE={'242424','424242','616161','10218B','FFFFFF','F5F5F5','F0F0F0','ECEFFC','E0E0E0','D1D1D1','0F6CBD','038387','BC4B09','5C2E91','107C10','B10E1C','EBF3FC','FDF3F4','F1FAF1','FFF9F5','000000','AUTO'}
+PALETTE={'242424','616161','10218B','FFFFFF','F5F5F5','F0F0F0','ECEFFC','E0E0E0','D1D1D1','0F6CBD','038387','BC4B09','5C2E91','107C10','B10E1C','EBF3FC','FDF3F4','F1FAF1','FFF9F5','000000','AUTO'}
 WORD_SIZES={8,8.5,9,10,11,13,20,28}          # documents.md の表と同じ / same as the PDF rules
 SLIDE_SIZES={14,20,24,32,40,68}               # KM1 の型の表（office.md §4.1）/ KM1 type ramp
 # スライドの割り付け（office.md §4.2）。単位は pt / slide grid in pt

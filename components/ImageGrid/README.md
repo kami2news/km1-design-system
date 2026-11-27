@@ -1,4 +1,4 @@
-写真やファイルのように、見た目で見分けるものを格子に並べる。タイル全体が主操作、選択のチェックは別の押し場所。M1 の Grid lists を KM1 に合わせたもの。
+写真やファイルのように、見た目で見分けるものを格子に並べる。タイル全体が主操作。まとめて選ぶときは選ぶモードにし、タイル全体がチェックになる（D31）。M1 の Grid lists を KM1 に合わせたもの。
 *A grid for items told apart by appearance (photos, files). The tile is the primary action; the selection checkbox is a separate target. Adapts M1 Grid lists.*
 
 ## 使う条件 / When to use
@@ -14,8 +14,8 @@
   *Vertical scroll only; column count follows width (`minTileWidth`, 160px default); order runs left-to-right, top-to-bottom.*
 - 画像は `loading="lazy"`。読み込めないとき・画像がないときは、アイコンと「画像を表示できません」「画像なし」を出し、代替テキストは読み上げに残す（M1 も代わりの画像を求めている）。
   *Lazy-loaded; failures and missing images show an icon and text, keeping the alt text for screen readers.*
-- 選択: チェックはタイルの左上、44px（タッチ）・32px（PC）の押し場所。選んだタイルは `brand` の 2px の枠とチェック。選択の操作は `ContextualActionBar`。タイルごとのスワイプ操作は作らない（M1 も認めていない）。
-  *Checkbox top-left with a full-size target; selected tiles get a 2px brand border and a check; actions go in ContextualActionBar; no per-tile swipe.*
+- 選択: ふだんのタイルは押すと開く。まとめて選ぶときは選ぶモード（`selectable`）にし、タイル全体を押して選ぶ。チェックはタイルの左上に出る印で、押す場所は分けない。選んだタイルは `brand` の枠（縁 1px ＋外に 1px。中身はずれない）とチェック。選択の操作は `ContextualActionBar`。タイルごとのスワイプ操作は作らない（M1 も認めていない）。
+  *Tiles open by default; in selection mode (`selectable`) tapping the whole tile selects, with the check shown top-left; selected tiles get a brand ring and a check; actions go in ContextualActionBar; no per-tile swipe.*
 
 ## キーボード・読み上げ / Keyboard and screen readers
 
@@ -47,3 +47,6 @@ Flutter: `Km1ImageGrid`（`items`（`Km1ImageItem`）・`onOpen`・`selectable`�
 
 枚数、代替テキスト、遅延読み込み、読み込み失敗の表示、チェックが入れ子でない、選択の表示、選択がバーに反映、列数、横スクロールなし（9 項目、320〜1366px・ダークで合格）。
 *9 checks pass at 320–1366px and dark.*
+
+**理由 / Why:** 写真のように見た目で見分ける。格子で絵を大きく並べる。文字で比べるものには使わない。
+*Things told apart by look, like photos: large images in a grid; not for things compared by text.*

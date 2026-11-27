@@ -8,3 +8,6 @@
   *Left/Right move between tabs, Home/End jump to ends; Tab stops only on the selected tab (W3C APG). Selecting shows the panel immediately.*
 - 選択中は文字の濃さと下線の両方で示す。高さはスマホ 44px・PC 32px。
   *Selected is shown by text weight and an underline. 44px on touch, 32px on PC.*
+
+**理由 / Why:** 同じ階層の内容を切り替える。2〜6 個まで。ページの移動とは分けて、行き先を取り違えない。
+*Switch content at the same level: two to six tabs, kept apart from page navigation so destinations are not confused.*

@@ -19,9 +19,9 @@ KM1-DOC-002（Word）と KM1-DOC-003（PowerPoint）。KM1 で作る Word の文
 
 | 項目 / Item | 決まり / Rule |
 |---|---|
-| 書体 / Font | **游ゴシック**（和文も英数字も同じ書体）。Windows と macOS の両方に入っていて、Office でそのまま表示できる。KM1 の画面の第一候補の Noto Sans JP は Office にも OS にも入っていないため、Office では使わない。テーマの書体（見出し・本文とも）を游ゴシックにし、文字ごとに書体を指定しない / Yu Gothic for both scripts, set as the theme font。言語ごとの補助の書体（テーマの `<a:font script=…>`）も、Office の既定に入っている明朝・セリフ体・手書き風（新細明體・Times New Roman・Angsana New・MV Boli など）をゴシック系に置き換える（`tokens.md` 7 章）。明朝体・游明朝は使わない |
+| 書体 / Font | **游ゴシック**（和文も英数字も同じ書体）。Windows と macOS の両方に入っていて、Office でそのまま表示できる。KM1 の画面の第一候補の Noto Sans JP は Office にも OS にも入っていないため、Office では使わない。テーマの書体（見出し・本文とも）を游ゴシックにし、文字ごとに書体を指定しない / Yu Gothic for both scripts, set as the theme font。言語ごとの補助の書体（テーマの `<a:font script=…>`）も、Office の既定に入っている明朝・セリフ体・手書き風（新細明體・Times New Roman・Angsana New・MV Boli など）をゴシック系に置き換える（`tokens.md` 3.4「書体」）。明朝体・游明朝は使わない |
 | 色 / Colors | テーマの色を KM1 にする: 文字 `ink` #242424、濃い 2 `brand` #10218B、淡い 2 #F5F5F5、アクセント 1〜6 は #10218B・#0F6CBD・#038387・#BC4B09・#5C2E91・#107C10（どれも白地で 3:1 以上）、リンク #10218B。この表と `officecheck.py` の色の一覧にない色は使わない / KM1 theme colors only |
-| 文字のコントラスト / Contrast | 文字は背景と 4.5:1 以上。薄い灰色の文字は #616161（`ink-tertiary`）まで / text 4.5:1 or more |
+| 文字のコントラスト / Contrast | 文字は背景と 4.5:1 以上。薄い灰色の文字は #616161（`ink-secondary`）まで / text 4.5:1 or more |
 | 色だけで伝えない / Not color alone | グラフは値を書き込み、凡例の代わりに系列の名前を線や棒の横に書く。状態は言葉かアイコンを添える（WCAG 1.4.1） |
 | 言語 / Language | 文書の言語を日本語（ja-JP）にする。英語の段落には英語を指定する |
 | 個人情報 / Personal data | 外に出すファイルは作成者・最終更新者を空にする（「ファイル › 情報 › 問題のチェック › ドキュメント検査」）。見本の名前は架空にする |
@@ -38,14 +38,14 @@ KM1-DOC-002（Word）と KM1-DOC-003（PowerPoint）。KM1 で作る Word の文
 | スタイル / Style | 大きさ・太さ・色 | 行送り | 用途 |
 |---|---|---|---|
 | 表題 / Title | 28pt・太字・#10218B | 1.3 | 表紙の題名。上に 22 × 6mm の紺のしるし（塗りの段落）|
-| 副題 / Subtitle | 13pt・#424242 | 1.7 | 表紙の副題 |
+| 副題 / Subtitle | 13pt・#616161 | 1.7 | 表紙の副題 |
 | 見出し 1 / Heading 1 | 20pt・太字・#10218B、下に 2pt の線、改ページして始める | 1.3 | 章 |
 | 見出し 2 / Heading 2 | 13pt・太字 | 1.4 | 節 |
 | 見出し 3・4 | 11pt・10pt・太字 | 1.7 | 小見出し |
 | 標準 / Normal | 10pt | 1.7 | 本文 |
 | KM1 英語 / English | 9pt・#616161、言語は英語 | 1.55 | 英語の併記 |
 | KM1 表の文字 / Table text | 9pt | 1.55 | 表の中 |
-| 図表番号 / caption | 8.5pt・#424242 | 1.55 | 図と表の説明 |
+| 図表番号 / caption | 8.5pt・#616161 | 1.55 | 図と表の説明 |
 | 柱・ページ番号 | 8pt・#616161 | — | ヘッダーとフッター |
 
 - 使う大きさは 8・8.5・9・10・11・13・20・28pt だけ。8pt より小さくしない。
@@ -71,19 +71,19 @@ KM1-DOC-002（Word）と KM1-DOC-003（PowerPoint）。KM1 で作る Word の文
 
 ### 4.1 文字 / Type
 
-KM1 の型の表の大きさと行送りだけを使う / only KM1 type-ramp sizes and line heights
+スライドは離れた席から投影で読むので、画面の型の表とは別の、スライド専用の 6 段だけを使う。段どうしの差は 1.2 倍以上あり、大きさだけで上下が分かる / Slides are read from a distance on a projector, so they use their own six-step ramp, separate from the screen ramp; each step is at least 1.2x the next
 
 | 役割 / Role | 大きさ・行送り / Size, line | KM1 の型 |
 |---|---|---|
-| 大きな数字（1 枚に 1 つ）/ Hero number | 68pt・太字、行送り 92 | display |
-| 表紙・章の区切りの題名 / Cover, section title | 40pt・太字、行送り 52、2 行まで | large-title |
-| スライドの題名 / Slide title | 32pt・太字、行送り 40、**1 行**・左寄せ | title-1 |
-| 本文・箇条書き・カードの見出しと説明 / Body, card text | 24pt・標準（見出しは太字）、行送り 32、項目の間 12〜16 | title-3 の大きさ |
+| 大きな数字（1 枚に 1 つ）/ Hero number | 68pt・太字、行送り 92 | display の大きさ |
+| 表紙・章の区切りの題名 / Cover, section title | 40pt・太字、行送り 52、2 行まで | large-title の大きさ |
+| スライドの題名 / Slide title | 32pt・太字、行送り 40、**1 行**・左寄せ | スライド専用 |
+| 本文・箇条書き・カードの見出しと説明 / Body, card text | 24pt・標準（見出しは太字）、行送り 32、項目の間 12〜16 | スライド専用 |
 | 図の説明・表・グラフ・補足・英語の併記 / Captions, tables, charts, notes, English | 20pt・行送り 28 | subtitle-1 の大きさ |
 | 柱・スライド番号 / Footer, slide number | 14pt・#616161、行送り 20 | body-1 |
 
-- **内容の文字は 20pt 以上。** 14pt は下の柱の行（柱とスライド番号）だけ。Microsoft は 18pt 以上、投影するときの多くの指針は 24pt 以上を求めるので、本文を 24pt、それ以外の内容を 20pt にした。
-  *Content text 20pt or more; 14pt only in the footer row. Microsoft asks for 18pt or more; most projection guidelines ask for 24pt, so body is 24pt.*
+- **内容の文字は 20pt 以上。** 14pt は下の柱の行（柱とスライド番号）だけ。離れた席から投影で読むと 18pt では小さく、投影の多くの指針は 24pt 以上を求めるので、本文を 24pt、それ以外の内容を 20pt にした。
+  *Content text 20pt or more; 14pt only in the footer row. 18pt is small from the back of a room and most projection guidelines ask for 24pt, so body is 24pt.*
 - 入りきらないときは文字を縮めない。言葉を削るか 2 枚に分ける（PowerPoint の「自動調整」で縮んだ文字は検査で FAIL になる）。
   *Never shrink to fit; cut words or split the slide.*
 - 題名は 1 行。32pt で 1 行に入るのは全角 27 字（半角は 0.55 字に数える）まで。
@@ -188,7 +188,7 @@ KM1 の型の表の大きさと行送りだけを使う / only KM1 type-ramp siz
   *Brand navy marks one thing per slide (claim, conclusion or hero number); headings and labels are bold ink.*
 - 文字はプレースホルダーに入れる。自分で置いたテキスト ボックスは読み上げの順が崩れやすいので、使ったら「校閲 › アクセシビリティ チェック」から開く［閲覧順序］ウィンドウで、見た目の順に直す。
   *Prefer placeholders; fix reading order when adding text boxes.*
-- グラフは PowerPoint のグラフで作り（画像にしない）、色はテーマのアクセントの順、値を書き込む。軸と値の文字は 20pt・#424242、目盛りの線は #E0E0E0。
+- グラフは PowerPoint のグラフで作り（画像にしない）、色はテーマのアクセントの順、値を書き込む。軸と値の文字は 20pt・#616161、目盛りの線は #E0E0E0。
   *Native charts with theme accents and data labels.*
 - グラフの系列が 2 つ以上あるときは、色に加えて模様で分ける（KM1-COL-001）。順は 1 塗り・2 横線・3 縦線・4 斜線（右下がり）・5 格子・6 斜め格子・7 点・8 市松（Web の `.f2-pat` と同じ形）。
   *With two or more series, add patterns (KM1-COL-001) in this order, same shapes as the web.*
@@ -318,4 +318,4 @@ FAIL があると終了コード 1 を返す。
 **確かめたこと / Verified (2026-11-19)** — 文字の大きさと割り付けを改めた版のひな形と見本が `officecheck.py` で FAIL 0・注意 0、LibreOffice で PDF にして全ページを目で見た。以前（2026-11-13） — ひな形 2 つと見本 2 つが `officecheck.py` で FAIL 0、Office Open XML の形式の検査（XSD・関係・中身の種類）に合格。LibreOffice で PDF にして全ページを目で見た（游ゴシックがないので Noto Sans CJK JP で表示。文字の幅は Office と少し違う）。**まだ確かめていないこと:** Microsoft Word・PowerPoint で開くこと、Office のアクセシビリティ チェック、PowerPoint で書き出した PDF のタグ。
 *Templates and samples pass `officecheck.py` and OOXML validation, and were rendered with LibreOffice (Noto Sans CJK JP substituted for Yu Gothic). Not yet checked in Microsoft Office itself.*
 
-出典 / Sources: [Penn State: Assertion–Evidence の研究](https://writing.engr.psu.edu/research.html)・[Alley ほか: Assertion–Evidence Slides Instruction Set](https://bpb-us-e1.wpmucdn.com/sites.psu.edu/dist/7/13153/files/2008/10/Assertion-Evidence-Slides-Instruction_Set.pdf)・[東北大学: 発表資料チェックリスト](https://web.tohoku.ac.jp/yusa/wp-content/uploads/2026/03/checklist_presen_0204.docx)・[ウェールズ政府: アクセシブルな PowerPoint の作り方](https://www.gov.wales/node/30039)・[Microsoft: PowerPoint のプレゼンテーションをアクセシビリティ対応にする（18pt 以上）](https://support.microsoft.com/en-us/office/make-your-powerpoint-presentations-accessible-to-people-with-disabilities-6f7772b2-2f33-4bd2-8ca7-dae3b2b3ef25)・[NYC MOPD: Accessible Slidedecks Guide（24pt 以上）](https://www.nyc.gov/site/mopd/publications/guides/accessible-slidedecks-guide.page)・[Indiana University: PowerPoint（24pt 以上）](https://accessibility.iu.edu/creating-content/documents/powerpoint/index.html)・[Microsoft: アクセシビリティ チェックのルール](https://support.microsoft.com/ja-jp/Accessibility/office-accessibility/rules-for-the-accessibility-checker)・[Microsoft: PowerPoint のプレゼンテーションをアクセシビリティ対応にする](https://support.microsoft.com/ja-jp/Accessibility/powerpoint/make-your-powerpoint-presentations-accessible-to-people-with-disabilities)・[Microsoft: 閲覧順序ウィンドウ](https://support.microsoft.com/ja-jp/powerpoint/make-slides-easier-to-read-by-using-the-reading-order-pane)・[W3C WCAG 2.2](https://www.w3.org/TR/WCAG22/)
+出典 / Sources: 「参考文献」（`references.md`）の 2・7 節。

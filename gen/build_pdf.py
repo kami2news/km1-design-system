@@ -6,7 +6,7 @@
 documents.md「PDF の規定」（KM1-DOC-001）どおりに作る:
 - 表紙（題名・副題・版・作成者「KM1 作成者」・全 2 冊の組とファイル名・部品の数）。表紙に柱とページ番号を出さない
 - 目次（章と節、ページ番号つき。2 回書き出してページ番号を入れる）とPDF のしおり
-- 章の番号は 2 冊で通し。本編の第 11 章は別冊の案内。本編の最後に変更履歴。どちらも最後に奥付（notices.md §2）
+- 章の番号は 2 冊で通し。本編の第 5 章（部品）は別冊の案内。本編の最後に変更履歴。どちらも最後に奥付（notices.md §2）
 - 図は <figure role="group"> に代替テキストと図の番号。英語の段落は lang="en"
 - 部品の見本は等倍（画面の 1px ＝ 0.26mm）。縦に長い見本は行と行のあいだの空白（10px 以上）で切って等倍のまま分ける。
   ページの幅に入らないものだけ縮め、倍率を図の説明に書く。説明は見本の下に 3 段
@@ -30,10 +30,10 @@ SKIP = '--skip-checks' in sys.argv
 DATE = os.environ.get('KM1_DATE') or __import__('datetime').date.today().isoformat()
 CHROME = os.environ.get('CHROME') or shutil.which('google-chrome') or shutil.which('chromium') or 'google-chrome'
 MAIN_FILE, CAT_FILE = 'KM1_デザイン標準.pdf', 'KM1_部品カタログ.pdf'
-CAT_CHAPTER = 11
+CAT_CHAPTER = 5
 # 本編の章（ファイル）。None は別冊の案内の章 / main-volume chapters; None marks the pointer chapter
-MAIN = ['README', 'principles', 'tokens', 'patterns', 'platforms', 'icons', 'documents', 'office', 'product', 'dataviz',
-        None, 'governance', 'verification', 'coverage', 'adoption', 'proposals', 'm1', 'notices']
+MAIN = ['README', 'principles', 'product', 'patterns', None, 'content', 'tokens', 'icons', 'platforms', 'dataviz',
+        'documents', 'office', 'governance', 'verification', 'coverage', 'adoption', 'proposals', 'notices', 'references', 'm1']
 assert MAIN.index(None) + 1 == CAT_CHAPTER
 PX_MM = 25.4 / 96                       # CSS 1px = 0.2646mm
 FIG = [0]
@@ -208,8 +208,8 @@ def main():
             lst = ''.join(f'<li><strong>{html.escape(lab)}</strong>: {"・".join(ns)}</li>' for _, lab, ns in gs)
             chapters.append(f'<section class="chapter"><h1>{k}. 部品 / Components</h1>'
                             f'<p>部品の見本と説明は別冊「KM1 部品カタログ」（{CAT_FILE}、横向き）の第 {k} 章に載せている。'
-                            f'寸法の決まりは第 3 章「トークン」の「部品の寸法」、部品とプラットフォームの対応は第 {MAIN.index("coverage") + 1} 章。</p>'
-                            f'<span class="en" lang="en">Component previews and guidance are in the companion volume, chapter {k}. Sizes are in chapter 3; platform coverage in chapter {MAIN.index("coverage") + 1}.</span>'
+                            f'寸法の決まりは第 {MAIN.index("tokens") + 1} 章「基礎」の「部品の寸法」、部品とプラットフォームの対応は第 {MAIN.index("coverage") + 1} 章。</p>'
+                            f'<span class="en" lang="en">Component previews and guidance are in the companion volume, chapter {k}. Sizes are in chapter {MAIN.index("tokens") + 1}; platform coverage in chapter {MAIN.index("coverage") + 1}.</span>'
                             f'<h2>別冊に載せている部品 / In the catalog</h2><ul>{lst}</ul></section>')
         else:
             chapters.append(f'<section class="chapter">{md_html(os.path.join(ROOT, n + ".md"), number=k)}</section>')

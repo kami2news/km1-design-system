@@ -15,3 +15,6 @@
 
 ## 利用側が渡すもの / You provide
 `label`、`items`（`{label, onSelect, icon?, danger?, disabled?}` の配列）、必要なら `icon`・`iconOnly`・`align`（`start`・`end`）・`appearance`。
+
+**理由 / Why:** 頻度の低い操作で画面を埋めたくない。ボタンの近くに開き、選んだら閉じる。場所を取らない。
+*Rare actions should not fill the screen: opens by its button and closes after a choice.*

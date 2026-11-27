@@ -1,6 +1,9 @@
 今いる画面が、全体のどこにあるかを示す道しるべ。3 階層以上ある画面で使う。
 *Shows where the current screen sits in a hierarchy of three or more levels.*
 
+**理由 / Why:** 3 階層以上の画面では、今どこにいて、どこへ戻れるかが分からなくなる。全体の中の位置と上の階層への戻り道を、いつも同じ場所に 1 行で示す。いま使う画面がなくても、必要になったときに作業が止まらないよう部品として持っておく（D20）。
+*Three levels deep, people lose track of where they are and how to go back; one line in a fixed place shows both. Kept ready even before a screen needs it (D20).*
+
 ## 使い方 / Usage
 - 左から上位の階層、最後が今の画面。今の画面はリンクにせず、太字で示す（読み上げには `aria-current="page"`）。
   *Top level on the left, current screen last; the current item is bold text, not a link.*

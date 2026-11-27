@@ -26,6 +26,11 @@
 
   <ResourceDictionary.ThemeDictionaries>
     <ResourceDictionary x:Key="Light">
+      <SolidColorBrush x:Key="KM1BrandDarkTintBrush" Color="#FF333543" />
+      <SolidColorBrush x:Key="KM1BlueDarkTintBrush" Color="#FF253341" />
+      <SolidColorBrush x:Key="KM1RedDarkTintBrush" Color="#FF3E2E2F" />
+      <SolidColorBrush x:Key="KM1GreenDarkTintBrush" Color="#FF273627" />
+      <SolidColorBrush x:Key="KM1OrangeDarkTintBrush" Color="#FF42342B" />
       <SolidColorBrush x:Key="KM1SurfaceBrush" Color="#FFFFFFFF" />
       <SolidColorBrush x:Key="KM1SurfaceSubtleBrush" Color="#FFFAFAFA" />
       <SolidColorBrush x:Key="KM1SurfaceMutedBrush" Color="#FFF5F5F5" />
@@ -33,7 +38,7 @@
       <SolidColorBrush x:Key="KM1SurfaceHoverBrush" Color="#FFF5F5F5" />
       <SolidColorBrush x:Key="KM1SurfacePressedBrush" Color="#FFE0E0E0" />
       <SolidColorBrush x:Key="KM1InkBrush" Color="#FF242424" />
-      <SolidColorBrush x:Key="KM1InkSecondaryBrush" Color="#FF424242" />
+      <SolidColorBrush x:Key="KM1InkSecondaryBrush" Color="#FF616161" />
       <SolidColorBrush x:Key="KM1InkTertiaryBrush" Color="#FF616161" />
       <SolidColorBrush x:Key="KM1InkDisabledBrush" Color="#FFBDBDBD" />
       <SolidColorBrush x:Key="KM1StrokeBrush" Color="#FFD1D1D1" />
@@ -71,6 +76,11 @@
       <SolidColorBrush x:Key="AccentButtonBorderBrush" Color="#FF7A8CF5" />
       <SolidColorBrush x:Key="AccentButtonBorderBrushPointerOver" Color="#FF7A8CF5" />
       <SolidColorBrush x:Key="AccentButtonBorderBrushPressed" Color="#FF7A8CF5" />
+      <SolidColorBrush x:Key="KM1BrandDarkTintBrush" Color="#FF333543" />
+      <SolidColorBrush x:Key="KM1BlueDarkTintBrush" Color="#FF253341" />
+      <SolidColorBrush x:Key="KM1RedDarkTintBrush" Color="#FF3E2E2F" />
+      <SolidColorBrush x:Key="KM1GreenDarkTintBrush" Color="#FF273627" />
+      <SolidColorBrush x:Key="KM1OrangeDarkTintBrush" Color="#FF42342B" />
       <SolidColorBrush x:Key="KM1SurfaceBrush" Color="#FF292929" />
       <SolidColorBrush x:Key="KM1SurfaceSubtleBrush" Color="#FF1F1F1F" />
       <SolidColorBrush x:Key="KM1SurfaceMutedBrush" Color="#FF141414" />
@@ -78,7 +88,7 @@
       <SolidColorBrush x:Key="KM1SurfaceHoverBrush" Color="#FF383838" />
       <SolidColorBrush x:Key="KM1SurfacePressedBrush" Color="#FF1F1F1F" />
       <SolidColorBrush x:Key="KM1InkBrush" Color="#FFFFFFFF" />
-      <SolidColorBrush x:Key="KM1InkSecondaryBrush" Color="#FFD6D6D6" />
+      <SolidColorBrush x:Key="KM1InkSecondaryBrush" Color="#FFADADAD" />
       <SolidColorBrush x:Key="KM1InkTertiaryBrush" Color="#FFADADAD" />
       <SolidColorBrush x:Key="KM1InkDisabledBrush" Color="#FF5C5C5C" />
       <SolidColorBrush x:Key="KM1StrokeBrush" Color="#FF666666" />
@@ -92,21 +102,26 @@
       <SolidColorBrush x:Key="KM1BrandPressedBrush" Color="#FF2C3FB8" />
       <SolidColorBrush x:Key="KM1OnBrandBrush" Color="#FFFFFFFF" />
       <SolidColorBrush x:Key="KM1BrandInkBrush" Color="#FF99A6FF" />
-      <SolidColorBrush x:Key="KM1BrandTintBrush" Color="#FF0D1238" />
+      <SolidColorBrush x:Key="KM1BrandTintBrush" Color="#FF333543" />
       <SolidColorBrush x:Key="KM1BrandStrokeBrush" Color="#FF7A8CF5" />
       <SolidColorBrush x:Key="KM1FocusRingBrush" Color="#FFFFFFFF" />
       <SolidColorBrush x:Key="KM1InfoInkBrush" Color="#FF479EF5" />
-      <SolidColorBrush x:Key="KM1InfoTintBrush" Color="#FF082338" />
+      <SolidColorBrush x:Key="KM1InfoTintBrush" Color="#FF253341" />
       <SolidColorBrush x:Key="KM1DangerBrush" Color="#FFC50F1F" />
       <SolidColorBrush x:Key="KM1DangerInkBrush" Color="#FFE37D80" />
-      <SolidColorBrush x:Key="KM1DangerTintBrush" Color="#FF3B0509" />
+      <SolidColorBrush x:Key="KM1DangerTintBrush" Color="#FF3E2E2F" />
       <SolidColorBrush x:Key="KM1SuccessInkBrush" Color="#FF54B054" />
-      <SolidColorBrush x:Key="KM1SuccessTintBrush" Color="#FF052505" />
+      <SolidColorBrush x:Key="KM1SuccessTintBrush" Color="#FF273627" />
       <SolidColorBrush x:Key="KM1WarningInkBrush" Color="#FFFAA06B" />
-      <SolidColorBrush x:Key="KM1WarningTintBrush" Color="#FF411200" />
+      <SolidColorBrush x:Key="KM1WarningTintBrush" Color="#FF42342B" />
     </ResourceDictionary>
     <!-- ハイコントラストではシステムの色に従う / High contrast follows system colors -->
     <ResourceDictionary x:Key="HighContrast">
+      <SolidColorBrush x:Key="KM1BrandDarkTintBrush" Color="{ThemeResource SystemColorWindowColor}" />
+      <SolidColorBrush x:Key="KM1BlueDarkTintBrush" Color="{ThemeResource SystemColorWindowColor}" />
+      <SolidColorBrush x:Key="KM1RedDarkTintBrush" Color="{ThemeResource SystemColorWindowColor}" />
+      <SolidColorBrush x:Key="KM1GreenDarkTintBrush" Color="{ThemeResource SystemColorWindowColor}" />
+      <SolidColorBrush x:Key="KM1OrangeDarkTintBrush" Color="{ThemeResource SystemColorWindowColor}" />
       <SolidColorBrush x:Key="KM1SurfaceBrush" Color="{ThemeResource SystemColorWindowColor}" />
       <SolidColorBrush x:Key="KM1SurfaceSubtleBrush" Color="{ThemeResource SystemColorWindowColor}" />
       <SolidColorBrush x:Key="KM1SurfaceMutedBrush" Color="{ThemeResource SystemColorWindowColor}" />

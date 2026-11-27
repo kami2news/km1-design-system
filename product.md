@@ -183,9 +183,7 @@ KM1 の決まりは 2 種類ある。**必須**は例外を作らない。**原�
 
 ## 出典 / Sources
 
-- ISO 9241-210:2019 "Ergonomics of human-system interaction — Part 210: Human-centred design for interactive systems"。4 つの活動（7.2〜7.5）の並びだけを使った。規格の本文は読んでおらず、公開されている目次と解説から確認した。
-  *Only the order of the four activities (7.2–7.5) is used. The standard's full text was not read; this was confirmed from its public table of contents and secondary descriptions.*
-- Jakob Nielsen, "10 Usability Heuristics for User Interface Design", Nielsen Norman Group: https://www.nngroup.com/articles/ten-usability-heuristics/ 。10 項目の趣旨を自分の言葉で書き直し、KM1 の部品に当てはめた。
-  *The ten points are restated in KM1's own words and mapped to its components.*
-- 「迷ったときの優先順位」「5 個まで」「6 つの状態」「KM1 に戻す」は KM1 独自の決まり。
-  *The priority order, the limits of five, the six states and the feedback rules are KM1's own.*
+「参考文献」（`references.md`）の 3 節。
+
+「迷ったときの優先順位」「5 個まで」「6 つの状態」「KM1 に戻す」は KM1 独自の決まり。
+*The priority order, the limits of five, the six states and the feedback rules are KM1's own.*

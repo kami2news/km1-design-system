@@ -13,3 +13,6 @@
 
 ## 利用側が渡すもの / You provide
 `items`（`{value, title, content, meta?}`）、必要なら `multiple`・`defaultOpen`・`headingLevel`・`onChange`。
+
+**理由 / Why:** 長い内容を必要な分だけ読む。見出しだけ並べ、開いたところだけ読む。
+*Long content read only as needed: show headings, read what you open.*

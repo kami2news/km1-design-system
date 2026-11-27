@@ -9,7 +9,7 @@
 //   Km1Pagination, Km1Table, Km1Calendar, Km1Timetable, Km1FileList, Km1Avatar, Km1TimeGrid,
 //   Km1TagPicker, Km1SortableList,
 //   Km1Form, Km1FormGroup, Km1FormGrid, Km1FullSpan, Km1ConditionalField, Km1ErrorSummary, Km1FormActions,
-//   Km1ListItem, Km1ListSectionHeader, Km1ContextualActionBar, Km1ExpansionEditor, Km1StepFlow,
+//   Km1ListItem, Km1ListSectionHeader, Km1ContextualActionBar, Km1ExpansionEditor, Km1ExpansionEditorGroup, Km1StepFlow,
 //   showKm1BottomSheet, Km1ImageGrid, Km1CategoryMark, Km1CategoryLegend
 //
 // Km1TimeGrid は親で高さを決めて使う（SizedBox や Expanded の中）。
@@ -47,45 +47,53 @@ class Km1EmptyState extends StatelessWidget {
     required this.title,
     this.body,
     this.icon,
-    this.bIcon = Km1BIconName.calendar,
+    this.bIcon,
     this.action,
   });
 
   /// 何が無いかを事実で書く（「今日の予定はありません」）/ State what is missing
   final String title;
+
+  /// 次に何があるか・どうすれば入るかを本物の内容で（「明日は 9:00 から気象学です」）/ The real next step
   final String? body;
 
-  /// 32px の案内アイコン（KM1 で 32px を使うのはここだけ）。標準は B 案の bIcon。icon を渡すとそちらを使う
-  /// The only 32px icon in KM1. Defaults to the B-style bIcon; pass icon to override.
+  /// アイコンは既定で付けない。見出しがなく文だけでは何の場所か分かりにくいときだけ 32px を 1 つ
+  /// No icon by default; one 32px icon only when the words alone leave the place unclear.
   final IconData? icon;
-  final Km1BIconName bIcon;
+  final Km1BIconName? bIcon;
 
   /// 最初の一歩になる操作を 1 つだけ / Exactly one first-step action
   final Widget? action;
 
+  // 理由: 一覧が入るはずの位置で、一覧と同じ左の線から読ませる。真ん中に大きなアイコンを置く型は使わない
+  // Why: read from the same left edge as the list it replaces; the centred big-icon template is not used.
   @override
   Widget build(BuildContext context) {
     final c = context.km1;
-    return Center(
+    final mark = icon != null
+        ? Icon(icon, size: Km1Size.iconXl, color: c.inkSecondary)
+        : (bIcon != null ? Km1BIcon(bIcon!, size: Km1Size.iconXl) : null);
+    return Align(
+      alignment: AlignmentDirectional.topStart,
       child: ConstrainedBox(
-        constraints: const BoxConstraints(maxWidth: 360),
+        constraints: const BoxConstraints(maxWidth: 560),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: Km1Space.lg, vertical: Km1Space.xxl),
+          padding: const EdgeInsets.symmetric(vertical: Km1Space.lg),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ExcludeSemantics(child: icon != null ? Icon(icon, size: Km1Size.iconXl, color: c.inkSecondary) : Km1BIcon(bIcon, size: Km1Size.iconXl)),
-              const SizedBox(height: Km1Space.sm),
+              if (mark != null) ...[ExcludeSemantics(child: mark), const SizedBox(height: Km1Space.sm)],
               Semantics(
                 header: true,
-                child: Text(title, textAlign: TextAlign.center, style: Km1Text.subtitle1.copyWith(color: c.ink)),
+                child: Text(title, style: Km1Text.subtitle1.copyWith(color: c.ink)),
               ),
               if (body != null) ...[
                 const SizedBox(height: Km1Space.xs),
-                Text(body!, textAlign: TextAlign.center, style: Km1Text.body1.copyWith(color: c.inkSecondary)),
+                Text(body!, style: Km1Text.body1Para.copyWith(color: c.ink)),
               ],
               if (action != null) ...[
-                const SizedBox(height: Km1Space.lg),
+                const SizedBox(height: Km1Space.md),
                 action!,
               ],
             ],
@@ -387,7 +395,7 @@ class Km1FilterChip extends StatelessWidget {
       child: ExcludeSemantics(
         child: InkWell(
           onTap: () => onSelected(!selected),
-          borderRadius: BorderRadius.circular(Km1Radius.circular),
+          borderRadius: BorderRadius.circular(Km1Radius.md),
           child: ConstrainedBox(
             constraints: BoxConstraints(minHeight: hit),
             child: Center(
@@ -399,7 +407,7 @@ class Km1FilterChip extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: selected ? c.brandTint : c.surface,
                   border: Border.all(color: selected ? c.brandStroke : c.strokeStrong),
-                  borderRadius: BorderRadius.circular(Km1Radius.circular),
+                  borderRadius: BorderRadius.circular(Km1Radius.md),
                 ),
                 child: Row(mainAxisSize: MainAxisSize.min, children: [
                   if (selected) ...[
@@ -710,7 +718,7 @@ class Km1Table<T> extends StatelessWidget {
         : Container(
             margin: const EdgeInsets.only(bottom: Km1Space.xs),
             padding: const EdgeInsets.symmetric(horizontal: Km1Space.sm, vertical: Km1Space.xs),
-            decoration: BoxDecoration(color: c.brandTint, border: Border.all(color: c.brandStroke), borderRadius: BorderRadius.circular(Km1Radius.md)),
+            decoration: BoxDecoration(color: c.brandTint, borderRadius: BorderRadius.circular(Km1Radius.md)),
             child: Wrap(spacing: Km1Space.xs, runSpacing: Km1Space.xs, crossAxisAlignment: WrapCrossAlignment.center, children: [
               Semantics(liveRegion: true, child: Text('$nSel 件を選択中', style: Km1Text.body1Strong.copyWith(color: c.ink))),
               for (final a in bulkActions)
@@ -719,7 +727,7 @@ class Km1Table<T> extends StatelessWidget {
                   style: a.danger ? OutlinedButton.styleFrom(foregroundColor: c.dangerInk) : null,
                   child: Text(a.label),
                 ),
-              TextButton(onPressed: () => onSelectionChanged!(<Object>{}), child: const Text('選択を解除')),
+              TextButton.icon(onPressed: () => onSelectionChanged!(<Object>{}), icon: const Icon(Km1Icons.dismiss16, size: 16), label: const Text('選択を解除')),
             ]),
           );
     return Semantics(
@@ -893,7 +901,7 @@ class _Km1CalendarState extends State<Km1Calendar> {
             SizedBox(
               width: t,
               height: 32,
-              child: Center(child: Text(_km1Weekdays[(i + widget.weekStart) % 7], style: Km1Text.caption1.copyWith(color: c.inkSecondary))),
+              child: Center(child: Text(_km1Weekdays[(i + widget.weekStart) % 7], style: Km1Text.caption1.copyWith(height: 16 / 12, color: c.inkSecondary))),
             ),
         ]),
       ),
@@ -1059,7 +1067,7 @@ class Km1Timetable extends StatelessWidget {
             if (s.pattern != null) ...[Km1CategoryMark(color: s.color, pattern: s.pattern!), const SizedBox(width: Km1Space.xs)],
             Flexible(child: Text(s.title, style: Km1Text.body1Strong.copyWith(color: c.ink))),
           ]),
-          if (s.sub != null) Text(s.sub!, style: Km1Text.caption1.copyWith(color: c.inkSecondary)),
+          if (s.sub != null) Text(s.sub!, style: Km1Text.caption1.copyWith(color: c.ink)),
         ]),
       );
       final label = '${days[s.day]}曜 ${periods[s.period].label} ${s.title}${s.sub == null ? '' : '、${s.sub}'}';
@@ -1104,7 +1112,10 @@ class Km1Timetable extends StatelessWidget {
         decoration: BoxDecoration(border: Border.all(color: c.stroke), borderRadius: BorderRadius.circular(Km1Radius.md)),
         clipBehavior: Clip.antiAlias,
         child: LayoutBuilder(builder: (context, box) {
-          final w = box.maxWidth < minWidth ? minWidth : box.maxWidth;
+          // 1 日の列は 128 より狭くしない（5 字の授業名が 1 行に入る。Web と同じ。D37）/ day columns never below 128 (same as Web)
+          final need = 104 + days.length * 128.0;
+          final minW = minWidth > need ? minWidth : need;
+          final w = box.maxWidth < minW ? minW : box.maxWidth;
           final content = SizedBox(
             width: w,
             child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -1115,7 +1126,7 @@ class Km1Timetable extends StatelessWidget {
               table,
             ]),
           );
-          return box.maxWidth < minWidth ? SingleChildScrollView(scrollDirection: Axis.horizontal, child: content) : content;
+          return box.maxWidth < minW ? SingleChildScrollView(scrollDirection: Axis.horizontal, child: content) : content;
         }),
       ),
     );
@@ -1174,7 +1185,7 @@ class Km1FileList extends StatelessWidget {
         TextSpan(text: label),
         if (required) TextSpan(text: ' ※必須', style: TextStyle(color: c.dangerInk)),
       ]), style: Km1Text.body1Strong.copyWith(color: c.ink)),
-      if (hint != null) Text(hint!, style: Km1Text.caption1.copyWith(color: c.inkTertiary)),
+      if (hint != null) Text(hint!, style: Km1Text.caption1.copyWith(color: c.inkSecondary)),
       const SizedBox(height: Km1Space.xs),
       Container(
         padding: const EdgeInsets.all(Km1Space.lg),
@@ -1362,15 +1373,15 @@ class Km1TimeGrid extends StatelessWidget {
       child: compact || e.deadline || e.allDay
           ? Row(children: [
               if (e.deadline) ...[Icon(Km1Icons.flag16Filled, size: Km1Size.iconSm, color: c.warningInk), const SizedBox(width: Km1Space.xs)],
-              Expanded(child: Text(e.title, maxLines: 1, overflow: TextOverflow.ellipsis, style: Km1Text.caption1.copyWith(color: c.ink, fontWeight: FontWeight.w600))),
+              Expanded(child: Text(e.title, maxLines: 1, overflow: TextOverflow.ellipsis, style: Km1Text.caption1.copyWith(height: 16 / 12, color: c.ink, fontWeight: FontWeight.w600))),
             ])
           : Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Row(children: [
                 if (e.pattern != null) ...[Km1CategoryMark(color: e.color, pattern: e.pattern!), const SizedBox(width: Km1Space.xs)],
-                Expanded(child: Text(e.title, maxLines: 1, overflow: TextOverflow.ellipsis, style: Km1Text.caption1.copyWith(color: c.ink, fontWeight: FontWeight.w600))),
+                Expanded(child: Text(e.title, maxLines: 1, overflow: TextOverflow.ellipsis, style: Km1Text.caption1.copyWith(height: 16 / 12, color: c.ink, fontWeight: FontWeight.w600))),
               ]),
-              Text('${_km1Hm(e.start ?? 0)}〜${_km1Hm(e.end ?? 0)}', maxLines: 1, overflow: TextOverflow.clip, style: Km1Text.caption1.copyWith(color: c.inkSecondary)),
-              if (e.sub != null) Text(e.sub!, maxLines: 1, overflow: TextOverflow.ellipsis, style: Km1Text.caption1.copyWith(color: c.inkSecondary)),
+              Text('${_km1Hm(e.start ?? 0)}〜${_km1Hm(e.end ?? 0)}', maxLines: 1, overflow: TextOverflow.clip, style: Km1Text.caption1.copyWith(height: 16 / 12, color: c.ink)),
+              if (e.sub != null) Text(e.sub!, maxLines: 1, overflow: TextOverflow.ellipsis, style: Km1Text.caption1.copyWith(height: 16 / 12, color: c.ink)),
             ]),
     );
     final label = _semantic(e);
@@ -1393,24 +1404,31 @@ class Km1TimeGrid extends StatelessWidget {
     final total = (endHour - startHour) * hh;
 
     Widget dayColumn(int d) {
-      final timed = events.where((e) => e.day == d && !e.allDay && !e.deadline && e.start != null && e.end != null).toList()
-        ..sort((a, b) => a.start!.compareTo(b.start!) != 0 ? a.start!.compareTo(b.start!) : b.end!.compareTo(a.end!));
+      // 締め切りは見えている高さ（24）を時間の幅として、ほかの予定と同じ列分けに入れる（Web と同じ。D40）
+      // Deadlines take their visible 24px as a time span and join the same column split (same as Web)
+      final half = 12 / ppm;
+      double from(Km1TimeGridEvent e) => e.deadline ? e.start! - half : e.start!.toDouble();
+      double to(Km1TimeGridEvent e) => e.deadline ? e.start! + half : e.end!.toDouble();
+      final timed = events
+          .where((e) => e.day == d && !e.allDay && e.start != null && (e.deadline ? (e.start! >= s0 && e.start! < e0) : e.end != null))
+          .toList()
+        ..sort((a, b) => from(a).compareTo(from(b)) != 0 ? from(a).compareTo(from(b)) : to(b).compareTo(to(a)));
       // 重なる予定を横に並べる / Lay out overlapping events side by side
       final col = <Km1TimeGridEvent, int>{};
       final cols = <Km1TimeGridEvent, int>{};
       var cluster = <Km1TimeGridEvent>[];
-      var clusterEnd = -1;
+      var clusterEnd = -1.0;
       void flush() {
-        final ends = <int>[];
+        final ends = <double>[];
         for (final e in cluster) {
           var i = 0;
-          while (i < ends.length && ends[i] > e.start!) {
+          while (i < ends.length && ends[i] > from(e)) {
             i++;
           }
           if (i == ends.length) {
-            ends.add(e.end!);
+            ends.add(to(e));
           } else {
-            ends[i] = e.end!;
+            ends[i] = to(e);
           }
           col[e] = i;
         }
@@ -1421,12 +1439,11 @@ class Km1TimeGrid extends StatelessWidget {
       }
 
       for (final e in timed) {
-        if (cluster.isNotEmpty && e.start! >= clusterEnd) flush();
+        if (cluster.isNotEmpty && from(e) >= clusterEnd) flush();
         cluster.add(e);
-        if (e.end! > clusterEnd) clusterEnd = e.end!;
+        if (to(e) > clusterEnd) clusterEnd = to(e);
       }
       if (cluster.isNotEmpty) flush();
-      final deadlines = events.where((e) => e.day == d && e.deadline && e.start != null && e.start! >= s0 && e.start! < e0).toList();
       final isToday = now != null && now!.day == d;
       return Semantics(
         container: true,
@@ -1436,7 +1453,7 @@ class Km1TimeGrid extends StatelessWidget {
           return SizedBox(
             height: total,
             child: Stack(clipBehavior: Clip.none, children: [
-              for (final e in timed)
+              for (final e in timed.where((e) => !e.deadline))
                 if (e.end! > s0 && e.start! < e0)
                   Positioned(
                     top: (e.start!.clamp(s0, e0) - s0) * ppm,
@@ -1445,8 +1462,8 @@ class Km1TimeGrid extends StatelessWidget {
                     width: w / cols[e]! - 4,
                     child: _event(context, e),
                   ),
-              for (final e in deadlines)
-                Positioned(top: (e.start! - s0) * ppm - 12, height: 24, left: 2, right: 2, child: _event(context, e, compact: true)),
+              for (final e in timed.where((e) => e.deadline))
+                Positioned(top: (e.start! - s0) * ppm - 12, height: 24, left: w / cols[e]! * col[e]! + 2, width: w / cols[e]! - 4, child: _event(context, e, compact: true)),
               if (isToday && now!.minute >= s0 && now!.minute <= e0)
                 Positioned(
                   top: (now!.minute - s0) * ppm - 1,
@@ -1520,7 +1537,7 @@ class Km1TimeGrid extends StatelessWidget {
                       Positioned(
                         top: (hr - startHour) * hh + (hr == startHour ? 0 : -8),
                         right: Km1Space.xs,
-                        child: Text('$hr:00', style: Km1Text.caption1.copyWith(color: c.inkSecondary)),
+                        child: Text('$hr:00', style: Km1Text.caption1.copyWith(height: 16 / 12, color: c.inkSecondary)),
                       ),
                   ]),
                 ),
@@ -1545,7 +1562,7 @@ class Km1TimeGrid extends StatelessWidget {
         decoration: BoxDecoration(border: Border.all(color: c.stroke), borderRadius: BorderRadius.circular(Km1Radius.md)),
         clipBehavior: Clip.antiAlias,
         child: LayoutBuilder(builder: (context, box) {
-          final minW = hoursWidth + days.length * 96.0;
+          final minW = hoursWidth + days.length * 128.0; // 1 日の列は 128 以上（Web・時間割と同じ。D37）/ 128 per day, same as Web and Timetable
           if (days.length == 1 || box.maxWidth >= minW) return grid;
           return SingleChildScrollView(scrollDirection: Axis.horizontal, child: SizedBox(width: minW, height: box.maxHeight, child: grid));
         }),
@@ -1688,7 +1705,7 @@ class _Km1TagPickerState extends State<Km1TagPicker> {
     final t = context.km1Target;
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, mainAxisSize: MainAxisSize.min, children: [
       Text(widget.label, style: Km1Text.body1Strong.copyWith(color: c.ink)),
-      if (widget.hint != null) Text(widget.hint!, style: Km1Text.caption1.copyWith(color: c.inkTertiary)),
+      if (widget.hint != null) Text(widget.hint!, style: Km1Text.caption1.copyWith(color: c.inkSecondary)),
       const SizedBox(height: Km1Space.xs),
       if (widget.value.isNotEmpty)
         Padding(
@@ -1905,7 +1922,7 @@ class Km1FormGroup extends StatelessWidget {
         Semantics(header: true, child: Text(title, style: Km1Text.subtitle2.copyWith(color: c.ink))),
         if (description != null) ...[
           const SizedBox(height: Km1Space.xs),
-          Text(description!, style: Km1Text.body1.copyWith(color: c.inkSecondary)),
+          Text(description!, style: Km1Text.body1Para.copyWith(color: c.inkSecondary)),
         ],
         const SizedBox(height: Km1Space.md),
         ...body,
@@ -2093,7 +2110,7 @@ class _Km1ErrorSummaryState extends State<Km1ErrorSummary> {
                     padding: const EdgeInsets.symmetric(horizontal: Km1Space.xs),
                     alignment: AlignmentDirectional.centerStart,
                   ),
-                  child: Text('${e.label}：${e.message}', style: Km1Text.body1.copyWith(decoration: TextDecoration.underline, color: c.brandInk)),
+                  child: Text('${e.label}：${e.message}', style: Km1Text.body1Para.copyWith(decoration: TextDecoration.underline, color: c.brandInk)),
                 ),
               ),
           ]),
@@ -2158,10 +2175,11 @@ class Km1ListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = context.km1;
     final primary = Semantics(
-      button: onTap != null,
-      selected: selectable ? selected : null,
+      button: !selectable && onTap != null,
+      checked: selectable ? selected : null,
       child: InkWell(
-        onTap: onTap,
+        // 選ぶモードでは行を押すと選ぶ。開く操作（onTap）は使わない（D31）/ selection mode: tapping selects, never opens
+        onTap: selectable ? (onSelectedChanged == null ? null : () => onSelectedChanged!(!selected)) : onTap,
         child: ConstrainedBox(
           constraints: BoxConstraints(minHeight: context.km1Target),
           child: Padding(
@@ -2171,7 +2189,7 @@ class Km1ListItem extends StatelessWidget {
               Expanded(
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisSize: MainAxisSize.min, children: [
                   Text(title, style: Km1Text.body1.copyWith(color: c.ink)),
-                  if (description != null) const SizedBox(height: Km1Space.xs),
+                  if (description != null) const SizedBox(height: Km1Space.xxs),
                   if (description != null) Text(description!, style: Km1Text.caption1.copyWith(color: c.inkSecondary)),
                 ]),
               ),
@@ -2190,10 +2208,11 @@ class Km1ListItem extends StatelessWidget {
         if (selectable)
           SizedBox(
             width: context.km1Target,
-            child: Checkbox(
-              value: selected,
-              onChanged: onSelectedChanged == null ? null : (v) => onSelectedChanged!(v ?? false),
-              semanticLabel: '$title を選択',
+            child: ExcludeSemantics(
+              child: Checkbox(
+                value: selected,
+                onChanged: onSelectedChanged == null ? null : (v) => onSelectedChanged!(v ?? false),
+              ),
             ),
           ),
         Expanded(child: primary),
@@ -2245,7 +2264,7 @@ class Km1ContextualActionBar extends StatelessWidget {
     if (count == 0) return Semantics(liveRegion: true, child: const SizedBox.shrink());
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: Km1Space.sm, vertical: Km1Space.xs),
-      decoration: BoxDecoration(color: c.brandTint, border: Border.all(color: c.brandStroke), borderRadius: BorderRadius.circular(Km1Radius.md)),
+      decoration: BoxDecoration(color: c.brandTint, borderRadius: BorderRadius.circular(Km1Radius.md)),
       child: Wrap(spacing: Km1Space.xs, runSpacing: Km1Space.xs, crossAxisAlignment: WrapCrossAlignment.center, children: [
         Semantics(liveRegion: true, child: Text(total == null ? '$count 件を選択中' : '$count 件を選択中（全 $total 件）', style: Km1Text.body1Strong.copyWith(color: c.ink))),
         for (final a in actions)
@@ -2254,8 +2273,8 @@ class Km1ContextualActionBar extends StatelessWidget {
             style: a.danger ? OutlinedButton.styleFrom(foregroundColor: c.dangerInk) : null,
             child: Text(a.label),
           ),
-        if (onSelectAll != null && total != null && count < total!) TextButton(onPressed: onSelectAll, child: Text('すべて選択（$total 件）')),
-        TextButton(onPressed: onClear, child: const Text('選択を解除')),
+        if (onSelectAll != null && total != null && count < total!) TextButton.icon(onPressed: onSelectAll, icon: const Icon(Km1Icons.selectAll16, size: 16), label: Text('すべて選択（$total 件）')),
+        TextButton.icon(onPressed: onClear, icon: const Icon(Km1Icons.dismiss16, size: 16), label: const Text('選択を解除')),
       ]),
     );
   }
@@ -2349,8 +2368,10 @@ class _Km1ExpansionEditorState extends State<Km1ExpansionEditor> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: Km1Space.lg, vertical: Km1Space.smNudge),
         child: Row(children: [
-          Expanded(child: Text(widget.title, style: Km1Text.body1Strong.copyWith(color: c.ink))),
-          Expanded(flex: 2, child: Text(ro ? '${widget.summary}\n${widget.readOnlyReason}' : widget.summary, style: Km1Text.body1.copyWith(color: c.inkSecondary))),
+          // 項目名の列は Web と同じ 10em（14px × 10 = 140）にそろえる / title column fixed like the web's 10em
+          SizedBox(width: 140, child: Text(widget.title, style: Km1Text.body1Strong.copyWith(color: c.ink))),
+          const SizedBox(width: Km1Space.md),
+          Expanded(child: Text(ro ? '${widget.summary}\n${widget.readOnlyReason}' : widget.summary, style: Km1Text.body1.copyWith(color: c.inkSecondary))),
           if (!ro)
             ExcludeSemantics(
               child: _open
@@ -2364,9 +2385,20 @@ class _Km1ExpansionEditorState extends State<Km1ExpansionEditor> {
         ]),
       ),
     );
+    // Km1ExpansionEditorGroup の中では、となりと縁を 1 本で共有し、外側の角だけ丸める（Web と同じ）
+    // Inside Km1ExpansionEditorGroup neighbours share one border and only the outer corners are rounded (same as Web)
+    final slot = context.dependOnInheritedWidgetOfExactType<_Km1XeSlot>();
+    final first = slot == null || slot.index == 0, last = slot == null || slot.index == slot.count - 1;
+    const r = Radius.circular(Km1Radius.md);
+    final radius = BorderRadius.only(topLeft: first ? r : Radius.zero, topRight: first ? r : Radius.zero, bottomLeft: last ? r : Radius.zero, bottomRight: last ? r : Radius.zero);
+    final side = BorderSide(color: _open ? c.stroke : c.strokeSubtle);
     return Container(
-      margin: const EdgeInsets.only(bottom: Km1Space.sm),
-      decoration: BoxDecoration(color: c.surface, border: Border.all(color: _open ? c.stroke : c.strokeSubtle), borderRadius: BorderRadius.circular(Km1Radius.md)),
+      margin: EdgeInsets.only(bottom: slot == null ? Km1Space.sm : 0),
+      decoration: BoxDecoration(
+        color: c.surface,
+        border: first ? Border.fromBorderSide(side) : Border(left: side, right: side, bottom: side),
+        borderRadius: first && last ? BorderRadius.circular(Km1Radius.md) : radius,
+      ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         if (ro)
           head
@@ -2374,7 +2406,7 @@ class _Km1ExpansionEditorState extends State<Km1ExpansionEditor> {
           Semantics(
             button: true,
             expanded: _open,
-            child: InkWell(focusNode: _head, onTap: _toggle, borderRadius: BorderRadius.circular(Km1Radius.md), child: head),
+            child: InkWell(focusNode: _head, onTap: _toggle, borderRadius: radius, child: head),
           ),
         if (_open)
           Container(
@@ -2392,12 +2424,12 @@ class _Km1ExpansionEditorState extends State<Km1ExpansionEditor> {
                     child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
                       Icon(Km1Icons.statusError16, size: Km1Size.iconSm, color: c.dangerInk),
                       const SizedBox(width: Km1Space.xs),
-                      Expanded(child: Text(_error!, style: Km1Text.body1.copyWith(color: c.ink))),
+                      Expanded(child: Text(_error!, style: Km1Text.body1Para.copyWith(color: c.ink))),
                     ]),
                   ),
                 ),
               ],
-              if (_note != null) ...[const SizedBox(height: Km1Space.sm), Semantics(liveRegion: true, child: Text(_note!, style: Km1Text.body1.copyWith(color: c.warningInk)))],
+              if (_note != null) ...[const SizedBox(height: Km1Space.sm), Semantics(liveRegion: true, child: Text(_note!, style: Km1Text.body1Para.copyWith(color: c.warningInk)))],
               const SizedBox(height: Km1Space.lg),
               Km1FormActions(children: [
                 OutlinedButton(
@@ -2428,6 +2460,30 @@ class Km1Step {
   final String title;
   final bool optional;
   final bool editable;
+}
+
+/// 1 行の編集欄（[Km1ExpansionEditor]）をまとまりとして並べる。となりどうしは縁を 1 本で共有し、外側の角だけ丸める（Web の `.f2-xe + .f2-xe` と同じ）。
+/// Stacks [Km1ExpansionEditor]s as one group: neighbours share a border and only the outer corners are rounded (same as Web).
+class Km1ExpansionEditorGroup extends StatelessWidget {
+  const Km1ExpansionEditorGroup({super.key, required this.children});
+
+  /// 並べる編集欄 / The editors to stack
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.only(bottom: Km1Space.sm),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          for (var i = 0; i < children.length; i++) _Km1XeSlot(index: i, count: children.length, child: children[i]),
+        ]),
+      );
+}
+
+class _Km1XeSlot extends InheritedWidget {
+  const _Km1XeSlot({required this.index, required this.count, required super.child});
+  final int index, count;
+  @override
+  bool updateShouldNotify(_Km1XeSlot old) => old.index != index || old.count != count;
 }
 
 /// 順序のある複数の工程を利用者が進める。工程の一覧（完了・現在・エラー・未完了）と、今の工程の見出し・中身・戻る/次へ。
@@ -2505,7 +2561,7 @@ class _Km1StepFlowState extends State<Km1StepFlow> {
             ? Icon(Km1Icons.statusError16, size: Km1Size.iconSm, color: c.dangerInk)
             : state == 'done'
                 ? Km1BIcon(Km1BIconName.check, size: Km1Size.iconSm, color: c.brandInk)
-                : Text('${i + 1}', style: Km1Text.caption1.copyWith(color: isCur ? c.onBrand : c.inkSecondary, fontWeight: FontWeight.w600)),
+                : Text('${i + 1}', style: Km1Text.caption1.copyWith(height: 16 / 12, color: isCur ? c.onBrand : c.inkSecondary, fontWeight: FontWeight.w600)),
       );
     }
 
@@ -2644,8 +2700,10 @@ class Km1ImageGrid extends StatelessWidget {
         final tile = Container(
           decoration: BoxDecoration(
             color: c.surface,
-            border: Border.all(color: on ? c.brand : c.strokeSubtle, width: on ? 2 : 1),
+            // 縁は 1 のまま、選んだときは外に 1 の線を足す（中身がずれない）/ keep a 1px border; add a 1px ring outside when selected
+            border: Border.all(color: on ? c.brand : c.strokeSubtle),
             borderRadius: BorderRadius.circular(Km1Radius.md),
+            boxShadow: on ? [BoxShadow(color: c.brand, spreadRadius: 1)] : null,
           ),
           clipBehavior: Clip.antiAlias,
           child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -2675,7 +2733,20 @@ class Km1ImageGrid extends StatelessWidget {
           ]),
         );
         return Stack(children: [
-          Positioned.fill(child: onOpen == null ? tile : InkWell(onTap: () => onOpen!(it), borderRadius: BorderRadius.circular(Km1Radius.md), child: tile)),
+          // 選ぶモードではタイル全体を押して選ぶ。開く操作は使わない（Web と同じ。D31）/ selection mode: the whole tile selects
+          Positioned.fill(
+            child: selectable
+                ? Semantics(
+                    checked: on,
+                    label: it.caption ?? it.alt,
+                    child: InkWell(
+                      onTap: () => onSelectionChanged?.call(on ? ({...selected}..remove(it.id)) : ({...selected}..add(it.id))),
+                      borderRadius: BorderRadius.circular(Km1Radius.md),
+                      child: tile,
+                    ),
+                  )
+                : (onOpen == null ? tile : InkWell(onTap: () => onOpen!(it), borderRadius: BorderRadius.circular(Km1Radius.md), child: tile)),
+          ),
           if (selectable)
             Positioned(
               top: Km1Space.xs,
@@ -2684,9 +2755,9 @@ class Km1ImageGrid extends StatelessWidget {
                 width: context.km1Target,
                 height: context.km1Target,
                 decoration: BoxDecoration(color: c.surface, borderRadius: BorderRadius.circular(Km1Radius.md)),
-                child: Checkbox(
+                child: ExcludeSemantics(
+                  child: Checkbox(
                   value: on,
-                  semanticLabel: '${it.caption ?? it.alt} を選択',
                   onChanged: (v) {
                     final next = {...selected};
                     if (v ?? false) {
@@ -2696,6 +2767,7 @@ class Km1ImageGrid extends StatelessWidget {
                     }
                     onSelectionChanged?.call(next);
                   },
+                  ),
                 ),
               ),
             ),

@@ -24,3 +24,6 @@
 - Flutter: `Km1Pattern`、`Km1CategoryMark`、`Km1CategoryLegend`、`Km1Category.styleAt(i)`。
 - PowerPoint・Word・Excel: 図形とグラフの系列の「塗りつぶし › パターン」で、塗り＝塗りつぶし（単色）、横線＝`dkHorz`（横線: 太）、縦線＝`dkVert`（縦線: 太）、斜線＝`wdDnDiag`（右下がり対角線: 太）、格子＝`smGrid`（格子: 小）、斜め格子＝`diagCross`（斜め格子）、点＝`dotGrid`（点線: 格子）、市松＝`lgCheck`（市松模様: 大）。前景色に分類の色、背景色に白を選ぶ。
   *Office: use Format › Fill › Pattern with the presets above, foreground = category color, background = white.*
+
+**理由 / Why:** 分類を色だけで見分けられない人がいる。色に模様を重ね、白黒でも区別できる。
+*Some people cannot tell categories by colour: a pattern over the colour keeps them distinct in black and white.*

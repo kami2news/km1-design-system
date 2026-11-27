@@ -26,8 +26,8 @@
 
 ## 見た目・トークン / Look and tokens
 
-`brand-tint` の背景、`brand-stroke` の枠、`radius-md`、文字は `body-1-strong`。操作の高さは `--control-height`（PC 32px・タッチ 44px）。`sticky` で一覧の上に留める。
-*`brand-tint` fill, `brand-stroke` border, `radius-md`, `body-1-strong`; controls follow `--control-height`; `sticky` pins it above the list.*
+`brand-tint` の背景（枠は付けない。面と件数の文字で足りる。D34）、`radius-md`、文字は `body-1-strong`。操作の高さは `--control-height`（PC 32px・タッチ 44px）。`sticky` で一覧の上に留める。
+*`brand-tint` fill (no border; the tint and the count are enough, D34), `radius-md`, `body-1-strong`; controls follow `--control-height`; `sticky` pins it above the list.*
 
 ## 幅 / Responsive
 
@@ -56,3 +56,6 @@ Flutter: `Km1ContextualActionBar`（`count`・`total`・`actions`（`Km1BulkActi
 
 件数の表示と `role="status"`、選択行の表示、チェックの名前、選択の追加、すべて選択、解除で操作が消える、解除後のフォーカス（8 項目、320〜1366px・ダークで合格）。`Table` の一括操作は同じ部品で描くようにしたあと、axe の回帰検査で確認。
 *8 checks pass; Table's bulk bar re-tested via axe regression after the refactor.*
+
+**理由 / Why:** 選んだものだけに効く操作を出したい。選んでいる間だけ出て、件数で何に効くか分かる。
+*Actions that apply only to the selection: shown only while selecting, with a count saying what they affect.*

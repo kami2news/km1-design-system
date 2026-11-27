@@ -1,6 +1,9 @@
 進み具合や量を横棒で示す。処理の進行、達成度、ゲームのゲージに使う。
 *A horizontal bar for progress or amount: task progress, completion, game meters.*
 
+**理由 / Why:** 量は棒の長さで一目で分かり、数値を上に添えれば正確にも読める。10 秒以上の待ちでは、工程と時間の見込みを出せる部品がこれだけなので、長い待ちは必ずこれを使う。
+*Length shows the amount at a glance and the value above makes it exact. It is the only part that carries steps and a time estimate, so every wait of 10s or more uses it.*
+
 ## 使い方 / Usage
 - ラベルと数値を必ず棒の上に出す。棒の長さや色だけで伝えない。数値の書き方は `valueText` で変えられる（「3 / 5 件」「残り 2 日」）。
   *Label and value always appear above the bar; never rely on length or color alone. `valueText` customizes the wording.*

@@ -13,3 +13,6 @@
 
 ## 利用側が渡すもの / You provide
 `label`、必要なら `hint`・`error`・`maxLength`・`rows`・`required`、値は `value` + `onChange` か `defaultValue`。
+
+**理由 / Why:** 長い文章や貼り付けを入れる。複数行が見える高さで、入れた量が見渡せる。
+*Long text or pastes: tall enough to see several lines and how much was entered.*

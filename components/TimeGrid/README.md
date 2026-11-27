@@ -33,3 +33,6 @@
 `label`、`days`（`{date, label}`）、`events`、必要なら `startHour`（既定 8）・`endHour`（既定 22）・`hourHeight`（既定はスマホ 64、PC 56）・`height`・`now`・`onSelect`。
 - 分類は色に加えて模様でも区別できる: 項目に `pattern`（`CategoryPattern`）を渡すと題名の前に分類のしるしが出る。凡例は `CategoryLegend` で添える（KM1-COL-001）。
   *Pass `pattern` to show a category mark before the title; add a `CategoryLegend` (KM1-COL-001).*
+
+**理由 / Why:** 1 日・1 週の予定の重なりを見る。時刻の縦軸に長さで置き、空き時間が見える。
+*See overlaps in a day or week: events placed by length on a time axis, free time visible.*

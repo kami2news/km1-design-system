@@ -10,16 +10,14 @@ KM1-ICO-001。KM1 で使うアイコンの決まり。アイコンは **KM1 の�
 
 - **全部のアイコンを KM1 B 案で描く（144 個）:** 「KM1 アイコン作成指示書」の B 案（調整版）を基準に、通常表示（Regular）も選択・強調の塗りの形（Filled）も KM1 が描いた。描き方は §8、塗りの形の決まりは §8.6。原図は `icons/km1_bdefs.py`。
   *Every icon (144) is drawn by KM1 in the B style, both Regular and Filled; rules in §8 and §8.6, drawings in `icons/km1_bdefs.py`.*
-- **Fluent の形は比べるためだけに残す:** もとにした Fluent System Icons（Microsoft、MIT）の絵の名前は `km1-icons.json` の `base` に、導入前の形（20px）は `fluent` に残す。画面には出さない（比べるときの `variant:'fluent'` だけ）。配布する zip に `LICENSE-Fluent.txt` を入れる。
-  *The Fluent pictogram each icon is based on is recorded in `base`; its 20px shape stays in `fluent` for comparison only (MIT, `LICENSE-Fluent.txt`).*
+- **もとにした絵 / Source drawings:** KM1 のアイコンは、Fluent System Icons（MIT）の絵をもとに KM1 が描き直したもの。もとの絵の名前は `km1-icons.json` の `base` に、もとの形（20px）は `fluent` に、見比べるためだけに残す。画面には出さない（比べるときの `variant:'fluent'` だけ）。配布する zip に `LICENSE-Fluent.txt` を入れる。
+  *KM1 icons are redrawn by KM1 from Fluent System Icons (MIT); the source name is kept in `base` and its 20px shape in `fluent`, for comparison only (`LICENSE-Fluent.txt`).*
 - **Alert の状態の記号（4 個）も B 案:** `status-info`（丸に i）・`status-success`（丸にチェック）・`status-warning`（三角に !）・`status-error`（丸に !）。形で区別でき、色は状態の色（`info-ink` など）。Alert の中では塗りの形を使う。
   *Alert status symbols are B too, told apart by shape; Alert shows their Filled form in the status color.*
 - **別名 / Aliases:** `calendar-empty`（空の予定）は `calendar`（予定）と同じ意味・同じ絵柄だったので、1 つにまとめた。古い名前は別名として当分残す（Web の `Icon` は `calendar` を出し、Flutter の `Km1Icons.calendarEmpty…` は非推奨）。「予定がない」ことは絵柄ではなく文言で伝える。
   *`calendar-empty` merged into `calendar` (same meaning and shape); the old name stays as a deprecated alias. Emptiness is said in words.*
-- 部品やアプリは **KM1 の名前だけ**でアイコンを指定する。Fluent の名前（`FluentIcons.*` など）を直接書かない。KM1 にない意味が要るときは、§8 の決まりで B 案を描き（塗りの形は §8.6 で自動で作る）、セットに足してから使う。同じ意味のアイコンを 2 つ作らない。
+- 部品やアプリは **KM1 の名前だけ**でアイコンを指定する。もとの絵の名前（`FluentIcons.*` など）を直接書かない。KM1 にない意味が要るときは、§8 の決まりで B 案を描き（塗りの形は §8.6 で自動で作る）、セットに足してから使う。同じ意味のアイコンを 2 つ作らない。
   *Products refer to icons only by KM1 name; new meanings get a B drawing (Filled is derived per §8.6). One meaning, one icon.*
-- **経過:** 最初に KM1 が独自に描いた 22 個は、これまでの部品と並べると重く記号的で浮いたので Fluent の形に戻した。その後、持ち主が B 案（調整版）を基準に決め、6 種の試験導入を経て全部に広げた（2026-11-13）。塗りの形と Alert の状態の記号も B 案にし、利用先の調査から 8 個を足した（2026-11-14）。
-  *History: the first 22 KM1 drawings were withdrawn; the owner then set the B (adjusted) design as the basis, trialled six icons and extended it to all.*
 
 ## 2. 大きさと種類 / Sizes and styles
 
@@ -42,8 +40,8 @@ KM1-ICO-001。KM1 で使うアイコンの決まり。アイコンは **KM1 の�
 
 ## 3. 描き方 / How KM1 icons are drawn
 
-描き方は §8（KM1 B 案）。足し方の手順: `icons/km1_bdefs.py` に B 案の原図を書き、もとにする Fluent の絵の名前を `km1_icons.py` の `IMPORT` に KM1 の名前で足す（塗りの形は原図から自動で作る）→ `python3 build_all.py`（形・フォント・Web・Flutter・Office・検査をまとめて作り直す）→ カタログで 16・20・24px を確かめる。
-*Drawing rules are in §8. To add an icon: draw it in `km1_bdefs.py`, register its Fluent base in `IMPORT` (Filled is derived), run `build_all.py`, then review 16/20/24px in the catalog.*
+描き方は §8（KM1 B 案）。足し方の手順: `icons/km1_bdefs.py` に B 案の原図を書き、もとの絵の名前を `km1_icons.py` の `IMPORT` に KM1 の名前で足す（塗りの形は原図から自動で作る）→ `python3 build_all.py`（形・フォント・Web・Flutter・Office・検査をまとめて作り直す）→ カタログで 16・20・24px を確かめる。
+*Drawing rules are in §8. To add an icon: draw it in `km1_bdefs.py`, register its source drawing in `IMPORT` (Filled is derived), run `build_all.py`, then review 16/20/24px in the catalog.*
 
 ## 4. 一覧 / The set
 
@@ -52,7 +50,7 @@ KM1-ICO-001。KM1 で使うアイコンの決まり。アイコンは **KM1 の�
 全部で 144 個。通常表示も塗りの形も B 案。淡い面があるのは 63 個。別名 `calendar-empty` → `calendar`。2026-11-14 に足したもの: `task-list`・`notification-off`・`lock-open`・`timer`・`sparkle`・`view-month`・`text-size`・`filter-dismiss`（理由は §9）。
 *144 icons, all B (Regular and Filled); 63 with the soft tint. Alias `calendar-empty` → `calendar`. Eight added on 2026-11-14 (see §9).*
 
-| 名前 / Name | 日本語 | English | 面 / Tint | もとにした Fluent の絵 / Fluent base |
+| 名前 / Name | 日本語 | English | 面 / Tint | もとの絵 / Source drawing |
 |---|---|---|---|---|
 | `timetable` | 時間割 | Timetable | あり | `calendar_empty` |
 | `add` | 追加 | Add | — | `add` |
@@ -211,7 +209,12 @@ KM1-ICO-001。KM1 で使うアイコンの決まり。アイコンは **KM1 の�
 
 - 意味を持つアイコンには読み上げの名前を付ける（Web は `label`、Flutter は `semanticLabel`）。文字の横に置く飾りのアイコンには付けない（同じことを 2 度読ませない）。
   *Give meaningful standalone icons a label; decorative icons next to text get none.*
-- 操作のアイコンには文言を添える。アイコンだけにしてよいのは、閉じる・検索・戻るなど意味が定着したものだけ（README「分かりづらいアイコンを避ける規則」）。
+- 操作のアイコンには文言を添える。アイコンだけにしてよいのは、閉じる・検索・戻るなど意味が定着したものだけで、その場合も `aria-label`（Flutter は `semanticLabel`）とツールチップを付ける。
+  *Action icons carry a label; icon-only only for settled meanings (close, search, back), with `aria-label`/`semanticLabel` and a tooltip.*
+- KM1 のアイコンにないアイコン集（Material Icons など）は混ぜない。足りないときは KM1 のアイコンに足す（§3 の手順）。Flutter でも `Icons.*` は使わない。
+  *Never mix in other icon sets; add missing icons to KM1 (§3). No `Icons.*` in Flutter.*
+- 1 つの意味に 1 つのアイコンを割り当て、画面が変わっても変えない。意味が曖昧になるなら、アイコンをやめて文言だけにする。
+  *One meaning, one icon, on every screen; if the meaning turns vague, drop the icon and use words.*
 
 ## 6. アプリアイコン・ファビコン / App icons and favicons
 
@@ -256,7 +259,7 @@ KM1-ICO-001。KM1 で使うアイコンの決まり。アイコンは **KM1 の�
 
 - 淡い面は、閉じた「もの」の形にだけ付ける: 予定の仲間・書類（文書・提出・試験・複製）・入れ物（フォルダ・かばん・メール・吹き出し・画像・タグ・保存・印刷）・建物と鍵・旗と場所・通知・勤務・教室の変更・オフラインの雲。操作の記号（矢印・×・＋・チェック・並べ替えなど）、円の記号（時刻・ヘルプ・履歴）、人、目、星には付けない。
   *Tint only on closed objects; never on action marks, circle symbols, people, eyes or stars.*
-- 予定の仲間は予定の枠（原図の `calendar`）の中、見出しの線より下に記号を置く（時刻・！・？・×・くり返し・行・列）。右下の丸い印（Fluent のバッジ）は使わない。
+- 予定の仲間は予定の枠（原図の `calendar`）の中、見出しの線より下に記号を置く（時刻・！・？・×・くり返し・行・列）。右下の丸い印（もとの絵のバッジ）は使わない。
   *Calendar variants place their mark inside the body, not in a corner badge.*
 - 斜線で打ち消す形（オフライン・非表示・通知オフ）は、斜線の両側を線の幅の 2.4 倍くり抜いてから斜線を描く。
   *Slashed icons knock out 2.4× the stroke width around the slash.*
@@ -276,7 +279,7 @@ KM1-ICO-001。KM1 で使うアイコンの決まり。アイコンは **KM1 の�
 | コントラスト / Contrast | `icon-ink` と背景（ライト 4.90:1・ダーク 5.95:1）、`icon-ink` と面の下端（ライト 3.54:1・ダーク 5.37:1）はどちらも 3:1 以上。`iconcheck.py` が確かめる |
 | 光学調整 / Optical | 16px の通知は振り子を小さく下げて、本体の線とつながらないようにした（`ink16`）。点は 16px で半径を 0.15 大きく |
 | グラデーションの ID | Web はアイコンごとに一意の ID（`Icon` が付ける）。配布用の SVG は 1 ファイルに 1 つなので名前つきの ID、スプライトは定義を共有 |
-| 元に戻す / Revert | 比べるときは `variant:'fluent'`、アプリ全体で戻すときは `setIconStyle('fluent')`。どちらも導入前の Fluent の形（20px の形を拡大・縮小）を出す。Web だけ |
+| 元に戻す / Revert | 比べるときは `variant:'fluent'`、アプリ全体で戻すときは `setIconStyle('fluent')`。どちらももとの絵の形（20px の形を拡大・縮小）を出す。Web だけ |
 
 **環境ごとの対応 / Platforms:** Web（`Icon`。Flutter の部品（`km1_widgets.dart`）の中のアイコンも `Km1BIcon` に切り替え済みで、部品の中では `inherit: true` で IconTheme の色に従う。部品の中のアイコン `icon16`・`icon20` も B 案で描き、色は部品の文字色に従う）、Flutter（`Km1BIcon`、`icons/km1_icons_b.dart`。原図の SVG のパスを Dart の描画命令に直して作るので同じ形）、配布用の SVG と Office の素材（Office の SVG は #657283 と面の色を直接書き込み）。Flutter のアイコンフォントの `Km1Icons.search` なども B 案の形（1 色。フォントは淡い面を持てない）。
 *Web `Icon` (also inside parts using `icon16`/`icon20`), Flutter `Km1BIcon` generated from the same path data, and SVG/Office files. Flutter font glyphs are B shapes too, in one color without the tint.*
@@ -294,10 +297,10 @@ KM1-ICO-001。KM1 で使うアイコンの決まり。アイコンは **KM1 の�
 | 斜線 | 斜線で打ち消す形（オフライン・非表示・通知オフ）は、通常表示と同じく両側をくり抜いてから斜線を描く |
 | 色 | 1 色（`currentColor`）。淡い面は描かない。押した・選んだ・今いる場所では、まわりの文字色（多くはブランド色）に従う |
 
-**Fluent の塗りの形をやめた理由 / Why not Fluent Filled:** B 案の通常表示と Fluent の塗りの形を並べて比べたところ（2026-11-14、136 個）、別の絵になるものが多かった。例: 並べ替え（上・下）は塗りでは矢印 1 本になり意味が変わる、待ち（砂時計）は砂だけの形、ログアウトは扉、整理券は斜め、密度の線の本数が違う、元に戻す・やり直すの矢印の形が違う、目は半分の形。選んだときに絵が変わると、同じものだと分かりにくいので、同じ原図から作ることにした。
-*Comparing the B Regular with Fluent Filled for all 136 icons showed many different pictures (sort up/down became a single arrow, hourglass, sign-out door, ticket angle, density line counts, undo/redo, half eye). A picture that changes when selected is hard to recognise, so Filled is now derived from the same drawing.*
+**もとの絵の塗りの形を使わない理由 / Why not the source Filled:** B 案の通常表示ともとの絵の塗りの形を並べて比べたところ（2026-11-14、136 個）、別の絵になるものが多かった。例: 並べ替え（上・下）は塗りでは矢印 1 本になり意味が変わる、待ち（砂時計）は砂だけの形、ログアウトは扉、整理券は斜め、密度の線の本数が違う、元に戻す・やり直すの矢印の形が違う、目は半分の形。選んだときに絵が変わると、同じものだと分かりにくいので、同じ原図から作ることにした。
+*Comparing the B Regular with the source Filled for all 136 icons showed many different pictures (sort up/down became a single arrow, hourglass, sign-out door, ticket angle, density line counts, undo/redo, half eye). A picture that changes when selected is hard to recognise, so Filled is now derived from the same drawing.*
 
-## 9. 足すアイコンの調査 / Survey of icons to add（2026-11-14）
+## 9. 足した・足さなかったアイコン / Icons added and not added
 
 KM1 を使うアプリ（スケジュール確認、イベント向け POS、作業の手助け）、KM1 の部品と文書、Web の部品の中のアイコンを見て、足りない意味を探した。
 *Looked at the apps that use KM1 (schedule check, event POS, task helper), the components and docs, and icons drawn inside components.*
@@ -319,7 +322,7 @@ KM1 を使うアプリ（スケジュール確認、イベント向け POS、作
 | 言語 | `globe`（Web・言語）がある |
 | 書き出し・取り込み | `download`・`upload`・`share`・`paste` で足りる |
 | 点数・計器（作業の手助けの危険度） | 数値と文言で示す。アイコンだけで量は伝わらない |
-| 会社・サービスのロゴ（Google など） | 他者の商標は各社の決まりの形を画像で使う（`tokens.md` 7 章と同じ） |
+| 会社・サービスのロゴ（Google など） | 他者の商標は各社の決まりの形を画像で使う（「基礎」の書体と同じ扱い） |
 
 **部品の中の直し:** Alert の「閉じる」ボタンだけ、アイコンのセットを使わずに × を直接描いていた。`dismiss` に直した。
 *The Alert close button drew its own ×; it now uses `dismiss`.*
@@ -397,7 +400,7 @@ Web（ライトとダークを OS の設定で切り替える）:
 Flutter は `designed-with-km1.png`（と `@2x`・`@3x`）を assets に入れ、`Image.asset` で高さ 24 にして出す。読み上げ用に `semanticLabel: 'Designed with KM1'` を付ける。PowerPoint は `KM1_表示バッジ.pptx` からコピーして貼る（GitHub へのリンクと代替テキストが付いている。置き場所は `office.md` §4.5）。Word は PNG の 3 倍を高さ 24px（6.35 mm）で貼り、「挿入 › リンク」で GitHub の URL を付ける。
 *Flutter: ship the PNGs as assets and show at height 24 with `semanticLabel`. PowerPoint: copy from `KM1_表示バッジ.pptx` (linked, with alt text). Word: paste the @3x PNG at 24px (6.35 mm) and add the GitHub link.*
 
-KM1 は個人の標準なので、このロゴは Microsoft・Science Tokyo・Seiko Epson・デジタル庁の承認を示すものではない（`notices.md`）。
-*KM1 is a personal standard; the logo implies no endorsement by the organisations referenced (`notices.md`).*
+KM1 は個人の標準なので、このロゴはどの企業・団体の承認も示さない（`notices.md`）。
+*KM1 is a personal standard; the logo implies no endorsement by any company or organization (`notices.md`).*
 
-出典 / Sources: [Fluent System Icons（Microsoft、MIT）](https://github.com/microsoft/fluentui-system-icons)・[Android Developers: Adaptive icons（108dp の中の 66dp は欠けない）](https://developer.android.com/develop/ui/views/launch/icon_design_adaptive)・[MDN: Define your app icons（maskable の安全な円は 80%）](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/How_to/Define_app_icons)・Noto Sans CJK（SIL OFL 1.1）
+出典 / Sources: 「参考文献」（`references.md`）の 1・4 節。

@@ -1,7 +1,7 @@
 # KM1 部品カタログ / Component catalog
 
-見本 67 件を 16 のグループに分けて載せる。各部品の説明は部品フォルダの `README.md`、動く見本は `preview.html`。画像は `gen/shoot_previews.js` で撮ったもの（左がライト、右がダーク）。PDF 版は `dist/KM1_部品カタログ.pdf`。
-*67 previews in 16 groups. Each folder has a README and a live `preview.html`; light on the left, dark on the right. PDF: `dist/KM1_部品カタログ.pdf`.*
+見本 68 件を 15 のグループに分けて載せる。各部品の説明は部品フォルダの `README.md`、動く見本は `preview.html`。画像は `gen/shoot_previews.js` で撮ったもの（左がライト、右がダーク）。PDF 版は `dist/KM1_部品カタログ.pdf`。
+*68 previews in 15 groups. Each folder has a README and a live `preview.html`; light on the left, dark on the right. PDF: `dist/KM1_部品カタログ.pdf`.*
 
 ## 目次 / Contents
 
@@ -17,10 +17,9 @@
 - **重ねて出すもの / Overlays**: [Dialog](#dialog)・[Drawer](#drawer)・[Popover](#popover)・[Tooltip](#tooltip)
 - **知らせ / Feedback**: [EmptyState](#emptystate)・[Progress](#progress)・[Skeleton](#skeleton)・[Spinner](#spinner)・[Toast](#toast)
 - **状態 / Status**: [Alert](#alert)・[Badge](#badge)
-- **アイコン / Icons**: [AppIcon](#appicon)・[Icon](#icon)・[IconTrial](#icontrial)
-- **密度 / Density**: [Density](#density)
-- **画面の例 / Screen patterns**: [ScreenAddEvent](#screenaddevent)・[ScreenListEdit](#screenlistedit)・[ScreenOffline](#screenoffline)
-- **M1 比較 / M1 comparison**: [CompareBottomSheet](#comparebottomsheet)・[CompareExpansion](#compareexpansion)・[CompareFAB](#comparefab)・[CompareGrid](#comparegrid)・[CompareList](#comparelist)・[CompareSelection](#compareselection)・[CompareStepper](#comparestepper)・[SelectionGuide](#selectionguide)
+- **アイコン / Icons**: [AppIcon](#appicon)・[Icon](#icon)
+- **画面の例 / Screen patterns**: [ScreenAddEvent](#screenaddevent)・[ScreenListEdit](#screenlistedit)・[ScreenOffline](#screenoffline)・[ScreenToday](#screentoday)
+- **記録と早見図 / Records and guides**: [CompareBottomSheet](#comparebottomsheet)・[CompareExpansion](#compareexpansion)・[CompareFAB](#comparefab)・[CompareGrid](#comparegrid)・[CompareList](#comparelist)・[CompareSelection](#compareselection)・[CompareStepper](#comparestepper)・[Density](#density)・[IconTrial](#icontrial)・[SelectionGuide](#selectionguide)
 
 ## 表紙 / Cover
 
@@ -41,7 +40,7 @@
 
 ### Chip
 
-押して切り替える小さな絞り込みボタン。一覧のフィルターや、複数選べる分類に使う。 → [Chip/](Chip/)
+押して切り替える小さな絞り込みボタン。一覧のフィルターや、複数選べる分類に使う。角は `radius-md`（4px）。 → [Chip/](Chip/)
 
 <table><tr><td valign="top"><img src="Chip/preview.png" alt="Chip の見本（ライト）/ Chip preview, light" width="420"></td><td valign="top"><img src="Chip/preview-dark.png" alt="Chip の見本（ダーク）/ Chip preview, dark" width="420"></td></tr></table>
 
@@ -290,7 +289,7 @@
 
 ### Card
 
-関連する情報をまとめる面。`surface` 上に `shadow-2`、`radius-lg`、内側は `container-card-padding-regular`（= `space-lg`）。 → [Card/](Card/)
+関連する情報をまとめる面。`surface` 上に `stroke` の 1px の縁、`radius-lg`、内側は `container-card-padding-regular`（= `space-lg`）。影は付けない。 → [Card/](Card/)
 
 <table><tr><td valign="top"><img src="Card/preview.png" alt="Card の見本（ライト）/ Card preview, light" width="420"></td><td valign="top"><img src="Card/preview-dark.png" alt="Card の見本（ダーク）/ Card preview, dark" width="420"></td></tr></table>
 
@@ -326,7 +325,7 @@
 
 ### EmptyState
 
-まだ何も無い場所に出す案内。何が入る場所かと、最初の一歩を伝える。 → [EmptyState/](EmptyState/)
+まだ何も無い場所に出す案内。何が入る場所かと、最初の一歩を伝える。中身が入るはずの場所に、左寄せの文で置く。 → [EmptyState/](EmptyState/)
 
 <table><tr><td valign="top"><img src="EmptyState/preview.png" alt="EmptyState の見本（ライト）/ EmptyState preview, light" width="420"></td><td valign="top"><img src="EmptyState/preview-dark.png" alt="EmptyState の見本（ダーク）/ EmptyState preview, dark" width="420"></td></tr></table>
 
@@ -344,7 +343,7 @@
 
 ### Spinner
 
-短い待ち時間を示す回転する輪。ボタンの横や一覧の読み込み中に使う。 → [Spinner/](Spinner/)
+短い待ち時間を示す回転する輪。保存や送信のように、出てくる中身の形がない 1〜10 秒の待ちに使う。 → [Spinner/](Spinner/)
 
 <table><tr><td valign="top"><img src="Spinner/preview.png" alt="Spinner の見本（ライト）/ Spinner preview, light" width="420"></td><td valign="top"><img src="Spinner/preview-dark.png" alt="Spinner の見本（ダーク）/ Spinner preview, dark" width="420"></td></tr></table>
 
@@ -384,21 +383,6 @@ KM1 のアイコン（KM1-ICO-001）。KM1 の名前で引く 1 つのセット�
 
 <table><tr><td valign="top"><img src="Icon/preview.png" alt="Icon の見本（ライト）/ Icon preview, light" width="420"></td><td valign="top"><img src="Icon/preview-dark.png" alt="Icon の見本（ダーク）/ Icon preview, dark" width="420"></td></tr></table>
 
-### IconTrial
-
-KM1 B 案（調整版）の導入前と導入後の比較（KM1-ICO-001 §8）。試験導入した 6 種（検索・予定・フォルダ・削除・警告・通知）で見比べる。いまは全アイコンの通常表示が B 案。通常の `Icon` の呼び出し（`h(Icon,{name:'calendar'})`）でそのまま出る。 → [IconTrial/](IconTrial/)
-
-<table><tr><td valign="top"><img src="IconTrial/preview.png" alt="IconTrial の見本（ライト）/ IconTrial preview, light" width="420"></td><td valign="top"><img src="IconTrial/preview-dark.png" alt="IconTrial の見本（ダーク）/ IconTrial preview, dark" width="420"></td></tr></table>
-
-
-## 密度 / Density
-
-### Density
-
-Card・Table・SortableList の 3 つの密度（compact・regular・spacious）を同じ画面で比べる見本。決まりは「トークン › 密度」（`tokens.md`）。 → [Density/](Density/)
-
-<table><tr><td valign="top"><img src="Density/preview.png" alt="Density の見本（ライト）/ Density preview, light" width="420"></td><td valign="top"><img src="Density/preview-dark.png" alt="Density の見本（ダーク）/ Density preview, dark" width="420"></td></tr></table>
-
 
 ## 画面の例 / Screen patterns
 
@@ -420,8 +404,14 @@ Card・Table・SortableList の 3 つの密度（compact・regular・spacious）
 
 <table><tr><td valign="top"><img src="ScreenOffline/preview.png" alt="ScreenOffline の見本（ライト）/ ScreenOffline preview, light" width="420"></td><td valign="top"><img src="ScreenOffline/preview-dark.png" alt="ScreenOffline の見本（ダーク）/ ScreenOffline preview, dark" width="420"></td></tr></table>
 
+### ScreenToday
 
-## M1 比較 / M1 comparison
+スケジュール確認アプリの「今日」の画面の例。「画面の組み立て › わかりやすさ」の順番で、部品からではなく、開いた人が最初に知りたいことから作った。 → [ScreenToday/](ScreenToday/)
+
+<table><tr><td valign="top"><img src="ScreenToday/preview.png" alt="ScreenToday の見本（ライト）/ ScreenToday preview, light" width="420"></td><td valign="top"><img src="ScreenToday/preview-dark.png" alt="ScreenToday の見本（ダーク）/ ScreenToday preview, dark" width="420"></td></tr></table>
+
+
+## 記録と早見図 / Records and guides
 
 ### CompareBottomSheet
 
@@ -464,6 +454,18 @@ M1（初代 Material Design）の原型を寸法から再描画したもの（�
 M1（初代 Material Design）の原型を寸法から再描画したもの（左）と、KM1 に合わせた案（右）の比較。左は公式の画像ではなく、出典の寸法をもとに KM1 が描いた参考の再現。判断の理由は「KM1 × M1」（`m1.md`）。 → [CompareStepper/](CompareStepper/)
 
 <table><tr><td valign="top"><img src="CompareStepper/preview.png" alt="CompareStepper の見本（ライト）/ CompareStepper preview, light" width="420"></td><td valign="top"><img src="CompareStepper/preview-dark.png" alt="CompareStepper の見本（ダーク）/ CompareStepper preview, dark" width="420"></td></tr></table>
+
+### Density
+
+Card・Table・SortableList の 3 つの密度（compact・regular・spacious）を同じ画面で比べる見本。決まりは「トークン › 密度」（`tokens.md`）。 → [Density/](Density/)
+
+<table><tr><td valign="top"><img src="Density/preview.png" alt="Density の見本（ライト）/ Density preview, light" width="420"></td><td valign="top"><img src="Density/preview-dark.png" alt="Density の見本（ダーク）/ Density preview, dark" width="420"></td></tr></table>
+
+### IconTrial
+
+KM1 B 案（調整版）の導入前と導入後の比較（KM1-ICO-001 §8）。試験導入した 6 種（検索・予定・フォルダ・削除・警告・通知）で見比べる。いまは全アイコンの通常表示が B 案。通常の `Icon` の呼び出し（`h(Icon,{name:'calendar'})`）でそのまま出る。 → [IconTrial/](IconTrial/)
+
+<table><tr><td valign="top"><img src="IconTrial/preview.png" alt="IconTrial の見本（ライト）/ IconTrial preview, light" width="420"></td><td valign="top"><img src="IconTrial/preview-dark.png" alt="IconTrial の見本（ダーク）/ IconTrial preview, dark" width="420"></td></tr></table>
 
 ### SelectionGuide
 

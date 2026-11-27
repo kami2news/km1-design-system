@@ -8,3 +8,6 @@
   *Do: use destination-describing labels such as "View pricing details".*
 - やらないこと: 「こちら」「click here」だけのリンク、下線の削除。
   *Don't: use bare "here" links or remove the underline.*
+
+**理由 / Why:** 別の場所へ移る。常に下線。色だけでリンクと分からせない。
+*Go elsewhere: always underlined, never colour alone.*

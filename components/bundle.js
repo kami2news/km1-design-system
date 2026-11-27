@@ -6,6 +6,7 @@ function cx(){return Array.prototype.filter.call(arguments,Boolean).join(' ');}
 function nextId(p){uid+=1;return 'f2-'+p+'-'+uid;}
 function Button(p){
   var a=p.appearance||'secondary',s=p.size||'medium',dis=!!p.disabled;
+  a={outline:'secondary',transparent:'subtle'}[a]||a;  // 4 種類にまとめた（D28）。古い名前は近いものに読み替える / merged into four kinds; old names map to the nearest
   return h('button',{type:p.type||'button',form:p.form,'aria-disabled':dis?'true':undefined,'aria-label':p['aria-label'],'aria-describedby':p['aria-describedby'],
     onClick:function(e){if(dis){e.preventDefault();return;}if(p.onClick)p.onClick(e);},
     className:cx('f2-btn','f2-btn--'+a,s==='small'&&'f2-btn--sm',s==='large'&&'f2-btn--lg',dis&&'f2-btn--disabled',p.className)},p.icon,p.children);
@@ -362,7 +363,8 @@ function Timetable(p){
   var days=p.days||['月','火','水','木','金'],periods=p.periods||[],items=p.items||[],map={};
   items.forEach(function(it){map[it.day+'-'+it.period]=it;});
   return h('div',{className:cx('f2-table-wrap','f2-tt-wrap',p.className),role:'region','aria-label':p.caption,tabIndex:0},
-    h('table',{className:'f2-tt'},
+    // 1 日の列は 128px より狭くしない（5 字の授業名が 1 行に入る幅）。狭い画面では横に送る（表は WCAG 1.4.10 の 2 次元の例外）/ day columns never below 96px; scroll sideways on phones
+    h('table',{className:'f2-tt',style:{minWidth:104+days.length*128}},
       h('caption',{className:p.hideCaption?'f2-sr':'f2-table__caption'},p.caption),
       h('thead',null,h('tr',null,h('th',{scope:'col'},h('span',{className:'f2-sr'},'時限')),days.map(function(dn,i){
         return h('th',{key:i,scope:'col',className:p.today===i?'f2-tt__today':undefined,'aria-current':p.today===i?'date':undefined},dn,p.today===i?h('span',{className:'f2-sr'},'（今日）'):null);}))),
@@ -600,10 +602,12 @@ function TimeGrid(p){
         h('div',{className:'f2-tg__grid',style:{height:total+'px'}},
           h('div',{className:'f2-tg__hours','aria-hidden':'true'},hours.map(function(k){return h('div',{key:k,className:'f2-tg__hour',style:{top:((k-sh)*hh)+'px'}},k+':00');})),
           days.map(function(dd,i){
-            var list=layoutDay(timed.filter(function(e){return e.day===i&&e.kind!=='deadline';}).map(function(e){var s=hm(e.start),en=e.kind==='deadline'?s+1:hm(e.end);return Object.assign(e,{_s:Math.max(s,sh*60),_e:Math.min(Math.max(en,s+1),eh*60)});}).filter(function(e){return e._e>sh*60&&e._s<eh*60;}));
+            // 締め切りは見えている高さ（24px）を時間の幅として、ほかの予定と同じ列分けに入れる。上に重ねると、下の予定が押せず読めない（D40）
+            // Deadlines take their visible 24px as a time span and join the same column split; overlaying hides and blocks the event below
+            var half=12/ppm,list=layoutDay(timed.filter(function(e){return e.day===i;}).map(function(e){var s=hm(e.start);if(e.kind==='deadline')return Object.assign(e,{_mark:s,_s:s-half,_e:s+half});var en=hm(e.end);return Object.assign(e,{_s:Math.max(s,sh*60),_e:Math.min(Math.max(en,s+1),eh*60)});}).filter(function(e){return e.kind==='deadline'?(e._mark>=sh*60&&e._mark<eh*60):(e._e>sh*60&&e._s<eh*60);}));
             return h('div',{key:i,className:'f2-tg__col',role:typeof p.onSelect==='function'?'group':'list','aria-label':dd.label+(i===nowDay?'（今日）':'')},
-              list.concat(timed.filter(function(e){return e.day===i&&e.kind==='deadline';}).map(function(e){var s0=hm(e.start);return Object.assign(e,{_s:s0,_e:s0+1,_col:0,_cols:1});}).filter(function(e){return e._s>=sh*60&&e._s<eh*60;}))
-                .sort(function(a,b){return a._s-b._s;}).map(function(e){var top=(e._s-sh*60)*ppm-(e.kind==='deadline'?12:0),ht=Math.max((e._e-e._s)*ppm,20);
+              list
+                .sort(function(a,b){return a._s-b._s;}).map(function(e){var top=e.kind==='deadline'?(e._mark-sh*60)*ppm-12:(e._s-sh*60)*ppm,ht=Math.max((e._e-e._s)*ppm,20);
                 return item(e,{top:top+'px',height:(e.kind==='deadline'?24:ht)+'px',left:'calc('+(e._col/e._cols*100)+'% + 2px)',width:'calc('+(100/e._cols)+'% - 4px)'});}),
               i===nowDay&&nowMin!=null&&nowMin>=sh*60&&nowMin<=eh*60?h('div',{className:'f2-tg__now',style:{top:((nowMin-sh*60)*ppm)+'px'},role:'img','aria-label':'現在 '+fmtHm(nowMin)}):null);})))));
 }
@@ -815,8 +819,8 @@ function ContextualActionBar(p){
     h('span',{className:'f2-bulk__count',role:'status','aria-live':'polite'},n?n+' 件を選択中'+(p.total?'（全 '+p.total+' 件）':''):''),
     n?h('div',{className:'f2-bulk__actions'},(p.actions||[]).map(function(a,i){
         return h('button',{key:i,type:'button',className:cx('f2-btn',a.danger?'f2-btn--secondary f2-btn--danger':'f2-btn--secondary'),onClick:a.onClick},a.icon,a.label);}),
-      p.onSelectAll&&p.total&&n<p.total?h('button',{type:'button',className:'f2-btn f2-btn--subtle',onClick:p.onSelectAll},'すべて選択（'+p.total+' 件）'):null,
-      h('button',{type:'button',className:'f2-btn f2-btn--subtle',onClick:clear},'選択を解除')):null);
+      p.onSelectAll&&p.total&&n<p.total?h('button',{type:'button',className:'f2-btn f2-btn--subtle',onClick:p.onSelectAll},icon16('select-all'),'すべて選択（'+p.total+' 件）'):null,
+      h('button',{type:'button',className:'f2-btn f2-btn--subtle',onClick:clear},icon16('dismiss'),'選択を解除')):null);
 }
 /* List / ListItem / ListSection / ListSectionHeader */
 var ListCtx=React.createContext(null);
@@ -834,11 +838,16 @@ function ListItem(p){
     p.meta?h('span',{key:'m',className:'f2-li__meta'},p.meta):null];
   // 無効のときはフォーカスできるが押しても何もしない（KM1 の「無効」の規則）/ disabled: focusable but inert
   function act(e){if(p.disabled){e.preventDefault();return;}if(p.onClick)p.onClick(e);}
+  // 選ぶモード（selectable）では行全体が 1 つのチェックボックスのラベルになり、押すと選ぶ。開く操作は出さない。
+  // 「開く」と「まとめて選ぶ」を同じ行に同時に出すと、押して何が起きるか分からないため（D31）
+  // In selection mode the whole row labels one checkbox; tapping selects, never opens (D31)
+  if(selOn) return h('li',{className:cx('f2-li',isSel&&'f2-li--selected',p.className)},
+    h('label',{className:'f2-li__primary f2-li__primary--select'},
+      h('span',{className:'f2-li__check'},h('input',{type:'checkbox',className:'f2-check__box',checked:isSel,onChange:toggle})),body));
   var prim=p.href?h('a',{className:'f2-li__primary',href:p.href,onClick:act,'aria-current':p.current?'page':undefined,'aria-disabled':p.disabled?'true':undefined},body)
     :p.onClick?h('button',{type:'button',className:'f2-li__primary',onClick:act,'aria-current':p.current?'true':undefined,'aria-disabled':p.disabled?'true':undefined},body)
     :h('div',{className:'f2-li__primary f2-li__primary--static'},body);
   return h('li',{className:cx('f2-li',isSel&&'f2-li--selected',p.className)},
-    selOn?h('label',{className:'f2-li__check'},h('input',{type:'checkbox',className:'f2-check__box',checked:isSel,onChange:toggle,'aria-label':(p.selectLabel||textOf(p.title))+' を選択'})):null,
     prim,
     p.trailing?h('div',{className:'f2-li__trail'},p.trailing):null);
 }
@@ -867,7 +876,7 @@ function ExpansionEditor(p){
     Promise.resolve(r).then(function(ok){setBusy(false);if(ok===false)return;setOpen(false,true);setLive(p.savedMessage||(textOf(p.title)+'を保存しました'));back();},
       function(x){setBusy(false);setErr((x&&x.message)||String(x||'保存できませんでした。もう一度お試しください。'));});}
   function cancel(){if(p.onCancel)p.onCancel();setOpen(false,true);back();}
-  var head=p.readOnly?h('div',{className:'f2-xe__btn f2-xe__btn--static'},h('span',{className:'f2-xe__title'},p.title),h('span',{className:'f2-xe__summary'},p.summary),
+  var head=p.readOnly?h('div',{className:'f2-xe__btn f2-xe__btn--static'},h('span',{className:'f2-xe__title'},p.title),h('span',{className:'f2-xe__summary'},p.summary),h('span',{className:'f2-xe__act','aria-hidden':'true'}),
       p.readOnlyReason?h('span',{className:'f2-xe__ro'},p.readOnlyReason):null)
     :h('button',{ref:btn,type:'button',id:bid,className:'f2-xe__btn','aria-expanded':open?'true':'false','aria-controls':pid,onClick:function(){setOpen(!open);}},
       h('span',{className:'f2-xe__title'},p.title),h('span',{className:'f2-xe__summary'},p.summary||'未設定'),
@@ -923,7 +932,7 @@ function BottomSheet(p){
   return h('dialog',{ref:ref,className:cx('f2-sheet',full&&'f2-sheet--full',p.className),'aria-labelledby':tid,
       onCancel:function(e){e.preventDefault();if(p.onClose)p.onClose();},onClick:function(e){if(e.target===ref.current&&p.onClose)p.onClose();}},
     h('div',{className:'f2-sheet__head'},h('h2',{id:tid,className:'f2-sheet__title'},p.title),
-      p.expandable!==false?h('button',{type:'button',className:'f2-btn f2-btn--subtle f2-sheet__expand',onClick:function(){setFull(!full);}},full?'元の高さに戻す':'全画面に広げる'):null,
+      p.expandable!==false?h('button',{type:'button',className:'f2-btn f2-btn--subtle f2-sheet__expand',onClick:function(){setFull(!full);}},icon16(full?'collapse':'expand'),full?'元の高さに戻す':'全画面に広げる'):null,
       h('button',{type:'button',className:'f2-alert__close','aria-label':'閉じる',title:'閉じる',onClick:function(){if(p.onClose)p.onClose();}},icon16('dismiss'))),
     h('div',{className:'f2-sheet__body'},p.children),
     p.actions?h(ActionRow,{className:'f2-sheet__actions'},p.actions):null);
@@ -939,8 +948,10 @@ function ImageGrid(p){
         :h('img',{src:it.src,alt:it.alt||'',loading:'lazy',decoding:'async',onError:function(){setFailed(function(o){var x=Object.assign({},o);x[it.id]=1;return x;});}}));
       var cap=it.caption||it.meta?h('span',{className:'f2-igrid__cap'},it.caption?h('span',{className:'f2-igrid__title'},it.caption):null,it.meta?h('span',{className:'f2-igrid__meta'},it.meta):null):null;
       return h('li',{key:it.id,className:cx('f2-igrid__item',on&&'f2-igrid__item--selected')},
-        p.onOpen?h('button',{type:'button',className:'f2-igrid__open',onClick:function(){p.onOpen(it);}},media,cap):h('span',{className:'f2-igrid__open f2-igrid__open--static'},media,cap),
-        selOn?h('label',{className:'f2-igrid__check'},h('input',{type:'checkbox',className:'f2-check__box',checked:on,onChange:function(){tog(it.id);},'aria-label':textOf(name)+' を選択'})):null);}));
+        // 選ぶモード（selectable）ではタイル全体が 1 つのチェックボックスのラベルになり、押すと選ぶ。開く操作は出さない（List と同じ。D31）
+        // In selection mode the whole tile labels one checkbox; tapping selects, never opens (same as List, D31)
+        selOn?h('label',{className:'f2-igrid__open f2-igrid__open--select'},media,cap,h('span',{className:'f2-igrid__check'},h('input',{type:'checkbox',className:'f2-check__box',checked:on,onChange:function(){tog(it.id);}})))
+        :p.onOpen?h('button',{type:'button',className:'f2-igrid__open',onClick:function(){p.onOpen(it);}},media,cap):h('span',{className:'f2-igrid__open f2-igrid__open--static'},media,cap));}));
 }
 
 // ---------- 分類の模様 / Category patterns ----------

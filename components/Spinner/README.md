@@ -1,5 +1,8 @@
-短い待ち時間を示す回転する輪。ボタンの横や一覧の読み込み中に使う。
-*A rotating ring for short waits, beside a button or while a list loads.*
+短い待ち時間を示す回転する輪。保存や送信のように、出てくる中身の形がない 1〜10 秒の待ちに使う。
+*A rotating ring for 1–10 second waits with no content shape to preview, such as saving or sending.*
+
+**理由 / Why:** 待ちの部品は、形と時間で 1 つに決まる（「画面の組み立て › 待ち時間」）。形が分かれば Skeleton のほうが何が出るか伝わり、10 秒以上なら工程と時間が要るので、Spinner はその間の短い待ちだけに使う。
+*Shape and duration pick exactly one waiting part. Skeleton tells more when the layout is known, and 10s or more needs steps and time, so Spinner covers only the short waits in between.*
 
 ## 使い方 / Usage
 - 何を待っているかを文言で添える（「保存中」「読み込み中」）。場所がないときだけ `hideLabel` で文言を隠す（読み上げには残る）。

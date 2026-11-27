@@ -9,7 +9,7 @@ KM1 は個人が管理するデザイン標準です。変更の決め方（提�
    *Branch from `main` and merge through a pull request; never push to `main` directly.*
 2. トークンを変えるときは `tokens.json`（正本）だけを直し、生成物は道具で作り直す: `python3 gen/tokens_css.py`、`gen/km1_dart.py`、`gen/native.py`、`gen/tokens_dtcg.py`。生成物を手で直さない。
    *Edit only `tokens.json`; regenerate every derived file with the scripts.*
-3. 部品を変えたら、その部品の `README.md` と `changelog.md` を同じ pull request で直す。
+3. 部品を変えたら、その部品の `README.md` と `changelog.md` を同じ pull request で直す。部品や画面を足す・変えるときは、`governance.md` 7 章の「理由の確認」を通し、`README.md` に「**理由 / Why:**」の行を書く。
 4. `bash gen/check_all.sh` が通ること。CI（`.github/workflows/check.yml`）も同じものと Flutter の解析・テストを流す。
    *`bash gen/check_all.sh` must pass; CI runs the same plus Flutter analyze and tests.*
 5. Flutter の画像が変わる変更は、`verification.md` 6 章の手順で承認済みの画像を作り直して同じ pull request に入れる。

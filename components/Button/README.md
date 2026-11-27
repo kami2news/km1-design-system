@@ -4,12 +4,12 @@
 利用側が渡すもの: `children`（動詞のラベル）。アイコンのみの場合は `aria-label` が必須。
 *Consumer provides: `children` (a verb label). Icon-only buttons require `aria-label`.*
 
-- `primary`: 主要操作。`secondary`（既定）: 通常の操作。`outline`: 背景が不均一な面の上。`subtle`: ツールバー内。`transparent`: リンク的な操作。
-  *`primary`: main action. `secondary` (default): ordinary action. `outline`: on uneven backgrounds. `subtle`: in toolbars. `transparent`: link-like action.*
+- 種類は 4 つ。`primary`（紺の塗り）: その画面で次にすること、1 画面に 1 つ。`secondary`（既定、枠）: ふつうの操作と「キャンセル」。`subtle`（枠なし）: ツールバーや行の中など、同じ形のボタンが何度も並ぶところ。枠がないので、必ずアイコンを付ける（枠なしの太字だけでは見出しと見分けがつかない。D32）。`danger`（赤の文字、枠）: 取り消せない操作。古い `outline` は `secondary`、`transparent` は `subtle` として描く（D28）。
+  *Four kinds. `primary` (navy fill): the next step, one per screen. `secondary` (default, outlined): ordinary actions and Cancel. `subtle` (no border): repeated buttons in toolbars and rows; always with an icon, since borderless bold text looks like a heading (D32). `danger` (red text, outlined): irreversible actions. Old `outline` renders as `secondary`, `transparent` as `subtle` (D28).*
 - サイズは `small` / `medium`（標準）/ `large`。高さは PC で 24 / 32 / 40px、スマホで 44 / 44 / 48px に自動で切り替わる。
   *Sizes: `small`, `medium` (default), `large`: 24 / 32 / 40px on PC, 44 / 44 / 48px on touch, switched automatically.*
-- 使い分け（デジタル庁デザインシステム）: `primary` は 1 画面に原則 1 つ。`outline` は同じ場面で同時に 3 つまで（4 つ以上なら流れを見直す）。「キャンセル」は 1 画面に 1 つの文字だけのボタン（`transparent`）。重要度の差は色だけで示さず、塗りと枠線などの形で示す。
-  *Usage (Digital Agency DS): one `primary` per screen; at most three `outline` together (more means rethinking the flow); cancel is a single text-only button (`transparent`). Importance is shown by shape (fill vs outline), not color alone.*
+- 使い分け: `primary` は 1 画面に原則 1 つ。枠のボタンは同じ場面で同時に 3 つまで（4 つ以上なら流れを見直す）。「キャンセル」は `secondary`。重要度の差は色だけで示さず、塗り・枠・枠なしの形で示す（色の見え方に関わらず、形だけで順位が分かる）。
+  *Usage: one `primary` per screen; at most three outlined buttons together (more means rethinking the flow); Cancel is `secondary`. Importance is shown by shape (fill, outline, none), not color alone, so the order reads regardless of colour vision.*
 - 配置: PC では「完了」「次へ」を右、「キャンセル」「戻る」を左。スマホでは縦に積み、主なボタンを一番上にする。
   *Placement: on desktop progress actions go right and cancel/back go left; on mobile stack vertically with the primary on top.*
 - 無効化は極力避ける。押せない理由が分からないと、操作が止まる。どうしても無効にするときは、ボタンのすぐ近くに理由か有効にする条件を書き、`aria-describedby` で結ぶ。`disabled` は `aria-disabled` で実装してあり、Tab キーで届き、押しても何も起きない。
@@ -18,3 +18,6 @@
   *Do: short verb labels; confirm destructive actions in a dialog.*
 - やらないこと: プライマリの並置、`disabled` の理由を示さないまま放置。
   *Don't: place several primaries together, or leave a disabled button unexplained.*
+
+**理由 / Why:** 前は 6 種類あり、`secondary` と `outline`（面の色だけが違う）、`subtle` と `transparent`（文字の色だけが違う）の差は、見ても使い分けの理由が言えなかった。形（塗り・枠・枠なし）が重要度にそのまま対応する 3 つと、取り消せない操作の 1 つに絞った。「キャンセル」を紺の文字にすると、やめる操作がいちばん目立ってしまうので枠にした。
+*Six kinds had two pairs that differed only in fill or text colour, with no reason to choose. Three shapes map to importance, plus one for irreversible actions; Cancel is outlined so that quitting is not the most eye-catching action.*

@@ -8,3 +8,6 @@
   *State is shown by knob position and the words "オン/オフ", never color alone. 44px on touch, 32px on PC.*
 - `role="switch"` を付けた標準のチェックボックスなので、スペースキーで切り替わる。
   *A native checkbox with `role="switch"`; Space toggles it.*
+
+**理由 / Why:** その場で効く設定を切り替える。押した瞬間に反映される操作だと形で分かる。送信が要る設定とは分ける。
+*Toggle a setting that applies at once: the shape says it takes effect immediately, unlike settings that need submitting.*

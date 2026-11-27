@@ -21,3 +21,6 @@
 
 ## 利用側が渡すもの / You provide
 `label`、`items`（`{id, label, sub?}`）、`onChange`（並べ替えた配列）、必要なら `id`。
+
+**理由 / Why:** 順番を自分で決めたい。つかむ場所と、キーボードでの上下移動の両方を用意する。
+*Set the order yourself: both a grab handle and keyboard up/down.*

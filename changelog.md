@@ -1,11 +1,64 @@
 # 変更履歴 / Changelog
 
+## 2026-11-27 — 精度の監査を広げる・画面として見る / Wider audit and whole-screen review
+
+- **精度の監査:** 測る幅に タブレット（768px）を足して 3 つにし、項目に 押せる大きさ（24px）・押せる範囲の重なり・間隔のそろえそこない・「…」なしで切れる文字 の 4 つを足した（全 16 項目、408 枚・約 18,000 要素）。見つかったものをすべて直し、外れは 0 件（D38・D40）。
+  *The audit now runs at three widths with 16 checks; every finding was fixed.*
+- **締め切り:** 週の予定で、締め切りが重なる予定の上に全幅で描かれ、下の予定が押せず読めなかった。見えている高さ（24px）を時間の幅として列分けに入れ、横に並べる。Web と Flutter（D40）。
+  *Deadlines join the column split instead of covering events.*
+- **写真の格子:** 選ぶモードでは、タイル全体が 1 つのチェックになる（List と同じ D31）。Web と Flutter。
+  *ImageGrid selection mode: the whole tile selects.*
+- **小さな直し:** 表のセルの中だけのリンクの押せる高さを 24px に。週の予定の 1 日の列を 128px 以上に（時間割と同じ）。予定の中の題名が「…」を出す前に切れていたのを直した。早見図の条件の文が狭い幅で押しつぶされないよう、答えを次の行に回す。
+  *Table links get 24px targets; TimeGrid days 128px; event titles ellipsize; guide rows wrap.*
+- **画面として見る:** 授業の編集画面は、スマホで一覧と詳細が縦に積まれていて「画面の組み立て」の一覧・詳細の決まり（狭い画面は別の画面にして戻る）と違っていた。640px 未満では一覧から始め、行で詳細へ、「授業の一覧に戻る」で一覧の同じ行へフォーカスを返す。オフラインの画面の見本は、本物の接続に従っていたため見本ではオフラインの状態が出なかった。オフライン（未送信 1 件）から始める。検査のシナリオ S2・S3 も合わせた（D40）。
+  *ScreenListEdit splits list and detail below 640px; ScreenOffline starts offline; scenarios updated.*
+- **Flutter:** `Km1ExpansionEditorGroup` を足し、並べた 1 行の編集欄がとなりと縁を共有するようにした（Web と同じ）。
+  *Added `Km1ExpansionEditorGroup` so stacked editors share borders, as on Web.*
+- **pypdf 7（PR #15）:** pypdf 7.1.1 で PDF を作り直し、本編 169 ページ・目次 44 項目が 6.17 と同じで、PDF の検査も通ることを確かめた。
+  *Verified PDF builds and checks with pypdf 7.1.1 (PR #15).*
+
+## 2026-11-26 — 参考文献のまとめページ / References page
+
+- **参考文献（`references.md`）:** 各章に散らばっていた出典を 1 ページにまとめ、土台とライセンス・アクセシビリティの規格・使いやすさ・プラットフォーム・参考にしたデザインシステム・PDF・スライド・道具の 8 節に分けた。どの資料をどこに使っているかと章を書いた。各章の出典の行は、この節を指す 1 行にした。PDF の本編とサイトにも入れた。
+  *All sources gathered into `references.md` in eight sections, each with its use and chapter; chapters now point there.*
+
+## 2026-11-26 — 文書の組み直し / Documentation restructure
+
+- **章立て:** 読む順を 4 層（何を作るか → 画面 → 部品 → 値）にそろえた。README は入口と地図だけにし、原則 → プロダクトデザイン → 画面の組み立て → 部品 → 言葉 → 基礎 → アイコン → プラットフォーム → グラフ・PDF・Office → 運用 → 記録、の順にした。PDF の本編とサイトも同じ順（部品の章は第 5 章、別冊の案内）（D39）。
+  *Reading order follows the four layers; README is now an entry page and map; PDF and site follow the same order.*
+- **移したもの:** README の「内容の原則」と「画面の組み立て」の言葉・日付の書き方を新しい章「言葉」（`content.md`）に。README の「視覚の基礎」と「画面の組み立て」の文字の強弱・和文の改行を「基礎」（`tokens.md`）に。アイコンの規則を「アイコン」に、Flutter と単体の HTML の使い方を「プラットフォーム」に、これまでの点検の記録を「検証」の 7・8 章に。
+  *Moved: writing rules to `content.md`; visual foundations and type rules to `tokens.md`; icon rules to `icons.md`; Flutter and plain-HTML usage to `platforms.md`; check history to `verification.md`.*
+- **ほかの組織の名前:** 決まりの理由として書いていた Science Tokyo・EPSON・デジタル庁の名前を外し、理由をそれ自体で書き直した（赤と緑の組を避ける → 色の見え方によっては同じ色に見えるため、など）。メインカラーは KM1 の色として書く（D13）。Fluent 2 は「原則」の土台と、アイコンのもとの絵（MIT）のライセンスとしてだけ書く。「表記とライセンス」の固定の文言、Office のひな形と PDF の奥付も、組織の名前を挙げない文にした。
+  *Removed Science Tokyo, Epson and the Digital Agency as reasons; every rule now carries its own. Fluent 2 remains only as the base layer and the icon license. Notices, Office templates and the PDF colophon no longer list organizations.*
+- **食い違いの直し:** Android と iOS のネイティブの手順が Fluent のアイコンを入れるように書いていたのを、ほかの端末と同じ KM1 のアイコンの SVG に直した。
+  *Native Android and iOS setup now import KM1 icon SVGs like every other platform.*
+
+## 2026-11-26 — 精度の監査 / Precision audit
+
+- **測って直す:** 目で見る評価をやめ、全 136 枚の見本を PC（1280px）とスマホ（375px）で描き、約 12,000 個の要素の実際の値を KM1 の決まりと照らす `gen/precision_audit.js` を作った。見るのは 12 項目（文字の組・折り返した文の行の高さ・短い文字の押しつぶし・12px 未満・太さ・色・余白・角丸・縁・書体・1 行の長さ・左端のずれ）。最初の 77 件（測り方の誤りを除いたもの）をすべて直し、検査（`check_all.sh`）に入れた（D38）。
+  *Built a precision audit over ~12,000 elements at desktop and phone widths, fixed every finding, and added it to the checks.*
+- **スマホの崩れ:** 時間割は授業名が 1 字ずつ縦に折れていたので、1 日の列を 128px 以上にして横に送り、時限の列を左に留めた。1 行の編集欄の読み取り専用の行は、理由の文が右の列を広げて学籍番号が 2 行に割れていたので、理由を値の下に置いた。トーストは狭い画面で「元に戻す」を次の行に回す。今日の画面の締め切りは「レポート 3」の「3」だけが次の行に落ちていたので、改行しない空白にし、時刻を下の行にした（D37）。Flutter の時間割も同じ幅にした。
+  *Phone fixes: timetable scrolls with 128px day columns and a pinned period column; read-only note under the value; toast action wraps; no break between a word and its number.*
+- **1px のずれ:** 写真の格子で、選んだものだけ縁が 2px になり中身が 1px ずれていた。縁は 1px のまま外に 1px の線を足す（Web と Flutter）。
+  *Selected image cards no longer shift their content by 1px.*
+- **決まりの外の値:** トーストの「元に戻す」を紺の文字から枠のボタンに（D32）、カードと進み具合の説明を 14/24 に、記録の文に 40em の上限、字下げ 28px → 24px、角丸 3px → `radius-sm`、Consolas の直書き → `--font-mono`。
+  *Off-scale values brought onto the scales.*
+
+## 2026-11-26 — 評価 5 回目: ダーク・操作バー・見出しの段 / Review 5
+
+- **ダークの淡い面:** brand・info・danger・success・warning の tint のダーク値を、暗い面（#1F1F1F）にその色を 16% 混ぜた彩度の低い色にした（例: danger #3B0509 → #3E2E2F）。お知らせが濃い 4 色のかたまりに見えなくなり、選択中のナビの面も暗い穴に見えなくなった。原色に `*-dark-tint` を 5 つ足した（D35）。
+  *Dark tints are now low-chroma (16% hue over #1F1F1F); all text pairs stay at 4.5:1 or more.*
+- **選択中の操作バー:** 紺の枠をやめ、淡い紺の面と件数で示す。Web と Flutter（D34）。
+  *Bulk bar drops the navy border.*
+- **見出しの段:** 授業の編集画面で、一覧の見出し（16 px）を詳しい内容の見出しと同じ 20 px にした。同じ順位の見出しは同じ大きさ（D36）。
+  *Sibling region headings share one size.*
+
 ## 2026-11-26 — CI を通す / CI fixes
 
 - **ギャラリーの承認済み画像を登録:** 2026-11-19 にギャラリー 4 枚（スマホ・PC × ライト・ダーク）の比較を足したが、画像が入っておらず Flutter のテストが 4 件落ちていた。goldens ワークフローで作り、4 枚を目で確かめて `verify/flutter/test/goldens/` に入れた（部品の位置・色・ライトとダークの塗り分け。文字はテスト用の書体で四角になる）。同じ実行で作ったアイコン 6 枚は、登録済みのものと 1 バイトも違わなかった。
   *Registered the four missing gallery goldens after visual review; the six icon sheets regenerated byte-identical.*
-- **期限切れの判断を既定どおりに閉じた（KM1-GOV-002）:** 確認日 11-22 を過ぎた D6 は D12 に統合して不採用、D9 は今の値（2 段上）を続けることにした。`govcheck.py` の FAIL は 0。
-  *Closed overdue D6 (merged into D12) and D9 (keep current value) per their defaults.*
+- **ギャラリーの画像を作り直し（このブランチ）:** 評価 2〜5 回目と KM1 の軸の変更（Chip の角、EmptyState の左寄せとアイコンなし、文字の大きさ、補足の灰、ダークの淡い面）で Flutter のギャラリーが変わるので、goldens ワークフローで作り直し、変わった箇所が上の変更どおりであることを目で確かめて差し替えた。アイコン 6 枚は変わらない。
+  *Regenerated the gallery goldens for this branch after reviewing that the differences match the listed changes; icon sheets unchanged.*
 
 ## 2026-11-26 — RS1 と完全に分ける / Separated from RS1
 
@@ -13,6 +66,87 @@
   *Coursework reports are out of scope; KM1 and RS1 no longer depend on each other. Two RS1 references in `office.md` rewritten as KM1's own rules.*
 - **研究発表の中身の順番（KM1-DOC-003 §4.7）:** RS1 にあった、文献の紹介と研究の進捗のスライドの順番を KM1 に移した。研究発表のスライドは見た目も中身の順番も KM1 で決める。
   *Moved the slide orders for paper reviews and progress reports from RS1 into §4.7; research slides are now fully KM1.*
+
+## 2026-11-26 — 評価 4 回目: 2 種類の「選ぶ」・枠なしボタン・Flutter のナビ / Review 4
+
+- **一覧:** 行の左のチェック（まとめて選ぶ）と行の本体（開く）が同時に出ていたのをやめた。ふだんは押すと開き、「まとめて選ぶ」で選ぶモードに入ると、行全体が 1 つのチェックボックスになる。Web の `ListItem` と Flutter の `Km1ListItem` の両方を直し、授業の編集画面と検査のシナリオも合わせた（D31）。
+  *Lists no longer offer open and select at once; a selection mode makes the whole row one checkbox.*
+- **枠なしボタン:** `subtle` には必ずアイコンを付ける。ボタンの見本、選択中の操作バー（すべて選択・選択を解除）、ボトムシートの広げる・戻すにアイコンを足した。`reasoncheck.py` はアイコンのない `subtle` を FAIL にする（D32）。
+  *Subtle buttons always carry an icon; enforced by the check.*
+- **Flutter のナビ:** `NavigationBar`・`NavigationRail` のテーマを足し、選択中を淡い紺の面・太字・塗りのアイコンにして Web とそろえた（D33）。
+  *Flutter nav themes now match Web.*
+
+## 2026-11-25 — 評価 3 回目: ボタンの種類・理由の行・同じ値の重なり / Review 3
+
+- **ボタン:** 6 種類を `primary`・`secondary`・`subtle`・`danger` の 4 種類にした。古い `outline`・`transparent` は近いものに読み替える。「キャンセル」は枠のボタン。ボタンの見本を、本物の場面（保存の組・ツールバー・削除・大きさ）で並べ直した。Flutter の `TextButton` は紺の文字をやめて `subtle` と同じにした（D28）。
+  *Buttons merged into four kinds; Cancel is outlined; Flutter TextButton matches subtle.*
+- **理由の行:** 残っていた 41 部品の README に「理由 / Why」を書き、全 67 部品そろった。行がない部品は `reasoncheck.py` が FAIL にする（D29）。
+  *All 67 components now carry a Why line; missing ones fail the check.*
+- **同じ値を 2 回出さない:** 授業の編集画面で、名前の下の要約（「月 2 限・W9-324」）が「登録内容」と重なっていたので消した。削除の確認は `danger` にし、本文に消す授業の名前を出す（D26・D30）。`reasoncheck.py` は削除を `primary` にした見本も FAIL にする。
+  *Removed the duplicated summary on the edit screen; deletion uses danger and names what goes.*
+
+## 2026-11-24 — 評価 2 回目: 合図の重ねすぎ・消す操作・入力例・数字の書き方 / Review 2
+
+- **ナビ:** 選択中の合図が 4 つ（面・線・太字・塗りのアイコン）重なっていたので、線をやめて 3 つにした（下のナビの上の線、縦のナビの左の線）（D25）。
+  *Nav: dropped the top and left bars; three cues are enough.*
+- **ダイアログ:** 見本の削除の確認を、見出しに対象の名前（「『環境化学 第 8 回』を削除しますか？」）、本文に日時、実行は `danger`、キャンセルは `transparent` にした。`Button` の説明に `danger` を足した（D26）。
+  *Delete confirmation names the object and uses `danger`, not `primary`.*
+- **入力例:** プレースホルダの「例: …」をやめ、`hint` に「例：…」で書くようにした（D27）。
+  *Examples move from placeholders to hints.*
+- **数字の書き方:** 見本 22 個の文言で、数字と単位・助数詞の間を半角あけた（「第 8 回」「1 限」「3 件」）。ファイル名はそのまま（D27）。
+  *Half-width space between numbers and counters across 22 previews; file names untouched.*
+
+## 2026-11-24 — 文字の強弱（普遍的な UI の評価から）/ Type contrast, from a general UI review
+
+- **文字の大きさ:** 型の表を 12 段から 10 段に減らし、大きさは 7 つ（12・14・16・20・28・40・68 px）にした。見出しは `title`（28）・`subtitle-1`（20）・`subtitle-2`（16）の 3 段。`title-1`・`title-2`・`title-3`・`caption-2`（10 px）はなくした。Flutter・Compose・SwiftUI の割り当ても合わせた（D22）。
+  *Type ramp cut to seven sizes and three heading steps; removed title-1/2/3 and the 10 px caption-2.*
+- **行の高さ:** 2 行以上になりうる文を 1.5 倍以上にした。`body-1-para`（14/24）を新しく作り、お知らせ・ダイアログ・空の状態・アコーディオン・ドロワー・フォームの説明など 13 か所に使った。`body-2` は 16/26、`caption-1` は 12/18、`subtitle-2` は 16/24、`display` は 68/84。1 行で終わる UI は 14/20 のまま（D23）。
+  *Wrapping text now has 1.5x line height or more via the new `body-1-para` (14/24).*
+- **1 行の長さ:** 折り返す説明文は 40em まで。自分で書く文には `f2-prose`（D23）。
+  *Wrapping text stops at 40em; `f2-prose` for your own text.*
+- **文字の濃さ:** `ink-secondary` を #424242 → #616161（ダーク #D6D6D6 → #ADADAD）にし、濃さは `ink` との 2 段だけにした。`ink-tertiary` は同じ値の別名。Office（Word・PowerPoint）の補足の灰色も #616161 にした（D24）。
+  *`ink-secondary` is now #616161; two text weights only.*
+- **紺:** 紺の文字色だけで選択を示さない決まりを足し、下のナビの選択中にも淡い紺の面を敷いた（D24）。
+  *Never mark selection with navy text alone; bottom nav now gets the brand tint.*
+- **見本:** 見本の 13 px と 32 px を型の表の大きさに直した。
+
+## 2026-11-24 — KM1 の軸と、理由のない形の見直し / KM1's axes, and removing forms without a reason
+
+- **原則:** KM1 が大切にすることを決めた。前提はアクセシビリティ（誰でも使える）、軸は「見やすい」「わかりやすい」「理由を言える」、優先はアクセシビリティ → 見やすい → わかりやすい → 個性。KM1 を土台（Fluent 2 などに従い個性を抑える）と味付け（KM1 の個性を寸法や値で書く）の 2 層に分けた（「デザイン原則」、D15）。
+  *Defined what KM1 values: accessibility as the premise; axes "easy to see", "easy to understand", "every form has a reason"; a priority order; and two layers, base and flavor.*
+- **わかりやすさ:** 「画面の組み立て」に「わかりやすさ」節を足した。画面は開いた人が最初に知りたいことから作る、主役は 1 つ、余白でまとまりを見せる、本物の言葉で書く、いつも同じ場所、空・読み込み中・エラーは次の一歩から、和文は文節で改行する。
+  *Added Patterns › Understandability.*
+- **理由の確認:** 「運用」7 章に、部品と画面を足す・変えるときの手続きを足した。`README.md` に「理由 / Why」の行を書き、問いに答え、AI が作る平均的な画面に多い型を疑う。機械で見られる部分は `gen/reasoncheck.py`（`check_all.sh` に追加）。理由の行は Alert・Card・EmptyState・ScreenToday から書き始め、残りは件数を WARN で出す。
+  *Added the reason review (Governance §7) and `gen/reasoncheck.py`.*
+- **Card:** 影をやめ、`stroke` の縁だけにした。押せるカードはホバーで面と縁を濃くする。Flutter はもともと縁だけ（D16）。`shadow-2` の用途は「小さく浮くもの」に変えた。
+  *Card: border only, no shadow.*
+- **Alert:** 色の縁と、種類の言葉の色をやめた。色は面だけ、状態はアイコンと言葉の 2 つで伝える（D17）。
+  *Alert: colour on the surface only; icon and word carry the state.*
+- **EmptyState:** 左寄せにし、アイコンを既定で外した。本文は本物の次の一歩を書く。Web と Flutter（`Km1EmptyState`。`bIcon` は既定なしに）をそろえた（D18）。
+  *EmptyState: start-aligned, no icon by default, real next step; Web and Flutter aligned.*
+- **和文の改行:** KM1 の部品に `word-break: auto-phrase`・`line-break: strict`、見出しに `text-wrap: balance`、本文に `text-wrap: pretty` を入れた。
+  *Phrase-based Japanese line breaking in all parts.*
+- **画面の例:** スケジュール確認アプリの「今日」の画面（ScreenToday）を足した。次の予定を主役にし、まとまりを余白で分けた例。
+  *Added the ScreenToday screen pattern.*
+- **押せるかを形で分ける:** Chip の角を丸から `radius-md`（4px）に変えた。押せるものは角丸、押せない印（Badge）と人（Avatar）は丸（D19）。Web と Flutter。
+  *Chip now has `radius-md` corners: pressable things are rounded rectangles, non-pressable marks and people are round.*
+- **待ちの部品の使い分け:** 「待ち時間」の表に Skeleton を入れた。形が分かる 1〜10 秒は Skeleton、形がない 1〜10 秒は Spinner、10 秒以上は Progress。
+  *Waiting: Skeleton for known layouts, Spinner for shapeless short waits, Progress for 10s or more.*
+- **部品は保管する:** 使う画面がまだない部品も、理由が言えれば外さない（D20）。Breadcrumb と Slider に理由の行を書いた。
+  *Parts are kept even before a screen needs them (D20).*
+- **記録と早見図:** M1 との比較 7 個・IconTrial・Density・SelectionGuide を部品の群から外し、「記録と早見図」の群にまとめた。消さずに保管し、部品の数には数えない（D21）。
+  *Records and guides now form their own group, kept but not counted as parts (D21).*
+- **画面の例の作り直し:** ScreenAddEvent（主役は日ごとの予定の並びと足した行）、ScreenListEdit（主役は選んだ授業の名前と要点、直せる項目は 1 つのまとまり）、ScreenOffline（主役は未送信の予定と件数）を、開いた人が最初に知りたいことから作り直した。利用シナリオの検査はそのまま通る。
+  *Rebuilt three screen patterns from what the reader needs first.*
+- **ExpansionEditor:** 続けて置くと縁がつながって 1 つのまとまりになり、項目名の列を 10em にそろえた。直せない項目も値の位置がそろう。
+  *Consecutive ExpansionEditors join into one group with aligned values.*
+  Flutter（`Km1ExpansionEditor`）は項目名の列を 140 にそろえた。縁をつなげて 1 つのまとまりにするのは、まだ Web だけ（Flutter は間が `space-sm` あく）。
+  *Flutter aligns the title column (140); joining borders is Web-only for now.*
+- **見本の文言:** Card の「クリックできるカード／全体が操作対象です」を本物の内容に替えた。
+  *Replaced self-describing sample copy.*
+- **判断の期限:** 確認日を過ぎた D6 と D9 を、6 章の「決まらないときの既定」どおりに閉じた（D6 は D12 に統合、D9 は今の値を続ける）。
+  *Closed the overdue D6 and D9 by their stated defaults.*
+
 ## 2026-11-19 — ロゴと表示バッジ / Logo and attribution badge
 
 - **ロゴ:** KM1 のロゴを、アプリアイコンのしるし（「KM1」と表紙の帯）と同じ形で、色を入れ替えた白地に青（黒の細い縁つき）に決めた。切り抜かれないので中身はアイコンより大きく（文字の幅 84%、24px 未満は極太の字形）し、小さく置いても潰れないようにした。アプリアイコンは紺地に白のまま。横組み（しるし＋「KM1」）と、ライト・ダーク・単色の版を足した。

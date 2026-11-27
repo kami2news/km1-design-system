@@ -155,9 +155,9 @@ k.append(scheme('light')); k.append(scheme('dark'))
 k.append('''private val Km1Typography = Typography(
     displayLarge = Km1Text.display,
     headlineLarge = Km1Text.largeTitle,
-    headlineMedium = Km1Text.title1,
-    headlineSmall = Km1Text.title2,
-    titleLarge = Km1Text.title3,
+    headlineMedium = Km1Text.title,
+    headlineSmall = Km1Text.title,
+    titleLarge = Km1Text.subtitle1,
     titleMedium = Km1Text.subtitle1,
     titleSmall = Km1Text.subtitle2,
     bodyLarge = Km1Text.body2,
@@ -165,7 +165,7 @@ k.append('''private val Km1Typography = Typography(
     bodySmall = Km1Text.caption1,
     labelLarge = Km1Text.body1Strong,
     labelMedium = Km1Text.caption1,
-    labelSmall = Km1Text.caption2,
+    labelSmall = Km1Text.caption1,
 )
 
 private val Km1Shapes = Shapes(
@@ -218,7 +218,7 @@ sw=[f'// {HEAD_JA}','//',
 '//   色はライト・ダークで自動で切り替わる（iOS・iPadOS・macOS）。 / Colors switch with light and dark automatically.',
 '//   書体は Noto Sans JP を同梱していればそれを、無ければシステムの書体（ヒラギノ角ゴ）を使い、どちらも Dynamic Type で拡大する。',
 '//   Uses bundled Noto Sans JP if present, otherwise the system font; both scale with Dynamic Type.',
-'//   アイコンは FluentIcons（Swift Package Manager か CocoaPods）。SF Symbols に置き換えない。 / Icons: FluentIcons, not SF Symbols.',
+'//   アイコンは KM1 のアイコンの SVG（icons/build/svg）を Asset Catalog に取り込む。SF Symbols に置き換えない。 / Icons: import KM1 icon SVGs into the Asset Catalog, not SF Symbols.',
 '//   操作領域は 44pt（Apple HIG）。 / Hit areas are 44pt (Apple HIG).',
 '','import SwiftUI','#if canImport(UIKit)','import UIKit','#elseif canImport(AppKit)','import AppKit','#endif','',
 'private func km1Dynamic(_ light: UInt32, _ dark: UInt32) -> Color {',
@@ -257,7 +257,7 @@ sw.append(f'    public static let hitTarget: CGFloat = {px(_i["value"]):g}  // =
 sw.append('/// 用途別の余白（KM1-TOK-001）。Km1Space を指す / Role spacing aliases')
 sw.append('public enum Km1SpaceRole {'); sw+=[f'    public static let {camel(e["name"])}: CGFloat = '+('Km1Space.'+camel(e["ref"].replace("space-","",1)) if e["ref"].startswith("space-") else f'{px(e["value"]):g}') for e in t['spacingRole']['tokens']]; sw.append('}'); sw.append('')
 sw.append('public enum Km1Radius {'); sw+=[f'    public static let {camel(n.replace("radius-","",1))}: CGFloat = {v:g}' for n,v in RA.items()]; sw.append('}'); sw.append('')
-REL={'display':'.largeTitle','large-title':'.largeTitle','title-1':'.title','title-2':'.title2','title-3':'.title3','subtitle-1':'.headline','subtitle-2':'.subheadline','body-2':'.body','body-1':'.body','body-1-strong':'.body','caption-1':'.caption','caption-2':'.caption2'}
+REL={'display':'.largeTitle','large-title':'.largeTitle','title':'.title','subtitle-1':'.headline','subtitle-2':'.subheadline','body-2':'.body','body-1':'.body','body-1-strong':'.body','caption-1':'.caption','body-1-para':'.body'}
 W={400:'.regular',500:'.medium',600:'.semibold',700:'.bold'}
 sw.append('/// 文字スタイル。Dynamic Type に合わせて拡大する / Text styles that scale with Dynamic Type')
 sw.append('public enum Km1Text {')

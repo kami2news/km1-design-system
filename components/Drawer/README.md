@@ -13,3 +13,6 @@
 
 ## 利用側が渡すもの / You provide
 `open`、`onClose`、`title`、中身、必要なら `actions`・`position`。
+
+**理由 / Why:** 今の画面を見ながら詳しい条件や詳細を扱う。画面の端から出し、元の画面が横に残る。
+*Detailed filters or details while keeping the screen: slides from the edge, the screen stays beside it.*

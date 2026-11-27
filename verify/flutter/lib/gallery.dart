@@ -43,7 +43,7 @@ class _Km1GalleryState extends State<Km1Gallery> {
         const SizedBox(height: Km1Space.lg),
         Km1Pagination(page: page, count: 5, onChanged: (p) => setState(() => page = p)),
         const SizedBox(height: Km1Space.lg),
-        const Km1EmptyState(title: '今日の予定はありません', body: '予定を追加すると、ここに並びます。'),
+        const Km1EmptyState(title: '今日の予定はありません', body: '明日は 9:00 から気象学（W5-201）です。'),
         const SizedBox(height: Km1Space.lg),
         const Km1IconSheet(),
       ]),

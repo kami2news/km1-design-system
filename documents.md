@@ -33,12 +33,12 @@ Word と PowerPoint のファイルそのものの決まりは「Word と PowerP
 | 役割 / Role | 大きさ・太さ / Size, weight | 行送り / Leading | 色（トークン）/ Color (token) |
 |---|---|---|---|
 | 本文 / Body | 10pt・標準 | 1.7 | `ink` #242424（15.5:1） |
-| 英語の併記 / English line | 9pt・標準 | 1.55 | `ink-tertiary` #616161（6.2:1） |
+| 英語の併記 / English line | 9pt・標準 | 1.55 | `ink-secondary` #616161（6.2:1） |
 | 大見出し H1（章）/ Chapter | 20pt・太字、下に 2pt の線 | 1.3 | `brand-ink` #10218B（13.0:1） |
 | 中見出し H2 / Section | 13pt・太字 | 1.4 | `ink` |
 | 小見出し H3・H4 | 11pt・10pt・太字 | 1.7 | `ink` |
 | 表 / Tables | 9pt | 1.55 | `ink`、見出しセルの背景 #f0f0f0（13.6:1） |
-| 柱・ページ番号・図の説明 / Running heads, page numbers, captions | 8〜8.5pt | — | `ink-tertiary`・`ink-secondary` |
+| 柱・ページ番号・図の説明 / Running heads, page numbers, captions | 8〜8.5pt | — | `ink-secondary` |
 
 - 書体は KM1 の `Noto Sans JP`（なければ Noto Sans CJK JP）。英数字も同じ書体で揃え、等幅は `code` だけ。フォントは必ず埋め込む（PDF/UA-1、Matterhorn 31-009）。
   *Use KM1's `Noto Sans JP` (or Noto Sans CJK JP) for both scripts; monospace only for code. Always embed fonts (PDF/UA-1, Matterhorn 31-009).*
@@ -72,8 +72,8 @@ Word と PowerPoint のファイルそのものの決まりは「Word と PowerP
    *Documents that get revised end with a changelog.*
 6. **分冊 / Volumes:** 1 冊が 150 ページを超えるとき、または性質の違う部分（読む決まりと、見て比べる見本など）が大きいときは分ける。分けた冊はどれも表紙に「全 N 冊・本編／別冊」と組のファイル名を書き、同じ版の日付にして、いつも一緒に作って一緒に配る。章の番号は冊をまたいで通し、本編には別冊に移した章の場所を残して中身の案内を書く。
    *Split when a volume exceeds 150 pages or a large part differs in nature (rules to read vs. previews to compare). Every volume states "Volume N of M" and the set's file names on its cover, shares the edition date, and is built and shared together. Chapter numbers run across volumes; the main volume keeps a pointer chapter.*
-7. **奥付 / Colophon:** 外部に共有する文書の最後に、`notices.md` §2 の文言（無関係の旨・デジタル庁の帰属と改変の断り・アイコンと書体のライセンス）を入れる。作成者の行は実名を入れず、既定の「KM1 作成者」を使う（§7 との調整は持ち主の判断）。ひな形には奥付の領域がある。
-   *Shared documents end with the `notices.md` §2 wording (non-affiliation, Digital Agency credit and adaptation note, icon and font licenses). The author line defaults to "KM1 作成者", no real name; reconciling with §7 is the owner's call. The template has a colophon section.*
+7. **奥付 / Colophon:** 外部に共有する文書の最後に、`notices.md` §2 の文言（KM1 の位置づけ・アイコンと書体のライセンス）を入れる。作成者の行は実名を入れず、既定の「KM1 作成者」を使う（§7 との調整は持ち主の判断）。ひな形には奥付の領域がある。
+   *Shared documents end with the `notices.md` §2 wording (KM1's status and the icon and font licenses). The author line defaults to "KM1 作成者", no real name; reconciling with §7 is the owner's call. The template has a colophon section.*
 
 - 表は見出し行を付け、ページをまたぐときは見出し行を繰り返す。表の中で行や列を結合しない（読み上げで対応が崩れる）。
   *Tables have a header row that repeats across pages; don't merge cells (it breaks header association when read aloud).*
@@ -150,4 +150,4 @@ Word と PowerPoint のファイルそのものの決まりは「Word と PowerP
 - 提出先が PDF/A を求めるときだけ PDF/A にする。KM1 の手順（Chrome）では PDF/A は作れないので、その場合は Word の「PDF/A 準拠」などを使い、提出先の検証に通す。
   *Use PDF/A only when a recipient requires it. KM1's Chrome route can't produce PDF/A; use Word's PDF/A option or similar and pass the recipient's validator.*
 
-出典 / Sources: [PDF Association: ISO 14289-2（PDF/UA-2）](https://pdfa.org/iso-14289-2-pdf-ua-2-the-gold-standard-for-accessibility-in-pdf-2-0-has-arrived/)・[Matterhorn Protocol 1.02](https://pdfa.org/download-area/accessibility/MatterhornProtocol_1-02.pdf)・[axes4: Matterhorn Protocol と PAC](https://support.axes4.com/hc/en-us/articles/7371943734930)・[W3C WCAG 2.2 Techniques H71](https://www.w3.org/WAI/WCAG22/Techniques/html/H71)・[デジタル庁 ウェブアクセシビリティ導入ガイドブック](https://www.digital.go.jp/resources/introduction-to-web-accessibility-guidebook)
+出典 / Sources: 「参考文献」（`references.md`）の 2・6 節。

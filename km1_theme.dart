@@ -19,6 +19,11 @@ import 'package:flutter/cupertino.dart' show CupertinoPageTransitionsBuilder;
 @immutable
 class Km1Colors extends ThemeExtension<Km1Colors> {
   const Km1Colors({
+    required this.brandDarkTint,
+    required this.blueDarkTint,
+    required this.redDarkTint,
+    required this.greenDarkTint,
+    required this.orangeDarkTint,
     required this.surface,
     required this.surfaceSubtle,
     required this.surfaceMuted,
@@ -54,6 +59,11 @@ class Km1Colors extends ThemeExtension<Km1Colors> {
     required this.warningTint,
   });
 
+  final Color brandDarkTint;
+  final Color blueDarkTint;
+  final Color redDarkTint;
+  final Color greenDarkTint;
+  final Color orangeDarkTint;
   final Color surface;
   final Color surfaceSubtle;
   final Color surfaceMuted;
@@ -89,6 +99,11 @@ class Km1Colors extends ThemeExtension<Km1Colors> {
   final Color warningTint;
 
   static const Km1Colors light = Km1Colors(
+    brandDarkTint: Color(0xFF333543),
+    blueDarkTint: Color(0xFF253341),
+    redDarkTint: Color(0xFF3E2E2F),
+    greenDarkTint: Color(0xFF273627),
+    orangeDarkTint: Color(0xFF42342B),
     surface: Color(0xFFFFFFFF),
     surfaceSubtle: Color(0xFFFAFAFA),
     surfaceMuted: Color(0xFFF5F5F5),
@@ -96,7 +111,7 @@ class Km1Colors extends ThemeExtension<Km1Colors> {
     surfaceHover: Color(0xFFF5F5F5),
     surfacePressed: Color(0xFFE0E0E0),
     ink: Color(0xFF242424),
-    inkSecondary: Color(0xFF424242),
+    inkSecondary: Color(0xFF616161),
     inkTertiary: Color(0xFF616161),
     inkDisabled: Color(0xFFBDBDBD),
     stroke: Color(0xFFD1D1D1),
@@ -125,6 +140,11 @@ class Km1Colors extends ThemeExtension<Km1Colors> {
   );
 
   static const Km1Colors dark = Km1Colors(
+    brandDarkTint: Color(0xFF333543),
+    blueDarkTint: Color(0xFF253341),
+    redDarkTint: Color(0xFF3E2E2F),
+    greenDarkTint: Color(0xFF273627),
+    orangeDarkTint: Color(0xFF42342B),
     surface: Color(0xFF292929),
     surfaceSubtle: Color(0xFF1F1F1F),
     surfaceMuted: Color(0xFF141414),
@@ -132,7 +152,7 @@ class Km1Colors extends ThemeExtension<Km1Colors> {
     surfaceHover: Color(0xFF383838),
     surfacePressed: Color(0xFF1F1F1F),
     ink: Color(0xFFFFFFFF),
-    inkSecondary: Color(0xFFD6D6D6),
+    inkSecondary: Color(0xFFADADAD),
     inkTertiary: Color(0xFFADADAD),
     inkDisabled: Color(0xFF5C5C5C),
     stroke: Color(0xFF666666),
@@ -146,22 +166,27 @@ class Km1Colors extends ThemeExtension<Km1Colors> {
     brandPressed: Color(0xFF2C3FB8),
     onBrand: Color(0xFFFFFFFF),
     brandInk: Color(0xFF99A6FF),
-    brandTint: Color(0xFF0D1238),
+    brandTint: Color(0xFF333543),
     brandStroke: Color(0xFF7A8CF5),
     focusRing: Color(0xFFFFFFFF),
     infoInk: Color(0xFF479EF5),
-    infoTint: Color(0xFF082338),
+    infoTint: Color(0xFF253341),
     danger: Color(0xFFC50F1F),
     dangerInk: Color(0xFFE37D80),
-    dangerTint: Color(0xFF3B0509),
+    dangerTint: Color(0xFF3E2E2F),
     successInk: Color(0xFF54B054),
-    successTint: Color(0xFF052505),
+    successTint: Color(0xFF273627),
     warningInk: Color(0xFFFAA06B),
-    warningTint: Color(0xFF411200),
+    warningTint: Color(0xFF42342B),
   );
 
   @override
   Km1Colors copyWith({
+    Color? brandDarkTint,
+    Color? blueDarkTint,
+    Color? redDarkTint,
+    Color? greenDarkTint,
+    Color? orangeDarkTint,
     Color? surface,
     Color? surfaceSubtle,
     Color? surfaceMuted,
@@ -197,6 +222,11 @@ class Km1Colors extends ThemeExtension<Km1Colors> {
     Color? warningTint,
   }) =>
       Km1Colors(
+        brandDarkTint: brandDarkTint ?? this.brandDarkTint,
+        blueDarkTint: blueDarkTint ?? this.blueDarkTint,
+        redDarkTint: redDarkTint ?? this.redDarkTint,
+        greenDarkTint: greenDarkTint ?? this.greenDarkTint,
+        orangeDarkTint: orangeDarkTint ?? this.orangeDarkTint,
         surface: surface ?? this.surface,
         surfaceSubtle: surfaceSubtle ?? this.surfaceSubtle,
         surfaceMuted: surfaceMuted ?? this.surfaceMuted,
@@ -236,6 +266,11 @@ class Km1Colors extends ThemeExtension<Km1Colors> {
   Km1Colors lerp(ThemeExtension<Km1Colors>? other, double t) {
     if (other is! Km1Colors) return this;
     return Km1Colors(
+      brandDarkTint: Color.lerp(brandDarkTint, other.brandDarkTint, t)!,
+      blueDarkTint: Color.lerp(blueDarkTint, other.blueDarkTint, t)!,
+      redDarkTint: Color.lerp(redDarkTint, other.redDarkTint, t)!,
+      greenDarkTint: Color.lerp(greenDarkTint, other.greenDarkTint, t)!,
+      orangeDarkTint: Color.lerp(orangeDarkTint, other.orangeDarkTint, t)!,
       surface: Color.lerp(surface, other.surface, t)!,
       surfaceSubtle: Color.lerp(surfaceSubtle, other.surfaceSubtle, t)!,
       surfaceMuted: Color.lerp(surfaceMuted, other.surfaceMuted, t)!,
@@ -371,7 +406,7 @@ abstract final class Km1Text {
     fontFamily: fontFamily,
     fontFamilyFallback: fontFamilyFallback,
     fontSize: 68.0,
-    height: 92.0/68.0,
+    height: 84.0/68.0,
     fontWeight: FontWeight.w600,
   );
   static const TextStyle largeTitle = TextStyle(
@@ -381,25 +416,11 @@ abstract final class Km1Text {
     height: 52.0/40.0,
     fontWeight: FontWeight.w600,
   );
-  static const TextStyle title1 = TextStyle(
-    fontFamily: fontFamily,
-    fontFamilyFallback: fontFamilyFallback,
-    fontSize: 32.0,
-    height: 40.0/32.0,
-    fontWeight: FontWeight.w600,
-  );
-  static const TextStyle title2 = TextStyle(
+  static const TextStyle title = TextStyle(
     fontFamily: fontFamily,
     fontFamilyFallback: fontFamilyFallback,
     fontSize: 28.0,
     height: 36.0/28.0,
-    fontWeight: FontWeight.w600,
-  );
-  static const TextStyle title3 = TextStyle(
-    fontFamily: fontFamily,
-    fontFamilyFallback: fontFamilyFallback,
-    fontSize: 24.0,
-    height: 32.0/24.0,
     fontWeight: FontWeight.w600,
   );
   static const TextStyle subtitle1 = TextStyle(
@@ -413,14 +434,14 @@ abstract final class Km1Text {
     fontFamily: fontFamily,
     fontFamilyFallback: fontFamilyFallback,
     fontSize: 16.0,
-    height: 22.0/16.0,
+    height: 24.0/16.0,
     fontWeight: FontWeight.w600,
   );
   static const TextStyle body2 = TextStyle(
     fontFamily: fontFamily,
     fontFamilyFallback: fontFamilyFallback,
     fontSize: 16.0,
-    height: 22.0/16.0,
+    height: 26.0/16.0,
     fontWeight: FontWeight.w400,
   );
   static const TextStyle body1 = TextStyle(
@@ -428,6 +449,13 @@ abstract final class Km1Text {
     fontFamilyFallback: fontFamilyFallback,
     fontSize: 14.0,
     height: 20.0/14.0,
+    fontWeight: FontWeight.w400,
+  );
+  static const TextStyle body1Para = TextStyle(
+    fontFamily: fontFamily,
+    fontFamilyFallback: fontFamilyFallback,
+    fontSize: 14.0,
+    height: 24.0/14.0,
     fontWeight: FontWeight.w400,
   );
   static const TextStyle body1Strong = TextStyle(
@@ -441,14 +469,7 @@ abstract final class Km1Text {
     fontFamily: fontFamily,
     fontFamilyFallback: fontFamilyFallback,
     fontSize: 12.0,
-    height: 16.0/12.0,
-    fontWeight: FontWeight.w400,
-  );
-  static const TextStyle caption2 = TextStyle(
-    fontFamily: fontFamily,
-    fontFamilyFallback: fontFamilyFallback,
-    fontSize: 10.0,
-    height: 14.0/10.0,
+    height: 18.0/12.0,
     fontWeight: FontWeight.w400,
   );
 }
@@ -470,7 +491,7 @@ abstract final class Km1Size {
   static const double contentWidth = 720.0;
 }
 
-/// 画面幅の区切り（Fluent 2 の size class）/ Breakpoints (Fluent 2 size classes)
+/// 画面幅の区切り / Breakpoints
 abstract final class Km1Breakpoint {
   static const double md = 480.0;
   static const double lg = 640.0;
@@ -484,7 +505,7 @@ abstract final class Km1Breakpoint {
   static bool useSidebar(BuildContext context) => MediaQuery.sizeOf(context).width >= xl;
 }
 
-/// 動き / Motion（Fluent 2 の duration・curve）
+/// 動き / Motion（duration・curve）
 abstract final class Km1Motion {
   /// hover・pressed の色の変化 / Hover and pressed color changes
   static const Duration faster = Duration(milliseconds: 100);
@@ -553,8 +574,8 @@ const double kKm1TargetCompact = Km1Space.targetCompact;
 abstract final class Km1Theme {
   /// 端末ごとの部品の高さ / Control height per platform
   /// Android 48dp（Android の推奨）、iOS・iPadOS 44pt（Apple HIG）、
-  /// Windows・macOS・Linux 32px（Fluent Compact、マウス中心）。
-  /// Android 48dp, iOS/iPadOS 44pt, desktop 32px (Fluent Compact, pointer-first).
+  /// Windows・macOS・Linux 32px（マウス中心）。
+  /// Android 48dp, iOS/iPadOS 44pt, desktop 32px (pointer-first).
   static double targetFor(TargetPlatform p) {
     switch (p) {
       case TargetPlatform.android:
@@ -628,9 +649,9 @@ abstract final class Km1Theme {
       textTheme: TextTheme(
         displayLarge: Km1Text.display.copyWith(color: c.ink),
         headlineLarge: Km1Text.largeTitle.copyWith(color: c.ink),
-        headlineMedium: Km1Text.title1.copyWith(color: c.ink),
-        headlineSmall: Km1Text.title2.copyWith(color: c.ink),
-        titleLarge: Km1Text.title3.copyWith(color: c.ink),
+        headlineMedium: Km1Text.title.copyWith(color: c.ink),
+        headlineSmall: Km1Text.title.copyWith(color: c.ink),
+        titleLarge: Km1Text.subtitle1.copyWith(color: c.ink),
         titleMedium: Km1Text.subtitle1.copyWith(color: c.ink),
         titleSmall: Km1Text.subtitle2.copyWith(color: c.ink),
         // 入力中の文字は bodyLarge。スマホ 16px、PC 14px。 / Field text: 16px on touch, 14px on PC.
@@ -639,7 +660,7 @@ abstract final class Km1Theme {
         bodySmall: Km1Text.caption1.copyWith(color: c.inkSecondary),
         labelLarge: Km1Text.body1Strong.copyWith(color: c.ink),
         labelMedium: Km1Text.caption1.copyWith(color: c.inkSecondary),
-        labelSmall: Km1Text.caption2.copyWith(color: c.inkSecondary),
+        labelSmall: Km1Text.caption1.copyWith(color: c.inkSecondary),
       ),
       extensions: [c],
       dividerTheme: DividerThemeData(color: c.strokeSubtle, thickness: 1, space: 1),
@@ -695,7 +716,7 @@ abstract final class Km1Theme {
           padding: const WidgetStatePropertyAll(EdgeInsets.symmetric(horizontal: Km1Space.md)),
           shape: WidgetStatePropertyAll(shape),
           textStyle: const WidgetStatePropertyAll(Km1Text.body1Strong),
-          foregroundColor: WidgetStateProperty.resolveWith((s) => s.contains(WidgetState.disabled) ? c.inkDisabled : c.brandInk),
+          foregroundColor: WidgetStateProperty.resolveWith((s) => s.contains(WidgetState.disabled) ? c.inkDisabled : c.ink),
           backgroundColor: WidgetStateProperty.resolveWith((s) {
             if (s.contains(WidgetState.pressed)) return c.surfacePressed;
             if (s.contains(WidgetState.hovered)) return c.surfaceHover;
@@ -703,6 +724,31 @@ abstract final class Km1Theme {
           }),
           side: WidgetStateProperty.resolveWith((s) => s.contains(WidgetState.focused) ? focusSide : BorderSide.none),
         ),
+      ),
+      // ナビの選択中は、淡い紺の面・太字・塗りのアイコン（Web と同じ。線は足さない。D25・D33）
+      // Nav selection: brand tint, bold label, filled icon (same as Web; no bar)
+      navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: c.surface,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+        height: 64,
+        indicatorColor: c.brandTint,
+        indicatorShape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(Km1Radius.md))),
+        labelTextStyle: WidgetStateProperty.resolveWith((s) => s.contains(WidgetState.selected)
+            ? Km1Text.caption1.copyWith(color: c.brandInk, fontWeight: FontWeight.w600)
+            : Km1Text.caption1.copyWith(color: c.inkSecondary)),
+        iconTheme: WidgetStateProperty.resolveWith((s) =>
+            IconThemeData(size: Km1Size.iconLg, color: s.contains(WidgetState.selected) ? c.brandInk : c.inkSecondary)),
+      ),
+      navigationRailTheme: NavigationRailThemeData(
+        backgroundColor: c.surface,
+        elevation: 0,
+        indicatorColor: c.brandTint,
+        indicatorShape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(Km1Radius.md))),
+        selectedIconTheme: IconThemeData(size: Km1Size.iconLg, color: c.brandInk),
+        unselectedIconTheme: IconThemeData(size: Km1Size.iconLg, color: c.inkSecondary),
+        selectedLabelTextStyle: Km1Text.caption1.copyWith(color: c.brandInk, fontWeight: FontWeight.w600),
+        unselectedLabelTextStyle: Km1Text.caption1.copyWith(color: c.inkSecondary),
       ),
       iconButtonTheme: IconButtonThemeData(
         style: ButtonStyle(
@@ -809,13 +855,18 @@ abstract final class Km1Theme {
           borderRadius: BorderRadius.circular(Km1Radius.xl),
           side: BorderSide(color: c.stroke),
         ),
-        titleTextStyle: Km1Text.title3.copyWith(color: c.ink),
-        contentTextStyle: Km1Text.body1.copyWith(color: c.ink),
+        titleTextStyle: Km1Text.subtitle1.copyWith(color: c.ink),
+        contentTextStyle: Km1Text.body1Para.copyWith(color: c.ink),
         actionsPadding: const EdgeInsets.all(Km1Space.xxl),
       ),
       snackBarTheme: SnackBarThemeData(
         backgroundColor: c.surfaceSunken,
-        contentTextStyle: Km1Text.body1.copyWith(color: c.ink),
+        contentTextStyle: Km1Text.body1Para.copyWith(color: c.ink),
+        // 操作（元に戻す）は紺の文字だけにせず、枠のボタンと同じ見た目（Web と同じ。D32）
+        // The action is outlined like a secondary button, not bare navy text (same as Web)
+        actionTextColor: c.ink,
+        actionBackgroundColor: c.surface,
+        actionOverflowThreshold: 0.25,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(Km1Radius.lg),

@@ -113,7 +113,7 @@ o+='}\n\n'
 
 S={x['name']:x['value'] for x in t['size']['tokens']}
 o+='/// アイコン・線・幅 / Icon sizes, stroke widths, widths\nabstract final class Km1Size {\n'+''.join(f'  static const double {camel(n)} = {px(v)};\n' for n,v in S.items() if not n.startswith('breakpoint'))+'}\n\n'
-o+='/// 画面幅の区切り（Fluent 2 の size class）/ Breakpoints (Fluent 2 size classes)\nabstract final class Km1Breakpoint {\n'+''.join(f'  static const double {camel(n.replace("breakpoint-",""))} = {px(v)};\n' for n,v in S.items() if n.startswith('breakpoint'))
+o+='/// 画面幅の区切り / Breakpoints\nabstract final class Km1Breakpoint {\n'+''.join(f'  static const double {camel(n.replace("breakpoint-",""))} = {px(v)};\n' for n,v in S.items() if n.startswith('breakpoint'))
 o+="""
   /// 編集をダイアログで開く幅か / Wide enough to edit in a dialog
   static bool useDialog(BuildContext context) => MediaQuery.sizeOf(context).width >= lg;
@@ -122,7 +122,7 @@ o+="""
   static bool useSidebar(BuildContext context) => MediaQuery.sizeOf(context).width >= xl;
 }
 
-/// 動き / Motion（Fluent 2 の duration・curve）
+/// 動き / Motion（duration・curve）
 abstract final class Km1Motion {
   /// hover・pressed の色の変化 / Hover and pressed color changes
   static const Duration faster = Duration(milliseconds: 100);
@@ -168,8 +168,8 @@ const double kKm1TargetCompact = Km1Space.targetCompact;
 abstract final class Km1Theme {
   /// 端末ごとの部品の高さ / Control height per platform
   /// Android 48dp（Android の推奨）、iOS・iPadOS 44pt（Apple HIG）、
-  /// Windows・macOS・Linux 32px（Fluent Compact、マウス中心）。
-  /// Android 48dp, iOS/iPadOS 44pt, desktop 32px (Fluent Compact, pointer-first).
+  /// Windows・macOS・Linux 32px（マウス中心）。
+  /// Android 48dp, iOS/iPadOS 44pt, desktop 32px (pointer-first).
   static double targetFor(TargetPlatform p) {
     switch (p) {
       case TargetPlatform.android:
@@ -243,9 +243,9 @@ abstract final class Km1Theme {
       textTheme: TextTheme(
         displayLarge: Km1Text.display.copyWith(color: c.ink),
         headlineLarge: Km1Text.largeTitle.copyWith(color: c.ink),
-        headlineMedium: Km1Text.title1.copyWith(color: c.ink),
-        headlineSmall: Km1Text.title2.copyWith(color: c.ink),
-        titleLarge: Km1Text.title3.copyWith(color: c.ink),
+        headlineMedium: Km1Text.title.copyWith(color: c.ink),
+        headlineSmall: Km1Text.title.copyWith(color: c.ink),
+        titleLarge: Km1Text.subtitle1.copyWith(color: c.ink),
         titleMedium: Km1Text.subtitle1.copyWith(color: c.ink),
         titleSmall: Km1Text.subtitle2.copyWith(color: c.ink),
         // 入力中の文字は bodyLarge。スマホ 16px、PC 14px。 / Field text: 16px on touch, 14px on PC.
@@ -254,7 +254,7 @@ abstract final class Km1Theme {
         bodySmall: Km1Text.caption1.copyWith(color: c.inkSecondary),
         labelLarge: Km1Text.body1Strong.copyWith(color: c.ink),
         labelMedium: Km1Text.caption1.copyWith(color: c.inkSecondary),
-        labelSmall: Km1Text.caption2.copyWith(color: c.inkSecondary),
+        labelSmall: Km1Text.caption1.copyWith(color: c.inkSecondary),
       ),
       extensions: [c],
       dividerTheme: DividerThemeData(color: c.strokeSubtle, thickness: 1, space: 1),
@@ -310,7 +310,7 @@ abstract final class Km1Theme {
           padding: const WidgetStatePropertyAll(EdgeInsets.symmetric(horizontal: Km1Space.md)),
           shape: WidgetStatePropertyAll(shape),
           textStyle: const WidgetStatePropertyAll(Km1Text.body1Strong),
-          foregroundColor: WidgetStateProperty.resolveWith((s) => s.contains(WidgetState.disabled) ? c.inkDisabled : c.brandInk),
+          foregroundColor: WidgetStateProperty.resolveWith((s) => s.contains(WidgetState.disabled) ? c.inkDisabled : c.ink),
           backgroundColor: WidgetStateProperty.resolveWith((s) {
             if (s.contains(WidgetState.pressed)) return c.surfacePressed;
             if (s.contains(WidgetState.hovered)) return c.surfaceHover;
@@ -318,6 +318,31 @@ abstract final class Km1Theme {
           }),
           side: WidgetStateProperty.resolveWith((s) => s.contains(WidgetState.focused) ? focusSide : BorderSide.none),
         ),
+      ),
+      // ナビの選択中は、淡い紺の面・太字・塗りのアイコン（Web と同じ。線は足さない。D25・D33）
+      // Nav selection: brand tint, bold label, filled icon (same as Web; no bar)
+      navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: c.surface,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+        height: 64,
+        indicatorColor: c.brandTint,
+        indicatorShape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(Km1Radius.md))),
+        labelTextStyle: WidgetStateProperty.resolveWith((s) => s.contains(WidgetState.selected)
+            ? Km1Text.caption1.copyWith(color: c.brandInk, fontWeight: FontWeight.w600)
+            : Km1Text.caption1.copyWith(color: c.inkSecondary)),
+        iconTheme: WidgetStateProperty.resolveWith((s) =>
+            IconThemeData(size: Km1Size.iconLg, color: s.contains(WidgetState.selected) ? c.brandInk : c.inkSecondary)),
+      ),
+      navigationRailTheme: NavigationRailThemeData(
+        backgroundColor: c.surface,
+        elevation: 0,
+        indicatorColor: c.brandTint,
+        indicatorShape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(Km1Radius.md))),
+        selectedIconTheme: IconThemeData(size: Km1Size.iconLg, color: c.brandInk),
+        unselectedIconTheme: IconThemeData(size: Km1Size.iconLg, color: c.inkSecondary),
+        selectedLabelTextStyle: Km1Text.caption1.copyWith(color: c.brandInk, fontWeight: FontWeight.w600),
+        unselectedLabelTextStyle: Km1Text.caption1.copyWith(color: c.inkSecondary),
       ),
       iconButtonTheme: IconButtonThemeData(
         style: ButtonStyle(
@@ -424,13 +449,18 @@ abstract final class Km1Theme {
           borderRadius: BorderRadius.circular(Km1Radius.xl),
           side: BorderSide(color: c.stroke),
         ),
-        titleTextStyle: Km1Text.title3.copyWith(color: c.ink),
-        contentTextStyle: Km1Text.body1.copyWith(color: c.ink),
+        titleTextStyle: Km1Text.subtitle1.copyWith(color: c.ink),
+        contentTextStyle: Km1Text.body1Para.copyWith(color: c.ink),
         actionsPadding: const EdgeInsets.all(Km1Space.xxl),
       ),
       snackBarTheme: SnackBarThemeData(
         backgroundColor: c.surfaceSunken,
-        contentTextStyle: Km1Text.body1.copyWith(color: c.ink),
+        contentTextStyle: Km1Text.body1Para.copyWith(color: c.ink),
+        // 操作（元に戻す）は紺の文字だけにせず、枠のボタンと同じ見た目（Web と同じ。D32）
+        // The action is outlined like a secondary button, not bare navy text (same as Web)
+        actionTextColor: c.ink,
+        actionBackgroundColor: c.surface,
+        actionOverflowThreshold: 0.25,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(Km1Radius.lg),

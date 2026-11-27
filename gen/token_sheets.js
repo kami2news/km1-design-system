@@ -16,7 +16,7 @@ const page = (title, body) => `<!doctype html><html lang="ja" data-theme="light"
 body{margin:0;padding:24px;background:#fff;color:#242424;font:400 13px/18px var(--font-sans);width:1100px}
 h1{font:700 18px/24px var(--font-sans);color:#10218B;margin:0 0 16px}
 table{border-collapse:collapse;width:100%} th,td{border-bottom:1px solid #e0e0e0;padding:6px 8px;white-space:nowrap;text-align:left;vertical-align:middle}
-th{font-weight:600;color:#424242;background:#fafafa} code{font:12px/16px var(--font-mono)} .u{color:#616161;font-size:12px;white-space:normal}
+th{font-weight:600;color:#616161;background:#fafafa} code{font:12px/16px var(--font-mono)} .u{color:#616161;font-size:12px;white-space:normal}
 .sw{display:flex;align-items:center;gap:8px}.chip{width:56px;height:28px;border:1px solid rgba(0,0,0,.15);border-radius:4px}
 .dk{background:#1f1f1f;color:#f5f5f5}.dk .chip{border-color:rgba(255,255,255,.25)}
 .grid{display:grid;grid-template-columns:repeat(8,1fr);gap:8px}.cell{font-size:11px;line-height:14px}.cell .chip{width:100%;height:36px}

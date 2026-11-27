@@ -1,17 +1,34 @@
-<!-- @dsCard group="画面の例 / Screen patterns" height=460 -->
+<!-- @dsCard group="画面の例 / Screen patterns" height=520 -->
 <div id="r" style="padding:16px;max-width:640px"></div>
+<style>
+/* 主役は「何が送れていないか」。未送信の予定を件数つきで一番上に、送れた内容はその下に */
+.of{display:flex;flex-direction:column;gap:var(--space-xxl);font-family:var(--font-sans);color:var(--ink)}
+.of h2,.of h3,.of p{margin:0}
+.of__h{font:600 16px/24px var(--font-sans);margin-bottom:var(--space-xs)!important}
+.of__sub{font:400 14px/20px var(--font-sans);color:var(--ink-secondary);margin-bottom:var(--space-sm)!important}
+.of__top{display:flex;flex-direction:column;gap:var(--space-lg)}
+</style>
 <script>
 var h=React.createElement,F=window.Fluent2;
 function Screen(){
-  var on=React.useState(navigator.onLine!==false),queue=React.useState([]),items=React.useState(['環境化学 第8回','アルバイト']),toast=React.useState(null),text=React.useState(''),stamp='11/13 10:20';
+  // 見本はこの画面の主役であるオフラインの状態から始める（未送信 1 件）。つながると、本物の online の知らせで送る
+  // The example starts in the offline state it exists to show (one unsent event); a real online event sends it
+  var on=React.useState(false),queue=React.useState(['気象学 小テストの復習']),items=React.useState(['環境化学 第 8 回','アルバイト']),toast=React.useState(null),text=React.useState(''),stamp='11/13 10:20';
   React.useEffect(function(){function up(){on[1](true);} function down(){on[1](false);}
     window.addEventListener('online',up);window.addEventListener('offline',down);return function(){window.removeEventListener('online',up);window.removeEventListener('offline',down);};},[]);
   React.useEffect(function(){if(on[0]&&queue[0].length){var n=queue[0].length;var t=setTimeout(function(){items[1](function(o){return o.concat(queue[0]);});queue[1]([]);toast[1](n+' 件を送信しました');},300);return function(){clearTimeout(t);};}},[on[0],queue[0].length]);
   function add(e){e.preventDefault();if(!text[0].trim())return;if(on[0]){items[1](items[0].concat([text[0]]));toast[1]('「'+text[0]+'」を追加しました');}else{queue[1](queue[0].concat([text[0]]));}text[1]('');}
-  return h('div',{style:{display:'flex',flexDirection:'column',gap:'var(--space-lg)'}},
-    on[0]?null:h(F.Alert,{status:'warning',title:'インターネットに接続されていません'},'保存した予定は見られます。追加した予定は端末に残し、つながったら自動で送ります。'+(queue[0].length?'（未送信 '+queue[0].length+' 件）':'')),
-    h('p',{className:'f2-hint',style:{margin:0}},on[0]?'最新の内容':'表示しているのは '+stamp+' 時点の内容です。'),
-    h(F.List,{label:'予定'},items[0].concat(queue[0]).map(function(t,i){var pending=i>=items[0].length;return h(F.ListItem,{key:i,title:t,meta:pending?'未送信':null});})),
+  return h('div',{className:'of'},
+    h('div',{className:'of__top'},
+      on[0]?null:h(F.Alert,{status:'warning',title:'インターネットに接続されていません'},'追加した予定はこの端末に残し、つながったら自動で送ります。'),
+      queue[0].length?h('section',{'aria-labelledby':'of-q'},
+        h('h2',{id:'of-q',className:'of__h'},'未送信 '+queue[0].length+' 件'),
+        h('p',{className:'of__sub'},'まだほかの端末には出ません。'),
+        h(F.List,{label:'未送信の予定'},queue[0].map(function(t,i){return h(F.ListItem,{key:i,title:t,meta:'未送信'});}))):null),
+    h('section',{'aria-labelledby':'of-l'},
+      h('h2',{id:'of-l',className:'of__h'},'予定'),
+      on[0]?null:h('p',{className:'of__sub'},stamp+' 時点の内容です。'),
+      h(F.List,{label:'予定'},items[0].map(function(t,i){return h(F.ListItem,{key:i,title:t});}))),
     h('form',{onSubmit:add,style:{display:'flex',gap:'var(--space-sm)',alignItems:'flex-end'}},h('div',{style:{flex:1}},h(F.Input,{label:'予定を追加',value:text[0],onChange:function(e){text[1](e.target.value);}})),h(F.Button,{type:'submit'},'追加')),
     h(F.Toast,{open:!!toast[0],status:'success',onClose:function(){toast[1](null);}},toast[0]||''));}
 ReactDOM.createRoot(document.getElementById('r')).render(h(Screen));

@@ -35,6 +35,11 @@ import androidx.compose.ui.unit.sp
 /** 意味づけの色 / Semantic colors */
 @Immutable
 data class Km1Colors(
+    val brandDarkTint: Color,
+    val blueDarkTint: Color,
+    val redDarkTint: Color,
+    val greenDarkTint: Color,
+    val orangeDarkTint: Color,
     val surface: Color,
     val surfaceSubtle: Color,
     val surfaceMuted: Color,
@@ -71,6 +76,11 @@ data class Km1Colors(
 )
 
 val Km1LightColors = Km1Colors(
+    brandDarkTint = Color(0xFF333543),
+    blueDarkTint = Color(0xFF253341),
+    redDarkTint = Color(0xFF3E2E2F),
+    greenDarkTint = Color(0xFF273627),
+    orangeDarkTint = Color(0xFF42342B),
     surface = Color(0xFFFFFFFF),
     surfaceSubtle = Color(0xFFFAFAFA),
     surfaceMuted = Color(0xFFF5F5F5),
@@ -78,7 +88,7 @@ val Km1LightColors = Km1Colors(
     surfaceHover = Color(0xFFF5F5F5),
     surfacePressed = Color(0xFFE0E0E0),
     ink = Color(0xFF242424),
-    inkSecondary = Color(0xFF424242),
+    inkSecondary = Color(0xFF616161),
     inkTertiary = Color(0xFF616161),
     inkDisabled = Color(0xFFBDBDBD),
     stroke = Color(0xFFD1D1D1),
@@ -107,6 +117,11 @@ val Km1LightColors = Km1Colors(
 )
 
 val Km1DarkColors = Km1Colors(
+    brandDarkTint = Color(0xFF333543),
+    blueDarkTint = Color(0xFF253341),
+    redDarkTint = Color(0xFF3E2E2F),
+    greenDarkTint = Color(0xFF273627),
+    orangeDarkTint = Color(0xFF42342B),
     surface = Color(0xFF292929),
     surfaceSubtle = Color(0xFF1F1F1F),
     surfaceMuted = Color(0xFF141414),
@@ -114,7 +129,7 @@ val Km1DarkColors = Km1Colors(
     surfaceHover = Color(0xFF383838),
     surfacePressed = Color(0xFF1F1F1F),
     ink = Color(0xFFFFFFFF),
-    inkSecondary = Color(0xFFD6D6D6),
+    inkSecondary = Color(0xFFADADAD),
     inkTertiary = Color(0xFFADADAD),
     inkDisabled = Color(0xFF5C5C5C),
     stroke = Color(0xFF666666),
@@ -128,18 +143,18 @@ val Km1DarkColors = Km1Colors(
     brandPressed = Color(0xFF2C3FB8),
     onBrand = Color(0xFFFFFFFF),
     brandInk = Color(0xFF99A6FF),
-    brandTint = Color(0xFF0D1238),
+    brandTint = Color(0xFF333543),
     brandStroke = Color(0xFF7A8CF5),
     focusRing = Color(0xFFFFFFFF),
     infoInk = Color(0xFF479EF5),
-    infoTint = Color(0xFF082338),
+    infoTint = Color(0xFF253341),
     danger = Color(0xFFC50F1F),
     dangerInk = Color(0xFFE37D80),
-    dangerTint = Color(0xFF3B0509),
+    dangerTint = Color(0xFF3E2E2F),
     successInk = Color(0xFF54B054),
-    successTint = Color(0xFF052505),
+    successTint = Color(0xFF273627),
     warningInk = Color(0xFFFAA06B),
-    warningTint = Color(0xFF411200),
+    warningTint = Color(0xFF42342B),
 )
 
 /** 分類色（帯と淡い塗りだけ。文字には使わない）/ Category colors: bars and tints only */
@@ -210,18 +225,16 @@ object Km1Radius {
 
 /** 文字スタイル（端末の書体。日本語は Noto Sans CJK）/ Text styles on the system font */
 object Km1Text {
-    val display = TextStyle(fontSize = 68.sp, lineHeight = 92.sp, fontWeight = FontWeight.W600)
+    val display = TextStyle(fontSize = 68.sp, lineHeight = 84.sp, fontWeight = FontWeight.W600)
     val largeTitle = TextStyle(fontSize = 40.sp, lineHeight = 52.sp, fontWeight = FontWeight.W600)
-    val title1 = TextStyle(fontSize = 32.sp, lineHeight = 40.sp, fontWeight = FontWeight.W600)
-    val title2 = TextStyle(fontSize = 28.sp, lineHeight = 36.sp, fontWeight = FontWeight.W600)
-    val title3 = TextStyle(fontSize = 24.sp, lineHeight = 32.sp, fontWeight = FontWeight.W600)
+    val title = TextStyle(fontSize = 28.sp, lineHeight = 36.sp, fontWeight = FontWeight.W600)
     val subtitle1 = TextStyle(fontSize = 20.sp, lineHeight = 28.sp, fontWeight = FontWeight.W600)
-    val subtitle2 = TextStyle(fontSize = 16.sp, lineHeight = 22.sp, fontWeight = FontWeight.W600)
-    val body2 = TextStyle(fontSize = 16.sp, lineHeight = 22.sp, fontWeight = FontWeight.W400)
+    val subtitle2 = TextStyle(fontSize = 16.sp, lineHeight = 24.sp, fontWeight = FontWeight.W600)
+    val body2 = TextStyle(fontSize = 16.sp, lineHeight = 26.sp, fontWeight = FontWeight.W400)
     val body1 = TextStyle(fontSize = 14.sp, lineHeight = 20.sp, fontWeight = FontWeight.W400)
+    val body1Para = TextStyle(fontSize = 14.sp, lineHeight = 24.sp, fontWeight = FontWeight.W400)
     val body1Strong = TextStyle(fontSize = 14.sp, lineHeight = 20.sp, fontWeight = FontWeight.W600)
-    val caption1 = TextStyle(fontSize = 12.sp, lineHeight = 16.sp, fontWeight = FontWeight.W400)
-    val caption2 = TextStyle(fontSize = 10.sp, lineHeight = 14.sp, fontWeight = FontWeight.W400)
+    val caption1 = TextStyle(fontSize = 12.sp, lineHeight = 18.sp, fontWeight = FontWeight.W400)
 }
 
 private val LocalKm1Colors = staticCompositionLocalOf { Km1LightColors }
@@ -243,7 +256,7 @@ private val Km1LightScheme = lightColorScheme(
     surface = Color(0xFFFFFFFF),
     onSurface = Color(0xFF242424),
     surfaceVariant = Color(0xFFF5F5F5),
-    onSurfaceVariant = Color(0xFF424242),
+    onSurfaceVariant = Color(0xFF616161),
     outline = Color(0xFF616161),
     outlineVariant = Color(0xFFD1D1D1),
 )
@@ -260,7 +273,7 @@ private val Km1DarkScheme = darkColorScheme(
     surface = Color(0xFF292929),
     onSurface = Color(0xFFFFFFFF),
     surfaceVariant = Color(0xFF141414),
-    onSurfaceVariant = Color(0xFFD6D6D6),
+    onSurfaceVariant = Color(0xFFADADAD),
     outline = Color(0xFFD6D6D6),
     outlineVariant = Color(0xFF666666),
 )
@@ -268,9 +281,9 @@ private val Km1DarkScheme = darkColorScheme(
 private val Km1Typography = Typography(
     displayLarge = Km1Text.display,
     headlineLarge = Km1Text.largeTitle,
-    headlineMedium = Km1Text.title1,
-    headlineSmall = Km1Text.title2,
-    titleLarge = Km1Text.title3,
+    headlineMedium = Km1Text.title,
+    headlineSmall = Km1Text.title,
+    titleLarge = Km1Text.subtitle1,
     titleMedium = Km1Text.subtitle1,
     titleSmall = Km1Text.subtitle2,
     bodyLarge = Km1Text.body2,
@@ -278,7 +291,7 @@ private val Km1Typography = Typography(
     bodySmall = Km1Text.caption1,
     labelLarge = Km1Text.body1Strong,
     labelMedium = Km1Text.caption1,
-    labelSmall = Km1Text.caption2,
+    labelSmall = Km1Text.caption1,
 )
 
 private val Km1Shapes = Shapes(

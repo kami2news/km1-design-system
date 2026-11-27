@@ -41,3 +41,6 @@
 - グループごとにカードや枠で囲む。 *Box each group in a card or border.*
 - 見出しだけ大きくして `<h2>` を使わない（見出しで飛べなくなる）。 *Fake a heading with large text instead of a real heading element.*
 - 1 項目しかないのにグループにする。 *Make a group for a single field.*
+
+**理由 / Why:** 長いフォームを区切る。枠ではなく見出しと余白で区切る（欄の間 < グループの間）。
+*Break up long forms: headings and space, not boxes (gap inside < gap between).*

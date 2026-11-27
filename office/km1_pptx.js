@@ -35,12 +35,12 @@ const THEME = { name: 'KM1', headFontFace: FONT, bodyFontFace: FONT, colors: {
   dk1: '242424', lt1: 'FFFFFF', dk2: '10218B', lt2: 'F5F5F5',
   accent1: '10218B', accent2: '0F6CBD', accent3: '038387', accent4: 'BC4B09', accent5: '5C2E91', accent6: '107C10',
   hlink: '10218B', folHlink: '5C2E91' } };
-const C = { ink: '242424', ink2: '424242', ink3: '616161', brand: '10218B', line: 'E0E0E0', tint: 'ECEFFC', muted: 'F5F5F5' };
+const C = { ink: '242424', ink2: '616161', ink3: '616161', brand: '10218B', line: 'E0E0E0', tint: 'ECEFFC', muted: 'F5F5F5' };
 const LANG = 'ja-JP';
 // KM1 の表記（notices 2.1・2.6）。ひな形は本文に入れず、ノートかファイルの説明に入れる（使う人の文書に写らないように）
 // KM1 notices 2.1 and 2.6; templates carry them in notes or file properties, never in the body
-const KM1_NOTICE_JA = 'KM1 は個人が作ったデザイン標準です。Microsoft、セイコーエプソン、東京科学大学（Science Tokyo）、デジタル庁、そのほかの組織が作成・承認・推奨したものではなく、これらの組織とは関係がありません。名称・商標は各権利者のものです。KM1 は MIT License で公開しています。ライセンスの全文と著作権表示は https://github.com/kami2news/km1-design-system の LICENSE を参照してください。';
-const KM1_NOTICE_EN = "KM1 is a personal design standard. It was not created, approved or endorsed by Microsoft, Seiko Epson, Institute of Science Tokyo, Japan's Digital Agency or any other organization, and is not affiliated with them. All names and trademarks belong to their owners. KM1 is released under the MIT License. See the LICENSE in https://github.com/kami2news/km1-design-system for the full text and copyright notice.";
+const KM1_NOTICE_JA = 'KM1 は個人が作ったデザイン標準です。どの企業・団体が作成・承認・推奨したものでもありません。製品名と商標は、それぞれの持ち主のものです。';
+const KM1_NOTICE_EN = "KM1 is a personal design standard, not created, approved or endorsed by any company or organization. Product names and trademarks belong to their owners.";
 
 
 // 表示バッジとしるしのボタン（icons.md §10）。GitHub の正本へのリンク付きの画像。大きさは決まった値なので 12 列のグリッドの例外（名前は km1-badge で始める）

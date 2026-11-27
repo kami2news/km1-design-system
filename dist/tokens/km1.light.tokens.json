@@ -130,6 +130,10 @@
       "$value": "#0d1238",
       "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
     },
+    "brand-dark-tint": {
+      "$value": "#333543",
+      "$description": "原色（プリミティブ）。ダークの淡い面用。暗い面（#1F1F1F）に、その色のダークの文字色を 16% だけ混ぜた色。UI には直接使わず、意味づけトークンから参照する。 / Primitive for dark tints: 16% of the hue's dark ink over #1F1F1F. Reference through semantic tokens."
+    },
     "blue-50": {
       "$value": "#ebf3fc",
       "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
@@ -145,6 +149,10 @@
     "blue-950": {
       "$value": "#082338",
       "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "blue-dark-tint": {
+      "$value": "#253341",
+      "$description": "原色（プリミティブ）。ダークの淡い面用。暗い面（#1F1F1F）に、その色のダークの文字色を 16% だけ混ぜた色。UI には直接使わず、意味づけトークンから参照する。 / Primitive for dark tints: 16% of the hue's dark ink over #1F1F1F. Reference through semantic tokens."
     },
     "red-50": {
       "$value": "#fdf3f4",
@@ -166,6 +174,10 @@
       "$value": "#3b0509",
       "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
     },
+    "red-dark-tint": {
+      "$value": "#3e2e2f",
+      "$description": "原色（プリミティブ）。ダークの淡い面用。暗い面（#1F1F1F）に、その色のダークの文字色を 16% だけ混ぜた色。UI には直接使わず、意味づけトークンから参照する。 / Primitive for dark tints: 16% of the hue's dark ink over #1F1F1F. Reference through semantic tokens."
+    },
     "green-50": {
       "$value": "#f1faf1",
       "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
@@ -182,6 +194,10 @@
       "$value": "#052505",
       "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
     },
+    "green-dark-tint": {
+      "$value": "#273627",
+      "$description": "原色（プリミティブ）。ダークの淡い面用。暗い面（#1F1F1F）に、その色のダークの文字色を 16% だけ混ぜた色。UI には直接使わず、意味づけトークンから参照する。 / Primitive for dark tints: 16% of the hue's dark ink over #1F1F1F. Reference through semantic tokens."
+    },
     "orange-50": {
       "$value": "#fff9f5",
       "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
@@ -197,6 +213,10 @@
     "orange-950": {
       "$value": "#411200",
       "$description": "原色（プリミティブ）。UI には直接使わず、意味づけトークンから参照する。 / Primitive color. Do not use in UI directly; reference it through semantic tokens."
+    },
+    "orange-dark-tint": {
+      "$value": "#42342b",
+      "$description": "原色（プリミティブ）。ダークの淡い面用。暗い面（#1F1F1F）に、その色のダークの文字色を 16% だけ混ぜた色。UI には直接使わず、意味づけトークンから参照する。 / Primitive for dark tints: 16% of the hue's dark ink over #1F1F1F. Reference through semantic tokens."
     },
     "surface": {
       "$value": "{color.gray-100}",
@@ -227,12 +247,12 @@
       "$description": "本文・見出しの標準文字色。surface と surface-subtle の上。 / Default text for body and headings on surface and surface-subtle."
     },
     "ink-secondary": {
-      "$value": "{color.gray-26}",
-      "$description": "補助文字、ラベル。surface 上。 / Secondary text and labels on surface."
+      "$value": "{color.gray-38}",
+      "$description": "補助文字・ラベル・キャプション・プレースホルダ。surface 上で 4.5:1 以上。文字の濃さは ink とこれの 2 段だけにする（段が近いと主と従の区別がつかないため。ink との比はライト 2.6 倍）。 / Secondary text, labels, captions, placeholders; 4.5:1 or more on surface. Text uses only two weights of ink (this and ink) so primary and secondary stay distinct."
     },
     "ink-tertiary": {
       "$value": "{color.gray-38}",
-      "$description": "キャプション、プレースホルダ。surface 上（4.5:1 以上）。 / Captions and placeholders on surface (4.5:1 or more)."
+      "$description": "ink-secondary と同じ値（互換のため残す）。新しく使わない。 / Same value as ink-secondary, kept for compatibility; do not use in new work."
     },
     "ink-disabled": {
       "$value": "{color.gray-74}",
@@ -240,7 +260,7 @@
     },
     "stroke": {
       "$value": "{color.gray-82}",
-      "$description": "カード・区切り・ボタンの標準枠線。Fluent 原典値のため surface 上で 3:1 に満たない（装飾的境界専用）。操作の識別には stroke-strong を使う。 / Default border for cards, dividers, buttons. Fluent source value, below 3:1 on surface: decorative only; use stroke-strong to identify controls."
+      "$description": "カード・区切り・ボタンの標準枠線。surface 上で 3:1 に満たない（装飾的境界専用）。操作の識別には stroke-strong を使う。 / Default border for cards, dividers, buttons. below 3:1 on surface: decorative only; use stroke-strong to identify controls."
     },
     "stroke-subtle": {
       "$value": "{color.gray-88}",
@@ -264,7 +284,7 @@
     },
     "brand": {
       "$value": "{color.brand-700}",
-      "$description": "メインカラー（#10218B。EPSON の青を参考にした紺）。プライマリボタンなど強調面の塗り。on-brand の文字を載せる。 / Main color (#10218B, a navy inspired by Epson's blue). Fill for primary buttons and emphasis; pair with on-brand text."
+      "$description": "メインカラー（紺の #10218B）。プライマリボタンなど強調面の塗り。on-brand の文字を載せる。 / Main color (navy #10218B). Fill for primary buttons and emphasis; pair with on-brand text."
     },
     "brand-hover": {
       "$value": "{color.brand-800}",
@@ -296,7 +316,7 @@
     },
     "info-ink": {
       "$value": "{color.blue-700}",
-      "$description": "情報メッセージ・補助リンクの文言とアイコン（Fluent 2 の青）。surface 上で 4.5:1 以上。文言併記。 / Info message text and icons, secondary links (Fluent 2 blue); 4.5:1 or more on surface; add a label."
+      "$description": "情報メッセージ・補助リンクの文言とアイコン（青）。surface 上で 4.5:1 以上。文言併記。 / Info message text and icons, secondary links (blue); 4.5:1 or more on surface; add a label."
     },
     "info-tint": {
       "$value": "{color.blue-50}",
@@ -487,7 +507,7 @@
         "value": 32,
         "unit": "px"
       },
-      "$description": "マウス操作（PC）の部品の標準の高さ。Fluent 2 の medium。WCAG 2.2 の AA（2.5.8、24px）を満たす。 / Default control height with a mouse (PC); Fluent 2 medium; meets WCAG 2.2 AA 2.5.8 (24px)."
+      "$description": "マウス操作（PC）の部品の標準の高さ。マウスで押し外さない大きさで、WCAG 2.2 の AA（2.5.8、24px）を満たす。 / Default control height with a mouse (PC), large enough not to miss; meets WCAG 2.2 AA 2.5.8 (24px)."
     },
     "space-target": {
       "$value": {
@@ -605,14 +625,14 @@
         "value": 24,
         "unit": "px"
       },
-      "$description": "PC の small ボタンの高さ（Fluent 2 の small、WCAG 2.2 AA の下限）。スマホでは使わず 44px にする。 / Small button height on PC (Fluent 2 small, the WCAG 2.2 AA floor); 44px on touch instead."
+      "$description": "PC の small ボタンの高さ（WCAG 2.2 AA の下限）。スマホでは使わず 44px にする。 / Small button height on PC (the WCAG 2.2 AA floor); 44px on touch instead."
     },
     "control-lg": {
       "$value": {
         "value": 40,
         "unit": "px"
       },
-      "$description": "PC の large ボタンの高さ（Fluent 2 の large）。 / Large button height on PC (Fluent 2 large)."
+      "$description": "PC の large ボタンの高さ。 / Large button height on PC."
     },
     "control-lg-touch": {
       "$value": {
@@ -647,28 +667,28 @@
         "value": 480,
         "unit": "px"
       },
-      "$description": "Fluent 2 medium の始まり。 / Start of Fluent 2 medium."
+      "$description": "medium の始まり（小さいタブレット）。 / Start of medium (small tablets)."
     },
     "breakpoint-lg": {
       "$value": {
         "value": 640,
         "unit": "px"
       },
-      "$description": "Fluent 2 large の始まり。これ以上で編集をダイアログにする。 / Start of large; from here editing opens in a dialog."
+      "$description": "large の始まり。これ以上で編集をダイアログにする。 / Start of large; from here editing opens in a dialog."
     },
     "breakpoint-xl": {
       "$value": {
         "value": 1024,
         "unit": "px"
       },
-      "$description": "Fluent 2 x-large の始まり。これ以上でサイドバーを常時表示する。 / Start of x-large; from here the sidebar stays visible."
+      "$description": "x-large の始まり。これ以上でサイドバーを常時表示する。 / Start of x-large; from here the sidebar stays visible."
     },
     "breakpoint-xxl": {
       "$value": {
         "value": 1366,
         "unit": "px"
       },
-      "$description": "Fluent 2 xx-large の始まり。3 ペインにしてよい幅。 / Start of xx-large; wide enough for three panes."
+      "$description": "xx-large の始まり。3 ペインにしてよい幅。 / Start of xx-large; wide enough for three panes."
     }
   },
   "spacingRole": {
@@ -776,7 +796,7 @@
           }
         }
       ],
-      "$description": "静止カード。 / Resting card."
+      "$description": "小さく浮くもの（スライダーのつまみ、写真の上のチェック）。カードには使わない。 / Small raised marks (slider thumb, check on a photo); not for cards."
     },
     "shadow-4": {
       "$value": [
@@ -1026,13 +1046,13 @@
           "unit": "px"
         },
         "fontWeight": 600,
-        "lineHeight": 1.3529,
+        "lineHeight": 1.2353,
         "letterSpacing": {
           "value": 0,
           "unit": "px"
         }
       },
-      "$description": "ヒーロー数値・LP の大見出し。 / Hero numbers, landing-page headline."
+      "$description": "ヒーロー数値・LP の大見出し。1 画面に 1 つまで。 / Hero numbers, landing-page headline; at most one per screen."
     },
     "large-title": {
       "$value": {
@@ -1050,23 +1070,7 @@
       },
       "$description": "ページ冒頭の最大見出し。 / Largest page heading."
     },
-    "title-1": {
-      "$value": {
-        "fontFamily": "{fontFamily.sans}",
-        "fontSize": {
-          "value": 32,
-          "unit": "px"
-        },
-        "fontWeight": 600,
-        "lineHeight": 1.25,
-        "letterSpacing": {
-          "value": 0,
-          "unit": "px"
-        }
-      },
-      "$description": "ページタイトル。 / Page title."
-    },
-    "title-2": {
+    "title": {
       "$value": {
         "fontFamily": "{fontFamily.sans}",
         "fontSize": {
@@ -1080,23 +1084,7 @@
           "unit": "px"
         }
       },
-      "$description": "セクション大見出し。 / Large section heading."
-    },
-    "title-3": {
-      "$value": {
-        "fontFamily": "{fontFamily.sans}",
-        "fontSize": {
-          "value": 24,
-          "unit": "px"
-        },
-        "fontWeight": 600,
-        "lineHeight": 1.3333,
-        "letterSpacing": {
-          "value": 0,
-          "unit": "px"
-        }
-      },
-      "$description": "セクション見出し。 / Section heading."
+      "$description": "ページタイトル・セクションの大見出し。見出しの段はこれと subtitle-1・subtitle-2 の 3 段だけにする（段の差を 1.25 倍以上に保ち、大きさだけで上下が分かるようにするため）。 / Page title and major section heading. Headings use only three steps (title, subtitle-1, subtitle-2) so each step is at least 1.25x the next and the order reads from size alone."
     },
     "subtitle-1": {
       "$value": {
@@ -1112,7 +1100,7 @@
           "unit": "px"
         }
       },
-      "$description": "カード・ダイアログのタイトル。 / Card and dialog title."
+      "$description": "カード・ダイアログのタイトル、画面内の見出し。 / Card and dialog titles, in-screen headings."
     },
     "subtitle-2": {
       "$value": {
@@ -1122,7 +1110,7 @@
           "unit": "px"
         },
         "fontWeight": 600,
-        "lineHeight": 1.375,
+        "lineHeight": 1.5,
         "letterSpacing": {
           "value": 0,
           "unit": "px"
@@ -1138,13 +1126,13 @@
           "unit": "px"
         },
         "fontWeight": 400,
-        "lineHeight": 1.375,
+        "lineHeight": 1.625,
         "letterSpacing": {
           "value": 0,
           "unit": "px"
         }
       },
-      "$description": "長文・読み物の本文。 / Long-form body text."
+      "$description": "長文・読み物の本文（行の高さ 1.63 倍）。 / Long-form body text (line height 1.63x)."
     },
     "body-1": {
       "$value": {
@@ -1160,7 +1148,23 @@
           "unit": "px"
         }
       },
-      "$description": "UI の標準本文（既定）。 / Default UI body text."
+      "$description": "1 行で終わる UI の文字（項目名・リストの行・入力値）。2 行以上になりうる文章には body-1-para を使う。 / One-line UI text (labels, list rows, field values). Use body-1-para for text that can wrap."
+    },
+    "body-1-para": {
+      "$value": {
+        "fontFamily": "{fontFamily.sans}",
+        "fontSize": {
+          "value": 14,
+          "unit": "px"
+        },
+        "fontWeight": 400,
+        "lineHeight": 1.7143,
+        "letterSpacing": {
+          "value": 0,
+          "unit": "px"
+        }
+      },
+      "$description": "2 行以上になりうる説明文（お知らせ・ダイアログの本文・空の状態・カードの説明）。行の高さ 1.71 倍。行が詰まると次の行を追いにくくなるため、1.5 倍以上にする（WCAG 1.4.12）。 / Text that can wrap (alerts, dialog body, empty states, card descriptions); line height 1.71x. Tight lines make it hard to find the next line, so keep 1.5x or more (WCAG 1.4.12)."
     },
     "body-1-strong": {
       "$value": {
@@ -1186,29 +1190,13 @@
           "unit": "px"
         },
         "fontWeight": 400,
-        "lineHeight": 1.3333,
+        "lineHeight": 1.5,
         "letterSpacing": {
           "value": 0,
           "unit": "px"
         }
       },
-      "$description": "補足・メタ情報。 / Notes and metadata."
-    },
-    "caption-2": {
-      "$value": {
-        "fontFamily": "{fontFamily.sans}",
-        "fontSize": {
-          "value": 10,
-          "unit": "px"
-        },
-        "fontWeight": 400,
-        "lineHeight": 1.4,
-        "letterSpacing": {
-          "value": 0,
-          "unit": "px"
-        }
-      },
-      "$description": "最小の注記（10px）。単位や出典など、読めなくても判断に困らない補足だけに使う。予定・時刻・金額・エラーなど判断に使う情報は caption-1（12px）以上にする。 / Smallest note (10px), only for supplements whose loss does not affect decisions (units, credits). Information used to decide (times, amounts, errors) uses caption-1 (12px) or larger."
+      "$description": "補足・メタ情報・入力欄の説明。いちばん小さい文字。これより小さい文字は作らない（漢字は 12 px 未満で字形がつぶれるため）。 / Notes, metadata and field help; the smallest text. Nothing smaller (kanji lose their shape below 12 px)."
     }
   }
 }

@@ -62,7 +62,7 @@ if '--md' in sys.argv or '--write-doc' in sys.argv:
     out=buf.getvalue()
     if '--write-doc' in sys.argv:
         d=open(P+'tokens.md').read()
-        a=d.index('`python3 gen/tokens_check.py --md`'); a=d.index('\n\n',a)+2; b=d.index('## 3. 密度')
+        a=d.index('`python3 gen/tokens_check.py --md`'); a=d.index('\n\n',a)+2; b=d.index('\n## 5. ',a)+1
         open(P+'tokens.md','w').write(d[:a]+out+'\n'+d[b:])
     else: print(out)
 else:
